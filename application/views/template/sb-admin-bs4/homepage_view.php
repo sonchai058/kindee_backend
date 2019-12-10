@@ -29,6 +29,10 @@
 	<link href="{base_url}assets/bootstrap_extras/select2/select2.css" rel="stylesheet">
 	<link href="{base_url}assets/css/jquery-ui.min.css" rel="stylesheet">
 
+	<link href="https://fonts.googleapis.com/css?family=Trirong&display=swap" rel="stylesheet">
+	<style type="text/css">
+		*{font-family: 'Trirong', serif;}
+	</style>
 	{another_css}
 	
 	<style>
