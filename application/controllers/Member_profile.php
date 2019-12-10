@@ -20,7 +20,7 @@ class Member_profile extends MEMBER_Controller
 		$this->tbMember = 'tb_members';
 
 		$this->data['page_url'] = site_url('member_login');
-		$this->data['page_title'] = 'PHP CI MANIA - LOGIN';
+		$this->data['page_title'] = 'PHP CI - LOGIN';
 		
 		$js_url = 'assets/js/member_profile.js';
 		$this->another_js = '<script src="'. base_url($js_url) .'"></script>';

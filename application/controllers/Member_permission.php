@@ -23,7 +23,7 @@ class Member_permission extends CRUD_Controller
 		$this->tbMember = 'tb_members';
 
 		$this->data['page_url'] = site_url('member_manage');
-		$this->data['page_title'] = 'PHP CI MANIA - LOGIN';
+		$this->data['page_title'] = 'PHP CI - LOGIN';
 		
 	}
 	

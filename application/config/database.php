@@ -81,7 +81,7 @@ if(in_array($_SERVER['HTTP_HOST'], array('localhost:80', 'localhost:8086')))
 	$mysql_port = 3306;
 }
 $db_host = 'localhost';
-$db_name = 'demo_db_student';
+$db_name = 'kindee';
 $db_user = 'root';
 $db_pass = 'usbw';
 

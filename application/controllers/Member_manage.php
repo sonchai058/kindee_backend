@@ -23,7 +23,7 @@ class Member_manage extends MEMBER_Controller
 		$this->tbMember = 'tb_members';
 		
 		$this->data['page_url'] = site_url('member_manage');
-		$this->data['page_title'] = 'PHP CI MANIA - Member management';
+		$this->data['page_title'] = 'PHP CI - Member management';
 		
 		$js_url = 'assets/js/member_manage.js';
 		$this->another_js = '<script src="'. base_url($js_url) .'"></script>';

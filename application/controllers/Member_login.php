@@ -11,7 +11,7 @@ class Member_login extends CRUD_Controller
         $this->load->library('form_validation');
 		
 		$this->data['page_url'] = site_url('member_login');
-		$this->data['page_title'] = 'PHP CI MANIA - LOGIN';
+		$this->data['page_title'] = 'PHP CI - LOGIN';
 		
 		
 		$this->another_js = '<script src="'. base_url() .'assets/js/member_login.js"></script>';

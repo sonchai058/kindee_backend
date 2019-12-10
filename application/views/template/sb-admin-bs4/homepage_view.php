@@ -116,7 +116,7 @@
 </head>
 <body id="page-top">
 
-    <nav class="navbar navbar-expand navbar-dark bg-warning static-top">
+    <nav class="navbar navbar-expand navbar-dark bg-warning h-100 static-top">
 
         <a class="navbar-brand mr-1" href="{site_url}">Inno Story</a>
 
