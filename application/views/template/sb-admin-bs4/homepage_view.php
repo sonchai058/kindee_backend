@@ -29,9 +29,15 @@
 	<link href="{base_url}assets/bootstrap_extras/select2/select2.css" rel="stylesheet">
 	<link href="{base_url}assets/css/jquery-ui.min.css" rel="stylesheet">
 
-	<link href="https://fonts.googleapis.com/css?family=Trirong&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Sarabun&display=swap" rel="stylesheet">
 	<style type="text/css">
-		*{font-family: 'Trirong', serif;}
+		*{font-family: 'Sarabun', sans-serif;}
+		.bg-warning {
+		    background-color: #9fec9e!important;
+		}
+		.info tr{
+			background-color: #43DEB4 !important;
+		}
 	</style>
 	{another_css}
 	
@@ -107,7 +113,10 @@
 	}
 	
 	.navbar-nav .nav-item .nav-link .badge{
-		margin-left: -0.3rem;
+		margin-left: -0.3rem;	
+	}
+	.nav-link i.fas.fa-user-circle.fa-fw{
+		color: #fff;
 	}
 	</style>
 
@@ -120,9 +129,10 @@
 </head>
 <body id="page-top">
 
-    <nav class="navbar navbar-expand navbar-dark bg-warning h-100 static-top">
+    <nav class="navbar navbar-expand navbar-dark bg-warning h-100 static-top" style="border: 1px #4c343421 solid;">
 
-        <a class="navbar-brand mr-1" href="{site_url}">Inno Story</a>
+        <a class="navbar-brand mr-1" href="{site_url}" style="color: #2f5f0b;
+    font-weight: bold;">Inno Story</a>
 
         <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
             <i class="fas fa-bars"></i>
