@@ -20,7 +20,7 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 		$this->load->model('exam/Users_result_exam_food_allergy_model', 'Users_result_exam_food_allergy');
 		$this->data['page_url'] = site_url('exam/users_result_exam_food_allergy');
 		
-		$this->data['page_title'] = 'PHP CI MANIA';
+		$this->data['page_title'] = 'ผลตรวจการแพ้อาหาร';
 		$js_url = 'assets/js_modules/exam/users_result_exam_food_allergy.js?ft='. filemtime('assets/js_modules/exam/users_result_exam_food_allergy.js');
 		$this->another_js = '<script src="'. base_url($js_url) .'"></script>';
 	}
@@ -44,13 +44,13 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 	 */
 	protected function render_view($path)
 	{
-		$this->data['top_navbar'] = $this->parser->parse('template/sb-admin-bs4/top_navbar_view', $this->top_navbar_data, TRUE);
-		$this->data['left_sidebar'] = $this->parser->parse('template/sb-admin-bs4/left_sidebar_view', $this->left_sidebar_data, TRUE);
-		$this->data['breadcrumb_list'] = $this->parser->parse('template/sb-admin-bs4/breadcrumb_view', $this->breadcrumb_data, TRUE);
+		$this->data['top_navbar'] = $this->parser->parse('template/majestic/top_navbar_view', $this->top_navbar_data, TRUE);
+		$this->data['left_sidebar'] = $this->parser->parse('template/majestic/left_sidebar_view', $this->left_sidebar_data, TRUE);
+		$this->data['breadcrumb_list'] = $this->parser->parse('template/majestic/breadcrumb_view', $this->breadcrumb_data, TRUE);
 		$this->data['page_content'] = $this->parser->parse_repeat($path, $this->data, TRUE);
 		$this->data['another_css'] = $this->another_css;
 		$this->data['another_js'] = $this->another_js;
-		$this->parser->parse('template/sb-admin-bs4/homepage_view', $this->data);
+		$this->parser->parse('template/majestic/homepage_view', $this->data);
 	}
 
 	/**
@@ -90,7 +90,7 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 	public function search()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Users_result_exam_food_allergy', 'class' => 'active', 'url' => '#'),
+						array('title' => 'Users_result_exam_food_allergy', 'class' => 'majestic', 'url' => '#'),
 		);
 		if (isset($_POST['submit'])) {
 			$search_field =  $this->input->post('search_field', TRUE);
@@ -162,7 +162,7 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
 						array('title' => 'Users_result_exam_food_allergy', 'url' => site_url('exam/users_result_exam_food_allergy')),
-						array('title' => 'แสดงข้อมูลรายละเอียด', 'url' => '#', 'class' => 'active')
+						array('title' => 'แสดงข้อมูลรายละเอียด', 'url' => '#', 'class' => 'majestic')
 		);
 		$encrypt_id = urldecode($encrypt_id);
 		$id = decrypt($encrypt_id);
@@ -190,7 +190,7 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
 						array('title' => 'Users_result_exam_food_allergy', 'url' => site_url('exam/users_result_exam_food_allergy')),
-						array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'active')
+						array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'majestic')
 		);
 		$this->data['users_user_id_option_list'] = $this->Users_result_exam_food_allergy->returnOptionList("users", "user_id", "user_fname");
 		$this->data['food_allergy_alg_id_option_list'] = $this->Users_result_exam_food_allergy->returnOptionList("food_allergy", "alg_id", "alg_name");
@@ -310,7 +310,7 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
 						array('title' => 'Users_result_exam_food_allergy', 'url' => site_url('exam/users_result_exam_food_allergy')),
-						array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'active')
+						array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'majestic')
 		);
 
 		$encrypt_id = urldecode($encrypt_id);

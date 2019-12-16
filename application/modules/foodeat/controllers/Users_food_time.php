@@ -20,7 +20,7 @@ class Users_food_time extends CRUD_Controller
 		$this->load->model('foodeat/Users_food_time_model', 'Users_food_time');
 		$this->data['page_url'] = site_url('foodeat/users_food_time');
 		
-		$this->data['page_title'] = 'PHP CI MANIA';
+		$this->data['page_title'] = 'ข้อมูลการรับประทานอาหาร';
 		$js_url = 'assets/js_modules/foodeat/users_food_time.js?ft='. filemtime('assets/js_modules/foodeat/users_food_time.js');
 		$this->another_js = '<script src="'. base_url($js_url) .'"></script>';
 	}
@@ -44,13 +44,13 @@ class Users_food_time extends CRUD_Controller
 	 */
 	protected function render_view($path)
 	{
-		$this->data['top_navbar'] = $this->parser->parse('template/sb-admin-bs4/top_navbar_view', $this->top_navbar_data, TRUE);
-		$this->data['left_sidebar'] = $this->parser->parse('template/sb-admin-bs4/left_sidebar_view', $this->left_sidebar_data, TRUE);
-		$this->data['breadcrumb_list'] = $this->parser->parse('template/sb-admin-bs4/breadcrumb_view', $this->breadcrumb_data, TRUE);
+		$this->data['top_navbar'] = $this->parser->parse('template/majestic/top_navbar_view', $this->top_navbar_data, TRUE);
+		$this->data['left_sidebar'] = $this->parser->parse('template/majestic/left_sidebar_view', $this->left_sidebar_data, TRUE);
+		$this->data['breadcrumb_list'] = $this->parser->parse('template/majestic/breadcrumb_view', $this->breadcrumb_data, TRUE);
 		$this->data['page_content'] = $this->parser->parse_repeat($path, $this->data, TRUE);
 		$this->data['another_css'] = $this->another_css;
 		$this->data['another_js'] = $this->another_js;
-		$this->parser->parse('template/sb-admin-bs4/homepage_view', $this->data);
+		$this->parser->parse('template/majestic/homepage_view', $this->data);
 	}
 
 	/**

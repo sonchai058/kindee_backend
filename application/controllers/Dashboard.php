@@ -14,6 +14,8 @@ class Dashboard extends CRUD_Controller
 	{
 		parent::__construct();
 
+		//chkUserPerm();
+
 		$this->another_js .= '<script src="'. base_url('assets/themes/sb-admin/vendor/chart.js/Chart.min.js').'"></script>';
 		$this->another_js .= '<script src="'. base_url('assets/themes/sb-admin/js/sb-admin-charts.min.js').'"></script>';
 	}
@@ -47,13 +49,13 @@ class Dashboard extends CRUD_Controller
 		*/
 		
 		
-		$this->data['top_navbar'] = $this->parser->parse('template/sb-admin-bs4/top_navbar_view', $this->top_navbar_data, TRUE);
-		$this->data['left_sidebar'] = $this->parser->parse('template/sb-admin-bs4/left_sidebar_view', $this->left_sidebar_data, TRUE);
-		$this->data['breadcrumb_list'] = $this->parser->parse('template/sb-admin-bs4/breadcrumb_view', $this->breadcrumb_data, TRUE);
+		$this->data['top_navbar'] = $this->parser->parse('template/majestic/top_navbar_view', $this->top_navbar_data, TRUE);
+		$this->data['left_sidebar'] = $this->parser->parse('template/majestic/left_sidebar_view', $this->left_sidebar_data, TRUE);
+		$this->data['breadcrumb_list'] = $this->parser->parse('template/majestic/breadcrumb_view', $this->breadcrumb_data, TRUE);
 		$this->data['page_content'] = $this->parser->parse_repeat($path, $this->data, TRUE);
 		$this->data['another_css'] = $this->another_css;
 		$this->data['another_js'] = $this->another_js;
-		$this->parser->parse('template/sb-admin-bs4/homepage_view', $this->data);
+		$this->parser->parse('template/majestic/homepage_view', $this->data);
 		
 	}
 
