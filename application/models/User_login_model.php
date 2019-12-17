@@ -9,7 +9,7 @@ class User_login_model extends CI_Model
     function __construct(){
         parent::__construct();
 		
-		$this->tb_member_login = 'tb_members';
+		$this->tb_member_login = 'users';
     }
 	
 	public function encrypt_md5_salt($pass)
@@ -37,15 +37,19 @@ class User_login_model extends CI_Model
 	
 	public function db_validate($username, $password)
 	{
-		$key_encrypt = $this->encrypt_md5_salt($password);
-		$this->db->where('username', $username);
+		//$key_encrypt = $this->encrypt_md5_salt($password);
+		$this->db->where('email_addr', $username);
+		$this->db->where('fag_allow', 'allow');
         $query = $this->db->get($this->tb_member_login);
+        //die('<h1>'.$query->num_rows().'</h1>');
         if($query->num_rows() == 1)
         {
             if($row = $query->row())
 			{
+
 				//echo $this->secure_pass($password);
-				if (password_verify($key_encrypt, $row->password)) 
+				//if (password_verify($key_encrypt, $row->password)) 
+				if ($password==$row->cus_passwd)
 				{
 					return $row;
 				}
@@ -65,13 +69,14 @@ class User_login_model extends CI_Model
 		$row = $this->db_validate($username, $password);
         if(!empty($row)){
 			$data = array(
-					'user_id' => $row->userid,
-					'user_prefix_name' => $row->prefix,
-					'user_fullname' => $row->fullname,
-					'user_lastname' => $row->lastname,
-					'user_email' => $row->email,
-					'user_level' => $row->level,
-					'user_department_id' => $row->department_id,
+					'user_id' => $row->user_id,
+					'title_name' => $row->title_name,
+					'user_photo' => $row->user_photo==''?'assets/images/noimage.gif':$row->user_photo,
+					'user_fname' => $row->user_fname,
+					'user_lname' => $row->user_lname,
+					'email_addr' => $row->email_addr,
+					'user_level' => $row->user_level,
+					'org_id' => $row->org_id,
 					'login_validated' => TRUE
 					);
 			$this->session->set_userdata($data);

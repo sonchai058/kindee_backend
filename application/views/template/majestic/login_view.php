@@ -25,7 +25,7 @@
   <link href="{base_url}assets/themes/sb-admin-bs4/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
   <!-- Page level plugin CSS-->
-  <link href="{base_url}assets/themes/sb-admin-bs4/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+ <!-- <link href="{base_url}assets/themes/sb-admin-bs4/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">-->
    <!-- Require -->
   <link href="{base_url}assets/bootstrap_extras/select2/select2.css" rel="stylesheet">
   <link href="{base_url}assets/css/jquery-ui.min.css" rel="stylesheet">
@@ -120,15 +120,11 @@
   .nav-link i.fas.fa-user-circle.fa-fw{
     color: #fff;
   }
-  .info tr {
-    background-color: #3589fd !important;
-    color: #fff !important;
-  }
   </style>
 
   <script>
-    var baseURL = '{base_url}/';
-    var siteURL = '{site_url}/';
+    var baseURL = '{base_url}';
+    var siteURL = '{site_url}';
     var csrf_token_name = '{csrf_token_name}';
     var csrf_cookie_name = '{csrf_cookie_name}';
 
@@ -142,92 +138,8 @@
 
 </head>
 <body id="page-top">
-  <div class="container-scroller">
-    <!-- partial:partials/_navbar.html -->
-    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-      <div class="navbar-brand-wrapper d-flex justify-content-center">
-        <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">  
-          <a class="navbar-brand brand-logo" href="index.html">
-            <img src="{base_url}assets/images/info.kindee.kindee.png" alt="logo" style="width:30px">
-            <span>Inno | Story</span>
-          </a>
-          <a class="navbar-brand brand-logo-mini" href="index.html">
-            <img src="{base_url}assets/images/info.kindee.kindee.png" alt="logo"/>
-          </a>
-          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-            <span class="mdi mdi-sort-variant"></span>
-          </button>
-        </div>  
-      </div>
-      
-      {top_navbar}
-
-    </nav>
-    <!-- partial -->
-    <div class="container-fluid page-body-wrapper">
-      <!-- partial:partials/_sidebar.html -->
-     
-     <!-- Sidebar -->
-     {left_sidebar}
-      <!-- partial -->
-      <div class="main-panel">
-        <div class="content-wrapper">
-
-          {breadcrumb_list}
-          <!--
-          <div class="row">
-            <div class="col-md-12 grid-margin">
-              <div class="d-flex justify-content-between flex-wrap">
-                <div class="d-flex align-items-end flex-wrap">
-                  <div class="mr-md-3 mr-xl-5">
-                    <h2>Welcome back,</h2>
-                    <p class="mb-md-0">Your analytics dashboard template.</p>
-                  </div>
-                  <div class="d-flex">
-                    <i class="mdi mdi-home text-muted hover-cursor"></i>
-                    <p class="text-muted mb-0 hover-cursor">&nbsp;/&nbsp;Dashboard&nbsp;/&nbsp;</p>
-                    <p class="text-primary mb-0 hover-cursor">Analytics</p>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-between align-items-end flex-wrap">
-                  &nbsp;
-                </div>
-              </div>
-            </div>
-          </div>
-        -->
-          
-          {page_content}
-
-
-        </div>
-
-    <!--
-    <!-- Scroll to Top Button-->
-    <!--
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-        <!-- content-wrapper ends -->
-        <!-- partial:partials/_footer.html -->
-
-        <!-- partial -->
-      </div>
-
-      <!-- main-panel ends -->
-    </div>
-    <!-- page-body-wrapper ends -->
-  </div>
-
-        <footer class="footer">
-          <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2019 <a href="https://www.urbanui.com/" target="_blank">Jigsaw Innovation</a>. All rights reserved.</span>
-            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Power by Jigsaw Innovation <i class="mdi mdi-heart text-danger"></i></span>
-          </div>
-        </footer>
-  
-  <!-- container-scroller -->
+        
+  {page_content}
 
   <!-- plugins:js -->
   <script src="{base_url}assets/themes/majestic/vendors/base/vendor.bundle.base.js"></script>
@@ -264,9 +176,10 @@
     <script src="{base_url}assets/themes/sb-admin-bs4/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Page level plugin JavaScript-->
+    <!--
     <script src="{base_url}assets/themes/sb-admin-bs4/vendor/datatables/jquery.dataTables.js"></script>
     <script src="{base_url}assets/themes/sb-admin-bs4/vendor/datatables/dataTables.bootstrap4.js"></script>
-
+    -->
     <!-- Custom scripts for all pages-->
      <script src="{base_url}assets/themes/sb-admin-bs4/js/sb-admin.min.js"></script> 
 

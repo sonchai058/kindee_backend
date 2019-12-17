@@ -11,7 +11,7 @@ class User_login extends CRUD_Controller
         $this->load->library('form_validation');
 		
 		$this->data['page_url'] = site_url('user_login');
-		$this->data['page_title'] = 'PHP CI - LOGIN';
+		$this->data['page_title'] = 'PHP - LOGIN';
 		
 		
 		$this->another_js = '<script src="'. base_url() .'assets/js/user_login.js"></script>';
@@ -20,15 +20,15 @@ class User_login extends CRUD_Controller
 	//ปรับแต่งตาม Template ที่ใช้งาน
 	protected function render_view($path)
 	{
-		$template_name = 'sb-admin-bs4';
+		$template_name = 'majestic';
 		
-		$this->data['top_navbar'] = $this->parser->parse('template/'.$template_name.'/top_navbar_view', $this->top_navbar_data, TRUE);
-		$this->data['left_sidebar'] = $this->parser->parse('template/'.$template_name.'/left_sidebar_view', $this->left_sidebar_data, TRUE);
-		$this->data['breadcrumb_list'] = $this->parser->parse('template/'.$template_name.'/breadcrumb_view', $this->breadcrumb_data, TRUE);
+		//$this->data['top_navbar'] = $this->parser->parse('template/'.$template_name.'/top_navbar_view', $this->top_navbar_data, TRUE);
+		//$this->data['left_sidebar'] = $this->parser->parse('template/'.$template_name.'/left_sidebar_view', $this->left_sidebar_data, TRUE);
+		//$this->data['breadcrumb_list'] = $this->parser->parse('template/'.$template_name.'/breadcrumb_view', $this->breadcrumb_data, TRUE);
 		$this->data['page_content'] = $this->parser->parse_repeat($path, $this->data, TRUE);
 		$this->data['another_css'] = $this->another_css;
 		$this->data['another_js'] = $this->another_js;
-		$this->parser->parse('template/'.$template_name.'/homepage_view', $this->data);
+		$this->parser->parse('template/'.$template_name.'/login_view', $this->data);
 	}
     
     public function index($msg = NULL){
@@ -56,9 +56,9 @@ class User_login extends CRUD_Controller
                 );
         } else {
             // Load the model
-            $this->load->model('Member_login_model');
+            $this->load->model('User_login_model');
             // Validate the user can login
-            $result = $this->Member_login_model->validate();
+            $result = $this->User_login_model->validate();
             // Now we verify the result
             $data = array();
             if(! $result){
@@ -79,12 +79,13 @@ class User_login extends CRUD_Controller
     public function destroy(){
 		$data = array(
 			'user_id' => '',
-			'user_prefix_name' => '',
-			'user_fullname' => '',
-			'user_lastname' => '',
-			'user_email' => '',
+			'title_name' => '',
+			'user_photo' => '',
+			'user_fname' => '',
+			'user_lname' => '',
+			'email_addr' => '',
 			'user_level' => '',
-			'user_department_id' => '',
+			'org_id' => '',
 			'login_validated' => FALSE
 		);
 		$this->session->set_userdata($data);

@@ -15,7 +15,7 @@ class User_profile_model extends MY_Model
 	public function __construct()
 	{
 		parent::__construct();
-		$this->my_table = 'tb_members';
+		$this->my_table = 'users';
 		$this->set_table_name($this->my_table);
 		$this->order_field = '';
 		$this->order_sort = '';

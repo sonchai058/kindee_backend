@@ -120,11 +120,12 @@
           </li>
 
           <li class="nav-item <?php if($this->uri->segment(1)=='restaurant' || $this->uri->segment(1)=='shop_promotions'){?>active<?php }?>">
-            <a class="nav-link" href="{site_url}restaurant/shop_promotions/edit/bGlzRVkvYWxuS0pRRjJIdXg5L3UzQT09">
-              <i class="mdi mdi-login menu-icon"></i>
-              <span class="menu-title">Login</span>
+            <a class="nav-link" href="{site_url}user_login/destroy">
+              <i class="mdi mdi-logout menu-icon"></i>
+              <span class="menu-title">Logout</span>
             </a>
           </li>
+
 
         </ul>
       </nav>

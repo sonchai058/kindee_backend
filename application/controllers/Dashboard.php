@@ -14,7 +14,7 @@ class Dashboard extends CRUD_Controller
 	{
 		parent::__construct();
 
-		//chkUserPerm();
+		chkUserPerm();
 
 		$this->another_js .= '<script src="'. base_url('assets/themes/sb-admin/vendor/chart.js/Chart.min.js').'"></script>';
 		$this->another_js .= '<script src="'. base_url('assets/themes/sb-admin/js/sb-admin-charts.min.js').'"></script>';

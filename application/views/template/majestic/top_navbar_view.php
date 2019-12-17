@@ -107,10 +107,10 @@
           </li>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link" href="#">
-              <img src="{base_url}assets/images/info.kindee.kindee.png" alt="profile">
-              <span class="nav-profile-name">{user_prefix_name} {user_fullname} {user_lastname}</span>
+              <img src="{base_url}<?php echo get_session('user_photo');?>" alt="profile">
+              <span class="nav-profile-name"><?php echo get_session('user_fname').' '.get_session('user_lname');?></span>
             </a>
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{site_url}user_login/destroy">
               <i class="mdi mdi-logout menu-icon" style="font-size:30px; color:#333"></i>
             </a>
           </li>
