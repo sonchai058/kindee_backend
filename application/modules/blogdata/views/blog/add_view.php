@@ -29,18 +29,20 @@
 						<textarea  class="form-control" id="blog_detail" name="blog_detail" rows="5"></textarea>
 					</div>
 				</div>
+				<!--
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="fag_allow">สถานะ  :</label>
 					<div class="col-sm-10">
 
 						<select id="fag_allow" name="fag_allow" value="" >
 							<option value="">- เลือก สถานะ -</option>
-							<option value="allow">เผยแพร่</option>
+							<option selected value="allow">เผยแพร่</option>
 							<option value="block">ไม่เผยแพร่</option>
 							<option value="delete">ลบ</option>
 						</select>
 					</div>
 				</div>
+				-->
 
 				<div class="row form-group">
 					<div class="col-sm-4">

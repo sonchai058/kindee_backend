@@ -47,6 +47,12 @@
   div[data-notify="container"]{
     z-index : 3000!important;
   }
+  input,textarea {
+    //border: 1px #dee2e2 solid !important;
+  }
+  input:hover,textarea:hover {
+    //border: 1px #26a9f8 solid !important;
+  }
 
   #exampleAccordion{
     overflow-y: auto;
@@ -147,11 +153,11 @@
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="navbar-brand-wrapper d-flex justify-content-center">
         <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">  
-          <a class="navbar-brand brand-logo" href="index.html">
+          <a class="navbar-brand brand-logo" href="{site_url}">
             <img src="{base_url}assets/images/info.kindee.kindee.png" alt="logo" style="width:30px">
             <span>Inno | Story</span>
           </a>
-          <a class="navbar-brand brand-logo-mini" href="index.html">
+          <a class="navbar-brand brand-logo-mini" href="{site_url}">
             <img src="{base_url}assets/images/info.kindee.kindee.png" alt="logo"/>
           </a>
           <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -230,7 +236,6 @@
   <!-- container-scroller -->
 
   <!-- plugins:js -->
-  <script src="{base_url}assets/themes/majestic/vendors/base/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->
   <!-- <script src="vendors/chart.js/Chart.min.js"></script> -->
@@ -245,6 +250,7 @@
   
   <script src="{base_url}assets/themes/majestic/js/hoverable-collapse.js"></script>
 -->
+  <script src="{base_url}assets/themes/majestic/vendors/base/vendor.bundle.base.js"></script>
   <script src="{base_url}assets/themes/majestic/js/template.js"></script>
   <!-- endinject -->
   <!-- Custom js for this page-->

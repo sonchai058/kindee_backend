@@ -35,7 +35,7 @@
 					<div class='col-sm-10'>
 
 						<select id="fag_allow" name="fag_allow" value="{record_fag_allow}" >
-							<option value="">- เลือก สถานะ -</option>
+							<!--<option value="">- เลือก สถานะ -</option>-->
 							<option value="allow">เผยแพร่</option>
 							<option value="block">ไม่เผยแพร่</option>
 							<option value="delete">ลบ</option>
@@ -67,6 +67,7 @@
 			<div class='modal-body'>
 				<h4>ยืนยันการเปลี่ยนแปลงแก้ไขข้อมูล ?</h4>
 				<form class="form-horizontal" onsubmit="return false;" >
+					<!--
 					<div class="form-group">
 						<div class="col-sm-8">
 							<label class="col-sm-3 text-right badge badge-warning" for="edit_remark">ระบุเหตุผล :</label>
@@ -75,6 +76,7 @@
 							<input type="text" class="form-control" id="edit_remark">
 						</div>
 					</div>
+					-->
 				</form>
 			</div>
 			<div class='modal-footer'>

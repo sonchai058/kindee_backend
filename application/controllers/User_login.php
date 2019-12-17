@@ -39,12 +39,18 @@ class User_login extends CRUD_Controller
     }
     
     public function process(){
+    	$this->load->model('common_model');
         $frm = $this->form_validation;
 
         $frm->set_rules('input_username', 'ชื่อผู้ใช้งาน', 'trim|required');
         $frm->set_rules('input_password', 'รหัสผ่าน', 'trim|required');
       
         $frm->set_message('required', 'กรุณากรอก %s');
+
+        $data_insert = array(
+        	'action'=>'login',
+        	'path'=>(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"
+        );
 
         if ($frm->run() == FALSE) {
             $message  = '';
@@ -54,6 +60,7 @@ class User_login extends CRUD_Controller
                     'is_successful' => false,
                     'message' => $message     
                 );
+            $data_insert['state_note'] = $message;
         } else {
             // Load the model
             $this->load->model('User_login_model');
@@ -61,11 +68,20 @@ class User_login extends CRUD_Controller
             $result = $this->User_login_model->validate();
             // Now we verify the result
             $data = array();
-            if(! $result){
-                $data['message'] = 'ชื่อผู้ใช้งาน หรือ รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง.';
+            if(!$result){
+            	$message = 'ชื่อผู้ใช้งาน หรือ รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง';
+
+            	$username = $this->security->xss_clean($this->input->post('input_username'));
+        		$password = $this->security->xss_clean($this->input->post('input_password'));
+            	$data_insert['state_note'] = $message.' input_username : '.$username.' input_password : '.$password;
+
+                $data['message'] = $message;
                 $data['is_successful'] = false;
 				$data['redirect_url'] = '';
             }else{
+            	$data_insert['user_id'] = $this->session->userdata('user_id');
+            	$data_insert['status'] = 'success';
+
                 $data['message'] = '';
                 $data['is_successful'] = true;
 				if($url = $this->session->userdata('after_login_redirect')){
@@ -73,10 +89,14 @@ class User_login extends CRUD_Controller
 				}
             }
         }
+
+        $this->common_model->insert('statistics',$data_insert);
+
         echo json_encode($data);
     }
 
     public function destroy(){
+
 		$data = array(
 			'user_id' => '',
 			'title_name' => '',
@@ -88,6 +108,16 @@ class User_login extends CRUD_Controller
 			'org_id' => '',
 			'login_validated' => FALSE
 		);
+
+    	$this->load->model('common_model');
+        $data_insert = array(
+        	'action'=>'logout',
+        	'path'=>(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"
+        );
+        $data_insert['user_id'] = $this->session->userdata('user_id');
+        $data_insert['status'] = 'success';
+    	$this->common_model->insert('statistics',$data_insert);
+
 		$this->session->set_userdata($data);
 		
         redirect($this->session->userdata('after_login_redirect'));

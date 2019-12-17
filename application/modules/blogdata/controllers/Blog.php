@@ -136,6 +136,8 @@ class Blog extends CRUD_Controller
 			$end_row = $search_row;
 		}
 
+		//die(print_r($list_data));
+
 		$this->data['data_list']	= $list_data;
 		$this->data['search_field']	= $search_field;
 		$this->data['txt_search']	= $value;
@@ -212,7 +214,7 @@ class Blog extends CRUD_Controller
 		$frm->set_rules('date_public', 'วันที่ประกาศ', 'trim|required');
 		$frm->set_rules('blog_name', 'หัวข้อ', 'trim|required');
 		$frm->set_rules('blog_detail', 'รายละเอียด', 'trim|required');
-		$frm->set_rules('fag_allow', 'สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]', 'trim|required');
+		$frm->set_rules('fag_allow', 'สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]', 'trim');
 
 		$frm->set_message('required', '- กรุณากรอก %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
@@ -350,10 +352,10 @@ class Blog extends CRUD_Controller
 	{
 		$message = '';
 		$message .= $this->formValidateUpdate();
-		$edit_remark = $this->input->post('edit_remark', TRUE);
-		if ($edit_remark == '') {
-			$message .= 'ระบุเหตุผล';
-		}
+		//$edit_remark = $this->input->post('edit_remark', TRUE);
+		//if ($edit_remark == '') {
+		//	$message .= 'ระบุเหตุผล';
+		//}
 		
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);
@@ -390,12 +392,14 @@ class Blog extends CRUD_Controller
 	 */
 	public function del()
 	{
+		/*
 		$delete_remark = $this->input->post('delete_remark', TRUE);
 			$message = '';
 		if ($delete_remark == '') {
 			$message .= 'ระบุเหตุผล';
 		}
-		
+		*/
+		$message = '';
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);
 		if ($error_pk_id != '') {

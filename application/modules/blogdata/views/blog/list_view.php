@@ -17,18 +17,18 @@
 			<div class="col-sm-12 col-md-9">
 				<form class="form-inline well well-sm" name="formSearch" method="post" action="{page_url}/search">
 					{csrf_protection_field}
-					<a href="{page_url}" class="btn btn-info">ทั้งหมด</a>
+					<a href="{page_url}" class="btn btn-info">ทั้งหมด</a> &nbsp;
 					<div class="form-group">
 						<select  class="form-control" name="search_field" class="span2">
 					<option value="blog_name">หัวข้อ</option>
 					<option value="blog_detail">รายละเอียด</option>
-					<option value="user_update">ผู้อัปเดต</option>
-					<option value="fag_allow">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]</option>
+					<!-- <option value="user_update">ผู้สร้าง</option> -->
+					<!-- <option value="fag_allow">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]</option> -->
 						</select>
- 					</div>
+ 					</div> &nbsp;
 					<div class="form-group">
 						<input type="text" class="form-control col" id="txtSearch" name="txtSearch" value="{txt_search}">
-					</div>
+					</div> &nbsp;
 					<input type="hidden" value="{order_by}" name="order_by"/>
 					<button type="submit" name="submit" class="btn btn-info">
 						<span class="glyphicon glyphicon-search"></span> ค้นหา
@@ -40,7 +40,8 @@
 					<div class="form-group">
 						<select  class="form-control" id="set_order_by" class="span2" value="{order_by}">
 					<option value="">- จัดเรียงตาม -</option>
-					<option value="blog_name|asc">หัวข้อ ก - ฮ</option><option value="blog_name|desc">หัวข้อ ฮ - ก</option><option value="blog_detail|asc">รายละเอียด ก - ฮ</option><option value="blog_detail|desc">รายละเอียด ฮ - ก</option><option value="user_update|asc">ผู้อัปเดต น้อย - มาก</option><option value="user_update|desc">ผู้อัปเดต มาก - น้อย</option><option value="fag_allow|asc">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ] น้อย - มาก</option><option value="fag_allow|desc">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ] มาก - น้อย</option>
+					<option value="blog_name|asc">หัวข้อ ก - ฮ</option><option value="blog_name|desc">หัวข้อ ฮ - ก</option><option value="blog_detail|asc">รายละเอียด ก - ฮ</option><option value="blog_detail|desc">รายละเอียด ฮ - ก</option>
+					<!-- <option value="fag_allow|asc">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ] น้อย - มาก</option><option value="fag_allow|desc">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ] มาก - น้อย</option> -->
 						</select>
  					</div>
 				</div>
@@ -65,22 +66,20 @@
 				<thead class="info">
 					<tr bgcolor="#dddddd">
 						<th width="20px;">#</th>
-						<th>วันที่ประกาศ</th>
 						<th>หัวข้อ</th>
-						<th>ผู้อัปเดต</th>
-						<th>วันเวลา ที่อัปเดต</th>
+						<th>วันที่แสดง</th>
 						<th>สถานะ</th>
-						<th class="text-center" style="width:200px">จัดการข้อมูล</th>
+						<th>ผู้สร้าง</th>						
+						<th class="text-center" style="width:200px">เครื่องมือ</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr parser-repeat="[data_list]" id="row_{record_number}">
 						<td style="text-align:center;">[{record_number}]</td>
-						<td>{date_public}</td>
 						<td>{blog_name}</td>
-						<td>{userUpdateUserFname}</td>
-						<td>{datetime_update}</td>
+						<td>{date_public}</td>
 						<td>{preview_fag_allow}</td>
+						<td>{userAddUserFname}</td>
 						<td>
 							<div class="btn-group pull-right">
 								<a href="{page_url}/preview/{url_encrypt_id}" 
@@ -126,13 +125,14 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="confirmDelModalLabel">ยืนยันการลบข้อมูล</h4>
+				<h4 class="modal-title" id="confirmDelModalLabel">ยืนยันการลบข้อมูล!</h4>
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 			</div>
 			<div class="modal-body">
-				<h4 class="text-center">***  ท่านต้องการลบข้อมูลแถวที่ <span id="xrow"></span> ???  ***</h4>
+				<h4 class="text-center">*  ท่านต้องการลบข้อมูลแถวที่ <span id="xrow"></span> ?  *</h4>
 				<div id="div_del_detail"></div>
 				<form id="formDelete">
+			<!--	
 					<div class="form-group">
 						<div class="col-sm-8">
 <label class="col-sm-3 text-right badge badge-warning" for="edit_remark">ระบุเหตุผล :</label>
@@ -141,6 +141,7 @@
 						<input type="text" class="form-control" name="delete_remark">
 					</div>
 				</div>
+			-->
 					<input type="hidden" name="encrypt_blog_id" />
 
 				</form>

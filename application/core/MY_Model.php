@@ -59,7 +59,7 @@ class MY_Model extends CI_Model
     {
     	$num = 0;
     	$this->set_query_parameter();
-    	if($query = $this->db->get($this->_table_name)){
+    	if($query = $this->db->where($this->_table_name.".fag_allow!='delete'")->get($this->_table_name)){
     		$num = $query->num_rows();
     	}
     	return $num;
@@ -76,7 +76,7 @@ class MY_Model extends CI_Model
     	$data = array();
         $this->set_query_parameter();
 		$this->db->from($this->_table_name);
-        if($query = $this->db->get()){
+        if($query = $this->db->where($this->_table_name.".fag_allow!='delete'")->get()){
         	$data = $query->result_array();
         }
         return $data;
@@ -89,6 +89,10 @@ class MY_Model extends CI_Model
 	 */
     public function add_record($data = array())
     {
+    	$data = $data;
+    	$data['fag_allow'] = 'allow';
+    	$data['user_add'] = $this->session->userdata('user_id');
+    	$data['datetime_add'] = date("Y-m-d H:i:s");
 		$this->db->set($data);
         $query = $this->db->insert($this->_table_name);
         return $this->db->insert_id();
@@ -119,7 +123,10 @@ class MY_Model extends CI_Model
 			$this->error_message = 'Choose WHERE Clause for Update / Delet';
 			return false;
 		}else{
-			$this->log_edit_history();
+			//$this->log_edit_history();
+			$data = $data;
+    		$data['user_update'] = $this->session->userdata('user_id');
+    		$data['datetime_update'] = date("Y-m-d H:i:s");
 
 			$this->set_query_parameter();
 			$this->db->set($data);
@@ -137,13 +144,15 @@ class MY_Model extends CI_Model
 			return 'Choose WHERE Clause for Update / Delet';
 		}else{
 			//Move to LOG
-			if($this->log_delete()){
+			//if($this->log_delete()){
 				//Delete Record
 				$this->set_query_parameter();
-				return $this->db->delete($this->_table_name);
-			}else{
-				$this->error_message = 'Could not create LOG';
-			}
+				$this->db->set(array('fag_allow'=>'delete','user_delete'=>$this->session->userdata('user_id'),'datetime_delete'=>date("Y-m-d H:i:s")));
+				return $this->db->update($this->_table_name);
+				//return $this->db->delete($this->_table_name);
+			//}else{
+			//	$this->error_message = 'Could not create LOG';
+			//}
 		}
     }
 
