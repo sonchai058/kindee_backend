@@ -19,11 +19,11 @@ var Users = {
 	},
 
 	validateFormEdit: function(){
-		if($('#edit_remark').val().length < 5){
-				notify('กรุณาระบุเหตุผล', 'เหตุผลการแก้ไขจะต้องระบุให้ชัดเจน', 'warning', 'center', 'bottom');
-		}else{
+		//if($('#edit_remark').val().length < 5){
+		//		notify('กรุณาระบุเหตุผล', 'เหตุผลการแก้ไขจะต้องระบุให้ชัดเจน', 'warning', 'center', 'bottom');
+		//}else{
 				this.saveEditForm();
-		}
+		//}
 		return false;
 	},
 
@@ -118,7 +118,7 @@ var Users = {
 
 		var obj = $('#btnSaveEdit');
 		if(loading_on(obj) == true){
-
+			/*
 			if(!$('#temp_edit_remark').attr('id')){
 				$('<input />').attr('type', 'hidden')
 								.attr('id', 'temp_edit_remark')
@@ -128,6 +128,7 @@ var Users = {
 			}else{
 					$('#temp_edit_remark').val($('#edit_remark').val());
 			}
+			*/
 
 			var form = $('#formEdit');
 

@@ -1,3 +1,8 @@
+<script>
+	var num = {count_image};
+	var data_id = {data_id};
+	var state = 'add';
+</script>
 <!-- [ View File name : add_view.php ] -->
 	<div class="card">
 	<!--	
@@ -6,58 +11,59 @@
 		</div>
 	-->
 		<div class="card-body">
-			<form class="form-horizontal" id="formAdd" accept-charset="utf-8">
+			<form class="form-horizontal" id="formAdd" accept-charset="utf-8" method="post" enctype="multipart/form-data">
 				{csrf_protection_field}
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="date_public">วันที่ประกาศ  :</label>
-					<div class="col-sm-10">
+				<div class="row">
+						
+						<div class="col-sm-12 col-md-4">
+							<label class="col-sm-4 control-label" for="date_public">วันที่ประกาศ  :</label>
+							<input type="text" class="form-control  datepicker" id="date_public" name="date_public" value=""  />
+						</div>
+						
+						<div class="col-sm-12 col-md-4">
+							<label class="col-sm-4 control-label" for="blog_name">หัวข้อ  :</label>
+							<input type="text" class="form-control " id="blog_name" name="blog_name" value=""  />
+						</div>
 
-						<input type="text" class="form-control  datepicker" id="date_public" name="date_public" value=""  />
-					</div>
+						<div class="col-sm-12 col-md-4">
+							<label class="col-sm-4 control-label" for="fag_allow">สถานะ  :</label><br/>
+							<select id="fag_allow" name="fag_allow" value="allow" >
+								<!--<option value="">- เลือก สถานะ -</option>-->
+								<option selected value="allow">เผยแพร่</option>
+								<option value="block">ไม่เผยแพร่</option>
+								<option value="delete">ลบ</option>
+							</select>
+						</div>
 				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="blog_name">หัวข้อ  :</label>
-					<div class="col-sm-10">
 
-						<input type="text" class="form-control " id="blog_name" name="blog_name" value=""  />
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="blog_detail">รายละเอียด  :</label>
-					<div class="col-sm-10">
+				<div class="row">
+					<label class="col-sm-4 control-label" for="blog_detail">รายละเอียด  :</label>
+					<div class="col-sm-12 col-md-12">
 
 						<textarea  class="form-control" id="blog_detail" name="blog_detail" rows="5"></textarea>
 					</div>
 				</div>
-				<!--
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="fag_allow">สถานะ  :</label>
-					<div class="col-sm-10">
 
-						<select id="fag_allow" name="fag_allow" value="" >
-							<option value="">- เลือก สถานะ -</option>
-							<option selected value="allow">เผยแพร่</option>
-							<option value="block">ไม่เผยแพร่</option>
-							<option value="delete">ลบ</option>
-						</select>
+				<div class="row">
+					<div class="col-sm-12">
+						<label class="col-sm-4 control-label" for="blog_detail">รูปภาพ  :</label>
 					</div>
 				</div>
-				-->
 
 				<div class="row form-group">
 					<div class="col-sm-4">
-						<img src="{base_url}assets/images/info.kindee.kindee.png">
+							<button onclick="$('#pro-image').click()" type="button" id=""
+								class="btn btn-info btn-lg" data-toggle="modal"
+								data-target="" >
+								&nbsp;&nbsp;<i class="fa fa-upload"></i> อัปโหลดรูป &nbsp;&nbsp;
+							</button>
+								<input accept="image/*" type="file" id="pro-image" name="pro-image[]" style="display: none;" class="form-control" multiple>
 					</div>
-					<div class="col-sm-4">
-						<img src="{base_url}assets/images/info.kindee.kindee.png">
-					</div>
-					<div class="col-sm-4">
-						<button type="button" id=""
-							class="btn btn-info btn-lg" data-toggle="modal"
-							data-target="" >
-							&nbsp;&nbsp;<i class="fa fa-upload"></i> อัปโหลดรูป &nbsp;&nbsp;
-						</button>
-					</div>
+				</div>
+				<div class="row form-group">
+				    <div class="preview-images-zone" id="uploadContent">
+
+				    </div>
 				</div>
 
 

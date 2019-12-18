@@ -21,6 +21,33 @@ class Blog extends CRUD_Controller
 		$this->data['page_url'] = site_url('blogdata/blog');
 		
 		$this->data['page_title'] = 'ข่าว/บทความ';
+
+
+		$this->upload_store_path = './assets/uploads/blog/';
+		/*
+		$this->file_allow = array(
+						'application/pdf' => 'pdf',
+						'application/msword' => 'doc',
+						'application/vnd.ms-msword' => 'doc',
+						'application/vnd.ms-excel' => 'xls',
+						'application/powerpoint' => 'ppt',
+						'application/vnd.ms-powerpoint' => 'ppt',
+						'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx',
+						'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'xlsx',
+						'application/vnd.openxmlformats-officedocument.presentationml.presentation' => 'pptx',
+						'application/vnd.oasis.opendocument.text' => 'odt',
+						'application/vnd.oasis.opendocument.spreadsheet' => 'ods',
+						'application/vnd.oasis.opendocument.presentation' => 'odp',
+						'image/bmp' => 'bmp',
+						'image/png' => 'png',
+						'image/pjpeg' => 'jpeg',
+						'image/jpeg' => 'jpg'
+		);
+		$this->file_allow_type = array_values($this->file_allow);
+		$this->file_allow_mime = array_keys($this->file_allow);
+		$this->file_check_name = '';
+		*/
+
 		$js_url = 'assets/js_modules/blogdata/blog.js?ft='. filemtime('assets/js_modules/blogdata/blog.js');
 		$this->another_js = '<script src="'. base_url($js_url) .'"></script>';
 	}
@@ -194,6 +221,8 @@ class Blog extends CRUD_Controller
 						array('title' => 'Blog', 'url' => site_url('blogdata/blog')),
 						array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'active')
 		);
+		$this->data['count_image'] = 1;
+		$this->data['data_id'] = 0;
 		$this->data['users_user_delete_option_list'] = $this->Blog->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_add_option_list'] = $this->Blog->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_update_option_list'] = $this->Blog->returnOptionList("users", "user_id", "user_fname");
@@ -214,7 +243,7 @@ class Blog extends CRUD_Controller
 		$frm->set_rules('date_public', 'วันที่ประกาศ', 'trim|required');
 		$frm->set_rules('blog_name', 'หัวข้อ', 'trim|required');
 		$frm->set_rules('blog_detail', 'รายละเอียด', 'trim|required');
-		$frm->set_rules('fag_allow', 'สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]', 'trim');
+		$frm->set_rules('fag_allow', 'สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]', 'trim|required');
 
 		$frm->set_message('required', '- กรุณากรอก %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
@@ -292,7 +321,8 @@ class Blog extends CRUD_Controller
 			$json = json_encode(array(
 						'is_successful' => $success,
 						'encrypt_id' =>  $encrypt_id,
-						'message' => $message
+						'message' => $message,
+						'id'=>$id
 			));
 			echo $json;
 		}
@@ -326,9 +356,26 @@ class Blog extends CRUD_Controller
 
 
 				$this->setPreviewFormat($results);
+
+				$this->data['data_id'] = $id;
 				$this->data['users_user_delete_option_list'] = $this->Blog->returnOptionList("users", "user_id", "user_fname");
 				$this->data['users_user_add_option_list'] = $this->Blog->returnOptionList("users", "user_id", "user_fname");
 				$this->data['users_user_update_option_list'] = $this->Blog->returnOptionList("users", "user_id", "user_fname");
+
+
+				$this->load->model('common_model');
+				$rows = $this->common_model->custom_query("select * from blog_images where blog_id=".$id." and fag_allow!='delete'");
+				$this->data['count_image'] = count($rows);
+				$blog_images = "";
+				foreach ($rows as $key => $value) {
+					$year = (substr($value['datetime_add'],0,4)+543);
+                	$blog_images =  $blog_images.'<div class="preview-image preview-show-'.($key+1).'">' .
+                            '<div data-image_id="'.$value['image_id'].'" class="image-cancel" data-no="'.($key+1).'">x</div>'.'<div class="image-zone"><img id="pro-img-'.($key+1).'" src="'.base_url().$this->upload_store_path.'/'.$year.'/'.$value['encrypt_name'].'"></div>'.
+                            '</div>';
+				}
+				$this->data['blog_images'] = $blog_images;
+
+
 				$this->render_view('blogdata/blog/edit_view');
 			}
 		}
@@ -348,6 +395,149 @@ class Blog extends CRUD_Controller
 	/**
 	 * Update Record
 	 */
+
+	public function setBlogImages() {
+		$post = $this->input->post(NULL, TRUE);
+		$message = '<strong>ตั้งค่า blog image สำเร็จ</strong>';
+		$upload_error = 0;
+		$upload_error_msg = '';
+		$success = TRUE;
+		//$encrypt_id = '';
+		$encrypt_name = '';
+		$id= '';
+		$data = array();
+
+		if(isset($post['data'])) {
+			$arr = json_decode($post['data']);
+			foreach($arr as $key=>$value) {
+		    $this->load->model('common_model');
+			    $id = $this->common_model->update('blog_images',
+			    	array('user_update'=>get_session('user_id'),
+			    		'datetime_update'=>date("Y-m-d H:i:s"),
+			    		'blog_id'=>$post['blog_id']
+			    	),
+			    	array('image_id'=>$value)
+			    );
+			}
+		}else {
+			$success = FALSE;
+			$message = '<strong>ตั้งค่า blog image ล้มเหลว</strong>';
+		}
+		$json = json_encode(array(
+			'is_successful' => $success,
+			//'encrypt_id' =>  $encrypt_id,
+			'message' => $message,
+			'id'=>$id,
+			'data'=>$data,
+		));
+		echo $json;
+	}
+	
+	public function uploadfile() {
+		$message = '<strong>อัปโหลดสำเร็จ</strong>';
+		$upload_error = 0;
+		$upload_error_msg = '';
+		$success = TRUE;
+		//$encrypt_id = '';
+		$encrypt_name = '';
+		$id= '';
+
+		$post = $this->input->post(NULL, TRUE);
+		$filename = $post['filename'];
+		
+
+		$path = $this->upload_store_path .(date('Y')+543);
+		
+		$blob = $post['blob'];
+
+		$blob = str_replace("[removed]",'data:image/png;base64,',$blob);
+		$blob = str_replace("\\",'',$blob);
+		$blob = str_replace(" ",'+',$blob);
+
+		$arr = explode('.',$post['filename']);
+		$encrypt_name = uniqid().'.'.$arr[count($arr)-1];
+
+	    $file = @fopen($path.'/'.$encrypt_name, "wb");
+	    if($file) {
+		    $data = explode(',', $blob);
+		    fwrite($file, base64_decode($data[1]));
+		    fclose($file);
+
+		    $this->load->model('common_model');
+		    $id = $this->common_model->insert('blog_images',
+		    	array('user_add'=>get_session('user_id'),
+		    		'datetime_add'=>date("Y-m-d H:i:s"),
+		    		'encrypt_name'=>$encrypt_name,
+		    		'filename'=>$filename,
+		    		'blog_id'=>$post['blog_id']
+		    	)
+		    );
+		}else {
+			$success = TRUE;
+			$message = "File Path Error!";
+		}
+
+		$json = json_encode(array(
+			'is_successful' => $success,
+			//'encrypt_id' =>  $encrypt_id,
+			'message' => $message,
+			'id'=>$id,
+			'path'=>$path,
+			'encrypt_name'=>$encrypt_name,
+			'filename'=>$filename
+		));
+		echo $json;
+	}
+	public function deleteBlogImage() {
+		$post = $this->input->post(NULL, TRUE);
+		$message = '<strong>ลบ blog image สำเร็จ</strong>';
+		$upload_error = 0;
+		$upload_error_msg = '';
+		$success = TRUE;
+		//$encrypt_id = '';
+		$encrypt_name = '';
+		$id= $post['image_id'];
+		$data = array();
+
+		if($id!='') {
+			$this->load->model('common_model');
+			$row = rowArray($this->common_model->custom_query("select * from blog_images where image_id='".$id."'"));
+			if(isset($row['datetime_add'])) {
+				$year = substr($row['datetime_add'],0,4);
+				$this->removeFile($this->upload_store_path.($year+543).'/'.$row['encrypt_name']);
+				$this->common_model->update('blog_images',array('user_delete'=>get_session('user_id'),'datetime_delete'=>date("Y-m-d H:i:s"),'fag_allow'=>'delete'),array('image_id'=>$id));
+			}
+		}else {
+			$success = FALSE;
+			$message = '<strong>ลบ blog image ล้มเหลว</strong>';
+		}
+
+		$json = json_encode(array(
+			'is_successful' => $success,
+			//'encrypt_id' =>  $encrypt_id,
+			'message' => $message,
+			'id'=>$id,
+			'data'=>$data,
+		));
+		echo $json;
+	}
+	
+	/*
+	public function __destruct() {
+		$this->db->query('UNLOCK TABLES');
+		$this->db->close();
+	}
+	*/
+
+	private function removeFile($file_path)
+	{
+		if($file_path != ''){
+			if(file_exists($file_path)){
+				unlink($file_path);
+			}
+		}
+	}
+
 	public function update()
 	{
 		$message = '';
@@ -416,9 +606,21 @@ class Blog extends CRUD_Controller
 			if($result == false){
 				$message = $this->Blog->error_message;
 				$ok = FALSE;
+
 			}else{
 				$message = '<strong>ลบข้อมูลเรียบร้อย</strong>';
 				$ok = TRUE;
+
+				$this->load->model('common_model');
+				$this->common_model->update("blog_images",
+					array('user_delete'=>get_session('user_id'),'datetime_delete'=>date("Y-m-d H:i:s"),'fag_allow'=>'delete'),
+					array('blog_id'=>checkEncryptData($post['encrypt_blog_id'])));
+				$rows = $this->common_model->custom_query("select * from blog_images where blog_id=".checkEncryptData($post['encrypt_blog_id']));
+
+				foreach ($rows as $key => $value) {
+					$year = (substr($value['datetime_add'],0,4)+543);
+					$this->removeFile($this->upload_store_path.$year.'/'.$value['encrypt_name']);
+				}
 			}
 			$json = json_encode(array(
 						'is_successful' => $ok,

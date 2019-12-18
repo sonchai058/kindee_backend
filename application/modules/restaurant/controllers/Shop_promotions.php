@@ -446,10 +446,12 @@ class Shop_promotions extends CRUD_Controller
 		$message = '';
 		$message .= $this->formValidateWithFile();
 		$message .= $this->formValidateUpdate();
+		/*
 		$edit_remark = $this->input->post('edit_remark', TRUE);
 		if ($edit_remark == '') {
 			$message .= 'ระบุเหตุผล';
 		}
+		*/
 		
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);
@@ -507,11 +509,13 @@ class Shop_promotions extends CRUD_Controller
 	 */
 	public function del()
 	{
-		$delete_remark = $this->input->post('delete_remark', TRUE);
+		//$delete_remark = $this->input->post('delete_remark', TRUE);
 			$message = '';
+		/*
 		if ($delete_remark == '') {
 			$message .= 'ระบุเหตุผล';
 		}
+		*/
 		
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);

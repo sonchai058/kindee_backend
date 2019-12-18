@@ -90,7 +90,7 @@ class MY_Model extends CI_Model
     public function add_record($data = array())
     {
     	$data = $data;
-    	$data['fag_allow'] = 'allow';
+    	//$data['fag_allow'] = 'allow';
     	$data['user_add'] = $this->session->userdata('user_id');
     	$data['datetime_add'] = date("Y-m-d H:i:s");
 		$this->db->set($data);

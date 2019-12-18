@@ -1,3 +1,8 @@
+<script>
+	var num = {count_image};
+	var data_id = {data_id};
+	var state = 'edit';
+</script>
 <!--  [ View File name : edit_view.php ] -->
 	<div class="card">
 	<!--	
@@ -9,31 +14,21 @@
 			<form class='form-horizontal' id='formEdit' accept-charset='utf-8'>
 				{csrf_protection_field}
 				<input type="hidden" name="submit_case" value="edit" />
-				<div class='form-group'>
-					<label class='col-sm-2 control-label' for='date_public'>วันที่ประกาศ  :</label>
-					<div class='col-sm-10'>
-
+				<div class="row">
+					
+					<div class="col-sm-12 col-md-4">
+						<label class='col-sm-4 control-label' for='date_public'>วันที่ประกาศ  :</label>
 						<input type="text" class="form-control  datepicker" id="date_public" name="date_public" value="{record_date_public}"  />
 					</div>
-				</div>
-				<div class='form-group'>
-					<label class='col-sm-2 control-label' for='blog_name'>หัวข้อ  :</label>
-					<div class='col-sm-10'>
 
+					<div class="col-sm-12 col-md-4">
+						<label class='col-sm-4 control-label' for='blog_name'>หัวข้อ  :</label>
 						<input type="text" class="form-control " id="blog_name" name="blog_name" value="{record_blog_name}"  />
 					</div>
-				</div>
-				<div class='form-group'>
-					<label class='col-sm-2 control-label' for='blog_detail'>รายละเอียด  :</label>
-					<div class='col-sm-10'>
 
-						<textarea  class="form-control" id="blog_detail" name="blog_detail" rows="5">{record_blog_detail}</textarea>
-					</div>
-				</div>
-				<div class='form-group'>
-					<label class='col-sm-2 control-label' for='fag_allow'>สถานะ  :</label>
-					<div class='col-sm-10'>
-
+					
+					<div class="col-sm-12 col-md-4">
+						<label class='col-sm-4 control-label' for='fag_allow'>สถานะ  :</label><br/>
 						<select id="fag_allow" name="fag_allow" value="{record_fag_allow}" >
 							<!--<option value="">- เลือก สถานะ -</option>-->
 							<option value="allow">เผยแพร่</option>
@@ -41,7 +36,38 @@
 							<option value="delete">ลบ</option>
 						</select>
 					</div>
+
 				</div>
+				<div class="row">
+					
+					<div class="col-sm-12 col-md-12">
+						<label class='col-sm-4 control-label' for='blog_detail'>รายละเอียด  :</label>
+						<textarea  class="form-control" id="blog_detail" name="blog_detail" rows="5">{record_blog_detail}</textarea>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12">
+						<label class="col-sm-4 control-label" for="blog_detail">รูปภาพ  :</label>
+					</div>
+				</div>
+
+				<div class="row form-group">
+					<div class="col-sm-4">
+							<button onclick="$('#pro-image').click()" type="button" id=""
+								class="btn btn-info btn-lg" data-toggle="modal"
+								data-target="" >
+								&nbsp;&nbsp;<i class="fa fa-upload"></i> อัปโหลดรูป &nbsp;&nbsp;
+							</button>
+								<input accept="image/*" type="file" id="pro-image" name="pro-image[]" style="display: none;" class="form-control" multiple>
+					</div>
+				</div>
+				<div class="row form-group">
+				    <div class="preview-images-zone" id="uploadContent">
+						{blog_images}
+				    </div>
+				</div>
+				
 				<div class='form-group'>
 					<div class='col-sm-offset-2 col-sm-10'>
 						<button  type="button" class='btn btn-primary btn-lg'  data-toggle='modal' data-target='#editModal' >&nbsp;&nbsp;<i class="fa fa-save"></i> บันทึก &nbsp;&nbsp;</button>

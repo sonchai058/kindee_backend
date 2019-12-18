@@ -20,11 +20,11 @@ var UsersDrug = {
 	},
 
 	validateFormEdit: function(){
-		if($('#edit_remark').val().length < 2){
-				notify('กรุณาระบุเหตุผล', 'เหตุผลการแก้ไขจะต้องระบุให้ชัดเจน', 'warning', 'center', 'bottom');
-		}else{
+		//if($('#edit_remark').val().length < 2){
+		//		notify('กรุณาระบุเหตุผล', 'เหตุผลการแก้ไขจะต้องระบุให้ชัดเจน', 'warning', 'center', 'bottom');
+		//}else{
 				this.saveEditForm();
-		}
+		//}
 		return false;
 	},
 
@@ -70,7 +70,7 @@ var UsersDrug = {
 		var frm_action = site_url('drugeat/users_drug/update');
 
 		var fdata = $('#formEdit').serialize();
-		fdata += '&edit_remark=' + $('#edit_remark').val();
+		//fdata += '&edit_remark=' + $('#edit_remark').val();
 		fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
 
 		var obj = $('#btnSaveEdit');

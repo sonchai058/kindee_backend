@@ -19,11 +19,11 @@ var ShopFoodMenu = {
 	},
 
 	validateFormEdit: function(){
-		if($('#edit_remark').val().length < 5){
-				notify('กรุณาระบุเหตุผล', 'เหตุผลการแก้ไขจะต้องระบุให้ชัดเจน', 'warning', 'center', 'bottom');
-		}else{
+		//if($('#edit_remark').val().length < 5){
+		//		notify('กรุณาระบุเหตุผล', 'เหตุผลการแก้ไขจะต้องระบุให้ชัดเจน', 'warning', 'center', 'bottom');
+		//}else{
 				this.saveEditForm();
-		}
+		//}
 		return false;
 	},
 
@@ -87,7 +87,7 @@ var ShopFoodMenu = {
 			$('#energy_amt').val(energy_amt);
 
 		var fdata = $('#formEdit').serialize();
-		fdata += '&edit_remark=' + $('#edit_remark').val();
+		//fdata += '&edit_remark=' + $('#edit_remark').val();
 		fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
 
 		var obj = $('#btnSaveEdit');
