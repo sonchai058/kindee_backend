@@ -54,25 +54,26 @@ var Blog = {
 					if(results.is_successful){
 						$('#formAdd')[0].reset();
 						
-						var fdata = 'data='+JSON.stringify(add_array)+'&blog_id='+results.id;
-						fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
-						$.ajax({
-							method: 'POST',
-							url: site_url('blogdata/blog/setBlogImages'),
-							dataType: 'json',
-							data:fdata,
-							success: function (results) {
-								console.log(results);
-								add_array = [];
-								num = 1;
-								$("#uploadContent").html("");
-								//$('#divPreview').html(results);
-							},
-							error : function(jqXHR, exception){
-								ajaxErrorMessage(jqXHR, exception);
-							}
-						});
-
+						if(add_array.length) {
+							var fdata = 'data='+JSON.stringify(add_array)+'&blog_id='+results.id;
+							fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
+							$.ajax({
+								method: 'POST',
+								url: site_url('blogdata/blog/setBlogImages'),
+								dataType: 'json',
+								data:fdata,
+								success: function (results) {
+									console.log(results);
+									add_array = [];
+									num = 1;
+									$("#uploadContent").html("");
+									//$('#divPreview').html(results);
+								},
+								error : function(jqXHR, exception){
+									ajaxErrorMessage(jqXHR, exception);
+								}
+							});
+						}
 					}
 				},
 				error : function(jqXHR, exception){

@@ -19,63 +19,63 @@
 					<label class="col-sm-2 control-label" for="total_chol">Total Cholesterol  :</label>
 					<div class="col-sm-10">
 
-						<input type="text" class="form-control " id="total_chol" name="total_chol" value=""  />
+						<input type="number" step="0.01" class="form-control " id="total_chol" name="total_chol" value=""  />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="fasting_glu">fasting glucose  :</label>
 					<div class="col-sm-10">
 
-						<input type="text" class="form-control " id="fasting_glu" name="fasting_glu" value=""  />
+						<input type="number" step="0.01" class="form-control " id="fasting_glu" name="fasting_glu" value=""  />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="hemo_glo">Hemoglobin A1C%  :</label>
 					<div class="col-sm-10">
 
-						<input type="text" class="form-control " id="hemo_glo" name="hemo_glo" value=""  />
+						<input type="number" step="0.01" class="form-control " id="hemo_glo" name="hemo_glo" value=""  />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="kidney_blood">Kidney : Blood Urea Nitrogen  :</label>
 					<div class="col-sm-10">
 
-						<input type="text" class="form-control " id="kidney_blood" name="kidney_blood" value=""  />
+						<input type="number" step="0.01" class="form-control " id="kidney_blood" name="kidney_blood" value=""  />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="uric_arid">Uric Acid (Gout)  :</label>
 					<div class="col-sm-10">
 
-						<input type="text" class="form-control " id="uric_arid" name="uric_arid" value=""  />
+						<input type="number" step="0.01" class="form-control " id="uric_arid" name="uric_arid" value=""  />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="hdl_chol">HDL Cholesterol  :</label>
 					<div class="col-sm-10">
 
-						<input type="text" class="form-control " id="hdl_chol" name="hdl_chol" value=""  />
+						<input type="number" step="0.01" class="form-control " id="hdl_chol" name="hdl_chol" value=""  />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="ldl_chol">LDL Cholesterol  :</label>
 					<div class="col-sm-10">
 
-						<input type="text" class="form-control " id="ldl_chol" name="ldl_chol" value=""  />
+						<input type="number" step="0.01" class="form-control " id="ldl_chol" name="ldl_chol" value=""  />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="trig_cer">Triglycerides  :</label>
 					<div class="col-sm-10">
 
-						<input type="text" class="form-control " id="trig_cer" name="trig_cer" value=""  />
+						<input type="number" step="0.01" class="form-control " id="trig_cer" name="trig_cer" value=""  />
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="fag_allow">สถานะ  :</label>
 					<div class="col-sm-10">
 
-						<select id="fag_allow" name="fag_allow" value="" >
+						<select id="fag_allow" name="fag_allow" value="allow" >
 							<option value="">- เลือก สถานะ -</option>
 							<option value="allow">ปกติ</option>
 							<option value="block">ระงับ</option>
@@ -83,6 +83,7 @@
 						</select>
 					</div>
 				</div>
+			<!--
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="user_id">ชื่อสมาชิก  :</label>
 					<div class="col-sm-10">
@@ -92,6 +93,7 @@
 					</select>
 					</div>
 				</div>
+			-->
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<input type="hidden" id="add_encrypt_id" />

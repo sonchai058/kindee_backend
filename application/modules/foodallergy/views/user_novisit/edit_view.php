@@ -83,6 +83,7 @@
 			<div class='modal-body'>
 				<h4>ยืนยันการเปลี่ยนแปลงแก้ไขข้อมูล ?</h4>
 				<form class="form-horizontal" onsubmit="return false;" >
+					<!--
 					<div class="form-group">
 						<div class="col-sm-8">
 							<label class="col-sm-3 text-right badge badge-warning" for="edit_remark">ระบุเหตุผล :</label>
@@ -91,6 +92,7 @@
 							<input type="text" class="form-control" id="edit_remark">
 						</div>
 					</div>
+				-->
 				</form>
 			</div>
 			<div class='modal-footer'>

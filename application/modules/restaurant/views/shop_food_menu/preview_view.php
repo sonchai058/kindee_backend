@@ -42,7 +42,7 @@
 						<td>{record_price_amt}</td>
 					</tr>
 					<tr>
-						<td class="text-right fit"><b>พลังงาน :</b></td>
+						<td class="text-right fit"><b>พลังงาน (K) :</b></td>
 						<td>{record_energy_amt}</td>
 					</tr>
 				<tr>

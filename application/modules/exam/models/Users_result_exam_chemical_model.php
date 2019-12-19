@@ -141,7 +141,7 @@ class Users_result_exam_chemical_model extends MY_Model
 				,'ldl_chol' => str_replace(",", "",$post['ldl_chol'])
 				,'trig_cer' => str_replace(",", "",$post['trig_cer'])
 				,'fag_allow' => $post['fag_allow']
-				,'user_id' => $post['user_id']
+				//,'user_id' => $post['user_id']
 		);
 
 		$exam_id = checkEncryptData($post['encrypt_exam_id']);

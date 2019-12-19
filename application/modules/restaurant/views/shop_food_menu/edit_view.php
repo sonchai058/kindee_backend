@@ -1,3 +1,9 @@
+<script>
+	var record_self_food_menu_composition = JSON.parse('{record_self_food_menu_composition}');
+	var num = {count_record}+1;
+	var data_id = {data_id};
+	var state = 'edit';
+</script>
 <!--  [ View File name : edit_view.php ] -->
 	<div class="card">
 		<!--
@@ -20,7 +26,7 @@
 					<label class='col-sm-2 control-label' for='cate_id'>ประเภทอาหาร  :</label>
 					<div class='col-sm-10'>
 					<select id='cate_id'  name='cate_id' value="{record_cate_id}" >
-						<option value="">- เลือก ประเภทอาหาร -</option>
+						<!--<option value="">- เลือก ประเภทอาหาร -</option>-->
 						{category_cate_id_option_list}
 					</select>
 					</div>
@@ -29,9 +35,10 @@
 					<label class='col-sm-2 control-label' for='price_amt'>ราคา  :</label>
 					<div class='col-sm-10'>
 
-						<input type="text" class="form-control " id="price_amt" name="price_amt" value="{record_price_amt}"  />
+						<input type="number" step="0.01" class="form-control " id="price_amt" name="price_amt" value="{record_price_amt}"  />
 					</div>
 				</div>
+			<!--
 				<div class='form-group'>
 					<label class='col-sm-2 control-label' for='energy_amt'>พลังงาน  :</label>
 					<div class='col-sm-10'>
@@ -39,12 +46,13 @@
 						<input type="text" class="form-control " id="energy_amt" name="energy_amt" value="{record_energy_amt}"  />
 					</div>
 				</div>
+			-->
 				<div class='form-group'>
 					<label class='col-sm-2 control-label' for='fag_allow'>สถานะ  :</label>
 					<div class='col-sm-10'>
 
 						<select id="fag_allow" name="fag_allow" value="{record_fag_allow}" >
-							<option value="">- เลือก สถานะ -</option>
+							<!--<option value="">- เลือก สถานะ -</option>-->
 							<option value="allow">ปกติ</option>
 							<option value="block">ระงับ</option>
 							<option value="delete">ลบ</option>
@@ -53,47 +61,47 @@
 				</div>
 
 
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="">ส่วนประกอบอาหาร  :</label>
-					<div class="col-sm-4">
-						<button type="button" id=""
-							class="btn btn-info btn-lg" data-toggle="modal"
+				<br/>
+				<div class="row rmat_content">
+					<div class="col-sm-12 col-md-6">
+						<label class="col-sm-6 control-label" for="">ส่วนประกอบ :</label>
+						<button type="button" id="btn_comp"
+							class="btn btn-success btn-lg" data-toggle="modal"
 							data-target="" >
 							&nbsp;&nbsp;<i class="fa fa-plus-square"></i> เพิ่มส่วนประกอบอาหาร/กรัม &nbsp;&nbsp;
 						</button>
 					</div>
 				</div>
+				<br/>
+				
+				<div class="row rmat_content_tmp" style="display: none">
+						<div class="col-sm-12 col-md-4">
+							<label class="col-sm-4 control-label" for="">ส่วนประกอบ  :</label><br/>
+							<select class="rmat_id" id="" name="rmat_id[]" value="">
+								<option value="">- เลือก ส่วนประกอบอาหาร -</option>
+								{category_rmat_id_option_list}
+							</select>
+							<input type="hidden" class="old_id" name="old_id[]" value="0">
+						</div>
+						<div class="col-sm-12 col-md-4">
+							<label class="col-sm-4 control-label" for="amount">ปริมาณ(กรัม) :</label>
+							<input type="amount" step="0.01" class="form-control amount" name="amount[]" value="0">
+						</div>
+						<div class="col-sm-12 col-md-4">
+							<label class="col-sm-4 control-label" for=""></label><br/>
+							<button onclick='del(this)' style="margin-top:7px;" type="button" 
+								class="btn btn-danger btn-sm btn-del" data-toggle="modal"
+								data-target="" >
+								ลบ
+							</button>
+						</div>
+				</div>
 
-				<div class="row form-group">
-					<div class="col-sm-4">
-						<select class="form-control">
-							<option>ไก่</option>
-						</select>
-					</div>
-					<div class="col-sm-4">
-						<input type="text" class="form-control " id="" name="" value="150">
-					</div>
+				<div class="wrap_rmat_content">
+
 				</div>
-				<div class="row form-group">
-					<div class="col-sm-4">
-						<select class="form-control">
-							<option>พริกสด</option>
-						</select>
-					</div>
-					<div class="col-sm-4">
-						<input type="text" class="form-control " id="" name="" value="50">
-					</div>
-				</div>
-				<div class="row form-group">
-					<div class="col-sm-4">
-						<select class="form-control">
-							<option></option>
-						</select>
-					</div>
-					<div class="col-sm-4">
-						<input type="text" class="form-control " id="" name="" value="">
-					</div>
-				</div>
+				
+				<br/>
 				
 				<div class="row form-group">
 					<div class="col-sm-4">
@@ -137,12 +145,14 @@
 				<h4>ยืนยันการเปลี่ยนแปลงแก้ไขข้อมูล ?</h4>
 				<form class="form-horizontal" onsubmit="return false;" >
 					<div class="form-group">
+						<!--
 						<div class="col-sm-8">
 							<label class="col-sm-3 text-right badge badge-warning" for="edit_remark">ระบุเหตุผล :</label>
 						</div>
 						<div class="col-sm-12">
 							<input type="text" class="form-control" id="edit_remark">
 						</div>
+					-->
 					</div>
 				</form>
 			</div>

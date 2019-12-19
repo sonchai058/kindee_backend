@@ -23,7 +23,7 @@
 					<option value="self_food_name">ชื่อ</option>
 					<option value="cate_id">ประเภทอาหาร</option>
 					<option value="user_update">ผู้อัปเดต</option>
-					<option value="fag_allow">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]</option>
+					<!--<option value="fag_allow">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]</option>-->
 						</select>
  					</div>
 					<div class="form-group">
@@ -40,7 +40,7 @@
 					<div class="form-group">
 						<select  class="form-control" id="set_order_by" class="span2" value="{order_by}">
 					<option value="">- จัดเรียงตาม -</option>
-					<option value="self_food_name|asc">ชื่อ ก - ฮ</option><option value="self_food_name|desc">ชื่อ ฮ - ก</option><option value="cate_id|asc">ประเภทอาหาร น้อย - มาก</option><option value="cate_id|desc">ประเภทอาหาร มาก - น้อย</option><option value="user_update|asc">ผู้อัปเดต น้อย - มาก</option><option value="user_update|desc">ผู้อัปเดต มาก - น้อย</option><option value="fag_allow|asc">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ] น้อย - มาก</option><option value="fag_allow|desc">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ] มาก - น้อย</option>
+					<option value="self_food_name|asc">ชื่อ ก - ฮ</option><option value="self_food_name|desc">ชื่อ ฮ - ก</option><option value="cate_id|asc">ประเภทอาหาร น้อย - มาก</option><option value="cate_id|desc">ประเภทอาหาร มาก - น้อย</option><option value="user_update|asc">ผู้อัปเดต น้อย - มาก</option><option value="user_update|desc">ผู้อัปเดต มาก - น้อย</option><!--<option value="fag_allow|asc">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ] น้อย - มาก</option><option value="fag_allow|desc">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ] มาก - น้อย</option>-->
 						</select>
  					</div>
 				</div>
@@ -65,12 +65,12 @@
 				<thead class="info">
 					<tr bgcolor="#dddddd">
 						<th width="20px;">#</th>
-						<th>ชื่อ</th>
-						<th>ประเภทอาหาร</th>
-						<th>ผู้อัปเดต</th>
-						<th>วันเวลา ที่อัปเดต</th>
-						<th>สถานะ</th>
-						<th class="text-center" style="width:200px">จัดการข้อมูล</th>
+						<th>รายการอาหาร</th>
+						<th>ประเภท</th>
+						<th>ส่วนประกอบ</th>
+						<th>พลังงาน(K)</th>
+						<th>เครื่องมือ</th>
+						<th class="text-center" style="width:200px">เครื่องมือ</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -78,8 +78,8 @@
 						<td style="text-align:center;">[{record_number}]</td>
 						<td>{self_food_name}</td>
 						<td>{cateIdCateName}</td>
-						<td>{user_update}</td>
-						<td>{datetime_update}</td>
+						<td>{seft_comp}</td>
+						<td>{energy_amt}</td>
 						<td>{preview_fag_allow}</td>
 						<td>
 							<div class="btn-group pull-right">
@@ -134,12 +134,14 @@
 				<div id="div_del_detail"></div>
 				<form id="formDelete">
 					<div class="form-group">
+						<!--
 						<div class="col-sm-8">
 <label class="col-sm-3 text-right badge badge-warning" for="edit_remark">ระบุเหตุผล :</label>
 						</div>
 					<div class="col-sm-12">
 						<input type="text" class="form-control" name="delete_remark">
 					</div>
+				-->
 				</div>
 					<input type="hidden" name="encrypt_self_food_id" />
 

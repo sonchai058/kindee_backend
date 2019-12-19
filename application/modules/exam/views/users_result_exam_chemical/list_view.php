@@ -21,7 +21,7 @@
 					<div class="form-group">
 						<select  class="form-control" name="search_field" class="span2">
 					<option value="user_update">ผู้อัปเดต</option>
-					<option value="fag_allow">สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]</option>
+					<!--<option value="fag_allow">สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]</option>-->
 						</select>
  					</div>
 					<div class="form-group">
@@ -38,7 +38,7 @@
 					<div class="form-group">
 						<select  class="form-control" id="set_order_by" class="span2" value="{order_by}">
 					<option value="">- จัดเรียงตาม -</option>
-					<option value="user_update|asc">ผู้อัปเดต น้อย - มาก</option><option value="user_update|desc">ผู้อัปเดต มาก - น้อย</option><option value="fag_allow|asc">สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ] น้อย - มาก</option><option value="fag_allow|desc">สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ] มาก - น้อย</option>
+					<option value="user_update|asc">ผู้อัปเดต น้อย - มาก</option><option value="user_update|desc">ผู้อัปเดต มาก - น้อย</option><!--<option value="fag_allow|asc">สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ] น้อย - มาก</option><option value="fag_allow|desc">สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ] มาก - น้อย</option>-->
 						</select>
  					</div>
 				</div>
@@ -64,26 +64,26 @@
 					<tr bgcolor="#dddddd">
 						<th width="20px;">#</th>
 						<th>วันที่ตรวจ</th>
-						<th>Total Cholesterol</th>
-						<th>fasting glucose</th>
+						<th>Fasting glucose</th>
 						<th>Hemoglobin A1C%</th>
 						<th>Kidney : Blood Urea Nitrogen</th>
 						<th>Uric Acid (Gout)</th>
+						<th>Total Cholesterol</th>
 						<th>HDL Cholesterol</th>
 						<th>LDL Cholesterol</th>
 						<th>Triglycerides</th>
-						<th class="text-center" style="width:200px">จัดการข้อมูล</th>
+						<th class="text-center" style="width:200px">เครื่องมือ</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr parser-repeat="[data_list]" id="row_{record_number}">
 						<td style="text-align:center;">[{record_number}]</td>
 						<td>{exam_date}</td>
-						<td>{total_chol}</td>
 						<td>{fasting_glu}</td>
 						<td>{hemo_glo}</td>
 						<td>{kidney_blood}</td>
 						<td>{uric_arid}</td>
+						<td>{total_chol}</td>
 						<td>{hdl_chol}</td>
 						<td>{ldl_chol}</td>
 						<td>{trig_cer}</td>
@@ -139,6 +139,7 @@
 				<h4 class="text-center">***  ท่านต้องการลบข้อมูลแถวที่ <span id="xrow"></span> ???  ***</h4>
 				<div id="div_del_detail"></div>
 				<form id="formDelete">
+<!--
 					<div class="form-group">
 						<div class="col-sm-8">
 <label class="col-sm-3 text-right badge badge-warning" for="edit_remark">ระบุเหตุผล :</label>
@@ -146,7 +147,9 @@
 					<div class="col-sm-12">
 						<input type="text" class="form-control" name="delete_remark">
 					</div>
+				
 				</div>
+			-->
 					<input type="hidden" name="encrypt_exam_id" />
 
 				</form>

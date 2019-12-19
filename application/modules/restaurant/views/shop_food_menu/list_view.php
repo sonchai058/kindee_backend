@@ -24,7 +24,7 @@
 					<option value="cate_id">ประเภทอาหาร</option>
 					<option value="price_amt">ราคา</option>
 					<option value="user_update">ผู้อัปเดต</option>
-					<option value="fag_allow">สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]</option>
+					<!--<option value="fag_allow">สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]</option>-->
 						</select>
  					</div>
 					<div class="form-group">
@@ -66,14 +66,11 @@
 				<thead class="info">
 					<tr bgcolor="#dddddd">
 						<th width="20px;">#</th>
-						<th>ชื่อ</th>
+						<th>ชื่ออาหาร</th>
 						<th>ประเภทอาหาร</th>
+						<th>พลังงาน(K)</th>
 						<th>ราคา</th>
-						<th>พลังงาน</th>
-						<th>ผู้อัปเดต</th>
-						<th>วันเวลา ที่อัปเดต</th>
-						<th>สถานะ</th>
-						<th class="text-center" style="width:200px">จัดการข้อมูล</th>
+						<th class="text-center" style="width:200px">เครื่องมือ</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -81,11 +78,8 @@
 						<td style="text-align:center;">[{record_number}]</td>
 						<td>{food_name}</td>
 						<td>{cateIdCateName}</td>
-						<td>{price_amt}</td>
 						<td>{energy_amt}</td>
-						<td>{userUpdateUserFname}</td>
-						<td>{datetime_update}</td>
-						<td>{preview_fag_allow}</td>
+						<td>{price_amt}</td>
 						<td>
 							<div class="btn-group pull-right">
 								<a href="{page_url}/preview/{url_encrypt_id}" 
@@ -139,12 +133,14 @@
 				<div id="div_del_detail"></div>
 				<form id="formDelete">
 					<div class="form-group">
+						<!--
 						<div class="col-sm-8">
 <label class="col-sm-3 text-right badge badge-warning" for="edit_remark">ระบุเหตุผล :</label>
 						</div>
 					<div class="col-sm-12">
 						<input type="text" class="form-control" name="delete_remark">
 					</div>
+				-->
 				</div>
 					<input type="hidden" name="encrypt_food_id" />
 

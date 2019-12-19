@@ -37,8 +37,12 @@
 					<td class="text-right fit"><b>ประเภทอาหาร :</b></td>
 					<td>{cateIdCateName}</td>
 				</tr>
+				<tr>
+					<td class="text-right fit"><b>ส่วนประกอบ :</b></td>
+					<td>{record_seft_comp}</td>
+				</tr>
 					<tr>
-						<td class="text-right fit"><b>พลังงาน :</b></td>
+						<td class="text-right fit"><b>พลังงาน (K) :</b></td>
 						<td>{record_energy_amt}</td>
 					</tr>
 				<tr>

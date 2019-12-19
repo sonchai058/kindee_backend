@@ -84,6 +84,7 @@
 						</select>
 					</div>
 				</div>
+				<!--
 				<div class='form-group'>
 					<label class='col-sm-2 control-label' for='user_id'>ชื่อสมาชิก  :</label>
 					<div class='col-sm-10'>
@@ -93,6 +94,7 @@
 					</select>
 					</div>
 				</div>
+			-->
 				<div class='form-group'>
 					<div class='col-sm-offset-2 col-sm-10'>
 						<button  type="button" class='btn btn-primary btn-lg'  data-toggle='modal' data-target='#editModal' >&nbsp;&nbsp;<i class="fa fa-save"></i> บันทึก &nbsp;&nbsp;</button>
@@ -118,6 +120,7 @@
 			<div class='modal-body'>
 				<h4>ยืนยันการเปลี่ยนแปลงแก้ไขข้อมูล ?</h4>
 				<form class="form-horizontal" onsubmit="return false;" >
+					<!--
 					<div class="form-group">
 						<div class="col-sm-8">
 							<label class="col-sm-3 text-right badge badge-warning" for="edit_remark">ระบุเหตุผล :</label>
@@ -126,6 +129,7 @@
 							<input type="text" class="form-control" id="edit_remark">
 						</div>
 					</div>
+				-->
 				</form>
 			</div>
 			<div class='modal-footer'>

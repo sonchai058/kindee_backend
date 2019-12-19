@@ -136,6 +136,7 @@
 				<h4 class="text-center">***  ท่านต้องการลบข้อมูลแถวที่ <span id="xrow"></span> ???  ***</h4>
 				<div id="div_del_detail"></div>
 				<form id="formDelete">
+				<!--
 					<div class="form-group">
 						<div class="col-sm-8">
 <label class="col-sm-3 text-right badge badge-warning" for="edit_remark">ระบุเหตุผล :</label>
@@ -144,6 +145,7 @@
 						<input type="text" class="form-control" name="delete_remark">
 					</div>
 				</div>
+			-->
 					<input type="hidden" name="encrypt_drug_id" />
 
 				</form>

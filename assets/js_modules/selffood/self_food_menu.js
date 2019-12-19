@@ -1,4 +1,5 @@
-
+/*var add_array = [];*/
+var html_txt = $(".rmat_content_tmp").clone();
 var SelfFoodMenu = {
 
 	current_page : 0,
@@ -58,7 +59,9 @@ var SelfFoodMenu = {
 					loading_on_remove(obj);
 
 					if(results.is_successful){
-					$('#formAdd')[0].reset();
+						$('#formAdd')[0].reset();
+						num = 1;
+						$(".wrap_rmat_content").html("");
 					}
 				},
 				error : function(jqXHR, exception){
@@ -210,6 +213,8 @@ $(document).ready(function() {
 	setDropdownList('#user_add');
 	setDropdownList('#fag_allow');
 
+	//setTimeout(function(){setDropdownList('.rmat_id');},1500);
+
 	//Set default value
 	var order_by = $('#set_order_by').attr('value');
 	$('#set_order_by option[value="'+order_by+'"]').prop('selected', true);
@@ -217,4 +222,42 @@ $(document).ready(function() {
 	//Set default selected
 	setDatePicker('.datepicker');
 
+	if(num>1) {
+		num = 1;
+		$.each(record_self_food_menu_composition, function(i, item) {
+		    addSeftComp(true);
+		});
+	}
+
 });
+
+function addSeftComp(setval) {
+	var txt = $(html_txt).html();
+	txt = txt.replace('id=""', "id='select"+num+"'");
+	//console.log(txt);
+	console.log('new record : '+num);
+
+	//var html_txt = $(".rmat_content").clone();
+	$(".wrap_rmat_content").append('<div id="wrapselect'+num+'" class="row rmat_content">'+txt+'</div>');
+	setDropdownList('#select'+num);
+
+	var tmp_num = num;
+	if(setval) {
+		setDefault(tmp_num);
+	}
+
+	num++;
+}
+function setDefault(num_set) {
+	$('#select'+num_set).val(record_self_food_menu_composition[num_set-1].rmat_id).trigger('change');
+	$(".amount:eq("+num_set+")").val(record_self_food_menu_composition[num_set-1].amount);
+	$(".old_id:eq("+num_set+")").val(record_self_food_menu_composition[num_set-1].self_food_id);
+}
+
+$("#btn_comp").click(function(){
+	addSeftComp(false);
+});
+function del(node) {
+	//alert($(this));
+	$(node).parent().parent().remove();
+};

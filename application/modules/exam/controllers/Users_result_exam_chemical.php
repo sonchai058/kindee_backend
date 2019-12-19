@@ -14,6 +14,9 @@ class Users_result_exam_chemical extends CRUD_Controller
 	public function __construct()
 	{
 		parent::__construct();
+
+		chkUserPerm();
+
 		$this->per_page = 30;
 		$this->num_links = 6;
 		$this->uri_segment = 4;
@@ -205,25 +208,38 @@ class Users_result_exam_chemical extends CRUD_Controller
 	 * Default Validation
 	 * see also https://www.codeigniter.com/userguide3/libraries/form_validation.html
 	 */
+    public function float_check($val)
+    {	
+    	return TRUE;
+    /*
+    	die($val);
+        if ( !is_int($val) || !is_float($val) ) {
+            $this->form_validation->set_message('float_check', '- %s ต้องระบุตัวเลขทศนิยม');
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+        */
+    }
 	public function formValidate()
 	{
 		$this->load->library('form_validation');
 		$frm = $this->form_validation;
 
 		$frm->set_rules('exam_date', 'วันที่ตรวจ', 'trim|required');
-		$frm->set_rules('total_chol', 'Total Cholesterol', 'trim|required|decimal');
-		$frm->set_rules('fasting_glu', 'fasting glucose', 'trim|required|decimal');
-		$frm->set_rules('hemo_glo', 'Hemoglobin A1C%', 'trim|required|decimal');
-		$frm->set_rules('kidney_blood', 'Kidney : Blood Urea Nitrogen', 'trim|required|decimal');
-		$frm->set_rules('uric_arid', 'Uric Acid (Gout)', 'trim|required|decimal');
-		$frm->set_rules('hdl_chol', 'HDL Cholesterol', 'trim|required|decimal');
-		$frm->set_rules('ldl_chol', 'LDL Cholesterol', 'trim|required|decimal');
-		$frm->set_rules('trig_cer', 'Triglycerides', 'trim|required|decimal');
+		$frm->set_rules('total_chol', 'Total Cholesterol', 'trim|required|callback_float_check');
+		$frm->set_rules('fasting_glu', 'fasting glucose', 'trim|required|callback_float_check');
+		$frm->set_rules('hemo_glo', 'Hemoglobin A1C%', 'trim|required|callback_float_check');
+		$frm->set_rules('kidney_blood', 'Kidney : Blood Urea Nitrogen', 'trim|required|callback_float_check');
+		$frm->set_rules('uric_arid', 'Uric Acid (Gout)', 'trim|required|callback_float_check');
+		$frm->set_rules('hdl_chol', 'HDL Cholesterol', 'trim|required|callback_float_check');
+		$frm->set_rules('ldl_chol', 'LDL Cholesterol', 'trim|required|callback_float_check');
+		$frm->set_rules('trig_cer', 'Triglycerides', 'trim|required|callback_float_check');
 		$frm->set_rules('fag_allow', 'สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]', 'trim|required');
-		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim|required|is_natural');
+		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim');
 
 		$frm->set_message('required', '- กรุณากรอก %s');
-		$frm->set_message('decimal', '- %s ต้องระบุตัวเลขทศนิยม');
+		$frm->set_message('callback_float_check', '- %s ต้องระบุตัวเลขทศนิยม');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
 
 		if ($frm->run() == FALSE) {
@@ -255,19 +271,19 @@ class Users_result_exam_chemical extends CRUD_Controller
 		$frm = $this->form_validation;
 
 		$frm->set_rules('exam_date', 'วันที่ตรวจ', 'trim|required');
-		$frm->set_rules('total_chol', 'Total Cholesterol', 'trim|required|decimal');
-		$frm->set_rules('fasting_glu', 'fasting glucose', 'trim|required|decimal');
-		$frm->set_rules('hemo_glo', 'Hemoglobin A1C%', 'trim|required|decimal');
-		$frm->set_rules('kidney_blood', 'Kidney : Blood Urea Nitrogen', 'trim|required|decimal');
-		$frm->set_rules('uric_arid', 'Uric Acid (Gout)', 'trim|required|decimal');
-		$frm->set_rules('hdl_chol', 'HDL Cholesterol', 'trim|required|decimal');
-		$frm->set_rules('ldl_chol', 'LDL Cholesterol', 'trim|required|decimal');
-		$frm->set_rules('trig_cer', 'Triglycerides', 'trim|required|decimal');
+		$frm->set_rules('total_chol', 'Total Cholesterol', 'trim|required|callback_float_check');
+		$frm->set_rules('fasting_glu', 'fasting glucose', 'trim|required|callback_float_check');
+		$frm->set_rules('hemo_glo', 'Hemoglobin A1C%', 'trim|required|callback_float_check');
+		$frm->set_rules('kidney_blood', 'Kidney : Blood Urea Nitrogen', 'trim|required|callback_float_check');
+		$frm->set_rules('uric_arid', 'Uric Acid (Gout)', 'trim|required|callback_float_check');
+		$frm->set_rules('hdl_chol', 'HDL Cholesterol', 'trim|required|callback_float_check');
+		$frm->set_rules('ldl_chol', 'LDL Cholesterol', 'trim|required|callback_float_check');
+		$frm->set_rules('trig_cer', 'Triglycerides', 'trim|required|callback_float_check');
 		$frm->set_rules('fag_allow', 'สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]', 'trim|required');
-		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim|required|is_natural');
+		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim');
 
 		$frm->set_message('required', '- กรุณากรอก %s');
-		$frm->set_message('decimal', '- %s ต้องระบุตัวเลขทศนิยม');
+		$frm->set_message('callback_float_check', '- %s ต้องระบุตัวเลขทศนิยม');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
 
 		if ($frm->run() == FALSE) {
@@ -308,6 +324,7 @@ class Users_result_exam_chemical extends CRUD_Controller
 			$post = $this->input->post(NULL, TRUE);
 
 			$encrypt_id = '';
+			$post['user_id'] = get_session('user_id');
 			$id = $this->Users_result_exam_chemical->create($post);
 			if($id != ''){
 				$success = TRUE;
@@ -401,7 +418,9 @@ class Users_result_exam_chemical extends CRUD_Controller
 			));
 			 echo $json;
 		} else {
-
+			//if(isset($post['user_id'])) {
+				//unset($post['user_id']);
+			//}
 			$result = $this->Users_result_exam_chemical->update($post);
 			if($result == false){
 				$message = $this->Users_result_exam_chemical->error_message;
