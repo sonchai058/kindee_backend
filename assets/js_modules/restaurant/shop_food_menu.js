@@ -1,4 +1,4 @@
-/*var add_array = [];*/
+var add_array = [];
 var html_txt = $(".rmat_content_tmp").clone();
 var ShopFoodMenu = {
 
@@ -58,8 +58,35 @@ var ShopFoodMenu = {
 					//$('#energy_amt').val(energy_amt);
 					if(results.is_successful){
 						$('#formAdd')[0].reset();
-						num = 1;
+
+						/* comp reset*/
+						num0 = 1;
 						$(".wrap_rmat_content").html("");
+						/* end comp reset*/
+
+						/* images reset */
+						if(add_array.length) {
+							var fdata = 'data='+JSON.stringify(add_array)+'&food_id='+results.id;
+							fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
+							$.ajax({
+								method: 'POST',
+								url: site_url('restaurant/shop_food_menu/setFoodImages'),
+								dataType: 'json',
+								data:fdata,
+								success: function (results) {
+									console.log(results);
+									add_array = [];
+									num = 1;
+									$("#uploadContent").html("");
+									//$('#divPreview').html(results);
+								},
+								error : function(jqXHR, exception){
+									ajaxErrorMessage(jqXHR, exception);
+								}
+							});
+						}
+						/* end images reset */
+
 					}
 
 					if(results.is_successful){
@@ -237,8 +264,8 @@ $(document).ready(function() {
 	//Set default selected
 	setDatePicker('.datepicker');
 
-	if(num>1) {
-		num = 1;
+	if(num0>1) {
+		num0 = 1;
 		$.each(record_shop_food_menu_composition, function(i, item) {
 		    addShopComp(true);
 		});
@@ -248,25 +275,25 @@ $(document).ready(function() {
 
 function addShopComp(setval) {
 	var txt = $(html_txt).html();
-	txt = txt.replace('id=""', "id='select"+num+"'");
+	txt = txt.replace('id=""', "id='select"+num0+"'");
 	//console.log(txt);
-	console.log('new record : '+num);
+	console.log('new record : '+num0);
 
 	//var html_txt = $(".rmat_content").clone();
-	$(".wrap_rmat_content").append('<div id="wrapselect'+num+'" class="row rmat_content">'+txt+'</div>');
-	setDropdownList('#select'+num);
+	$(".wrap_rmat_content").append('<div id="wrapselect'+num0+'" class="row rmat_content">'+txt+'</div>');
+	setDropdownList('#select'+num0);
 
-	var tmp_num = num;
+	var tmp_num = num0;
 	if(setval) {
 		setDefault(tmp_num);
 	}
 
-	num++;
+	num0++;
 }
 function setDefault(num_set) {
 	$('#select'+num_set).val(record_shop_food_menu_composition[num_set-1].rmat_id).trigger('change');
 	$(".amount:eq("+num_set+")").val(record_shop_food_menu_composition[num_set-1].amount);
-	$(".old_id:eq("+num_set+")").val(record_shop_food_menu_composition[num_set-1].self_food_id);
+	$(".old_id:eq("+num_set+")").val(record_shop_food_menu_composition[num_set-1].food_id);
 }
 
 $("#btn_comp").click(function(){
@@ -276,3 +303,98 @@ function del(node) {
 	//alert($(this));
 	$(node).parent().parent().remove();
 };
+
+
+// Images script
+$(document).ready(function() {
+    document.getElementById('pro-image').addEventListener('change', readImage, false);
+    
+    $( ".preview-images-zone" ).sortable();
+    
+    $(document).on('click', '.image-cancel', function() {
+
+    	let no = $(this).data('no');
+		var fdata = 'image_id='+$(this).data('image_id');
+		fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
+		$.ajax({
+			method: 'POST',
+			url: site_url('restaurant/shop_food_menu/deleteFoodImage'),
+			dataType: 'json',
+			data:fdata,
+			success: function (results) {
+				console.log(results);
+        		$(".preview-image.preview-show-"+no).remove();
+			},
+			error : function(jqXHR, exception){
+				ajaxErrorMessage(jqXHR, exception);
+			}
+		});
+    });
+});
+
+function readImage() {
+
+    if (window.File && window.FileList && window.FileReader) {
+        var files = event.target.files; //FileList object
+        var output = $(".preview-images-zone");
+
+        for (let i = 0; i < files.length; i++) {
+            var file = files[i];
+            //console.log(file);
+            if (!file.type.match('image')) continue;
+            
+            var picReader = new FileReader();
+            
+            picReader.addEventListener('load', function (event) {
+                var picFile = event.target;
+				var fdata = $('#formAdd #pro-image').serialize();
+				fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name)+'&filename='+file.name+"&blob="+picFile.result;
+				//console.log(fdata);
+				fdata += '&food_id='+data_id;
+				$.ajax({
+					method: 'POST',
+					url: site_url('restaurant/shop_food_menu/uploadfile'),
+					dataType: 'json',
+					data : fdata,
+					success: function (results) {
+						console.log(results);
+						//console.log('Upload image '+num+' success');
+
+						if(results.is_successful){
+							alert_type = 'success';
+						}else{
+							alert_type = 'danger';
+						}
+						notify('อัปโหลดสำเร็จ', results.message, alert_type, 'center');
+						//loading_on_remove(obj);
+
+						if(results.is_successful){
+							//$('#formAdd')[0].reset();
+                			var html =  '<div class="preview-image preview-show-' + num + '">' +
+                            '<div data-image_id="'+results.id+'" class="image-cancel" data-no="' + num + '">x</div>' +
+                            '<div class="image-zone"><img id="pro-img-' + num + '" src="' + picFile.result + '"></div>' +
+                            //'<div class="tools-edit-image"><a href="javascript:void(0)" data-no="' + num + '" class="btn btn-light btn-edit-image">edit</a></div>' +
+                            '</div>';
+
+							add_array.push(results.id);
+							output.append(html);
+                			num = num + 1;
+						}
+					},
+					error : function(jqXHR, exception){
+						ajaxErrorMessage(jqXHR, exception);
+							//loading_on_remove(obj);
+					}
+				});
+
+            });
+
+            picReader.readAsDataURL(file);
+
+        }
+        $("#pro-image").val('');
+    } else {
+        console.log('Browser not support');
+    }
+}
+// end Images script

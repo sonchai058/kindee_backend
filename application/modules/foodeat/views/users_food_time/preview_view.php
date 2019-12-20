@@ -50,7 +50,7 @@
 					<td>{foodIdSelfFoodName} {foodIdEnergyAmt}</td>
 				</tr>
 					<tr>
-						<td class="text-right fit"><b>พลังงาน :</b></td>
+						<td class="text-right fit"><b>พลังงาน (K) :</b></td>
 						<td>{record_food_energy}</td>
 					</tr>
 					<tr>

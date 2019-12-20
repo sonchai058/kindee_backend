@@ -48,7 +48,7 @@ class Users_food_time_model extends MY_Model
 				,'eat_time' => $post['eat_time']
 				,'date_eat' => setDateToStandard($post['date_eat'])
 				,'food_id' => $post['food_id']
-				,'food_energy' => str_replace(",", "", $post['food_energy'])
+				,'food_energy' => (str_replace(",", "", $post['food_energy'])*1000)
 				,'fag_allow' => $post['fag_allow']
 		);
 		return $this->add_record($data);
@@ -134,12 +134,12 @@ class Users_food_time_model extends MY_Model
 	public function update($post)
 	{
 		$data = array(
-				'user_id' => $post['user_id']
-				,'food_source' => $post['food_source']
+				//'user_id' => $post['user_id']
+				'food_source' => $post['food_source']
 				,'eat_time' => $post['eat_time']
 				,'date_eat' => setDateToStandard($post['date_eat'])
 				,'food_id' => $post['food_id']
-				,'food_energy' => str_replace(",", "",$post['food_energy'])
+				,'food_energy' => (str_replace(",", "",$post['food_energy'])*1000)
 				,'fag_allow' => $post['fag_allow']
 		);
 

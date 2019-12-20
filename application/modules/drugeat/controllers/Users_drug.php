@@ -210,10 +210,10 @@ class Users_drug extends CRUD_Controller
 		$this->load->library('form_validation');
 		$frm = $this->form_validation;
 
-		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim|required|is_natural');
+		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim');
 		$frm->set_rules('drug_name', 'ชื่อ', 'trim|required');
 		$frm->set_rules('eat_time', 'ก่อน/หลังอาหาร [ก่อนอาหาร=ก่อนอาหาร,หลังอาหาร=หลังอาหาร]', 'trim|required');
-		$frm->set_rules('date_eat', 'เวลา', 'trim|required');
+		$frm->set_rules('date_eat', 'เวลา', 'required');
 		$frm->set_rules('fag_allow', 'สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]', 'trim|required');
 
 		$frm->set_message('required', '- กรุณากรอก %s');
@@ -241,10 +241,10 @@ class Users_drug extends CRUD_Controller
 		$this->load->library('form_validation');
 		$frm = $this->form_validation;
 
-		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim|required|is_natural');
+		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim');
 		$frm->set_rules('drug_name', 'ชื่อ', 'trim|required');
 		$frm->set_rules('eat_time', 'ก่อน/หลังอาหาร [ก่อนอาหาร=ก่อนอาหาร,หลังอาหาร=หลังอาหาร]', 'trim|required');
-		$frm->set_rules('date_eat', 'เวลา', 'trim|required');
+		$frm->set_rules('date_eat', 'เวลา', 'required');
 		$frm->set_rules('fag_allow', 'สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]', 'trim|required');
 
 		$frm->set_message('required', '- กรุณากรอก %s');
@@ -280,8 +280,10 @@ class Users_drug extends CRUD_Controller
 		} else {
 
 			$post = $this->input->post(NULL, TRUE);
+			//die(print_r($post));
 
 			$encrypt_id = '';
+			$post['user_id'] = get_session('user_id');
 			$id = $this->Users_drug->create($post);
 			if($id != ''){
 				$success = TRUE;
@@ -454,7 +456,10 @@ class Users_drug extends CRUD_Controller
 			$data[$i]['encrypt_drug_id'] = $pk1;
 			$data[$i]['preview_eat_time'] = $this->setEatTimeSubject($data[$i]['eat_time']);
 			$data[$i]['preview_fag_allow'] = $this->setFagAllowSubject($data[$i]['fag_allow']);
-			$data[$i]['date_eat'] = setThaiDate($data[$i]['date_eat']);
+			
+			$data[$i]['date_eat'] = substr($data[$i]['date_eat'],11,5);
+			//$data[$i]['date_eat'] = setThaiDate($data[$i]['date_eat']);
+			
 			$data[$i]['datetime_delete'] = setThaiDate($data[$i]['datetime_delete']);
 			$data[$i]['datetime_add'] = setThaiDate($data[$i]['datetime_add']);
 			$data[$i]['datetime_update'] = setThaiDate($data[$i]['datetime_update']);
@@ -535,7 +540,10 @@ class Users_drug extends CRUD_Controller
 		$this->data['record_drug_name'] = $data['drug_name'];
 		$this->data['preview_eat_time'] = $this->setEatTimeSubject($data['eat_time']);
 		$this->data['record_eat_time'] = $data['eat_time'];
-		$this->data['record_date_eat'] = $data['date_eat'];
+
+		$this->data['record_date_eat'] = substr($data['date_eat'],11,5);
+		//$this->data['record_date_eat'] = $data['date_eat'];
+		
 		$this->data['record_user_delete'] = $data['user_delete'];
 		$this->data['record_datetime_delete'] = $data['datetime_delete'];
 		$this->data['record_user_add'] = $data['user_add'];
@@ -545,7 +553,7 @@ class Users_drug extends CRUD_Controller
 		$this->data['preview_fag_allow'] = $this->setFagAllowSubject($data['fag_allow']);
 		$this->data['record_fag_allow'] = $data['fag_allow'];
 
-		$this->data['record_date_eat'] = setThaiDate($data['date_eat']);
+		//$this->data['record_date_eat'] = setThaiDate($data['date_eat']);
 		$this->data['record_datetime_delete'] = setThaiDate($data['datetime_delete']);
 		$this->data['record_datetime_add'] = setThaiDate($data['datetime_add']);
 		$this->data['record_datetime_update'] = setThaiDate($data['datetime_update']);

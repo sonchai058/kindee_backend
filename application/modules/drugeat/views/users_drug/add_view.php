@@ -8,6 +8,7 @@
 		<div class="card-body">
 			<form class="form-horizontal" id="formAdd" accept-charset="utf-8">
 				{csrf_protection_field}
+				<!--
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="user_id">ชื่อสมาชิก  :</label>
 					<div class="col-sm-10">
@@ -17,43 +18,44 @@
 					</select>
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="drug_name">ชื่อ  :</label>
-					<div class="col-sm-10">
-
+			-->
+				<div class="row">
+					<div class="col-sm-12 col-md-4">
+						<label class="col-sm-4 control-label" for="drug_name">ชื่อยา  :</label>
 						<input type="text" class="form-control " id="drug_name" name="drug_name" value=""  />
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="eat_time">ก่อน/หลังอาหาร  :</label>
-					<div class="col-sm-10">
-
-						<select id="eat_time" name="eat_time" value="" >
-							<option value="">- เลือก ก่อน/หลังอาหาร -</option>
+				
+					<div class="col-sm-12 col-md-4">
+						<label class="col-sm-6 control-label" for="eat_time">ก่อน/หลังอาหาร  :</label><br/>
+						<select id="eat_time" name="eat_time" value="ก่อนอาหาร" >
+							<!-- <option value="">- เลือก ก่อน/หลังอาหาร -</option> -->
 							<option value="ก่อนอาหาร">ก่อนอาหาร</option>
 							<option value="หลังอาหาร">หลังอาหาร</option>
 						</select>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="date_eat">เวลา  :</label>
-					<div class="col-sm-10">
 
-						<input type="text" class="form-control  datepicker" id="date_eat" name="date_eat" value=""  />
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="fag_allow">สถานะ  :</label>
-					<div class="col-sm-10">
-
-						<select id="fag_allow" name="fag_allow" value="" >
-							<option value="">- เลือก สถานะ -</option>
+					<div class="col-sm-12 col-md-4">
+						<label class="col-sm-4 control-label" for="fag_allow">สถานะ  :</label><br/>
+						<select id="fag_allow" name="fag_allow" value="allow" >
+							<!--<option value="">- เลือก สถานะ -</option>-->
 							<option value="allow">ปกติ</option>
 							<option value="block">ระงับ</option>
 							<option value="delete">ลบ</option>
 						</select>
 					</div>
+
 				</div>
+
+				<div class="row">
+					<div class="col-sm-12 col-md-4">
+						<label class="col-sm-4 control-label" for="date_eat">เวลา  :</label><br/>
+						<input type="time" class="form-control" id="date_eat" name="date_eat" value=""  />
+					</div>
+
+				</div>
+
+				<br/>
+
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<input type="hidden" id="add_encrypt_id" />

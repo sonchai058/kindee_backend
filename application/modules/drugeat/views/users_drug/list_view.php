@@ -20,11 +20,13 @@
 					<a href="{page_url}" class="btn btn-info">ทั้งหมด</a>
 					<div class="form-group">
 						<select  class="form-control" name="search_field" class="span2">
+							<!--
 					<option value="user_id">รหัสสมาชิก</option>
 					<option value="drug_name">ชื่อ</option>
-					<option value="eat_time">ก่อน/หลังอาหาร [ก่อนอาหาร=ก่อนอาหาร,หลังอาหาร=หลังอาหาร]</option>
+				-->
+					<option value="eat_time">ก่อน/หลังอาหาร</option>
 					<option value="user_update">ผู้อัปเดต</option>
-					<option value="fag_allow">สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]</option>
+					<!-- <option value="fag_allow">สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]</option>-->
 						</select>
  					</div>
 					<div class="form-group">
@@ -41,7 +43,8 @@
 					<div class="form-group">
 						<select  class="form-control" id="set_order_by" class="span2" value="{order_by}">
 					<option value="">- จัดเรียงตาม -</option>
-					<option value="user_id|asc">รหัสสมาชิก น้อย - มาก</option><option value="user_id|desc">รหัสสมาชิก มาก - น้อย</option><option value="drug_name|asc">ชื่อ ก - ฮ</option><option value="drug_name|desc">ชื่อ ฮ - ก</option><option value="eat_time|asc">ก่อน/หลังอาหาร [ก่อนอาหาร=ก่อนอาหาร,หลังอาหาร=หลังอาหาร] น้อย - มาก</option><option value="eat_time|desc">ก่อน/หลังอาหาร [ก่อนอาหาร=ก่อนอาหาร,หลังอาหาร=หลังอาหาร] มาก - น้อย</option><option value="user_update|asc">ผู้อัปเดต น้อย - มาก</option><option value="user_update|desc">ผู้อัปเดต มาก - น้อย</option><option value="fag_allow|asc">สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ] น้อย - มาก</option><option value="fag_allow|desc">สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ] มาก - น้อย</option>
+					<!--
+					<option value="user_id|asc">รหัสสมาชิก น้อย - มาก</option><option value="user_id|desc">รหัสสมาชิก มาก - น้อย</option><option value="drug_name|asc">ชื่อ ก - ฮ</option><option value="drug_name|desc">ชื่อ ฮ - ก</option>--><option value="eat_time|asc">ก่อน/หลังอาหาร น้อย - มาก</option><option value="eat_time|desc">ก่อน/หลังอาหาร มาก - น้อย</option><option value="user_update|asc">ผู้อัปเดต น้อย - มาก</option><option value="user_update|desc">ผู้อัปเดต มาก - น้อย</option><!--<option value="fag_allow|asc">สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ] น้อย - มาก</option><option value="fag_allow|desc">สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ] มาก - น้อย</option>-->
 						</select>
  					</div>
 				</div>
@@ -66,13 +69,10 @@
 				<thead class="info">
 					<tr bgcolor="#dddddd">
 						<th width="20px;">#</th>
-						<th>ชื่อ</th>
+						<th>ชื่อยา</th>
 						<th>ก่อน/หลังอาหาร</th>
 						<th>เวลา</th>
-						<th>ผู้อัปเดต</th>
-						<th>วันเวลา ที่อัปเดต</th>
-						<th>สถานะ</th>
-						<th class="text-center" style="width:200px">จัดการข้อมูล</th>
+						<th class="text-center" style="width:200px">เครื่องมือ</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -81,9 +81,6 @@
 						<td>{drug_name}</td>
 						<td>{preview_eat_time}</td>
 						<td>{date_eat}</td>
-						<td>{userUpdateUserFname}</td>
-						<td>{datetime_update}</td>
-						<td>{preview_fag_allow}</td>
 						<td>
 							<div class="btn-group pull-right">
 								<a href="{page_url}/preview/{url_encrypt_id}" 

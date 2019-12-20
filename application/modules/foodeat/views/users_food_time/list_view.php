@@ -21,11 +21,13 @@
 					<div class="form-group">
 						<select  class="form-control" name="search_field" class="span2">
 					<option value="user_id">รหัสสมาชิก</option>
-					<option value="food_source">แหล่งอาหาร [เมนูจากระบบ=เมนูจากระบบ,เมนูปรุงเอง=เมนูปรุงเอง]</option>
-					<option value="eat_time">มื้ออาหาร [เช้า=เช้า,กลางวัน=กลางวัน,เย็น=เย็น]</option>
+					<option value="food_source">แหล่งอาหาร</option>
+					<option value="eat_time">มื้ออาหาร</option>
 					<option value="food_id">เมนูอาหาร</option>
+				<!--	
 					<option value="datetime_update">วันเวลา ที่อัปเดต</option>
 					<option value="fag_allow">สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]</option>
+				-->
 						</select>
  					</div>
 					<div class="form-group">
@@ -42,7 +44,7 @@
 					<div class="form-group">
 						<select  class="form-control" id="set_order_by" class="span2" value="{order_by}">
 					<option value="">- จัดเรียงตาม -</option>
-					<option value="user_id|asc">รหัสสมาชิก น้อย - มาก</option><option value="user_id|desc">รหัสสมาชิก มาก - น้อย</option><option value="food_source|asc">แหล่งอาหาร [เมนูจากระบบ=เมนูจากระบบ,เมนูปรุงเอง=เมนูปรุงเอง] น้อย - มาก</option><option value="food_source|desc">แหล่งอาหาร [เมนูจากระบบ=เมนูจากระบบ,เมนูปรุงเอง=เมนูปรุงเอง] มาก - น้อย</option><option value="eat_time|asc">มื้ออาหาร [เช้า=เช้า,กลางวัน=กลางวัน,เย็น=เย็น] น้อย - มาก</option><option value="eat_time|desc">มื้ออาหาร [เช้า=เช้า,กลางวัน=กลางวัน,เย็น=เย็น] มาก - น้อย</option><option value="food_id|asc">เมนูอาหาร น้อย - มาก</option><option value="food_id|desc">เมนูอาหาร มาก - น้อย</option><option value="datetime_update|asc">วันเวลา ที่อัปเดต เก่า - ใหม่</option><option value="datetime_update|desc">วันเวลา ที่อัปเดต ใหม่ - เก่า</option><option value="fag_allow|asc">สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ] น้อย - มาก</option><option value="fag_allow|desc">สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ] มาก - น้อย</option>
+					<option value="user_id|asc">รหัสสมาชิก น้อย - มาก</option><option value="user_id|desc">รหัสสมาชิก มาก - น้อย</option><option value="food_source|asc">แหล่งอาหาร น้อย - มาก</option><option value="food_source|desc">แหล่งอาหาร มาก - น้อย</option><option value="eat_time|asc">มื้ออาหาร น้อย - มาก</option><option value="eat_time|desc">มื้ออาหาร มาก - น้อย</option><option value="food_id|asc">เมนูอาหาร น้อย - มาก</option><option value="food_id|desc">เมนูอาหาร มาก - น้อย</option><!--<option value="datetime_update|asc">วันเวลา ที่อัปเดต เก่า - ใหม่</option><option value="datetime_update|desc">วันเวลา ที่อัปเดต ใหม่ - เก่า</option><option value="fag_allow|asc">สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ] น้อย - มาก</option><option value="fag_allow|desc">สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ] มาก - น้อย</option>-->
 						</select>
  					</div>
 				</div>
@@ -67,26 +69,20 @@
 				<thead class="info">
 					<tr bgcolor="#dddddd">
 						<th width="20px;">#</th>
-						<th>มื้ออาหาร</th>
 						<th>วันที่</th>
+						<th>มื้ออาหาร</th>
 						<th>เมนูอาหาร</th>
-						<th>พลังงาน</th>
-						<th>ผู้อัปเดต</th>
-						<th>วันเวลา ที่อัปเดต</th>
-						<th>สถานะ</th>
+						<th>พลังงาน (K)</th>
 						<th class="text-center" style="width:200px">จัดการข้อมูล</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr parser-repeat="[data_list]" id="row_{record_number}">
 						<td style="text-align:center;">[{record_number}]</td>
-						<td>{preview_eat_time}</td>
 						<td>{date_eat}</td>
-						<td>{foodIdSelfFoodName} {foodIdEnergyAmt}</td>
+						<td>{preview_eat_time}</td>
+						<td>{foodIdSelfFoodName}</td>
 						<td>{food_energy}</td>
-						<td>{user_update}</td>
-						<td>{datetime_update}</td>
-						<td>{preview_fag_allow}</td>
 						<td>
 							<div class="btn-group pull-right">
 								<a href="{page_url}/preview/{url_encrypt_id}" 

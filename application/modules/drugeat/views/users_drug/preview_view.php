@@ -34,7 +34,7 @@
 					<td>{userIdUserFname}</td>
 				</tr>
 					<tr>
-						<td class="text-right fit"><b>ชื่อ :</b></td>
+						<td class="text-right fit"><b>ชื่อยา :</b></td>
 						<td>{record_drug_name}</td>
 					</tr>
 					<tr>

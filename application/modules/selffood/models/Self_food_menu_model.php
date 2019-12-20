@@ -41,11 +41,15 @@ class Self_food_menu_model extends MY_Model
 
 	public function create($post)
 	{
-
+		$food_source = 'เมนูจากระบบ';
+		if($this->session->userdate('user_level')=='user' || $this->session->userdate('user_level')=='super_user') {
+			$food_source = 'เมนูปรุงเอง';
+		}
 		$data = array(
 				'self_food_name' => $post['self_food_name']
 				,'cate_id' => $post['cate_id']
 				,'fag_allow' => $post['fag_allow']
+				,'food_source' => $food_source
 		);
 		return $this->add_record($data);
 	}

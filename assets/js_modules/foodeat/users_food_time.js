@@ -58,7 +58,8 @@ var UsersFoodTime = {
 					loading_on_remove(obj);
 
 					if(results.is_successful){
-					$('#formAdd')[0].reset();
+						$('#formAdd')[0].reset();
+						$("#food_id").select2("val", "");
 					}
 				},
 				error : function(jqXHR, exception){
@@ -166,6 +167,7 @@ var UsersFoodTime = {
 
 }
 
+var food_id_content = $('#food_id > option').clone();
 $(document).ready(function() {
 
 	$(document).on('change','#set_order_by',function(){
@@ -218,4 +220,34 @@ $(document).ready(function() {
 	//Set default selected
 	setDatePicker('.datepicker');
 
+});
+
+$('#food_id').change(function (e) {
+	var arrtmp = $('#food_id option:selected').html();
+	var arr = arrtmp.split(" ")
+    $("#food_energy").val(arr[arr.length-1]);
+});
+
+
+
+$('#food_source').change(function (e) {
+	$('#food_id').val("");
+	$('#food_id').trigger('change');
+	$("#food_energy").val("");
+
+	if($('#food_source').val()!='') {
+		$('#food_id').html("");
+		$('#food_id').html(food_id_content);
+		setDropdownList('#food_id');
+	}
+
+	if($('#food_source').val()=='เมนูจากระบบ') {
+		$.each($("#food_id > option[data-val='เมนูปรุงเอง']"),function(key,val){
+			$(this).remove();
+		});
+	}else if($('#food_source').val()=='เมนูปรุงเอง') {
+		$.each($("#food_id > option[data-val='เมนูจากระบบ']"),function(key,val){
+			$(this).remove();
+		});
+	}
 });

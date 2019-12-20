@@ -41,12 +41,13 @@ class Users_drug_model extends MY_Model
 
 	public function create($post)
 	{
+		$date_eat = "0000-00-00"." ".$post['date_eat'].":00";
 
 		$data = array(
 				'user_id' => $post['user_id']
 				,'drug_name' => $post['drug_name']
 				,'eat_time' => $post['eat_time']
-				,'date_eat' => setDateToStandard($post['date_eat'])
+				,'date_eat' => $date_eat
 				,'fag_allow' => $post['fag_allow']
 		);
 		return $this->add_record($data);
@@ -134,11 +135,12 @@ class Users_drug_model extends MY_Model
 
 	public function update($post)
 	{
+		$date_eat = "0000-00-00"." ".$post['date_eat'].":00";
 		$data = array(
-				'user_id' => $post['user_id']
-				,'drug_name' => $post['drug_name']
+				//'user_id' => $post['user_id']
+				'drug_name' => $post['drug_name']
 				,'eat_time' => $post['eat_time']
-				,'date_eat' => setDateToStandard($post['date_eat'])
+				,'date_eat' => $date_eat
 				,'fag_allow' => $post['fag_allow']
 		);
 

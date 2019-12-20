@@ -8,73 +8,76 @@
 		<div class="card-body">
 			<form class="form-horizontal" id="formAdd" accept-charset="utf-8">
 				{csrf_protection_field}
+			<!--	
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="user_id">ชื่อสมาชิก  :</label>
 					<div class="col-sm-10">
 					<select  id="user_id" name="user_id" value="">
-						<option value="">- เลือก ชื่อสมาชิก -</option>
+						<!-- <option value="">- เลือก ชื่อสมาชิก -</option>-->
+			<!--
 						{users_user_id_option_list}
 					</select>
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="food_source">แหล่งอาหาร  :</label>
-					<div class="col-sm-10">
+			-->
+				<div class="row">
+					
+					<div class="col-sm-12 col-md-4">
+						<label class="col-sm-4 control-label" for="date_eat">วันที่  :</label>
+						<input type="text" class="form-control  datepicker" id="date_eat" name="date_eat" value=""  />
+					</div>
 
+					<div class="col-sm-12 col-md-4">
+						<label class="col-sm-4 control-label" for="eat_time">มื้ออาหาร  :</label><br/>
+						<select id="eat_time" name="eat_time" value="เช้า" >
+							<!--<option value="">- เลือก มื้ออาหาร -</option>-->
+							<option value="เช้า">เช้า</option>
+							<option value="กลางวัน">กลางวัน</option>
+							<option value="เย็น">เย็น</option>
+						</select>
+					</div>
+
+					<div class="col-sm-12 col-md-4">
+						<label class="col-sm-4 control-label" for="fag_allow">สถานะ  :</label><br/>
+						<select id="fag_allow" name="fag_allow" value="allow" >
+							<!-- <option value="">- เลือก สถานะ -</option> -->
+							<option value="allow">ปกติ</option>
+							<option value="block">ระงับ</option>
+							<option value="delete">ลบ</option>
+						</select>
+					</div>
+
+				</div>
+
+				<div class="row">
+					<div class="col-sm-12 col-md-4">
+						<label class="col-sm-4 control-label" for="food_source">แหล่งอาหาร  :</label><br/>
 						<select id="food_source" name="food_source" value="" >
 							<option value="">- เลือก แหล่งอาหาร -</option>
 							<option value="เมนูจากระบบ">เมนูจากระบบ</option>
 							<option value="เมนูปรุงเอง">เมนูปรุงเอง</option>
 						</select>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="eat_time">มื้ออาหาร  :</label>
-					<div class="col-sm-10">
 
-						<select id="eat_time" name="eat_time" value="" >
-							<option value="">- เลือก มื้ออาหาร -</option>
-							<option value="เช้า">เช้า</option>
-							<option value="กลางวัน">กลางวัน</option>
-							<option value="เย็น">เย็น</option>
+					<div class="col-sm-12 col-md-4">
+						<label class="col-sm-4 control-label" for="food_id">เมนูอาหาร  :</label><br/>
+						<select  id="food_id" name="food_id" value="">
+							<option value="">- เลือก เมนูอาหาร -</option>
+							{self_food_menu_food_id_option_list}
 						</select>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="date_eat">วันที่  :</label>
-					<div class="col-sm-10">
 
-						<input type="text" class="form-control  datepicker" id="date_eat" name="date_eat" value=""  />
-					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="food_id">เมนูอาหาร  :</label>
-					<div class="col-sm-10">
-					<select  id="food_id" name="food_id" value="">
-						<option value="">- เลือก เมนูอาหาร -</option>
-						{self_food_menu_food_id_option_list}
-					</select>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="food_energy">พลังงาน  :</label>
-					<div class="col-sm-10">
 
-						<input type="text" class="form-control " id="food_energy" name="food_energy" value=""  />
+				<br/>
+				<div class="row">
+					<div class="col-sm-12 col-md-4">
+						<label class="col-sm-6 control-label" for="food_energy">พลังงานที่ได้รับ(K)  :</label>
+						<input type="number" step="0.01" readonly="true" class="form-control " id="food_energy" name="food_energy" value=""  />
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="fag_allow">สถานะ  :</label>
-					<div class="col-sm-10">
+				<br/>
 
-						<select id="fag_allow" name="fag_allow" value="" >
-							<option value="">- เลือก สถานะ -</option>
-							<option value="allow">ปกติ</option>
-							<option value="block">ระงับ</option>
-							<option value="delete">ลบ</option>
-						</select>
-					</div>
-				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-2 col-sm-10">
 						<input type="hidden" id="add_encrypt_id" />

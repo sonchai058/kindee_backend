@@ -9,6 +9,7 @@
 			<form class='form-horizontal' id='formEdit' accept-charset='utf-8'>
 				{csrf_protection_field}
 				<input type="hidden" name="submit_case" value="edit" />
+				<!--
 				<div class='form-group'>
 					<label class='col-sm-2 control-label' for='user_id'>ชื่อสมาชิก  :</label>
 					<div class='col-sm-10'>
@@ -18,16 +19,16 @@
 					</select>
 					</div>
 				</div>
-				<div class='form-group'>
-					<label class='col-sm-2 control-label' for='drug_name'>ชื่อ  :</label>
-					<div class='col-sm-10'>
+			-->
+				<div class="row">
+					<div class="col-sm-12 col-md-4">
+						<label class="col-sm-4 control-label" for="drug_name">ชื่อยา  :</label>
 
 						<input type="text" class="form-control " id="drug_name" name="drug_name" value="{record_drug_name}"  />
 					</div>
-				</div>
-				<div class='form-group'>
-					<label class='col-sm-2 control-label' for='eat_time'>ก่อน/หลังอาหาร  :</label>
-					<div class='col-sm-10'>
+
+					<div class="col-sm-12 col-md-4">
+						<label class="col-sm-6 control-label" for="eat_time">ก่อน/หลังอาหาร  :</label><br/>
 
 						<select id="eat_time" name="eat_time" value="{record_eat_time}" >
 							<option value="">- เลือก ก่อน/หลังอาหาร -</option>
@@ -35,17 +36,9 @@
 							<option value="หลังอาหาร">หลังอาหาร</option>
 						</select>
 					</div>
-				</div>
-				<div class='form-group'>
-					<label class='col-sm-2 control-label' for='date_eat'>เวลา  :</label>
-					<div class='col-sm-10'>
 
-						<input type="text" class="form-control  datepicker" id="date_eat" name="date_eat" value="{record_date_eat}"  />
-					</div>
-				</div>
-				<div class='form-group'>
-					<label class='col-sm-2 control-label' for='fag_allow'>สถานะ  :</label>
-					<div class='col-sm-10'>
+					<div class="col-sm-12 col-md-4">
+						<label class="col-sm-4 control-label" for="fag_allow">สถานะ  :</label><br/>
 
 						<select id="fag_allow" name="fag_allow" value="{record_fag_allow}" >
 							<option value="">- เลือก สถานะ -</option>
@@ -55,6 +48,17 @@
 						</select>
 					</div>
 				</div>
+
+				<div class="row">
+					<div class="col-sm-12 col-md-4">
+						<label class="col-sm-4 control-label" for="date_eat">เวลา  :</label><br/>
+
+						<input type="time" class="form-control" id="date_eat" name="date_eat" value="{record_date_eat}"  />
+					</div>
+				</div>
+
+				<br/>
+
 				<div class='form-group'>
 					<div class='col-sm-offset-2 col-sm-10'>
 						<button  type="button" class='btn btn-primary btn-lg'  data-toggle='modal' data-target='#editModal' >&nbsp;&nbsp;<i class="fa fa-save"></i> บันทึก &nbsp;&nbsp;</button>

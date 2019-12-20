@@ -59,7 +59,15 @@ class MY_Model extends CI_Model
     {
     	$num = 0;
     	$this->set_query_parameter();
-    	if($query = $this->db->where($this->_table_name.".fag_allow!='delete'")->get($this->_table_name)){
+
+    	$where = '';
+    	if($this->_table_name=='self_food_menu' && $this->session->userdata("user_level")=='admin') {
+    		$where = " and {$this->_table_name}.food_source='เมนูจากระบบ'";
+    	}else if($this->_table_name=='self_food_menu' && ($this->session->userdata("user_level")=='user' || $this->session->userdata("user")=='super_user')){
+    		$where = " and {$this->_table_name}.food_source='เมนูปรุงเอง'";
+    	}
+
+    	if($query = $this->db->where($this->_table_name.".fag_allow!='delete' {$where} ")->get($this->_table_name)){
     		$num = $query->num_rows();
     	}
     	return $num;
@@ -75,8 +83,16 @@ class MY_Model extends CI_Model
     {
     	$data = array();
         $this->set_query_parameter();
+
+    	$where = '';
+    	if($this->_table_name=='self_food_menu' && $this->session->userdata("user_level")=='admin') {
+    		$where = " and {$this->_table_name}.food_source='เมนูจากระบบ'";
+    	}else if($this->_table_name=='self_food_menu' && ($this->session->userdata("user_level")=='user' || $this->session->userdata("user")=='super_user')){
+    		$where = " and {$this->_table_name}.food_source='เมนูปรุงเอง'";
+    	}
+
 		$this->db->from($this->_table_name);
-        if($query = $this->db->where($this->_table_name.".fag_allow!='delete'")->get()){
+        if($query = $this->db->where($this->_table_name.".fag_allow!='delete' {$where}")->get()){
         	$data = $query->result_array();
         }
         return $data;
@@ -413,14 +429,31 @@ class MY_Model extends CI_Model
 
 		$list = '';
 		$order_by = 'ORDER BY '. $order_by;
-		$sql = "SELECT $field_value, $field_text FROM $table $where $order_by";
+		
+		$and = "and";
+		if($where=='') {
+			$and ='where';
+		}
+
+		$field_value_txt = $field_value;
+		if($table=='self_food_menu') {
+			$field_value_txt = $field_value.',food_source';
+		}
+
+		$sql = "SELECT $field_value_txt, $field_text FROM $table $where $and fag_allow='allow' $order_by";
 		$qry = $this->db->query($sql);
 		foreach ($qry->result_array() as $row) {
 			$selected = '';
 			if($select_value == $row[$field_value]){
 				$selected = 'selected="selected"';
 			}
-			$option = '<option value="'. $row[$field_value] . '" '.$selected.'>' . $row[$field_text] . '</option>';
+
+			$data_val = $row[$field_value];
+			if($table=='self_food_menu') {
+				$data_val = $row['food_source'];
+			}
+
+			$option = '<option data-val="'.$data_val.'" value="'. $row[$field_value] . '" '.$selected.'>' . $row[$field_text] . '</option>';
 			if($ret == true){
 				$list .= $option;
 			}else{

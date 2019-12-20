@@ -193,7 +193,7 @@ class Users_food_time extends CRUD_Controller
 						array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 		$this->data['users_user_id_option_list'] = $this->Users_food_time->returnOptionList("users", "user_id", "user_fname");
-		$this->data['self_food_menu_food_id_option_list'] = $this->Users_food_time->returnOptionList("self_food_menu", "self_food_id", "CONCAT_WS(' - ', self_food_name,energy_amt)");
+		$this->data['self_food_menu_food_id_option_list'] = $this->Users_food_time->returnOptionList("self_food_menu", "self_food_id", "CONCAT_WS(' - พลังงาน ', self_food_name,TRUNCATE(energy_amt/1000,2))");
 		$this->render_view('foodeat/users_food_time/add_view'); 
 	}
 
@@ -208,12 +208,12 @@ class Users_food_time extends CRUD_Controller
 		$this->load->library('form_validation');
 		$frm = $this->form_validation;
 
-		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim|required|is_natural');
+		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim');
 		$frm->set_rules('food_source', 'แหล่งอาหาร [เมนูจากระบบ=เมนูจากระบบ,เมนูปรุงเอง=เมนูปรุงเอง]', 'trim|required');
 		$frm->set_rules('eat_time', 'มื้ออาหาร [เช้า=เช้า,กลางวัน=กลางวัน,เย็น=เย็น]', 'trim|required');
 		$frm->set_rules('date_eat', 'วันที่', 'trim|required');
 		$frm->set_rules('food_id', 'เมนูอาหาร', 'trim|required|is_natural');
-		$frm->set_rules('food_energy', 'พลังงาน', 'trim|required|decimal');
+		$frm->set_rules('food_energy', 'พลังงาน', 'trim|required');
 		$frm->set_rules('fag_allow', 'สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]', 'trim|required');
 
 		$frm->set_message('required', '- กรุณากรอก %s');
@@ -244,12 +244,12 @@ class Users_food_time extends CRUD_Controller
 		$this->load->library('form_validation');
 		$frm = $this->form_validation;
 
-		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim|required|is_natural');
+		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim');
 		$frm->set_rules('food_source', 'แหล่งอาหาร [เมนูจากระบบ=เมนูจากระบบ,เมนูปรุงเอง=เมนูปรุงเอง]', 'trim|required');
 		$frm->set_rules('eat_time', 'มื้ออาหาร [เช้า=เช้า,กลางวัน=กลางวัน,เย็น=เย็น]', 'trim|required');
 		$frm->set_rules('date_eat', 'วันที่', 'trim|required');
 		$frm->set_rules('food_id', 'เมนูอาหาร', 'trim|required|is_natural');
-		$frm->set_rules('food_energy', 'พลังงาน', 'trim|required|decimal');
+		$frm->set_rules('food_energy', 'พลังงาน', 'trim|required');
 		$frm->set_rules('fag_allow', 'สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]', 'trim|required');
 
 		$frm->set_message('required', '- กรุณากรอก %s');
@@ -290,6 +290,7 @@ class Users_food_time extends CRUD_Controller
 			$post = $this->input->post(NULL, TRUE);
 
 			$encrypt_id = '';
+			$post['user_id'] = get_session('user_id');
 			$id = $this->Users_food_time->create($post);
 			if($id != ''){
 				$success = TRUE;
@@ -338,7 +339,7 @@ class Users_food_time extends CRUD_Controller
 
 				$this->setPreviewFormat($results);
 				$this->data['users_user_id_option_list'] = $this->Users_food_time->returnOptionList("users", "user_id", "user_fname");
-				$this->data['self_food_menu_food_id_option_list'] = $this->Users_food_time->returnOptionList("self_food_menu", "self_food_id", "CONCAT_WS(' - ', self_food_name,energy_amt)");
+				$this->data['self_food_menu_food_id_option_list'] = $this->Users_food_time->returnOptionList("self_food_menu", "self_food_id", "CONCAT_WS(' - พลังงาน ', self_food_name,TRUNCATE(energy_amt/1000,2))");
 				$this->render_view('foodeat/users_food_time/edit_view');
 			}
 		}
@@ -460,7 +461,7 @@ class Users_food_time extends CRUD_Controller
 			$data[$i]['preview_eat_time'] = $this->setEatTimeSubject($data[$i]['eat_time']);
 			$data[$i]['preview_fag_allow'] = $this->setFagAllowSubject($data[$i]['fag_allow']);
 			$data[$i]['date_eat'] = setThaiDate($data[$i]['date_eat']);
-			$data[$i]['food_energy'] = number_format($data[$i]['food_energy'],2);
+			$data[$i]['food_energy'] = number_format(($data[$i]['food_energy']/1000),2);
 			$data[$i]['datetime_delete'] = setThaiDate($data[$i]['datetime_delete']);
 			$data[$i]['datetime_add'] = setThaiDate($data[$i]['datetime_add']);
 			$data[$i]['datetime_update'] = setThaiDate($data[$i]['datetime_update']);
@@ -559,7 +560,7 @@ class Users_food_time extends CRUD_Controller
 		$this->data['record_eat_time'] = $data['eat_time'];
 		$this->data['record_date_eat'] = $data['date_eat'];
 		$this->data['record_food_id'] = $data['food_id'];
-		$this->data['record_food_energy'] = $data['food_energy'];
+		$this->data['record_food_energy'] = ($data['food_energy']/1000);
 		$this->data['record_user_delete'] = $data['user_delete'];
 		$this->data['record_datetime_delete'] = $data['datetime_delete'];
 		$this->data['record_user_add'] = $data['user_add'];
@@ -570,7 +571,7 @@ class Users_food_time extends CRUD_Controller
 		$this->data['record_fag_allow'] = $data['fag_allow'];
 
 		$this->data['record_date_eat'] = setThaiDate($data['date_eat']);
-		$this->data['record_food_energy'] = number_format($data['food_energy'],2);
+		$this->data['record_food_energy'] = number_format(($data['food_energy']/1000),2);
 		$this->data['record_datetime_delete'] = setThaiDate($data['datetime_delete']);
 		$this->data['record_datetime_add'] = setThaiDate($data['datetime_add']);
 		$this->data['record_datetime_update'] = setThaiDate($data['datetime_update']);
