@@ -454,7 +454,7 @@ class Self_food_menu extends CRUD_Controller
 								'amount'=>$post['amount'][$key]
 							)
 						);
-						$id_self[] = $id_new;
+						//$id_self[] = $id_new;
 					}
 				}
 				if($energy_amt!=0) {

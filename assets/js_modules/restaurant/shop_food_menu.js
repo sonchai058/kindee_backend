@@ -1,4 +1,5 @@
-
+/*var add_array = [];*/
+var html_txt = $(".rmat_content_tmp").clone();
 var ShopFoodMenu = {
 
 	current_page : 0,
@@ -33,11 +34,11 @@ var ShopFoodMenu = {
 		if(loading_on(obj) == true){
 
 
-			var price_amt = removeComma($('#price_amt').val());
-			$('#price_amt').val(price_amt);
+			//var price_amt = removeComma($('#price_amt').val());
+			//$('#price_amt').val(price_amt);
 
-			var energy_amt = removeComma($('#energy_amt').val());
-			$('#energy_amt').val(energy_amt);
+			//var energy_amt = removeComma($('#energy_amt').val());
+			//$('#energy_amt').val(energy_amt);
 
 			var fdata = $('#formAdd').serialize();
 			fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
@@ -49,11 +50,17 @@ var ShopFoodMenu = {
 				data : fdata,
 				success: function (results) {
 
-					var price_amt = formatNumber($('#price_amt').val(), 2);
-					$('#price_amt').val(price_amt);
+					//var price_amt = formatNumber($('#price_amt').val(), 2);
+					//$('#price_amt').val(price_amt);
 
-					var energy_amt = formatNumber($('#energy_amt').val(), 2);
-					$('#energy_amt').val(energy_amt);
+					//var energy_amt = formatNumber($('#energy_amt').val(), 2);
+
+					//$('#energy_amt').val(energy_amt);
+					if(results.is_successful){
+						$('#formAdd')[0].reset();
+						num = 1;
+						$(".wrap_rmat_content").html("");
+					}
 
 					if(results.is_successful){
 						alert_type = 'success';
@@ -80,11 +87,11 @@ var ShopFoodMenu = {
 		$('#editModal').modal('hide');
 		var frm_action = site_url('restaurant/shop_food_menu/update');
 
-			var price_amt = removeComma($('#price_amt').val());
-			$('#price_amt').val(price_amt);
+			//var price_amt = removeComma($('#price_amt').val());
+			//$('#price_amt').val(price_amt);
 
-			var energy_amt = removeComma($('#energy_amt').val());
-			$('#energy_amt').val(energy_amt);
+			//var energy_amt = removeComma($('#energy_amt').val());
+			//$('#energy_amt').val(energy_amt);
 
 		var fdata = $('#formEdit').serialize();
 		//fdata += '&edit_remark=' + $('#edit_remark').val();
@@ -99,11 +106,11 @@ var ShopFoodMenu = {
 			data : fdata,
 			success: function (results) {
 
-					var price_amt = formatNumber($('#price_amt').val(), 2);
-					$('#price_amt').val(price_amt);
+					//var price_amt = formatNumber($('#price_amt').val(), 2);
+					//$('#price_amt').val(price_amt);
 
-					var energy_amt = formatNumber($('#energy_amt').val(), 2);
-					$('#energy_amt').val(energy_amt);
+					//var energy_amt = formatNumber($('#energy_amt').val(), 2);
+					//$('#energy_amt').val(energy_amt);
 
 				if(results.is_successful){
 					alert_type = 'success';
@@ -230,4 +237,42 @@ $(document).ready(function() {
 	//Set default selected
 	setDatePicker('.datepicker');
 
+	if(num>1) {
+		num = 1;
+		$.each(record_shop_food_menu_composition, function(i, item) {
+		    addShopComp(true);
+		});
+	}
+
 });
+
+function addShopComp(setval) {
+	var txt = $(html_txt).html();
+	txt = txt.replace('id=""', "id='select"+num+"'");
+	//console.log(txt);
+	console.log('new record : '+num);
+
+	//var html_txt = $(".rmat_content").clone();
+	$(".wrap_rmat_content").append('<div id="wrapselect'+num+'" class="row rmat_content">'+txt+'</div>');
+	setDropdownList('#select'+num);
+
+	var tmp_num = num;
+	if(setval) {
+		setDefault(tmp_num);
+	}
+
+	num++;
+}
+function setDefault(num_set) {
+	$('#select'+num_set).val(record_shop_food_menu_composition[num_set-1].rmat_id).trigger('change');
+	$(".amount:eq("+num_set+")").val(record_shop_food_menu_composition[num_set-1].amount);
+	$(".old_id:eq("+num_set+")").val(record_shop_food_menu_composition[num_set-1].self_food_id);
+}
+
+$("#btn_comp").click(function(){
+	addShopComp(false);
+});
+function del(node) {
+	//alert($(this));
+	$(node).parent().parent().remove();
+};

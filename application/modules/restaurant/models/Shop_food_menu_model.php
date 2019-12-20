@@ -46,7 +46,7 @@ class Shop_food_menu_model extends MY_Model
 				'food_name' => $post['food_name']
 				,'cate_id' => $post['cate_id']
 				,'price_amt' => str_replace(",", "", $post['price_amt'])
-				,'energy_amt' => str_replace(",", "", $post['energy_amt'])
+				//,'energy_amt' => str_replace(",", "", $post['energy_amt'])
 				,'fag_allow' => $post['fag_allow']
 		);
 		return $this->add_record($data);
@@ -142,7 +142,7 @@ class Shop_food_menu_model extends MY_Model
 				'food_name' => $post['food_name']
 				,'cate_id' => $post['cate_id']
 				,'price_amt' => str_replace(",", "",$post['price_amt'])
-				,'energy_amt' => str_replace(",", "",$post['energy_amt'])
+				//,'energy_amt' => str_replace(",", "",$post['energy_amt'])
 				,'fag_allow' => $post['fag_allow']
 		);
 
