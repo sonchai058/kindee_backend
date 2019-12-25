@@ -16,9 +16,9 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="{base_url}assets/themes/majestic/css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="{base_url}assets/images/info.kindee.kindee.png" />
-  <link rel="icon" href="{base_url}assets/images/info.kindee.kindee.png" type="image/png" sizes="16x16">
-  <link rel="stylesheet" href="{base_url}assets/images/info.kindee.kindee.png">
+  <link rel="shortcut icon" href="{base_url}assets/images/K-dot-5.png" />
+  <link rel="icon" href="{base_url}assets/images/K-dot-5.png" type="image/png" sizes="16x16">
+  <link rel="stylesheet" href="{base_url}assets/images/K-dot-5.png">
 
 
   <!-- Custom fonts for this template-->
@@ -196,6 +196,17 @@
   .info tr {
     background-color: #3589fd !important;
     color: #fff !important;
+  }
+
+  .info tr td{
+    font-size: 13px;
+  }
+  .info tr th{
+    font-size: 13px;
+    font-weight: bold;
+  }
+  .table td {
+    font-size: 13px;
   }
   </style>
 
