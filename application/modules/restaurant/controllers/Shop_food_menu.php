@@ -14,6 +14,9 @@ class Shop_food_menu extends CRUD_Controller
 	public function __construct()
 	{
 		parent::__construct();
+
+		chkUserPerm();
+		
 		$this->per_page = 30;
 		$this->num_links = 6;
 		$this->uri_segment = 4;
@@ -337,6 +340,7 @@ class Shop_food_menu extends CRUD_Controller
 			$post = $this->input->post(NULL, TRUE);
 
 			$encrypt_id = '';
+			$post['shop_id'] = $this->session->userdata('shop_id');
 			$id = $this->Shop_food_menu->create($post);
 			if($id != ''){
 
@@ -527,7 +531,8 @@ class Shop_food_menu extends CRUD_Controller
 		    		'datetime_add'=>date("Y-m-d H:i:s"),
 		    		'encrypt_name'=>$encrypt_name,
 		    		'filename'=>$filename,
-		    		'food_id'=>$post['food_id']
+		    		'food_id'=>$post['food_id'],
+		    		'shop_id'=>$this->session->userdata('shop_id')
 		    	)
 		    );
 		}else {

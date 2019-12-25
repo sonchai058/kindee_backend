@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-12 mb-3">
 				<div class="text-right">
-					<a href="{page_url}/add" class="btn btn-success btn-lg" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่">
+					<a href="{page_url}/add" class="btn btn-success btn-md" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่">
 						<i class="fa fa-plus-square"></i></span> เพิ่มรายการใหม่
 					</a>
 		</div>
@@ -64,7 +64,7 @@
 						<th width="20px;">#</th>
 						<th>ผู้อัปเดต</th>
 						<th>วันเวลา ที่อัปเดต</th>
-						<th class="text-center" style="width:200px">จัดการข้อมูล</th>
+						<th class="text-center" style="width:200px">เครื่องมือ</th>
 					</tr>
 				</thead>
 				<tbody>

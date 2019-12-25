@@ -76,9 +76,26 @@ class User_login_model extends CI_Model
 					'user_lname' => $row->user_lname,
 					'email_addr' => $row->email_addr,
 					'user_level' => $row->user_level,
+					'shop_id'=> $row->shop_id,
 					'org_id' => $row->org_id,
-					'login_validated' => TRUE
+					'login_validated' => TRUE,
+					'encrypt_user_id'=>encrypt($row->user_id),
+					'encrypt_shop_id'=>encrypt($row->shop_id),
+					'user_select' => $row->user_id,
 					);
+/*
+			if($row->user_level=='shop') {
+				$this->load->model("common_model");
+				$row = rowArray($this->common_model->custom_query("select * from shops where fag_allow='allow' and shop_user=".$row->user_id.' limit 1'));
+				if(isset($row['shop_id']))
+				{
+					$data['shop_id'] = $row['shop_id'];
+				}else {
+					return FALSE;
+					die();
+				}
+			}
+*/
 			$this->session->set_userdata($data);
 			return TRUE;
 		}

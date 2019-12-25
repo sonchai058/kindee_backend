@@ -50,7 +50,8 @@ class Users_model extends MY_Model
 				,'date_of_birth' => setDateToStandard($post['date_of_birth'])
 				,'mobile_no' => $post['mobile_no']
 				,'email_addr' => $post['email_addr']
-				,'cus_passwd' => pass_secure_hash($post['cus_passwd'])
+				//,'cus_passwd' => pass_secure_hash($post['cus_passwd'])
+				,'cus_passwd' => $post['cus_passwd']
 				,'addr' => $post['addr']
 				,'fag_allow' => $post['fag_allow']
 				,'org_id' => $post['org_id']
@@ -63,7 +64,7 @@ class Users_model extends MY_Model
 				,'increase_date_start' => setDateToStandard($post['increase_date_start'])
 				,'increase_date_end' => setDateToStandard($post['increase_date_end'])
 				,'user_level' => $post['user_level']
-				,'food_intol_exam' => $post['food_intol_exam']
+				//,'food_intol_exam' => $post['food_intol_exam']
 				,'limit_allmeat' => $post['limit_allmeat']
 				,'limit_pig' => $post['limit_pig']
 				,'limit_meat' => $post['limit_meat']
@@ -168,7 +169,8 @@ class Users_model extends MY_Model
 				,'date_of_birth' => setDateToStandard($post['date_of_birth'])
 				,'mobile_no' => $post['mobile_no']
 				,'email_addr' => $post['email_addr']
-				,'cus_passwd' => pass_secure_hash($post['cus_passwd'])
+				//,'cus_passwd' => pass_secure_hash($post['cus_passwd'])
+				,'cus_passwd' => $post['cus_passwd']
 				,'addr' => $post['addr']
 				,'fag_allow' => $post['fag_allow']
 				,'org_id' => $post['org_id']
@@ -181,7 +183,7 @@ class Users_model extends MY_Model
 				,'increase_date_start' => setDateToStandard($post['increase_date_start'])
 				,'increase_date_end' => setDateToStandard($post['increase_date_end'])
 				,'user_level' => $post['user_level']
-				,'food_intol_exam' => $post['food_intol_exam']
+				//,'food_intol_exam' => $post['food_intol_exam']
 				,'limit_allmeat' => $post['limit_allmeat']
 				,'limit_pig' => $post['limit_pig']
 				,'limit_meat' => $post['limit_meat']

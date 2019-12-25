@@ -33,8 +33,8 @@ var UsersFooodAllergy = {
 		if(loading_on(obj) == true){
 
 
-			var food_alg_val = removeComma($('#food_alg_val').val());
-			$('#food_alg_val').val(food_alg_val);
+			//var food_alg_val = removeComma($('#food_alg_val').val());
+			//$('#food_alg_val').val(food_alg_val);
 
 			var fdata = $('#formAdd').serialize();
 			fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
@@ -46,8 +46,8 @@ var UsersFooodAllergy = {
 				data : fdata,
 				success: function (results) {
 
-					var food_alg_val = formatNumber($('#food_alg_val').val(), 2);
-					$('#food_alg_val').val(food_alg_val);
+					//var food_alg_val = formatNumber($('#food_alg_val').val(), 2);
+					//$('#food_alg_val').val(food_alg_val);
 
 					if(results.is_successful){
 						alert_type = 'success';
@@ -74,8 +74,8 @@ var UsersFooodAllergy = {
 		$('#editModal').modal('hide');
 		var frm_action = site_url('foodallergy/users_foood_allergy/update');
 
-			var food_alg_val = removeComma($('#food_alg_val').val());
-			$('#food_alg_val').val(food_alg_val);
+			//var food_alg_val = removeComma($('#food_alg_val').val());
+			//$('#food_alg_val').val(food_alg_val);
 
 		var fdata = $('#formEdit').serialize();
 		//fdata += '&edit_remark=' + $('#edit_remark').val();
@@ -90,8 +90,8 @@ var UsersFooodAllergy = {
 			data : fdata,
 			success: function (results) {
 
-					var food_alg_val = formatNumber($('#food_alg_val').val(), 2);
-					$('#food_alg_val').val(food_alg_val);
+					//var food_alg_val = formatNumber($('#food_alg_val').val(), 2);
+					//$('#food_alg_val').val(food_alg_val);
 
 				if(results.is_successful){
 					alert_type = 'success';
@@ -220,4 +220,66 @@ $(document).ready(function() {
 	//Set default selected
 	setDatePicker('.datepicker');
 
+});
+
+$('#food_intol_exam').change(function(){
+		var fdata = 'food_intol_exam='+$(this).val();
+		fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
+		if($(this).val()!='') {
+			$.ajax({
+				method: 'POST',
+				url: site_url('foodallergy/users_foood_allergy/food_intol_exam'),
+				dataType: 'json',
+				data : fdata,
+				success: function (results) {
+					console.log(results);
+					if(results.is_successful){
+						alert_type = 'success';
+					}else{
+						alert_type = 'danger';
+					}
+					notify('บันทึกข้อมูล', results.message, alert_type, 'center');
+					//loading_on_remove(obj);
+
+					if(results.is_successful){
+						location.reload();
+					}
+				},
+				error : function(jqXHR, exception){
+					ajaxErrorMessage(jqXHR, exception);
+					//loading_on_remove(obj);
+				}
+			});
+	}
+});
+
+$("#btnAlgSave").click(function(){
+		var fdata = $("#formAdd").serialize();
+		fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
+		//if($(this).val()!='') {
+			$.ajax({
+				method: 'POST',
+				url: site_url('foodallergy/users_foood_allergy/novisit_save'),
+				dataType: 'json',
+				data : fdata,
+				success: function (results) {
+					console.log(results);
+					if(results.is_successful){
+						alert_type = 'success';
+					}else{
+						alert_type = 'danger';
+					}
+					notify('บันทึกข้อมูล', results.message, alert_type, 'center');
+					//loading_on_remove(obj);
+
+					if(results.is_successful){
+						//location.reload();
+					}
+				},
+				error : function(jqXHR, exception){
+					ajaxErrorMessage(jqXHR, exception);
+					//loading_on_remove(obj);
+				}
+			});
+	//}
 });

@@ -128,8 +128,8 @@ class Users_foood_allergy_model extends MY_Model
 	public function update($post)
 	{
 		$data = array(
-				'user_id' => $post['user_id']
-				,'alg_id' => $post['alg_id']
+				//'user_id' => $post['user_id']
+				'alg_id' => $post['alg_id']
 				,'fag_allow' => $post['fag_allow']
 				,'food_alg_val' => str_replace(",", "",$post['food_alg_val'])
 				,'time_len_eat' => $post['time_len_eat']

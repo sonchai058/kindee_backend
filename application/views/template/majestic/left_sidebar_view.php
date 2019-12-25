@@ -1,8 +1,28 @@
+<?php
+  $tmp_txt = '';
+  if($this->session->userdata('user_level')=='super_user') {
+    $this->load->model("common_model");
+    $rows = $this->common_model->custom_query("select * from users where fag_allow='allow' and user_level='user'");
+    $tmp_txt = "<center><select id='user_select' style='margin-top:5px;'><option>เลือก User</option>";
+    foreach ($rows as $key => $value) {
+      $selected = "";
+      if($this->session->userdata('user_id')==$value['user_id']) {
+        $selected = "selected";
+      }
+      $tmp_txt = $tmp_txt."<option {$selected} value='{$value['user_id']}'>{$value['user_fname']}</option>";
+    }
+    $tmp_txt = $tmp_txt."</select></center>";
+  }
+?>
+
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <?php 
+          echo $tmp_txt;
+        ?>
         <ul class="nav">
 
     <?php if($this->session->userdata('user_level')=='admin'){ ?>
-          <li class="nav-item <?php if($this->uri->segment(1)=='' && $this->uri->segment(2)=='dashboard'){?>active<?php }?>">
+          <li class="nav-item <?php if($this->uri->segment(1)=='' || $this->uri->segment(2)=='dashboard'){?>active<?php }?>">
             <a class="nav-link" href="{site_url}">
               <i class="mdi mdi-home menu-icon"></i>
               <span class="menu-title">หน้าหลัก</span>
@@ -49,8 +69,8 @@
             </a>
           </li>
 
-          <li class="nav-item <?php if($this->uri->segment(1)=='users' && $this->uri->segment(2)=='edit'){?>active<?php }?>">
-            <a class="nav-link" href="{site_url}setting/users/edit/ODVoNG5wUjhqZjNBd0pXYWdvQlgwQT09">
+          <li class="nav-item <?php if($this->uri->segment(2)=='users' && $this->uri->segment(3)=='edit'){?>active<?php }?>">
+            <a class="nav-link" href="{site_url}setting/users/edit/<?php echo $this->session->userdata('encrypt_user_id');?>">
               <i class="mdi mdi-account menu-icon"></i>
               <span class="menu-title">จัดการข้อมูลส่วนตัว</span>
             </a>
@@ -73,14 +93,7 @@
           <li class="nav-item <?php if($this->uri->segment(1)=='foodallergy' && $this->uri->segment(2)=='users_foood_allergy'){?>active<?php }?>">
             <a class="nav-link" href="{site_url}foodallergy/users_foood_allergy">
               <i class="mdi mdi-grid-large menu-icon"></i>
-              <span class="menu-title">ข้อมูลอาหารที่ท่านแพ้ (เคยตรวจ)</span>
-            </a>
-          </li>
-
-          <li class="nav-item <?php if($this->uri->segment(1)=='foodallergy' && $this->uri->segment(2)=='user_novisit'){?>active<?php }?>">
-            <a class="nav-link" href="{site_url}foodallergy/user_novisit/edit/czFxdVREYk1yZURNalE2SmZld2ZJQT09">
-              <i class="mdi mdi-grid-large menu-icon"></i>
-              <span class="menu-title">ข้อมูลอาหารที่ท่านแพ้ (ไม่เคยตรวจ)</span>
+              <span class="menu-title">ข้อมูลอาหารที่ท่านแพ้</span>
             </a>
           </li>
 
@@ -117,7 +130,7 @@
           </li>
 
           <li class="nav-item <?php if($this->uri->segment(1)=='shopdata' && $this->uri->segment(2)=='shops'){?>active<?php }?>">
-            <a class="nav-link" href="{site_url}shopdata/shops/edit/aTNDREt5Y01QYS9ySDRkS3c2WXhZdz09">
+            <a class="nav-link" href="{site_url}shopdata/shops/edit/<?php echo $this->session->userdata('encrypt_shop_id');?>">
               <i class="mdi mdi-view-headline menu-icon"></i>
               <span class="menu-title">ข้อมูลร้านอาหาร</span>
             </a>
@@ -130,8 +143,8 @@
             </a>
           </li>
 
-          <li class="nav-item <?php if($this->uri->segment(2)=='shop_promotions' && $this->uri->segment(3)=='edit'){?>active<?php }?>">
-            <a class="nav-link" href="{site_url}restaurant/shop_promotions/edit/bGlzRVkvYWxuS0pRRjJIdXg5L3UzQT09">
+          <li class="nav-item <?php if($this->uri->segment(2)=='shop_promotions' && $this->uri->segment(3)=='editpro'){?>active<?php }?>">
+            <a class="nav-link" href="{site_url}restaurant/shop_promotions/editpro">
               <i class="mdi mdi-emoticon menu-icon"></i>
               <span class="menu-title">โปรโมชั่น</span>
             </a>

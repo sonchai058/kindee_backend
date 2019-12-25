@@ -84,6 +84,16 @@ class User_login extends CRUD_Controller
 
                 $data['message'] = '';
                 $data['is_successful'] = true;
+                                
+                $data['redirect_url'] = 'dashboard';
+                if($this->session->userdata('user_level')=='super_user'||$this->session->userdata('user_level')=='user') {
+                     $data['redirect_url'] =  $data['redirect_url'].'_user';
+                }else if($this->session->userdata('user_level')=='shop'){
+                    $data['redirect_url'] =  $data['redirect_url'].'_res';
+                }
+
+                $data['user_level'] = $this->session->userdata('user_level');
+
 				if($url = $this->session->userdata('after_login_redirect')){
 					$data['redirect_url'] = $url;
 				}
@@ -98,15 +108,20 @@ class User_login extends CRUD_Controller
     public function destroy(){
 
 		$data = array(
-			'user_id' => '',
-			'title_name' => '',
-			'user_photo' => '',
-			'user_fname' => '',
-			'user_lname' => '',
-			'email_addr' => '',
-			'user_level' => '',
-			'org_id' => '',
-			'login_validated' => FALSE
+            'user_id' => '',
+            'title_name' => '',
+            'user_photo' => '',
+            'user_fname' => '',
+            'user_lname' => '',
+            'email_addr' => '',
+            'user_level' => '',
+            'shop_id'=> '',
+            'org_id' => '',
+            'login_validated' => '',
+            'encrypt_user_id'=>'',
+            'encrypt_shop_id'=>'',
+			'login_validated' => FALSE,
+            'user_select' => ''
 		);
 
     	$this->load->model('common_model');

@@ -1,4 +1,4 @@
-notify('ทดสอบแจ้งเตือน', 'ถึงเวลาทานยา แก้แพ้ 19.30น.', 'warning', 'right', 'bottom');
+//notify('ทดสอบแจ้งเตือน', 'ถึงเวลาทานยา แก้แพ้ 19.30น.', 'warning', 'right', 'bottom');
 
 var UsersDrug = {
 
@@ -207,5 +207,12 @@ $(document).ready(function() {
 	
 	//Set default selected
 	setDatePicker('.datepicker');
+
+	setTimeout(function(){
+		$.each( alert_arr, function( key, value ) {
+		  //alert( key + ": " + value );
+		  notify('แจ้งเตือน', value, 'warning', 'right', 'bottom');
+		});
+	},1000);
 
 });

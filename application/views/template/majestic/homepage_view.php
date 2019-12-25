@@ -354,6 +354,50 @@
 
   {another_js}
 
+  <?php
+  if($this->session->userdata('user_level')=='super_user') {
+  ?>
+  <script>
+    $(document).ready(function(){
+      setDropdownList('#user_select');
+    });
+
+    $('#user_select').change(function(){
+        var fdata = 'user_id='+$(this).val();
+        fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
+        if($(this).val()!=null) {
+          $.ajax({
+            method: 'POST',
+            url: site_url('dashboard_res/user_select'),
+            dataType: 'json',
+            data : fdata,
+            success: function (results) {
+              console.log(results);
+              if(results.is_successful){
+                alert_type = 'success';
+              }else{
+                alert_type = 'danger';
+              }
+              notify('เลือก', results.message, alert_type, 'center');
+              //loading_on_remove(obj);
+
+              if(results.is_successful){
+                location.reload();
+              }
+            },
+            error : function(jqXHR, exception){
+              ajaxErrorMessage(jqXHR, exception);
+              //loading_on_remove(obj);
+            }
+          });
+      }
+    });
+
+  </script>
+  <?php
+    }
+  ?>
+
 </body>
 
 </html>

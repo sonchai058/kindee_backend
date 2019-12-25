@@ -9,6 +9,7 @@
 			<form class='form-horizontal' id='formEdit' accept-charset='utf-8'>
 				{csrf_protection_field}
 				<input type="hidden" name="submit_case" value="edit" />
+				<!--
 				<div class='form-group'>
 					<label class='col-sm-2 control-label' for='user_id'>ชื่อสมาชิก  :</label>
 					<div class='col-sm-10'>
@@ -18,38 +19,37 @@
 					</select>
 					</div>
 				</div>
-				<div class='form-group'>
-					<label class='col-sm-2 control-label' for='alg_id'>ชื่ออาหารที่แพ้  :</label>
-					<div class='col-sm-10'>
-					<select id='alg_id'  name='alg_id' value="{record_alg_id}" >
-						<option value="">- เลือก ชื่ออาหารที่แพ้ -</option>
-						{food_allergy_alg_id_option_list}
-					</select>
+			-->
+				<div class="row">
+					<div class="col-sm-12 col-md-4">
+						<label class="col-sm-6 control-label" for="alg_id">ชื่ออาหารที่แพ้  :</label><br/>
+						<select id='alg_id'  name='alg_id' value="{record_alg_id}" ><br/>
+							<option value="">- เลือก ชื่ออาหารที่แพ้ -</option>
+							{food_allergy_alg_id_option_list}
+						</select>
 					</div>
-				</div>
-				<div class='form-group'>
-					<label class='col-sm-2 control-label' for='fag_allow'>สถานะ  :</label>
-					<div class='col-sm-10'>
+					
+					<div class="col-sm-12 col-md-4">
+						<label class='col-sm-4 control-label' for='food_alg_val'>ค่า  :</label>
+						<input type="text" class="form-control " id="food_alg_val" name="food_alg_val" value="{record_food_alg_val}"  />
+					</div>
 
+					<div class="col-sm-12 col-md-4">
+						<label class="col-sm-4 control-label" for="fag_allow">สถานะ  :</label><br/>
 						<select id="fag_allow" name="fag_allow" value="{record_fag_allow}" >
-							<option value="">- เลือก สถานะ -</option>
+							<!-- <option value="">- เลือก สถานะ -</option>-->
 							<option value="allow">ปกติ</option>
 							<option value="block">ระงับ</option>
 							<option value="delete">ลบ</option>
 						</select>
 					</div>
+	
 				</div>
-				<div class='form-group'>
-					<label class='col-sm-2 control-label' for='food_alg_val'>ค่า  :</label>
-					<div class='col-sm-10'>
 
-						<input type="text" class="form-control " id="food_alg_val" name="food_alg_val" value="{record_food_alg_val}"  />
-					</div>
-				</div>
-				<div class='form-group'>
-					<label class='col-sm-2 control-label' for='time_len_eat'>ระยะเวลาที่ควรบริโภค  :</label>
-					<div class='col-sm-10'>
-
+				<br/>
+				<div class="row">
+					<div class="col-sm-12 col-md-4">
+						<label class='col-sm-6 control-label' for='time_len_eat'>ระยะเวลาที่ควรบริโภค  :</label><br/>
 						<select id="time_len_eat" name="time_len_eat" value="{record_time_len_eat}" >
 							<option value="">- เลือก ระยะเวลาที่ควรบริโภค -</option>
 							<option value="จำกัด">จำกัด</option>
@@ -57,9 +57,11 @@
 						</select>
 					</div>
 				</div>
+				<br/>
+
 				<div class='form-group'>
 					<div class='col-sm-offset-2 col-sm-10'>
-						<button  type="button" class='btn btn-primary btn-lg'  data-toggle='modal' data-target='#editModal' >&nbsp;&nbsp;<i class="fa fa-save"></i> บันทึก &nbsp;&nbsp;</button>
+						<button  type="button" class='btn btn-primary btn-md'  data-toggle='modal' data-target='#editModal' >&nbsp;&nbsp;<i class="fa fa-save"></i> บันทึก &nbsp;&nbsp;</button>
 
 						</div>
 				</div>

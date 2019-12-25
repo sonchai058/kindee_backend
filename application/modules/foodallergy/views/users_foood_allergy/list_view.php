@@ -3,16 +3,16 @@
 		<div class="card-header">
 			<h3>ข้อมูลอาหารที่ท่านแพ้</h3>
 		</div>
-				<div class='row form-group'>
-					<label style="font-size:13px" class='col-sm-2 control-label' for=''>ท่านเคยตรวจ Food InTolerance หรือไม่  :</label>
-					<div class='col-sm-10'>
-					<select id=''  name='' value="" >
-						<option selected value="">เคยตรวจ Food InTolerance</option>
-						<option value="">ไม่เคยตรวจ Food InTolerance</option>
+
+				<div class='row' style="margin: 10px;">
+					<div class="col-sm-12 col-md-6">
+						<label lass='col-sm-6 control-label' for=''>ท่านเคยตรวจ Food InTolerance หรือไม่  :</label><br/>
+					<select id='food_intol_exam'  name='food_intol_exam' value="Yes" >
+						<option selected value="Yes">เคยตรวจ Food InTolerance</option>
+						<option value="No">ไม่เคยตรวจ Food InTolerance</option>
 					</select>
 					</div>
 				</div>
-		</div>
 <!--	
 	<div class="card-header bg-primary">
 		<h3 class="card-title"><i class="fa fa-list-alt"></i> ตารางแสดงรายการ ข้อมูล<b>users_foood_allergy</b></h3>
@@ -22,7 +22,7 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-12 mb-3">
 				<div class="text-right">
-					<a href="{page_url}/add" class="btn btn-success btn-lg" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่">
+					<a href="{page_url}/add" class="btn btn-success btn-md" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่">
 						<i class="fa fa-plus-square"></i></span> เพิ่มรายการใหม่
 					</a>
 		</div>
@@ -76,21 +76,15 @@
 					<tr bgcolor="#dddddd">
 						<th width="20px;">#</th>
 						<th>ชื่ออาหารที่แพ้</th>
-						<th>ผู้อัปเดต</th>
-						<th>วันเวลา ที่อัปเดต</th>
-						<th>สถานะ</th>
 						<th>ค่า</th>
 						<th>ระยะเวลาที่ควรบริโภค</th>
-						<th class="text-center" style="width:200px">จัดการข้อมูล</th>
+						<th class="text-center" style="width:200px">เครื่องมือ</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr parser-repeat="[data_list]" id="row_{record_number}">
 						<td style="text-align:center;">[{record_number}]</td>
 						<td>{algIdAlgName}</td>
-						<td>{userUpdateUserFname}</td>
-						<td>{datetime_update}</td>
-						<td>{preview_fag_allow}</td>
 						<td>{food_alg_val}</td>
 						<td>{preview_time_len_eat}</td>
 						<td>
@@ -153,8 +147,8 @@
 					<div class="col-sm-12">
 						<input type="text" class="form-control" name="delete_remark">
 					</div>
-				-->
 				</div>
+			-->
 					<input type="hidden" name="encrypt_ualg_id" />
 
 				</form>

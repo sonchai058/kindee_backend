@@ -279,3 +279,35 @@ $(document).ready(function() {
 	setDatePicker('.datepicker');
 
 });
+
+
+$("#btnAlgSave").click(function(){
+		var fdata = $("#formAdd").serialize();
+		fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
+		//if($(this).val()!='') {
+			$.ajax({
+				method: 'POST',
+				url: site_url('restaurant/shop_promotions/editpro_save'),
+				dataType: 'json',
+				data : fdata,
+				success: function (results) {
+					console.log(results);
+					if(results.is_successful){
+						alert_type = 'success';
+					}else{
+						alert_type = 'danger';
+					}
+					notify('บันทึกข้อมูล', results.message, alert_type, 'center');
+					//loading_on_remove(obj);
+
+					if(results.is_successful){
+						//location.reload();
+					}
+				},
+				error : function(jqXHR, exception){
+					ajaxErrorMessage(jqXHR, exception);
+					//loading_on_remove(obj);
+				}
+			});
+	//}
+});

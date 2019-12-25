@@ -50,7 +50,7 @@
 						<td>{record_date_of_birth}</td>
 					</tr>
 					<tr>
-						<td class="text-right fit"><b>มือถือ :</b></td>
+						<td class="text-right fit"><b>เบอร์โทร :</b></td>
 						<td>{record_mobile_no}</td>
 					</tr>
 					<tr>

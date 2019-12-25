@@ -19,6 +19,9 @@ class Users extends CRUD_Controller
 	public function __construct()
 	{
 		parent::__construct();
+
+		chkUserPerm();
+		
 		$this->per_page = 30;
 		$this->num_links = 6;
 		$this->uri_segment = 4;
@@ -86,6 +89,146 @@ class Users extends CRUD_Controller
 	 * @param String path of controller
 	 * @param Integer total record
 	 */
+
+	public function user_infoadd1() {
+		$post = $this->input->post(NULL, TRUE);
+		$message = '<strong>ตั้งค่า น้ำหนัก สำเร็จ</strong>';
+		$success = TRUE;
+		//$encrypt_id = '';
+		$encrypt_name = '';
+		$id= '';
+
+		if(isset($post['data'])) {
+		    $this->load->model('common_model');
+
+		    $tmp = rowArray($this->common_model->custom_query("select * from users_exam_weight where fag_allow='allow' and DATE(date_exam)='".date('Y-m-d')."' and user_id='{$post['user_id']}'"));
+
+		    if(isset($tmp['eweight_id'])) {
+			    $id = $this->common_model->update('users_exam_weight',
+			    	array(
+			    		'user_weight'=>$post['data'],
+			    		'date_exam'=>date("Y-m-d H:i:s"),
+			    		'user_update'=>get_session('user_id'),
+			    		'datetime_update'=>date("Y-m-d H:i:s"),
+			    	),
+			    	array('eweight_id'=>$tmp['eweight_id'])
+			    );	    	
+		    }else {
+			    $id = $this->common_model->insert('users_exam_weight',
+			    	array(
+			    		'user_weight'=>$post['data'],
+			    		'date_exam'=>date("Y-m-d H:i:s"),
+			    		'user_add'=>get_session('user_id'),
+			    		'datetime_add'=>date("Y-m-d H:i:s"),
+			    		'user_id'=>$post['user_id']
+			    	)
+			    );		    	
+		    }
+		}else {
+			$success = FALSE;
+			$message = '<strong>ตั้งค่า น้ำหนัก ล้มเหลว</strong>';
+		}
+		$json = json_encode(array(
+			'is_successful' => $success,
+			//'encrypt_id' =>  $encrypt_id,
+			'message' => $message,
+			'id'=>$id,
+		));
+		echo $json;
+	}
+
+	public function user_infoadd2() {
+		$post = $this->input->post(NULL, TRUE);
+		$message = '<strong>ตั้งค่า รอบเอว สำเร็จ</strong>';
+		$success = TRUE;
+		//$encrypt_id = '';
+		$encrypt_name = '';
+		$id= '';
+
+		if(isset($post['data'])) {
+		    $this->load->model('common_model');
+
+		    $tmp = rowArray($this->common_model->custom_query("select * from users_exam_waistline where fag_allow='allow' and DATE(date_exam)='".date('Y-m-d')."' and user_id='{$post['user_id']}'"));
+		    if(isset($tmp['ewaist_id'])) {
+			    $id = $this->common_model->update('users_exam_waistline',
+			    	array(
+			    		'user_waist'=>$post['data'],
+			    		'date_exam'=>date("Y-m-d H:i:s"),
+			    		'user_update'=>get_session('user_id'),
+			    		'datetime_update'=>date("Y-m-d H:i:s"),
+			    	),
+			    	array('ewaist_id'=>$tmp['ewaist_id'])
+			    );	    	
+		    }else {
+			    $id = $this->common_model->insert('users_exam_waistline',
+			    	array(
+			    		'user_waist'=>$post['data'],
+			    		'date_exam'=>date("Y-m-d H:i:s"),
+			    		'user_add'=>get_session('user_id'),
+			    		'datetime_add'=>date("Y-m-d H:i:s"),
+			    		'user_id'=>$post['user_id']
+			    	)
+			    );
+			}
+		}else {
+			$success = FALSE;
+			$message = '<strong>ตั้งค่า รอบเอว ล้มเหลว</strong>';
+		}
+		$json = json_encode(array(
+			'is_successful' => $success,
+			//'encrypt_id' =>  $encrypt_id,
+			'message' => $message,
+			'id'=>$id,
+		));
+		echo $json;
+	}
+
+	public function user_infoadd3() {
+		$post = $this->input->post(NULL, TRUE);
+		$message = '<strong>ตั้งค่า สะโพก สำเร็จ</strong>';
+		$success = TRUE;
+		//$encrypt_id = '';
+		$encrypt_name = '';
+		$id= '';
+
+		if(isset($post['data'])) {
+		    $this->load->model('common_model');
+
+		    $tmp = rowArray($this->common_model->custom_query("select * from users_exam_hip where fag_allow='allow' and DATE(date_exam)='".date('Y-m-d')."' and user_id='{$post['user_id']}'"));
+		    if(isset($tmp['ehib_id'])) {
+			    $id = $this->common_model->update('users_exam_hip',
+			    	array(
+			    		'user_hib'=>$post['data'],
+			    		'date_exam'=>date("Y-m-d H:i:s"),
+			    		'user_update'=>get_session('user_id'),
+			    		'datetime_update'=>date("Y-m-d H:i:s"),
+			    	),
+			    	array('ehib_id'=>$tmp['ehib_id'])
+			    );	    	
+		    }else {
+			    $id = $this->common_model->insert('users_exam_hip',
+			    	array(
+			    		'user_hib'=>$post['data'],
+			    		'date_exam'=>date("Y-m-d H:i:s"),
+			    		'user_add'=>get_session('user_id'),
+			    		'datetime_add'=>date("Y-m-d H:i:s"),
+			    		'user_id'=>$post['user_id']
+			    	)
+			    );
+			}
+		}else {
+			$success = FALSE;
+			$message = '<strong>ตั้งค่า สะโพก ล้มเหลว</strong>';
+		}
+		$json = json_encode(array(
+			'is_successful' => $success,
+			//'encrypt_id' =>  $encrypt_id,
+			'message' => $message,
+			'id'=>$id,
+		));
+		echo $json;
+	}
+
 	public function create_pagination($page_url, $total) {
 		$this->load->library('pagination');
 		$config['base_url'] = $page_url;
@@ -220,6 +363,73 @@ class Users extends CRUD_Controller
 						array('title' => 'Users', 'url' => site_url('setting/users')),
 						array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'active')
 		);
+		
+
+		$this->data['data_id'] = 0;
+
+		$rows = array(
+			'limit_allmeat'=>array('No','เนื้อสัตว์ทุกชนิด'),
+			'limit_pig'=>array('No','หมู'),
+			'limit_meat'=>array('No','เนื้อ'),
+			'limit_animal'=>array('No','ผลิตภัณฑ์จากสัตว์ เช่นไข่และนม'),
+			'limit_seafood'=>array('No','อาหารทะเล'),
+			'limit_additives'=>array('No','สารเติมแต่ง เช่น ผงชูรส'),
+		);
+		$tmp_data = '<div class="row">';
+		foreach ($rows as $key => $value) {
+			$selected='';
+			//if($value[0]=='Yes')continue;
+			if($value[0]=='Yes') {
+				$selected = 'checked';
+			}
+			$tmp_data = $tmp_data."<div onclick=\"if($('.{$key}:checked').length==0)".'{'."$('.{$key}').prop('checked',true);".'}'."else ".'{'."$('.{$key}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value[1]}</label><input style='margin-top: -40px;' type='checkbox' class='form-control {$key}' name='limit[{$key}]' value='{$value[0]}' {$selected}></div>";
+		}
+		$this->data['limit'] = $tmp_data.'</div>';
+
+		$this->data['promotions1'] = "";
+		$this->data['promotions2'] = "";
+		$this->load->model("common_model");
+
+			//$rows1 = $this->common_model->custom_query("select * from users_promotions as b where b.fag_allow='allow' and b.user_id={$this->session->userdata('user_id')}");
+			$setSelect = array();
+			if(isset($rows1)) {
+				foreach ($rows1 as $key => $value) {
+					$setSelect[$value['pro_id']] = 'Yes';
+				}
+			}
+
+			$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='credit_cart' order by a.pro_name");
+			$tmp_data = '<div class="row">';
+			foreach ($rows as $key => $value) {
+				$selected='';
+				//if($value['b_fag_allow']=='delete')continue;
+				$pro_discount = 0;
+				if(isset($setSelect[$value['pro_id']])) {
+					$selected = 'checked';
+				}
+					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+
+				
+			}
+			$tmp_data.="</div>";
+			$this->data['promotions1'] = $tmp_data;
+			
+			$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='mobile_chanel' order by a.pro_name");
+
+			$tmp_data = '<div class="row">';
+			foreach ($rows as $key => $value) {
+				$selected='';
+				//if($value['b_fag_allow']=='delete')continue;
+				$pro_discount = 0;
+				if(isset($setSelect[$value['pro_id']])) {
+					$selected = 'checked';
+				}
+					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-6'><label class='col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+				
+			}
+			$tmp_data.="</div>";
+			$this->data['promotions2'] = $tmp_data;
+
 		$this->data['users_user_delete_option_list'] = $this->Users->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_add_option_list'] = $this->Users->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_update_option_list'] = $this->Users->returnOptionList("users", "user_id", "user_fname");
@@ -261,24 +471,26 @@ class Users extends CRUD_Controller
 		$frm->set_rules('fag_allow', 'สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]', 'trim|required');
 		$frm->set_rules('org_id', 'รหัสองค์กรที่สังกัด', 'trim|required|is_natural');
 		$frm->set_rules('user_sex', 'เพศ [ชาย=ชาย,หญิง=หญิง,ไม่ระบุ=ไม่ระบุ]', 'trim|required');
-		$frm->set_rules('user_height', 'ส่วนสูง CM', 'trim|required|decimal');
-		$frm->set_rules('goal_reduce_weight', 'เป้าหมายในการลดน้ำหนัก (น้ำหนัก)', 'trim|required|decimal');
-		$frm->set_rules('reduce_date_start', 'เป้าหมายในการลดน้ำหนัก (ภายในวันที่) เริ่มต้น', 'trim|required');
-		$frm->set_rules('reduce_date_end', 'เป้าหมายในการลดน้ำหนัก (ภายในวันที่) สิ้นสุด', 'trim|required');
-		$frm->set_rules('goal_increase_weight', 'เป้าหมายในการเพิ่มน้ำหนัก (น้ำหนัก)', 'trim|required|decimal');
-		$frm->set_rules('increase_date_start', 'เป้าหมายในการเพิ่มน้ำหนัก (ภายในวันที่) เริ่มต้น', 'trim|required');
-		$frm->set_rules('increase_date_end', 'เป้าหมายในการเพิ่มน้ำหนัก (ภายในวันที่) สิ้นสุด', 'trim|required');
+		$frm->set_rules('user_height', 'ส่วนสูง CM', 'trim|required|callback_float_check');
+		$frm->set_rules('goal_reduce_weight', 'เป้าหมายในการลดน้ำหนัก (น้ำหนัก)', 'trim|callback_float_check');
+		$frm->set_rules('reduce_date_start', 'เป้าหมายในการลดน้ำหนัก (ภายในวันที่) เริ่มต้น', 'trim');
+		$frm->set_rules('reduce_date_end', 'เป้าหมายในการลดน้ำหนัก (ภายในวันที่) สิ้นสุด', 'trim');
+		$frm->set_rules('goal_increase_weight', 'เป้าหมายในการเพิ่มน้ำหนัก (น้ำหนัก)', 'trim|callback_float_check');
+		$frm->set_rules('increase_date_start', 'เป้าหมายในการเพิ่มน้ำหนัก (ภายในวันที่) เริ่มต้น', 'trim');
+		$frm->set_rules('increase_date_end', 'เป้าหมายในการเพิ่มน้ำหนัก (ภายในวันที่) สิ้นสุด', 'trim');
 		$frm->set_rules('user_level', 'ระดับผู้ใช้งาน [admin=ผู้ดูแลระบบ,super_user=สมาชิกพิเศษ,user=สมาชิก,shop=ร้านค้า]', 'trim|required');
-		$frm->set_rules('food_intol_exam', 'เคยตรวจ Food Intolerance หรือไม่ Yes | No [Yes=ใช่,No=ไม่ใช่]', 'trim|required');
+		$frm->set_rules('food_intol_exam', 'เคยตรวจ Food Intolerance หรือไม่ Yes | No [Yes=ใช่,No=ไม่ใช่]', 'trim');
+		/*
 		$frm->set_rules('limit_allmeat', 'ข้อจำกัดการบริโภค (เนื้อสัตว์ทุกชนิด) [Yes=ใช่,No=ไม่ใช่]', 'trim|required');
 		$frm->set_rules('limit_pig', 'ข้อจำกัดการบริโภค (หมู) [Yes=ใช่,No=ไม่ใช่]', 'trim|required');
 		$frm->set_rules('limit_meat', 'ข้อจำกัดการบริโภค (เนื้อ) [Yes=ใช่,No=ไม่ใช่]', 'trim|required');
 		$frm->set_rules('limit_animal', 'ข้อจำกัดการบริโภค (ผลิตภัณฑ์จากสัตว์ เช่นไข่และนม) [Yes=ใช่,No=ไม่ใช่]', 'trim|required');
 		$frm->set_rules('limit_seafood', 'ข้อจำกัดการบริโภค (อาหารทะเล) [Yes=ใช่,No=ไม่ใช่]', 'trim|required');
 		$frm->set_rules('limit_additives', 'ข้อจำกัดการบริโภค (สารเติมแต่ง เช่น ผงชูรส) [Yes=ใช่,No=ไม่ใช่]', 'trim|required');
-
+		*/
 		$frm->set_message('required', '- กรุณากรอก %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
+		$frm->set_message('callback_float_check', '- %s ต้องระบุตัวเลขทศนิยม');
 		$frm->set_message('decimal', '- %s ต้องระบุตัวเลขทศนิยม');
 
 		if ($frm->run() == FALSE) {
@@ -304,12 +516,14 @@ class Users extends CRUD_Controller
 			$message .= form_error('increase_date_end');
 			$message .= form_error('user_level');
 			$message .= form_error('food_intol_exam');
+			/*
 			$message .= form_error('limit_allmeat');
 			$message .= form_error('limit_pig');
 			$message .= form_error('limit_meat');
 			$message .= form_error('limit_animal');
 			$message .= form_error('limit_seafood');
 			$message .= form_error('limit_additives');
+			*/
 			return $message;
 		}
 	}
@@ -320,6 +534,20 @@ class Users extends CRUD_Controller
 	 * Default Validation for Update
 	 * see also https://www.codeigniter.com/userguide3/libraries/form_validation.html
 	 */
+    public function float_check($val)
+    {	
+    	return TRUE;
+    /*
+    	die($val);
+        if ( !is_int($val) || !is_float($val) ) {
+            $this->form_validation->set_message('float_check', '- %s ต้องระบุตัวเลขทศนิยม');
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+        */
+    }
+
 	public function formValidateUpdate()
 	{
 		$this->load->library('form_validation');
@@ -346,24 +574,26 @@ class Users extends CRUD_Controller
 		$frm->set_rules('fag_allow', 'สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]', 'trim|required');
 		$frm->set_rules('org_id', 'รหัสองค์กรที่สังกัด', 'trim|required|is_natural');
 		$frm->set_rules('user_sex', 'เพศ [ชาย=ชาย,หญิง=หญิง,ไม่ระบุ=ไม่ระบุ]', 'trim|required');
-		$frm->set_rules('user_height', 'ส่วนสูง CM', 'trim|required|decimal');
-		$frm->set_rules('goal_reduce_weight', 'เป้าหมายในการลดน้ำหนัก (น้ำหนัก)', 'trim|required|decimal');
-		$frm->set_rules('reduce_date_start', 'เป้าหมายในการลดน้ำหนัก (ภายในวันที่) เริ่มต้น', 'trim|required');
-		$frm->set_rules('reduce_date_end', 'เป้าหมายในการลดน้ำหนัก (ภายในวันที่) สิ้นสุด', 'trim|required');
-		$frm->set_rules('goal_increase_weight', 'เป้าหมายในการเพิ่มน้ำหนัก (น้ำหนัก)', 'trim|required|decimal');
-		$frm->set_rules('increase_date_start', 'เป้าหมายในการเพิ่มน้ำหนัก (ภายในวันที่) เริ่มต้น', 'trim|required');
-		$frm->set_rules('increase_date_end', 'เป้าหมายในการเพิ่มน้ำหนัก (ภายในวันที่) สิ้นสุด', 'trim|required');
+		$frm->set_rules('user_height', 'ส่วนสูง CM', 'trim|required|callback_float_check');
+		$frm->set_rules('goal_reduce_weight', 'เป้าหมายในการลดน้ำหนัก (น้ำหนัก)', 'trim|callback_float_check');
+		$frm->set_rules('reduce_date_start', 'เป้าหมายในการลดน้ำหนัก (ภายในวันที่) เริ่มต้น', 'trim');
+		$frm->set_rules('reduce_date_end', 'เป้าหมายในการลดน้ำหนัก (ภายในวันที่) สิ้นสุด', 'trim');
+		$frm->set_rules('goal_increase_weight', 'เป้าหมายในการเพิ่มน้ำหนัก (น้ำหนัก)', 'trim|callback_float_check');
+		$frm->set_rules('increase_date_start', 'เป้าหมายในการเพิ่มน้ำหนัก (ภายในวันที่) เริ่มต้น', 'trim');
+		$frm->set_rules('increase_date_end', 'เป้าหมายในการเพิ่มน้ำหนัก (ภายในวันที่) สิ้นสุด', 'trim');
 		$frm->set_rules('user_level', 'ระดับผู้ใช้งาน [admin=ผู้ดูแลระบบ,super_user=สมาชิกพิเศษ,user=สมาชิก,shop=ร้านค้า]', 'trim|required');
-		$frm->set_rules('food_intol_exam', 'เคยตรวจ Food Intolerance หรือไม่ Yes | No [Yes=ใช่,No=ไม่ใช่]', 'trim|required');
+		$frm->set_rules('food_intol_exam', 'เคยตรวจ Food Intolerance หรือไม่ Yes | No [Yes=ใช่,No=ไม่ใช่]', 'trim');
+		/*
 		$frm->set_rules('limit_allmeat', 'ข้อจำกัดการบริโภค (เนื้อสัตว์ทุกชนิด) [Yes=ใช่,No=ไม่ใช่]', 'trim|required');
 		$frm->set_rules('limit_pig', 'ข้อจำกัดการบริโภค (หมู) [Yes=ใช่,No=ไม่ใช่]', 'trim|required');
 		$frm->set_rules('limit_meat', 'ข้อจำกัดการบริโภค (เนื้อ) [Yes=ใช่,No=ไม่ใช่]', 'trim|required');
 		$frm->set_rules('limit_animal', 'ข้อจำกัดการบริโภค (ผลิตภัณฑ์จากสัตว์ เช่นไข่และนม) [Yes=ใช่,No=ไม่ใช่]', 'trim|required');
 		$frm->set_rules('limit_seafood', 'ข้อจำกัดการบริโภค (อาหารทะเล) [Yes=ใช่,No=ไม่ใช่]', 'trim|required');
 		$frm->set_rules('limit_additives', 'ข้อจำกัดการบริโภค (สารเติมแต่ง เช่น ผงชูรส) [Yes=ใช่,No=ไม่ใช่]', 'trim|required');
-
+		*/
 		$frm->set_message('required', '- กรุณากรอก %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
+		$frm->set_message('callback_float_check', '- %s ต้องระบุตัวเลขทศนิยม');
 		$frm->set_message('decimal', '- %s ต้องระบุตัวเลขทศนิยม');
 
 		if ($frm->run() == FALSE) {
@@ -389,12 +619,14 @@ class Users extends CRUD_Controller
 			$message .= form_error('increase_date_end');
 			$message .= form_error('user_level');
 			$message .= form_error('food_intol_exam');
+			/*
 			$message .= form_error('limit_allmeat');
 			$message .= form_error('limit_pig');
 			$message .= form_error('limit_meat');
 			$message .= form_error('limit_animal');
 			$message .= form_error('limit_seafood');
 			$message .= form_error('limit_additives');
+			*/
 			return $message;
 		}
 	}
@@ -499,7 +731,40 @@ class Users extends CRUD_Controller
 			$encrypt_id = '';
 			if($upload_error == 0){
 				$success = TRUE;
+
+				$rows = array(
+					'limit_allmeat'=>array('No','เนื้อสัตว์ทุกชนิด'),
+					'limit_pig'=>array('No','หมู'),
+					'limit_meat'=>array('No','เนื้อ'),
+					'limit_animal'=>array('No','ผลิตภัณฑ์จากสัตว์ เช่นไข่และนม'),
+					'limit_seafood'=>array('No','อาหารทะเล'),
+					'limit_additives'=>array('No','สารเติมแต่ง เช่น ผงชูรส'),
+				);
+				foreach ($rows as $key => $value) {
+					if(isset($post['limit'][$key])) {
+						$post[$key] = 'Yes';
+					}else {
+						$post[$key] = 'No';
+					}
+				}
+				unset($post['limit']);
+
+				$post1['pro_id'] = $post['pro_id'];
+				unset($post['pro_id']);
+
 				$id = $this->Users->create($post);
+
+
+			    if(count($post1['pro_id'])) {
+				    $this->load->model("common_model");
+				    //$this->common_model->update("users_promotions",array('fag_allow'=>'delete',"user_delete"=>get_session("user_id"),'datetime_delete'=>date('Y-m-d H:i:s')),array('user_id'=>$this->session->userdata('shop_id')));
+				    foreach($post1['pro_id'] as $key=>$value) {
+				    	$this->common_model->insert('users_promotions',array('user_add'=>$this->session->userdata('user_id'),'datetime_add'=>date('Y-m-d H:i:s'),'pro_id'=>$value,'user_id'=>$id));
+				    }
+				    //$this->common_model->update("shops",array("user_update"=>get_session("user_id"),'datetime_update'=>date('Y-m-d H:i:s')),array('shop_id'=>$this->session->userdata('shop_id')));
+
+				}
+
 				$encrypt_id = encrypt($id);
 				$message = '<strong>บันทึกข้อมูลเรียบร้อย</strong>';
 			}else{
@@ -531,16 +796,112 @@ class Users extends CRUD_Controller
 
 		$encrypt_id = urldecode($encrypt_id);
 		$id = decrypt($encrypt_id);
+
+		$this->data['data_id'] = $id;
+		
+		$this->load->model("common_model");
+		
+		$rows1 = $this->common_model->custom_query("select * from users_exam_hip where fag_allow='allow'  and user_id={$id} order by date_exam");
+		$this->data['users_exam_hip'] = "<tr><td>-</td><td>-</td></tr>";
+		if(count($rows1)) {
+			$this->data['users_exam_hip'] = "";
+		}
+		foreach ($rows1 as $key => $value) {
+			$this->data['users_exam_hip'].= '<tr><td align="center">'.$value['user_hib'].'</td><td align="center">'.substr($value['date_exam'],8,2).'/'.substr($value['date_exam'],5,2).'/'.(substr($value['date_exam'],0,4)+543).'</td></tr>';
+		}
+
+		$rows1 = $this->common_model->custom_query("select * from users_exam_weight where fag_allow='allow' and user_id={$id} order by date_exam");
+		$this->data['users_exam_weight'] = "<tr><td>-</td><td>-</td></tr>";
+		if(count($rows1)) {
+			$this->data['users_exam_weight'] = "";
+		}
+		foreach ($rows1 as $key => $value) {
+			$this->data['users_exam_weight'].= '<tr><td align="center">'.$value['user_weight'].'</td><td align="center">'.substr($value['date_exam'],8,2).'/'.substr($value['date_exam'],5,2).'/'.(substr($value['date_exam'],0,4)+543).'</td></tr>';
+		}
+
+		$rows1 = $this->common_model->custom_query("select * from users_exam_waistline where fag_allow='allow' and user_id={$id} order by date_exam");
+		$this->data['users_exam_waistline'] = "<tr><td>-</td><td>-</td></tr>";
+		if(count($rows1)) {
+			$this->data['users_exam_waistline'] = "";
+		}
+		foreach ($rows1 as $key => $value) {
+			$this->data['users_exam_waistline'].= '<tr><td align="center">'.$value['user_waist'].'</td><td align="center">'.substr($value['date_exam'],8,2).'/'.substr($value['date_exam'],5,2).'/'.(substr($value['date_exam'],0,4)+543).'</td></tr>';
+		}
+
+
 		if ($id == "") {
 			$this->data['message'] = "กรุณาระบุรหัสอ้างอิงที่ต้องการแก้ไขข้อมูล";
 			$this->render_view('ci_message/warning');
 		} else {
 			$results = $this->Users->load($id);
+			//die(print_r($results));
 			if (empty($results)) {
 			$this->data['message'] = "ไม่พบข้อมูลตามรหัสอ้างอิง <b>$id</b>";
 				$this->render_view('ci_message/danger');
 			} else {
 				$this->data['csrf_field'] = insert_csrf_field(true);
+
+		$rows = array(
+			'limit_allmeat'=>array($results['limit_allmeat'],'เนื้อสัตว์ทุกชนิด'),
+			'limit_pig'=>array($results['limit_pig'],'หมู'),
+			'limit_meat'=>array($results['limit_meat'],'เนื้อ'),
+			'limit_animal'=>array($results['limit_animal'],'ผลิตภัณฑ์จากสัตว์ เช่นไข่และนม'),
+			'limit_seafood'=>array($results['limit_seafood'],'อาหารทะเล'),
+			'limit_additives'=>array($results['limit_additives'],'สารเติมแต่ง เช่น ผงชูรส'),
+		);
+		$tmp_data = '<div class="row">';
+		foreach ($rows as $key => $value) {
+			$selected='';
+			//if($value[0]=='Yes')continue;
+			if($value[0]=='Yes') {
+				$selected = 'checked';
+			}
+			$tmp_data = $tmp_data."<div onclick=\"if($('.{$key}:checked').length==0)".'{'."$('.{$key}').prop('checked',true);".'}'."else ".'{'."$('.{$key}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value[1]}</label><input style='margin-top: -40px;' type='checkbox' class='form-control {$key}' name='limit[{$key}]' value='{$value[0]}' {$selected}></div>";
+		}
+		$this->data['limit'] = $tmp_data.'</div>';
+
+		$this->data['promotions1'] = "";
+		$this->data['promotions2'] = "";
+
+			$rows1 = $this->common_model->custom_query("select * from users_promotions as b where b.fag_allow='allow' and b.user_id={$id}");
+			$setSelect = array();
+			if(isset($rows1)) {
+				foreach ($rows1 as $key => $value) {
+					$setSelect[$value['pro_id']] = 'Yes';
+				}
+			}
+
+			$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='credit_cart' order by a.pro_name");
+			$tmp_data = '<div class="row">';
+			foreach ($rows as $key => $value) {
+				$selected='';
+				//if($value['b_fag_allow']=='delete')continue;
+				$pro_discount = 0;
+				if(isset($setSelect[$value['pro_id']])) {
+					$selected = 'checked';
+				}
+					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+
+				
+			}
+			$tmp_data.="</div>";
+			$this->data['promotions1'] = $tmp_data;
+			
+			$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='mobile_chanel' order by a.pro_name");
+
+			$tmp_data = '<div class="row">';
+			foreach ($rows as $key => $value) {
+				$selected='';
+				//if($value['b_fag_allow']=='delete')continue;
+				$pro_discount = 0;
+				if(isset($setSelect[$value['pro_id']])) {
+					$selected = 'checked';
+				}
+					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-6'><label class='col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+				
+			}
+			$tmp_data.="</div>";
+			$this->data['promotions2'] = $tmp_data;
 
 
 				$this->setPreviewFormat($results);
@@ -581,6 +942,10 @@ class Users extends CRUD_Controller
 		
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);
+
+		$encrypt_id = urldecode($post['encrypt_user_id']);
+		$id = decrypt($encrypt_id);
+
 		if ($error_pk_id != '') {
 			$message .= "รหัสอ้างอิงที่ใช้สำหรับอัพเดตข้อมูลไม่ถูกต้อง";
 		}
@@ -609,6 +974,37 @@ class Users extends CRUD_Controller
 			}
 
 			if($upload_error == 0){
+
+				$rows = array(
+					'limit_allmeat'=>array('No','เนื้อสัตว์ทุกชนิด'),
+					'limit_pig'=>array('No','หมู'),
+					'limit_meat'=>array('No','เนื้อ'),
+					'limit_animal'=>array('No','ผลิตภัณฑ์จากสัตว์ เช่นไข่และนม'),
+					'limit_seafood'=>array('No','อาหารทะเล'),
+					'limit_additives'=>array('No','สารเติมแต่ง เช่น ผงชูรส'),
+				);
+				foreach ($rows as $key => $value) {
+					if(isset($post['limit'][$key])) {
+						$post[$key] = 'Yes';
+					}else {
+						$post[$key] = 'No';
+					}
+				}
+				unset($post['limit']);
+
+			    if(count($post['pro_id'])) {
+				    $this->load->model("common_model");
+
+				    $this->common_model->update("users_promotions",array('fag_allow'=>'delete',"user_delete"=>get_session("user_id"),'datetime_delete'=>date('Y-m-d H:i:s')),array('user_id'=>$id));
+				    foreach($post['pro_id'] as $key=>$value) {
+				    	$this->common_model->insert('users_promotions',array('user_add'=>$this->session->userdata('user_id'),'datetime_add'=>date('Y-m-d H:i:s'),'pro_id'=>$value,'user_id'=>$id));
+				    }
+
+				    //$this->common_model->update("users",array("user_update"=>get_session("user_id"),'datetime_update'=>date('Y-m-d H:i:s')),array('user_id'=>$id));
+
+				}
+				unset($post['pro_id']);
+
 				$result = $this->Users->update($post);
 				if($result == false){
 					$message = $this->Users->error_message;

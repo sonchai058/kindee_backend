@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-12 mb-3">
 				<div class="text-right">
-					<a href="{page_url}/add" class="btn btn-success btn-lg" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่">
+					<a href="{page_url}/add" class="btn btn-success btn-md" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่">
 						<i class="fa fa-plus-square"></i></span> เพิ่มรายการใหม่
 					</a>
 		</div>
@@ -20,13 +20,15 @@
 					<a href="{page_url}" class="btn btn-info">ทั้งหมด</a>
 					<div class="form-group">
 						<select  class="form-control" name="search_field" class="span2">
-					<option value="user_fname">ชื่อ</option>
+					<option value="user_fname">ชื่อผู้ใช้งาน</option>
+					<option value="user_level">ระดับผู้ใช้งาน</option>
+					<!--
 					<option value="user_lname">นามสกุล</option>
 					<option value="mobile_no">มือถือ</option>
 					<option value="fag_allow">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]</option>
 					<option value="org_id">รหัสองค์กรที่สังกัด</option>
 					<option value="user_sex">เพศ [ชาย=ชาย,หญิง=หญิง,ไม่ระบุ=ไม่ระบุ]</option>
-					<option value="user_level">ระดับผู้ใช้งาน [admin=ผู้ดูแลระบบ,super_user=สมาชิกพิเศษ,user=สมาชิก,shop=ร้านค้า]</option>
+					<option value="user_level">ระดับผู้ใช้งาน [admin=ผู้ดูแลระบบ,super_user=สมาชิกพิเศษ,user=สมาชิก,shop=ร้านค้า]</option>-->
 						</select>
  					</div>
 					<div class="form-group">
@@ -43,7 +45,7 @@
 					<div class="form-group">
 						<select  class="form-control" id="set_order_by" class="span2" value="{order_by}">
 					<option value="">- จัดเรียงตาม -</option>
-					<option value="user_fname|asc">ชื่อ ก - ฮ</option><option value="user_fname|desc">ชื่อ ฮ - ก</option><option value="user_lname|asc">นามสกุล ก - ฮ</option><option value="user_lname|desc">นามสกุล ฮ - ก</option><option value="mobile_no|asc">มือถือ ก - ฮ</option><option value="mobile_no|desc">มือถือ ฮ - ก</option>
+					<option value="user_fname|asc">ชื่อ ก - ฮ</option><option value="user_fname|desc">ชื่อ ฮ - ก</option><!--<option value="user_lname|asc">นามสกุล ก - ฮ</option><option value="user_lname|desc">นามสกุล ฮ - ก</option><option value="mobile_no|asc">มือถือ ก - ฮ</option><option value="mobile_no|desc">มือถือ ฮ - ก</option>-->
 						</select>
  					</div>
 				</div>
@@ -68,24 +70,22 @@
 				<thead class="info">
 					<tr bgcolor="#dddddd">
 						<th width="20px;">#</th>
-						<th>รูป</th>
-						<th>ชื่อ</th>
-						<th>มือถือ</th>
-						<th>ผู้อัปเดต</th>
-						<th>วันเวลา ที่อัปเดต</th>
-						<th>สถานะ</th>
-						<th class="text-center" style="width:200px">จัดการข้อมูล</th>
+						<th>ชื่อผู้ใช้งาน</th>
+						<th>เบอร์โทร</th>
+						<th>อีเมล</th>
+						<th>ระดับผู้ใช้งาน</th>
+						<th class="text-center" style="width:200px">เครื่องมือ</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr parser-repeat="[data_list]" id="row_{record_number}">
 						<td style="text-align:center;">[{record_number}]</td>
-						<td>{preview_user_photo}</td>
+						<!--<td>{preview_user_photo}</td> -->
 						<td>{user_fname}</td>
 						<td>{mobile_no}</td>
-						<td>{userUpdateUserFname}</td>
-						<td>{datetime_update}</td>
-						<td>{preview_fag_allow}</td>
+						<td>{email_addr}</td>
+						<!--<td>{datetime_update}</td>-->
+						<td>{preview_user_level}</td>
 						<td>
 							<div class="btn-group pull-right">
 								<a href="{page_url}/preview/{url_encrypt_id}" 

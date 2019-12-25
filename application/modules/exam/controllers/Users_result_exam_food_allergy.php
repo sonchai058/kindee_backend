@@ -14,6 +14,9 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 	public function __construct()
 	{
 		parent::__construct();
+
+		chkUserPerm();
+		
 		$this->per_page = 30;
 		$this->num_links = 6;
 		$this->uri_segment = 4;

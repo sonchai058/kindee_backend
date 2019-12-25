@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-12 mb-3">
 				<div class="text-right">
-					<a href="{page_url}/add" class="btn btn-success btn-lg" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่">
+					<a href="{page_url}/add" class="btn btn-success btn-md" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่">
 						<i class="fa fa-plus-square"></i></span> เพิ่มรายการใหม่
 					</a>
 		</div>
@@ -20,13 +20,14 @@
 					<a href="{page_url}" class="btn btn-info">ทั้งหมด</a>
 					<div class="form-group">
 						<select  class="form-control" name="search_field" class="span2">
-					<option value="cate_id">รหัสประเภทร้าน</option>
-					<option value="shop_name_th">ชื่อไทย</option>
+					<!--<option value="cate_id">รหัสประเภทร้าน</option> -->
+					<option value="shop_name_th">ชื่อร้าน</option>
+					<!--
 					<option value="shop_name_en">ชื่ออังกฤษ</option>
 					<option value="mobile_no">มือถือ</option>
 					<option value="email_addr">อีเมล</option>
 					<option value="shop_user">รหัสผู้ดูแล</option>
-					<option value="fag_allow">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]</option>
+					<option value="fag_allow">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]</option>-->
 						</select>
  					</div>
 					<div class="form-group">
@@ -43,7 +44,14 @@
 					<div class="form-group">
 						<select  class="form-control" id="set_order_by" class="span2" value="{order_by}">
 					<option value="">- จัดเรียงตาม -</option>
-					<option value="cate_id|asc">รหัสประเภทร้าน น้อย - มาก</option><option value="cate_id|desc">รหัสประเภทร้าน มาก - น้อย</option><option value="shop_name_th|asc">ชื่อไทย ก - ฮ</option><option value="shop_name_th|desc">ชื่อไทย ฮ - ก</option><option value="shop_name_en|asc">ชื่ออังกฤษ ก - ฮ</option><option value="shop_name_en|desc">ชื่ออังกฤษ ฮ - ก</option><option value="mobile_no|asc">มือถือ ก - ฮ</option><option value="mobile_no|desc">มือถือ ฮ - ก</option><option value="email_addr|asc">อีเมล ก - ฮ</option><option value="email_addr|desc">อีเมล ฮ - ก</option><option value="shop_user|asc">รหัสผู้ดูแล น้อย - มาก</option><option value="shop_user|desc">รหัสผู้ดูแล มาก - น้อย</option><option value="fag_allow|asc">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ] น้อย - มาก</option><option value="fag_allow|desc">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ] มาก - น้อย</option>
+
+				<!--
+					<option value="cate_id|asc">รหัสประเภทร้าน น้อย - มาก</option><option value="cate_id|desc">รหัสประเภทร้าน มาก - น้อย</option>
+				-->
+					<option value="shop_name_th|asc">ชื่อไทย ก - ฮ</option><option value="shop_name_th|desc">ชื่อไทย ฮ - ก</option>
+					<!--
+					<option value="shop_name_en|asc">ชื่ออังกฤษ ก - ฮ</option>				
+					<option value="shop_name_en|desc">ชื่ออังกฤษ ฮ - ก</option><option value="mobile_no|asc">มือถือ ก - ฮ</option><option value="mobile_no|desc">มือถือ ฮ - ก</option><option value="email_addr|asc">อีเมล ก - ฮ</option><option value="email_addr|desc">อีเมล ฮ - ก</option><option value="shop_user|asc">รหัสผู้ดูแล น้อย - มาก</option><option value="shop_user|desc">รหัสผู้ดูแล มาก - น้อย</option><option value="fag_allow|asc">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ] น้อย - มาก</option><option value="fag_allow|desc">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ] มาก - น้อย</option>-->
 						</select>
  					</div>
 				</div>
@@ -68,13 +76,16 @@
 				<thead class="info">
 					<tr bgcolor="#dddddd">
 						<th width="20px;">#</th>
+						<!--
 						<th>ชื่อประเภทร้าน</th>
-						<th>รูปโปรไฟล์</th>
-						<th>ชื่อไทย</th>
-						<th>มือถือ</th>
+						<th>รูปโปรไฟล์</th> -->
+						<th>ชื่อร้าน</th>
+						<th>ที่อยู่</th>
+						<th>เบอร์โทร</th>
+						<!--
 						<th>ชื่อผู้ดูแล</th>
 						<th>ผู้อัปเดต</th>
-						<th>วันเวลา ที่อัปเดต</th>
+						<th>วันเวลา ที่อัปเดต</th> -->
 						<th>สถานะ</th>
 						<th class="text-center" style="width:200px">จัดการข้อมูล</th>
 					</tr>
@@ -82,13 +93,15 @@
 				<tbody>
 					<tr parser-repeat="[data_list]" id="row_{record_number}">
 						<td style="text-align:center;">[{record_number}]</td>
-						<td>{cateIdCateName}</td>
-						<td>{preview_shop_photo}</td>
+						<!-- <td>{cateIdCateName}</td> -->
+						<!-- <td>{preview_shop_photo}</td> -->
 						<td>{shop_name_th}</td>
+						<td>{addr}</td>
 						<td>{mobile_no}</td>
+						<!--
 						<td>{shopUserUserFname}</td>
 						<td>{userUpdateUserFname}</td>
-						<td>{datetime_update}</td>
+						<td>{datetime_update}</td> -->
 						<td>{preview_fag_allow}</td>
 						<td>
 							<div class="btn-group pull-right">

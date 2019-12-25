@@ -84,7 +84,9 @@ var Users = {
 							if(results.is_successful){
 								notify('แจ้งเตือน', 'บันทึกข้อมูลหลักเรียบร้อย ดำเนินการในขั้นตอนต่อไป', 'success', 'center');
 								$("#frmUploadDetail :input").attr("disabled", false);
-
+							
+								$(window.location).attr('href', site_url('setting/users/edit/'+ results.encrypt_id));
+							
 							}else{
 								notify('เพิ่มข้อมูล', results.message, 'danger', 'center');
 							}
@@ -311,6 +313,7 @@ $(document).ready(function() {
 	setDropdownList('#fag_allow');
 	setDropdownList('#org_id');
 	setDropdownList('#user_level');
+	setDropdownList('#goal_reduce_weight_select');
 
 	//Set default value
 	var order_by = $('#set_order_by').attr('value');
@@ -322,4 +325,133 @@ $(document).ready(function() {
 	});
 	setDatePicker('.datepicker');
 
+	setTimeout(function() {
+		//alert($("#goal_increase_weight").val());
+		if($("#goal_reduce_weight").val()!=0.00) {
+			$("#w1").show();
+			$("#w2").hide();
+			$("#goal_increase_weight").val(0.00);
+			$("#increase_date_start").val("");
+			$("#increase_date_end").val("");
+		}else {
+			$("#w1").hide();
+			$("#w2").show();
+			$("#goal_reduce_weight").val(0.00);
+			$("#reduce_date_start").val("");
+			$("#reduce_date_end").val("");	
+		}
+	},1000);
+
 });
+
+$("#goal_reduce_weight_select").change(function(){
+	if($(this).val()!=null) {
+		if($(this).val()=='ลด'){
+				$("#w1").show();
+				$("#w2").hide();
+				$("#goal_increase_weight").val(0.00);
+				$("#increase_date_start").val("");
+				$("#increase_date_end").val("");	
+		}else {
+				$("#w1").hide();
+				$("#w2").show();
+				$("#goal_reduce_weight").val(0.00);
+				$("#reduce_date_start").val("");
+				$("#reduce_date_end").val("");	
+		}
+	}
+});
+
+function user_infoadd1() {
+	if($("#user_dataadd1").val()!='' && data_id!='') {
+		var fdata = 'data='+$("#user_dataadd1").val()+'&user_id='+data_id;
+		fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
+		$.ajax({
+			method: 'POST',
+			url: site_url('setting/users/user_infoadd1'),
+			dataType: 'json',
+			data:fdata,
+			success: function (results) {
+				console.log(results);
+
+				if(results.is_successful){
+					alert_type = 'success';
+					$("#user_dataadd1").val("");
+					location.reload();
+				}else{
+					alert_type = 'danger';
+				}
+				notify('แจ้งการบันทึก', results.message, alert_type, 'center');
+
+				//$('#divPreview').html(results);
+			},
+			error : function(jqXHR, exception){
+				ajaxErrorMessage(jqXHR, exception);
+			}
+		});
+	}else {
+		notify('แจ้งเตือน!', "กรุณาตรวจสอบข้อมูลที่ป้อน หรือท่านจะต้องกดปุ่มเพื่อบันทึกข้อมูลผู้ใช้งานก่อน!", 'danger', 'center');
+	} 
+}
+function user_infoadd2() {
+	if($("#user_dataadd2").val()!='' && data_id!='') {
+		var fdata = 'data='+$("#user_dataadd2").val()+'&user_id='+data_id;
+		fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
+		$.ajax({
+			method: 'POST',
+			url: site_url('setting/users/user_infoadd2'),
+			dataType: 'json',
+			data:fdata,
+			success: function (results) {
+				console.log(results);
+
+				if(results.is_successful){
+					alert_type = 'success';
+					$("#user_dataadd2").val("");
+					location.reload();
+				}else{
+					alert_type = 'danger';
+				}
+				notify('แจ้งการบันทึก', results.message, alert_type, 'center');
+
+				//$('#divPreview').html(results);
+			},
+			error : function(jqXHR, exception){
+				ajaxErrorMessage(jqXHR, exception);
+			}
+		});
+	}else {
+		notify('แจ้งเตือน!', "กรุณาตรวจสอบข้อมูลที่ป้อน หรือท่านจะต้องกดปุ่มเพื่อบันทึกข้อมูลผู้ใช้งานก่อน!", 'danger', 'center');
+	} 
+}
+function user_infoadd3() {
+	if($("#user_dataadd3").val()!='' && data_id!='') {
+		var fdata = 'data='+$("#user_dataadd3").val()+'&user_id='+data_id;
+		fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
+		$.ajax({
+			method: 'POST',
+			url: site_url('setting/users/user_infoadd3'),
+			dataType: 'json',
+			data:fdata,
+			success: function (results) {
+				console.log(results);
+
+				if(results.is_successful){
+					alert_type = 'success';
+					$("#user_dataadd3").val("");
+					location.reload();
+				}else{
+					alert_type = 'danger';
+				}
+				notify('แจ้งการบันทึก', results.message, alert_type, 'center');
+
+				//$('#divPreview').html(results);
+			},
+			error : function(jqXHR, exception){
+				ajaxErrorMessage(jqXHR, exception);
+			}
+		});
+	}else {
+		notify('แจ้งเตือน!', "กรุณาตรวจสอบข้อมูลที่ป้อน หรือท่านจะต้องกดปุ่มเพื่อบันทึกข้อมูลผู้ใช้งานก่อน!", 'danger', 'center');
+	} 
+}

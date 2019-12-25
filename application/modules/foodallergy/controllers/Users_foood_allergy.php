@@ -14,6 +14,9 @@ class Users_foood_allergy extends CRUD_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		
+		chkUserPerm();
+
 		$this->per_page = 30;
 		$this->num_links = 6;
 		$this->uri_segment = 4;
@@ -30,9 +33,134 @@ class Users_foood_allergy extends CRUD_Controller
 	/**
 	 * Index of controller
 	 */
+	public function novisit_save() {
+		$message = '<strong>บันทึกข้อมูลเรียบร้อย</strong>';
+		$success = TRUE;
+
+		$post = $this->input->post(NULL, TRUE);
+		
+		//die(print_r($post));
+
+	    if(count($post['alg_id'])) {
+		    $this->load->model("common_model");
+
+		    $this->common_model->update("users_foood_allergy_doubt",array('fag_allow'=>'delete',"user_delete"=>get_session("user_id"),'datetime_delete'=>date('Y-m-d H:i:s')),array('user_id'=>$this->session->userdata('user_id')));
+		    foreach($post['alg_id'] as $key=>$value) {
+		    	$this->common_model->insert('users_foood_allergy_doubt',array('user_add'=>$this->session->userdata('user_id'),'datetime_add'=>date('Y-m-d H:i:s'),'alg_id'=>$value,'user_id'=>$this->session->userdata('user_id')));
+		    }
+
+		    $this->common_model->update("users",array("user_update"=>get_session("user_id"),'datetime_update'=>date('Y-m-d H:i:s')),array('user_id'=>$this->session->userdata('user_id')));
+
+		}else {
+			$success = FALSE;
+			$message = "ไม่พบข้อมูลบันทึก!";
+		}
+
+		$json = json_encode(array(
+			'is_successful' => $success,
+			//'encrypt_id' =>  $encrypt_id,
+			'message' => $message
+		));
+		echo $json;
+	}
+
+	public function novisit() {
+
+		$this->load->model("common_model");
+		$tmp = rowArray($this->common_model->custom_query("select food_intol_exam from users where user_id=".$this->session->userdata('user_id').'  limit 1')); //****
+		if($tmp['food_intol_exam']=='Yes') {
+			redirect("foodallergy/users_foood_allergy");
+		}
+
+		$this->breadcrumb_data['breadcrumb'] = array(
+						array('title' => 'Users_foood_allergy', 'url' => site_url('foodallergy/users_foood_allergy')),
+						array('title' => 'ไม่เคยตรวจ', 'url' => '#', 'class' => 'active')
+		);
+
+		$id = $this->session->userdata('user_id');
+		if ($id == "") {
+			$this->data['message'] = "กรุณาระบุรหัสอ้างอิงที่ต้องการแก้ไขข้อมูล";
+			$this->render_view('ci_message/warning');
+		} else {
+			$this->load->model("common_model");
+			$rows = $this->common_model->custom_query("select * from food_allergy as a where a.fag_allow='allow' order by a.alg_id");
+
+			$rows1 = $this->common_model->custom_query("select * from users_foood_allergy_doubt as b where b.fag_allow='allow' and b.user_id={$this->session->userdata('user_id')}");
+			$setSelect = array();
+			foreach ($rows1 as $key => $value) {
+				$setSelect[$value['alg_id']] = "Yes";
+			}
+
+			$tmp_data = '<div class="row">';
+			foreach ($rows as $key => $value) {
+				$selected='';
+				//if($value['b_fag_allow']=='delete')continue;
+				if(isset($setSelect[$value['alg_id']])) {
+					$selected = 'checked';
+				}
+					$tmp_data = $tmp_data."<div onclick=\"if($('.alg_id{$value['alg_id']}:checked').length==0)".'{'."$('.alg_id{$value['alg_id']}').prop('checked',true);".'}'."else ".'{'."$('.alg_id{$value['alg_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-6'><label class='col-sm-8 control-label' for='alg_id'>&nbsp;&nbsp;&nbsp;{$value['alg_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control alg_id{$value['alg_id']}' name='alg_id[]' value='{$value['alg_id']}' {$selected}></div>";
+				
+			}
+			$this->data['rows'] = json_encode($rows);
+			$this->data['results'] = $tmp_data.'</div>';
+			//$results = $this->Users_foood_allergy->load($id);
+			//if (empty($results)) {
+			//$this->data['message'] = "ไม่พบข้อมูลตามรหัสอ้างอิง <b>$id</b>";
+			//	$this->render_view('ci_message/danger');
+			//} else {
+				$this->data['csrf_field'] = insert_csrf_field(true);
+				$this->render_view('foodallergy/users_foood_allergy/novisit');
+			//}
+		}
+	}
+
 	public function index()
 	{
-		$this->list_all();
+		$this->load->model("common_model");
+		$tmp = rowArray($this->common_model->custom_query("select food_intol_exam from users where user_id=".$this->session->userdata('user_id').'  limit 1')); //****
+		if($tmp['food_intol_exam']=='No') {
+			redirect("foodallergy/users_foood_allergy/novisit");
+		}else {
+			$this->list_all();
+		}
+	}
+
+	public function food_intol_exam() {
+		$message = '<strong>บันทึกข้อมูลเรียบร้อย</strong>';
+		$is_successful = TRUE;
+
+		$post = $this->input->post(NULL, TRUE);
+		if($this->session->userdata('user_id')!='') {
+			$this->load->model("common_model");
+			$this->common_model->update(
+				'users',
+				array('user_id'=>$this->session->userdata('user_id'),'user_update'=>$this->session->userdata('user_id'),'datetime_update'=>date("Y-m-d H:i:s"),'food_intol_exam'=>$post['food_intol_exam']),
+				array('user_id'=>$this->session->userdata('user_id'))
+			);
+
+			if($post['food_intol_exam']=='No') {
+				$this->common_model->update(
+					'users_foood_allergy',
+					array('fag_allow'=>'delete','user_delete'=>$this->session->userdata('user_id'),'datetime_delete'=>date("Y-m-d H:i:s")),
+					array('user_id'=>$this->session->userdata('user_id'))
+				);
+			}else if($post['food_intol_exam']=='Yes') {
+				$this->common_model->update(
+					'users_foood_allergy_doubt',
+					array('fag_allow'=>'delete','user_delete'=>$this->session->userdata('user_id'),'datetime_delete'=>date("Y-m-d H:i:s")),
+					array('user_id'=>$this->session->userdata('user_id'))
+				);
+			}
+		}else {
+			$message = 'ข้อมูลไม่ถูกต้อง!';
+			$is_successful = FALSE;
+		}
+
+		$json = json_encode(array(
+			'is_successful' => $is_successful,
+			'message' => $message
+		));
+		echo $json;
 	}
 
 	// ------------------------------------------------------------------------
@@ -206,15 +334,28 @@ class Users_foood_allergy extends CRUD_Controller
 	 * Default Validation
 	 * see also https://www.codeigniter.com/userguide3/libraries/form_validation.html
 	 */
+    public function float_check($val)
+    {	
+    	return TRUE;
+    /*
+    	die($val);
+        if ( !is_int($val) || !is_float($val) ) {
+            $this->form_validation->set_message('float_check', '- %s ต้องระบุตัวเลขทศนิยม');
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+        */
+    }
 	public function formValidate()
 	{
 		$this->load->library('form_validation');
 		$frm = $this->form_validation;
 
-		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim|required|is_natural');
+		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim');
 		$frm->set_rules('alg_id', 'รหัสอาหารที่แพ้', 'trim|required|is_natural');
 		$frm->set_rules('fag_allow', 'สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]', 'trim|required');
-		$frm->set_rules('food_alg_val', 'ค่า', 'trim|required|decimal');
+		$frm->set_rules('food_alg_val', 'ค่า', 'trim|required|callback_float_check');
 		$frm->set_rules('time_len_eat', 'ระยะเวลาที่ควรบริโภค [จำกัด=จำกัด,ไม่จำกัด=ไม่จำกัด]', 'trim|required');
 
 		$frm->set_message('required', '- กรุณากรอก %s');
@@ -243,10 +384,10 @@ class Users_foood_allergy extends CRUD_Controller
 		$this->load->library('form_validation');
 		$frm = $this->form_validation;
 
-		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim|required|is_natural');
+		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim');
 		$frm->set_rules('alg_id', 'รหัสอาหารที่แพ้', 'trim|required|is_natural');
 		$frm->set_rules('fag_allow', 'สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]', 'trim|required');
-		$frm->set_rules('food_alg_val', 'ค่า', 'trim|required|decimal');
+		$frm->set_rules('food_alg_val', 'ค่า', 'trim|required|callback_float_check');
 		$frm->set_rules('time_len_eat', 'ระยะเวลาที่ควรบริโภค [จำกัด=จำกัด,ไม่จำกัด=ไม่จำกัด]', 'trim|required');
 
 		$frm->set_message('required', '- กรุณากรอก %s');
@@ -283,6 +424,8 @@ class Users_foood_allergy extends CRUD_Controller
 		} else {
 
 			$post = $this->input->post(NULL, TRUE);
+
+			$post['user_id'] = get_session('user_id');
 
 			$encrypt_id = '';
 			$id = $this->Users_foood_allergy->create($post);

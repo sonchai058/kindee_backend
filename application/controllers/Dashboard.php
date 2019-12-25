@@ -18,6 +18,8 @@ class Dashboard extends CRUD_Controller
 
 		$this->another_js .= '<script src="'. base_url('assets/themes/sb-admin/vendor/chart.js/Chart.min.js').'"></script>';
 		$this->another_js .= '<script src="'. base_url('assets/themes/sb-admin/js/sb-admin-charts.min.js').'"></script>';
+
+		$this->another_js .= '<script src="'. base_url('assets/js/dashboard.js').'"></script>';
 	}
 
 	// ------------------------------------------------------------------------
@@ -62,6 +64,30 @@ class Dashboard extends CRUD_Controller
 	public function dashboard()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array();
+
+		$this->load->model("common_model");
+		$userCount1 = rowArray($this->common_model->custom_query("select count(user_id) as num from users where fag_allow='allow'"));
+		$this->data['userCount1'] = number_format($userCount1['num']);
+		
+		$userCount2 = rowArray($this->common_model->custom_query("select count(user_id) as num from users where fag_allow='allow' and user_level='user'"));
+		$this->data['userCount2'] = number_format($userCount2['num']);
+
+		$userCount3 = rowArray($this->common_model->custom_query("select count(user_id) as num from users where fag_allow='allow' and user_level='super_user'"));
+		$this->data['userCount3'] = number_format($userCount3['num']);
+		 
+		$chart = $this->common_model->custom_query("SELECT count(state_id) as num, DATE(action_datetime) as date FROM statistics where status='success' and action='login' GROUP BY DATE(action_datetime) order by date");
+		$this->data['chart'] = $chart;
+		$this->data['chart_date'] = isset($chart[count($chart)-1]['date'])?$chart[count($chart)-1]['date']:0;
+
+		$chart_labels = array();
+		$chart_data = array();
+		foreach ($chart as $key => $value) {
+			$chart_labels[] = "new Date('{$value['date']} 00:00:00').toLocaleString()";
+			$chart_data[] = array('t'=>$value['date']." 00:00:00",'y'=>$value['num']);
+		}
+		$chart_labels='['.implode(',',$chart_labels).']';
+		$this->data['chart_labels'] = $chart_labels;
+		$this->data['chart_data'] = json_encode($chart_data);
 
 		$this->render_view('dashboard');
 	}

@@ -19,6 +19,9 @@ class Shop_promotions extends CRUD_Controller
 	public function __construct()
 	{
 		parent::__construct();
+
+		chkUserPerm();
+		
 		$this->per_page = 30;
 		$this->num_links = 6;
 		$this->uri_segment = 4;
@@ -58,6 +61,102 @@ class Shop_promotions extends CRUD_Controller
 	/**
 	 * Index of controller
 	 */
+	
+	public function editpro_save() {
+		$message = '<strong>บันทึกข้อมูลเรียบร้อย</strong>';
+		$success = TRUE;
+
+		$post = $this->input->post(NULL, TRUE);
+
+	    if(count($post['pro_id'])) {
+		    $this->load->model("common_model");
+
+		    $this->common_model->update("shop_promotions",array('fag_allow'=>'delete',"user_delete"=>get_session("user_id"),'datetime_delete'=>date('Y-m-d H:i:s')),array('shop_id'=>$this->session->userdata('shop_id')));
+		    foreach($post['pro_id'] as $key=>$value) {
+		    	$this->common_model->insert('shop_promotions',array('pro_discount'=>($post['pro_discount'][$value]!=''?$post['pro_discount'][$value]:0),'user_add'=>$this->session->userdata('user_id'),'datetime_add'=>date('Y-m-d H:i:s'),'pro_id'=>$value,'shop_id'=>$this->session->userdata('shop_id')));
+		    }
+
+		    $this->common_model->update("shops",array("user_update"=>get_session("user_id"),'datetime_update'=>date('Y-m-d H:i:s')),array('shop_id'=>$this->session->userdata('shop_id')));
+
+		}else {
+			$success = FALSE;
+			$message = "ไม่พบข้อมูลบันทึก!";
+		}
+
+		$json = json_encode(array(
+			'is_successful' => $success,
+			//'encrypt_id' =>  $encrypt_id,
+			'message' => $message
+		));
+		echo $json;
+	}
+	public function editpro() {
+		$this->breadcrumb_data['breadcrumb'] = array(
+						array('title' => 'shop_promotions', 'url' => site_url('restaurant/shop_promotions/editpro')),
+						array('title' => 'จัดการข้อมูลโปรโมชั่น', 'url' => '#', 'class' => 'active')
+		);
+
+		$id = $this->session->userdata('user_id');
+		if ($id == "") {
+			$this->data['message'] = "กรุณาระบุรหัสอ้างอิงที่ต้องการแก้ไขข้อมูล";
+			$this->render_view('ci_message/warning');
+		} else {
+			$this->load->model("common_model");
+
+			$rows1 = $this->common_model->custom_query("select * from shop_promotions as b where b.fag_allow='allow' and b.shop_id={$this->session->userdata('shop_id')}");
+			$setSelect = array();
+			foreach ($rows1 as $key => $value) {
+				$setSelect[$value['pro_id']] = $value['pro_discount'];
+			}
+
+			$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='credit_cart' order by a.pro_name");
+			$tmp_data = '<div class="row">'."<div class='col-sm-12 col-md-6'><div class='row'><div  class='col-6' style='color:#868787'>บัตรเครดิต</div><div  class='col-6' style='color:#868787'>ส่วนลด</div></div><br/>";
+
+			foreach ($rows as $key => $value) {
+				$selected='';
+				//if($value['b_fag_allow']=='delete')continue;
+				$pro_discount = 0;
+				if(isset($setSelect[$value['pro_id']])) {
+					$selected = 'checked';
+					$pro_discount = $setSelect[$value['pro_id']];
+				}
+					$tmp_data = $tmp_data."<div class='row'><div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-6'><label class='col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+					$tmp_data = $tmp_data."<div  class='col-6'><input type='number' step='0.01' value='{$pro_discount}' onkeypress=\"$('.pro_id{$value['pro_id']}').prop('checked',true);\" name='pro_discount[{$value['pro_id']}]'></div></div>";
+
+				
+			}
+
+			$tmp_data.="</div><div class='col-sm-12 col-md-6'><div class='col-sm-12 col-md-6'><div class='row'><div  class='col-6' style='color:#868787'>บัตรเครดิต</div><div  class='col-6' style='color:#868787'>ส่วนลด</div></div><br/>";
+			
+			$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='mobile_chanel' order by a.pro_name");
+
+			foreach ($rows as $key => $value) {
+				$selected='';
+				//if($value['b_fag_allow']=='delete')continue;
+				$pro_discount = 0;
+				if(isset($setSelect[$value['pro_id']])) {
+					$selected = 'checked';
+					$pro_discount = $setSelect[$value['pro_id']];
+				}
+					$tmp_data = $tmp_data."<div class='row'><div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-6'><label class='col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+					$tmp_data = $tmp_data."<div  class='col-6'><input type='number' step='0.01' value='{$pro_discount}' onkeypress=\"$('.pro_id{$value['pro_id']}').prop('checked',true);\" name='pro_discount[{$value['pro_id']}]'></div></div>";
+
+				
+			}
+
+			$this->data['rows'] = json_encode($rows);
+			$this->data['results'] = $tmp_data."</div></div>";
+			//$results = $this->Users_foood_allergy->load($id);
+			//if (empty($results)) {
+			//$this->data['message'] = "ไม่พบข้อมูลตามรหัสอ้างอิง <b>$id</b>";
+			//	$this->render_view('ci_message/danger');
+			//} else {
+				$this->data['csrf_field'] = insert_csrf_field(true);
+				$this->render_view('restaurant/shop_promotions/promotions');
+			//}
+		}
+	}
+
 	public function index()
 	{
 		$this->list_all();

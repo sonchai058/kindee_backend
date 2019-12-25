@@ -41,11 +41,11 @@
 						<td>{preview_shop_cover}</td>
 					</tr>
 					<tr>
-						<td class="text-right fit"><b>ชื่อไทย :</b></td>
+						<td class="text-right fit"><b>ชื่อร้าน (ไทย) :</b></td>
 						<td>{record_shop_name_th}</td>
 					</tr>
 					<tr>
-						<td class="text-right fit"><b>ชื่ออังกฤษ :</b></td>
+						<td class="text-right fit"><b>ชื่อร้าน (อังกฤษ) :</b></td>
 						<td>{record_shop_name_en}</td>
 					</tr>
 					<tr>
@@ -61,7 +61,7 @@
 					<td>{shopUserUserFname}</td>
 				</tr>
 					<tr>
-						<td class="text-right fit"><b>เลขที่ที่อยู่ :</b></td>
+						<td class="text-right fit"><b>ที่อยู่ :</b></td>
 						<td>{record_addr}</td>
 					</tr>
 				<tr>

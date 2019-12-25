@@ -61,7 +61,7 @@
 					<div class="col-sm-12 col-md-6">
 						<label class="col-sm-6 control-label" for="">ส่วนประกอบ :</label>
 						<button type="button" id="btn_comp"
-							class="btn btn-success btn-lg" data-toggle="modal"
+							class="btn btn-success btn-md" data-toggle="modal"
 							data-target="" >
 							&nbsp;&nbsp;<i class="fa fa-plus-square"></i> เพิ่มส่วนประกอบอาหาร/กรัม &nbsp;&nbsp;
 						</button>
@@ -106,7 +106,7 @@
 				<div class="row form-group">
 					<div class="col-sm-4">
 							<button onclick="$('#pro-image').click()" type="button" id=""
-								class="btn btn-info btn-lg" data-toggle="modal"
+								class="btn btn-info btn-md" data-toggle="modal"
 								data-target="" >
 								&nbsp;&nbsp;<i class="fa fa-upload"></i> อัปโหลดรูป &nbsp;&nbsp;
 							</button>
@@ -124,7 +124,7 @@
 					<div class="col-sm-offset-2 col-sm-10">
 						<input type="hidden" id="add_encrypt_id" />
 						<button type="button" id="btnConfirmSave"
-							class="btn btn-primary btn-lg" data-toggle="modal"
+							class="btn btn-primary btn-md" data-toggle="modal"
 							data-target="#addModal" >
 							&nbsp;&nbsp;<i class="fa fa-save"></i> บันทึก &nbsp;&nbsp;
 						</button>

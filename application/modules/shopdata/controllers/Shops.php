@@ -19,6 +19,9 @@ class Shops extends CRUD_Controller
 	public function __construct()
 	{
 		parent::__construct();
+
+		chkUserPerm();
+		
 		$this->per_page = 30;
 		$this->num_links = 6;
 		$this->uri_segment = 4;
@@ -220,8 +223,12 @@ class Shops extends CRUD_Controller
 						array('title' => 'Shops', 'url' => site_url('shopdata/shops')),
 						array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'active')
 		);
+
+		$this->data['count_image'] = 1;
+		$this->data['data_id'] = 0;
+
 		$this->data['category_cate_id_option_list'] = $this->Shops->returnOptionList("category", "cate_id", "cate_name");
-		$this->data['users_shop_user_option_list'] = $this->Shops->returnOptionList("users", "user_id", "user_fname");
+		$this->data['users_shop_user_option_list'] = $this->Shops->returnOptionList("users", "user_id", "user_fname",array('where'=>'user_level="shop" and shop_id=0'));
 		$this->data['users_user_delete_option_list'] = $this->Shops->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_add_option_list'] = $this->Shops->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_update_option_list'] = $this->Shops->returnOptionList("users", "user_id", "user_fname");
@@ -331,7 +338,7 @@ class Shops extends CRUD_Controller
 		$frm->set_rules('shop_name_en', 'ชื่ออังกฤษ', 'trim|required');
 		$frm->set_rules('mobile_no', 'มือถือ', 'trim|required');
 		$frm->set_rules('email_addr', 'อีเมล', 'trim|required');
-		$frm->set_rules('shop_user', 'รหัสผู้ดูแล', 'trim|required|is_natural');
+		$frm->set_rules('shop_user', 'รหัสผู้ดูแล', 'trim');
 		$frm->set_rules('addr', 'เลขที่ ที่อยู่', 'trim|required');
 		$frm->set_rules('fag_allow', 'สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]', 'trim|required');
 		$frm->set_rules('point_lat', 'พิกัด ละติจูด', 'trim|required');
@@ -517,11 +524,27 @@ class Shops extends CRUD_Controller
 
 
 				$this->setPreviewFormat($results);
+				
+				$this->data['data_id'] = $id;
+
 				$this->data['category_cate_id_option_list'] = $this->Shops->returnOptionList("category", "cate_id", "cate_name");
-				$this->data['users_shop_user_option_list'] = $this->Shops->returnOptionList("users", "user_id", "user_fname");
+				$this->data['users_shop_user_option_list'] = $this->Shops->returnOptionList("users", "user_id", "user_fname",array('where'=>'user_level="shop"'));
 				$this->data['users_user_delete_option_list'] = $this->Shops->returnOptionList("users", "user_id", "user_fname");
 				$this->data['users_user_add_option_list'] = $this->Shops->returnOptionList("users", "user_id", "user_fname");
 				$this->data['users_user_update_option_list'] = $this->Shops->returnOptionList("users", "user_id", "user_fname");
+
+				$this->load->model('common_model');
+				$rows = $this->common_model->custom_query("select * from shop_images where shop_id=".$id." and fag_allow!='delete'");
+				$this->data['count_image'] = count($rows);
+				$shop_images = "";
+				foreach ($rows as $key => $value) {
+					$year = (substr($value['datetime_add'],0,4)+543);
+                	$shop_images =  $shop_images.'<div class="preview-image preview-show-'.($key+1).'">' .
+                            '<div data-image_id="'.$value['image_id'].'" class="image-cancel" data-no="'.($key+1).'">x</div>'.'<div class="image-zone"><img id="pro-img-'.($key+1).'" src="'.base_url().$this->upload_store_path.'/'.$year.'/'.$value['encrypt_name'].'"></div>'.
+                            '</div>';
+				}
+				$this->data['shop_images'] = $shop_images;
+
 				$this->render_view('shopdata/shops/edit_view');
 			}
 		}
@@ -536,6 +559,148 @@ class Shops extends CRUD_Controller
 			$error .= '- รหัส shop_id';
 		}
 		return $error;
+	}
+
+	public function setShopImages() {
+		$post = $this->input->post(NULL, TRUE);
+		$message = '<strong>ตั้งค่า shop image สำเร็จ</strong>';
+		$upload_error = 0;
+		$upload_error_msg = '';
+		$success = TRUE;
+		//$encrypt_id = '';
+		$encrypt_name = '';
+		$id= '';
+		$data = array();
+
+		if(isset($post['data'])) {
+			$arr = json_decode($post['data']);
+			foreach($arr as $key=>$value) {
+		    $this->load->model('common_model');
+			    $id = $this->common_model->update('shop_images',
+			    	array('user_update'=>get_session('user_id'),
+			    		'datetime_update'=>date("Y-m-d H:i:s"),
+			    		'shop_id'=>$post['shop_id']
+			    	),
+			    	array('image_id'=>$value)
+			    );
+			}
+		}else {
+			$success = FALSE;
+			$message = '<strong>ตั้งค่า shop image ล้มเหลว</strong>';
+		}
+		$json = json_encode(array(
+			'is_successful' => $success,
+			//'encrypt_id' =>  $encrypt_id,
+			'message' => $message,
+			'id'=>$id,
+			'data'=>$data,
+		));
+		echo $json;
+	}
+	
+	public function uploadfile1() {
+		$message = '<strong>อัปโหลดสำเร็จ</strong>';
+		$upload_error = 0;
+		$upload_error_msg = '';
+		$success = TRUE;
+		//$encrypt_id = '';
+		$encrypt_name = '';
+		$id= '';
+
+		$post = $this->input->post(NULL, TRUE);
+		$filename = $post['filename'];
+		
+
+		$path = $this->upload_store_path .(date('Y')+543);
+		
+		$blob = $post['blob'];
+
+		$blob = str_replace("[removed]",'data:image/png;base64,',$blob);
+		$blob = str_replace("\\",'',$blob);
+		$blob = str_replace(" ",'+',$blob);
+
+		$arr = explode('.',$post['filename']);
+		$encrypt_name = uniqid().'.'.$arr[count($arr)-1];
+
+	    $file = @fopen($path.'/'.$encrypt_name, "wb");
+	    if($file) {
+		    $data = explode(',', $blob);
+		    fwrite($file, base64_decode($data[1]));
+		    fclose($file);
+
+		    $this->load->model('common_model');
+		    $id = $this->common_model->insert('shop_images',
+		    	array('user_add'=>get_session('user_id'),
+		    		'datetime_add'=>date("Y-m-d H:i:s"),
+		    		'encrypt_name'=>$encrypt_name,
+		    		'filename'=>$filename,
+		    		'shop_id'=>$post['shop_id']
+		    	)
+		    );
+		}else {
+			$success = FALSE;
+			$message = "File Path Error!";
+		}
+
+		$json = json_encode(array(
+			'is_successful' => $success,
+			//'encrypt_id' =>  $encrypt_id,
+			'message' => $message,
+			'id'=>$id,
+			'path'=>$path,
+			'encrypt_name'=>$encrypt_name,
+			'filename'=>$filename
+		));
+		echo $json;
+	}
+	public function deleteShopImage() {
+		$post = $this->input->post(NULL, TRUE);
+		$message = '<strong>ลบ shop image สำเร็จ</strong>';
+		$upload_error = 0;
+		$upload_error_msg = '';
+		$success = TRUE;
+		//$encrypt_id = '';
+		$encrypt_name = '';
+		$id= $post['image_id'];
+		$data = array();
+
+		if($id!='') {
+			$this->load->model('common_model');
+			$row = rowArray($this->common_model->custom_query("select * from shop_images where image_id='".$id."'"));
+			if(isset($row['datetime_add'])) {
+				$year = substr($row['datetime_add'],0,4);
+				$this->removeFile1($this->upload_store_path.($year+543).'/'.$row['encrypt_name']);
+				$this->common_model->update('shop_images',array('user_delete'=>get_session('user_id'),'datetime_delete'=>date("Y-m-d H:i:s"),'fag_allow'=>'delete'),array('image_id'=>$id));
+			}
+		}else {
+			$success = FALSE;
+			$message = '<strong>ลบ shop image ล้มเหลว</strong>';
+		}
+
+		$json = json_encode(array(
+			'is_successful' => $success,
+			//'encrypt_id' =>  $encrypt_id,
+			'message' => $message,
+			'id'=>$id,
+			'data'=>$data,
+		));
+		echo $json;
+	}
+	
+	/*
+	public function __destruct() {
+		$this->db->query('UNLOCK TABLES');
+		$this->db->close();
+	}
+	*/
+
+	private function removeFile1($file_path)
+	{
+		if($file_path != ''){
+			if(file_exists($file_path)){
+				unlink($file_path);
+			}
+		}
 	}
 
 	/**

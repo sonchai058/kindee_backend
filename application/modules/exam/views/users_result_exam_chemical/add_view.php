@@ -98,7 +98,7 @@
 					<div class="col-sm-offset-2 col-sm-10">
 						<input type="hidden" id="add_encrypt_id" />
 						<button type="button" id="btnConfirmSave"
-							class="btn btn-primary btn-lg" data-toggle="modal"
+							class="btn btn-primary btn-md" data-toggle="modal"
 							data-target="#addModal" >
 							&nbsp;&nbsp;<i class="fa fa-save"></i> บันทึก &nbsp;&nbsp;
 						</button>

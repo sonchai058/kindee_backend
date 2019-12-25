@@ -1,18 +1,25 @@
+<script>
+  var point_lat = {point_lat};
+  var point_long = {point_long};
+</script>
+
+    <div class="card">
+      <div class="card-body">
       <!-- Icon Cards-->
       <div class="row">
-        <div class="col-xl-6 col-sm-6 mb-6">
+        <div class="col-xl-8 col-sm-12">
           <div class="card text-white bg-default o-hidden h-100">
             <div class="card-body" style="padding: 0;padding-top: 5px;color:#333;">
             <div class="col-sm-4">
-              <img style="border-radius:50%" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQlFRMS56tkp9hnKYh139YTYXQdBnhriKV5vecFsHWHzkAD9udv" height="100">
+              <img src="{shop_photo}" height="200" width="200">
             </div>
-              <div class="mr-5" style="position:absolute; top:20px; left: 120px;float: right">(<b>Warmup Cafe Chiangmai</b>)<br/>
+              <div class="mr-5" style="position:absolute; top:20px; left: 220px;float: right">(<b>{shop_name_th}</b>)<br/>
               <a style="float:left" class="" href="#">
               <span class="float-left" style="color:#333">
-                ประเภท : ร้านอาหาร<br/>
-                เบอร์โทร : 05110334588<br/>
-                อีเมล : <br/>
-                ที่อยู่ : <br/>
+                ประเภท : ร้านอาหาร{cate_name}<br/>
+                เบอร์โทร : {mobile_no}<br/>
+                อีเมล : {email_addr}<br/>
+                ที่อยู่ : {addr}<br/>
               </span>
               </a>
               </div>
@@ -20,24 +27,169 @@
 
           </div>
         </div>
-        <div class="col-xl-6 col-sm-6 mb-6">
-          <div class="mapouter"><div class="gmap_canvas"><iframe width="100%" height="300" id="gmap_canvas" src="https://maps.google.com/maps?q=university%20of%20san%20francisco&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.embedgooglemap.net">embedgooglemap.net</a></div><style>.mapouter{position:relative;text-align:right;height:300px;width:600px;}.gmap_canvas {overflow:hidden;background:none!important;height:300px;width:600px;}</style></div>
+        <div class="col-xl-4 col-sm-12">
+          <div id="map" style="width:350px;height:300px;"></div>
         </div>
-        <br/> <br/>
+    </div>
+</div>
 
+    <div class="card">
+      <div class="card-body">
+        <h3>เมนูอาหาร</h3>
       <div class="row">
         <!-- Area Chart Example-->
-        <div class="card col-sm-3">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQYwpVoxtQ9kJZdL2bnSBvNSuj1GFNXbWbwdqIyQkLyIQrVIkQ5">
-        </div>
-        <div class="card col-sm-3">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQYwpVoxtQ9kJZdL2bnSBvNSuj1GFNXbWbwdqIyQkLyIQrVIkQ5">
-        </div>
-        <div class="card col-sm-3">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQYwpVoxtQ9kJZdL2bnSBvNSuj1GFNXbWbwdqIyQkLyIQrVIkQ5">
-        </div>
-        <!-- Area Chart Example-->
-        <div class="card col-sm-3">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQYwpVoxtQ9kJZdL2bnSBvNSuj1GFNXbWbwdqIyQkLyIQrVIkQ5">
-        </div>
+        {shop_food_menu_images}
       </div>
+      </div>
+    </div>
+
+<script>
+    var im = "{base_url}assets/images/marker.png";
+    function locate(){
+        navigator.geolocation.getCurrentPosition(initMap,fail);
+    }
+     function fail(){
+        //initMap();
+         console.log('navigator.geolocation failed, may not be supported');
+     }
+
+    function initMap(position) {
+        var myLatLng;
+
+        var latitude = point_lat;
+        var longitude = point_long;
+
+        if(position!=undefined) {
+          latitude = position.coords.latitude;
+          longitude = position.coords.longitude;
+        }
+        //console.log(position);
+        myLatLng = new google.maps.LatLng(latitude, longitude);
+
+        var mapOptions = {
+          zoom: 13,
+          center: myLatLng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(document.getElementById('map'),
+                                      mapOptions);
+        var userMarker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            icon: im,
+            //draggable:true
+        });
+
+
+        var input = document.getElementById('searchInput');
+        setTimeout(function(){
+          $("#searchInput").val(document.getElementById('location').innerHTML);
+        },500);
+      
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.bindTo('bounds', map);
+
+        var infowindow = new google.maps.InfoWindow();
+        var marker = new google.maps.Marker({
+            icon: "{base_url}assets/images/marker.png",
+            map: map,
+            anchorPoint: new google.maps.Point(0, -29),
+            //draggable:true
+        });
+        //dragger
+        google.maps.event.addListener(marker, 'dragend', function() 
+        {
+            geocodePosition(marker.getPosition());
+        });
+        google.maps.event.addListener(marker, 'dragend', function(evt){
+            console.log('Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3));
+            document.getElementById('lat').innerHTML = evt.latLng.lat().toFixed(3);
+            document.getElementById('lon').innerHTML = evt.latLng.lng().toFixed(3);
+      $("#point_lat").val(evt.latLng.lat().toFixed(3)); 
+      $("#point_long").val(evt.latLng.lng().toFixed(3));
+        });
+
+        autocomplete.addListener('place_changed', function() {
+            infowindow.close();
+            marker.setVisible(false);
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+                window.alert("Autocomplete's returned place contains no geometry");
+                return;
+            }
+      
+            // If the place has a geometry, then present it on a map.
+            if (place.geometry.viewport) {
+                map.fitBounds(place.geometry.viewport);
+            } else {
+                map.setCenter(place.geometry.location);
+                map.setZoom(15);
+            }
+            marker.setIcon(({
+                icon: "{base_url}assets/images/marker.png",
+                size: new google.maps.Size(71, 71),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(17, 34),
+                scaledSize: new google.maps.Size(35, 35)
+            }));
+            marker.setPosition(place.geometry.location);
+            marker.setVisible(true);
+        
+            var address = '';
+            if (place.address_components) {
+                address = [
+                  (place.address_components[0] && place.address_components[0].short_name || ''),
+                  (place.address_components[1] && place.address_components[1].short_name || ''),
+                  (place.address_components[2] && place.address_components[2].short_name || '')
+                ].join(' ');
+            }
+        
+            infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+            infowindow.open(map, marker);
+          
+            //Location details
+            for (var i = 0; i < place.address_components.length; i++) {
+                if(place.address_components[i].types[0] == 'postal_code'){
+                    document.getElementById('postal_code').innerHTML = place.address_components[i].long_name;
+                }
+                if(place.address_components[i].types[0] == 'country'){
+                    document.getElementById('country').innerHTML = place.address_components[i].long_name;
+                }
+            }
+            document.getElementById('location').innerHTML = place.formatted_address;
+            document.getElementById('lat').innerHTML = place.geometry.location.lat();
+            document.getElementById('lon').innerHTML = place.geometry.location.lng();
+      $("#point_lat").val(place.geometry.location.lat()); 
+      $("#point_long").val(place.geometry.location.lng());
+        });
+
+
+    }
+
+        function geocodePosition(pos) 
+        {
+           geocoder = new google.maps.Geocoder();
+           geocoder.geocode
+            ({
+                latLng: pos
+            }, 
+                function(results, status) 
+                {
+                    if (status == google.maps.GeocoderStatus.OK) 
+                    {
+                        document.getElementById('location').innerHTML = results[0].formatted_address;
+                        document.getElementById('addr').innerHTML = results[0].formatted_address;
+                        console.log(results[0].formatted_address);
+                    } 
+                    else 
+                    {
+                        console.log('Cannot determine address at this location.'+status);
+                    }
+                }
+            );
+        }
+        //dragger
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmtoJRjQwBbRpG89moh1jXZRwoviIsqf0&libraries=places&callback=initMap" async defer></script>

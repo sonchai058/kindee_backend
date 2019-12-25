@@ -14,6 +14,9 @@ class Users_drug extends CRUD_Controller
 	public function __construct()
 	{
 		parent::__construct();
+
+		chkUserPerm();
+		
 		$this->per_page = 30;
 		$this->num_links = 6;
 		$this->uri_segment = 4;
@@ -32,6 +35,32 @@ class Users_drug extends CRUD_Controller
 	 */
 	public function index()
 	{
+		$this->load->model("common_model");
+		$rows = $this->common_model->custom_query("select * from users_drug where fag_allow!='' and user_id={$this->session->userdata('user_id')} order by date_eat DESC");
+		$this->data['alert'] = json_encode(array());
+		$alert = array();
+		//die(print_r($rows));
+		foreach ($rows as $key => $value) {
+			if($value['date_eat']!='0000-00-00 00:00:00') {
+				$date_eat_arr = explode(' ', $value['date_eat']);
+				$date2 = strtotime(date("Y-m-d")." ".$date_eat_arr[1]);
+				$date1 = strtotime(date("Y-m-d H:i:s"));
+				$interval = $date2 - $date1;
+				$seconds = $interval % 60;
+				$minutes = floor(($interval % 3600) / 60);
+				$hours = floor($interval / 3600);
+				//echo $hours.":".$minutes.":".$seconds;
+				if($hours==1 && $minutes==0) {
+					$alert[] = 'ใกล้ถึงเวลา '.$date_eat_arr[1].' ทาน '.$value['drug_name'].' '.$value['eat_time'];
+				}else if($hours==0 && $minutes>0) {
+					$alert[] = 'ใกล้ถึงเวลา '.$date_eat_arr[1].' ทาน '.$value['drug_name'].' '.$value['eat_time'];
+				}else if($hours==0 && $minutes>0 && $seconds>0) {
+					$alert[] = 'ใกล้ถึงเวลา '.$date_eat_arr[1].' ทาน '.$value['drug_name'].' '.$value['eat_time'];
+				}
+			}
+		}
+		$this->data['alert'] = json_encode($alert);
+
 		$this->list_all();
 	}
 

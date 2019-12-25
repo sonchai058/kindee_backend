@@ -476,7 +476,7 @@ class Blog extends CRUD_Controller
 		    	)
 		    );
 		}else {
-			$success = TRUE;
+			$success = FALSE;
 			$message = "File Path Error!";
 		}
 
