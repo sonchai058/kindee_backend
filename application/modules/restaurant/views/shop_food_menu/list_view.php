@@ -2,7 +2,7 @@
 <div class="card">
 	<!--
 	<div class="card-header bg-primary">
-		<h3 class="card-title"><i class="fa fa-list-alt"></i> ตารางแสดงรายการ ข้อมูล<b>shop_food_menu</b></h3>
+		<h3 class="card-title"><i class="fa fa-list-alt"></i> ตารางแสดงรายการ ข้อมูล<b>self_food_menu</b></h3>
 	</div>
 	-->
 	<div class="card-body">
@@ -20,7 +20,7 @@
 					<a href="{page_url}" class="btn btn-info">ทั้งหมด</a>
 					<div class="form-group">
 						<select  class="form-control" name="search_field" class="span2">
-					<option value="food_name">ชื่อ</option>
+					<option value="self_food_name">ชื่อ</option>
 					<option value="cate_id">ประเภทอาหาร</option>
 					<option value="price_amt">ราคา</option>
 					<option value="user_update">ผู้อัปเดต</option>
@@ -41,7 +41,7 @@
 					<div class="form-group">
 						<select  class="form-control" id="set_order_by" class="span2" value="{order_by}">
 					<option value="">- จัดเรียงตาม -</option>
-					<option value="food_id|asc">รหัสไอดีหลัก น้อย - มาก</option><option value="food_id|desc">รหัสไอดีหลัก มาก - น้อย</option><option value="datetime_update|asc">วันเวลา ที่อัปเดต เก่า - ใหม่</option><option value="datetime_update|desc">วันเวลา ที่อัปเดต ใหม่ - เก่า</option>
+					<option value="self_food_id|asc">รหัสไอดีหลัก น้อย - มาก</option><option value="self_food_id|desc">รหัสไอดีหลัก มาก - น้อย</option><option value="datetime_update|asc">วันเวลา ที่อัปเดต เก่า - ใหม่</option><option value="datetime_update|desc">วันเวลา ที่อัปเดต ใหม่ - เก่า</option>
 						</select>
  					</div>
 				</div>
@@ -76,7 +76,7 @@
 				<tbody>
 					<tr parser-repeat="[data_list]" id="row_{record_number}">
 						<td style="text-align:center;">[{record_number}]</td>
-						<td>{food_name}</td>
+						<td>{self_food_name}</td>
 						<td>{cateIdCateName}</td>
 						<td>{energy_amt}</td>
 						<td>{price_amt}</td>
@@ -94,7 +94,7 @@
 								</a>
 								<a href="javascript:void(0);" class="btn-delete-row my-tooltip btn btn-danger btn-sm"
 									data-toggle="tooltip" title="ลบรายการนี้"
-									 data-food_id = "{encrypt_food_id}" data-row-number="{record_number}">
+									 data-self_food_id = "{encrypt_self_food_id}" data-row-number="{record_number}">
 									<i class="fa fa-trash"></i> ลบ
 								</a>
 							</div>
@@ -142,7 +142,7 @@
 					</div>
 				-->
 				</div>
-					<input type="hidden" name="encrypt_food_id" />
+					<input type="hidden" name="encrypt_self_food_id" />
 
 				</form>
 			</div>

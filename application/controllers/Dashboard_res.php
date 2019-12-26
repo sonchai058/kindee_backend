@@ -20,6 +20,8 @@ class Dashboard_res extends CRUD_Controller
 
 		$this->another_js .= '<script src="'. base_url('assets/themes/sb-admin/vendor/chart.js/Chart.min.js').'"></script>';
 		$this->another_js .= '<script src="'. base_url('assets/themes/sb-admin/js/sb-admin-charts.min.js').'"></script>';
+
+		$this->another_js .= '<script src="'. base_url('assets/js/dashboard_res.js').'"></script>';
 	}
 
 	// ------------------------------------------------------------------------
@@ -50,7 +52,7 @@ class Dashboard_res extends CRUD_Controller
 		$shop_food_menu_images = "";
 		foreach ($rows as $key => $value) {
             $shop_food_menu_images =  $shop_food_menu_images.'<div class="card col-sm-3">
-          <img src="'.$this->upload_store_path.'2562/'.$value['encrypt_name'].'" height="200">
+          <img class="pic" src="'.$this->upload_store_path.'2562/'.$value['encrypt_name'].'" height="200">
         </div>';
 		}
 		$this->data['shop_food_menu_images'] = $shop_food_menu_images;

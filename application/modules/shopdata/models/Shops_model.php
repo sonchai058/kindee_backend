@@ -50,7 +50,7 @@ class Shops_model extends MY_Model
 				,'shop_name_en' => $post['shop_name_en']
 				,'mobile_no' => $post['mobile_no']
 				,'email_addr' => $post['email_addr']
-				,'shop_user' => $post['shop_user']
+				,'shop_user' => 0
 				,'addr' => $post['addr']
 				,'fag_allow' => $post['fag_allow']
 				,'point_lat' => $post['point_lat']

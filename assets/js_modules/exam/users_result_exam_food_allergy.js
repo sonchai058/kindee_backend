@@ -33,8 +33,8 @@ var UsersResultExamFoodAllergy = {
 		if(loading_on(obj) == true){
 
 
-			var food_alg_val = removeComma($('#food_alg_val').val());
-			$('#food_alg_val').val(food_alg_val);
+			//var food_alg_val = removeComma($('#food_alg_val').val());
+			//$('#food_alg_val').val(food_alg_val);
 
 			var fdata = $('#formAdd').serialize();
 			fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
@@ -46,8 +46,8 @@ var UsersResultExamFoodAllergy = {
 				data : fdata,
 				success: function (results) {
 
-					var food_alg_val = formatNumber($('#food_alg_val').val(), 2);
-					$('#food_alg_val').val(food_alg_val);
+					//var food_alg_val = formatNumber($('#food_alg_val').val(), 2);
+					//$('#food_alg_val').val(food_alg_val);
 
 					if(results.is_successful){
 						alert_type = 'success';
@@ -74,8 +74,8 @@ var UsersResultExamFoodAllergy = {
 		$('#editModal').modal('hide');
 		var frm_action = site_url('exam/users_result_exam_food_allergy/update');
 
-			var food_alg_val = removeComma($('#food_alg_val').val());
-			$('#food_alg_val').val(food_alg_val);
+			//var food_alg_val = removeComma($('#food_alg_val').val());
+			//$('#food_alg_val').val(food_alg_val);
 
 		var fdata = $('#formEdit').serialize();
 		//fdata += '&edit_remark=' + $('#edit_remark').val();
@@ -90,8 +90,8 @@ var UsersResultExamFoodAllergy = {
 			data : fdata,
 			success: function (results) {
 
-					var food_alg_val = formatNumber($('#food_alg_val').val(), 2);
-					$('#food_alg_val').val(food_alg_val);
+					//var food_alg_val = formatNumber($('#food_alg_val').val(), 2);
+					//$('#food_alg_val').val(food_alg_val);
 
 				if(results.is_successful){
 					alert_type = 'success';

@@ -1,5 +1,5 @@
 <script>
-	var record_shop_food_menu_composition = JSON.parse('{record_shop_food_menu_composition}');
+	var record_self_food_menu_composition = JSON.parse('{record_self_food_menu_composition}');
 	var num0 = {count_record}+1;
 	var num = {count_image};
 	var data_id = {data_id};
@@ -18,8 +18,8 @@
 				<div class="row">
 
 					<div class="col-sm-12 col-md-3">
-						<label class="col-sm-3 control-label" for="self_food_name">ชื่อ :</label>
-						<input type="text" class="form-control " id="food_name" name="food_name" value=""  />
+						<label class="col-sm-3 control-label" for="self_self_food_name">ชื่อ :</label>
+						<input type="text" class="form-control " id="self_food_name" name="self_food_name" value=""  />
 					</div>
 
 					<div class="col-sm-12 col-md-3">

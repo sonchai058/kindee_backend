@@ -65,6 +65,12 @@ class MY_Model extends CI_Model
     		$where = " and {$this->_table_name}.food_source='เมนูจากระบบ'";
     	}else if($this->_table_name=='self_food_menu' && ($this->session->userdata("user_level")=='user' || $this->session->userdata("user")=='super_user')){
     		$where = " and {$this->_table_name}.food_source='เมนูปรุงเอง'";
+    	}else if($this->_table_name=='self_food_menu' && ($this->session->userdata("user_level")=='shop')){
+    		$where = " and {$this->_table_name}.food_source='เมนูร้านค้า'";
+    	}
+
+    	if($this->_table_name=='users_drug' ||$this->_table_name=='users_food_time' ||$this->_table_name=='self_food_menu' || $this->_table_name=='users_result_exam_chemical' || $this->_table_name=='users_result_exam_food_allergy') {
+    		$where = " and {$this->_table_name}.user_id=".$this->session->userdata('user_id');
     	}
 
     	if($query = $this->db->where($this->_table_name.".fag_allow!='delete' {$where} ")->get($this->_table_name)){
@@ -89,6 +95,12 @@ class MY_Model extends CI_Model
     		$where = " and {$this->_table_name}.food_source='เมนูจากระบบ'";
     	}else if($this->_table_name=='self_food_menu' && ($this->session->userdata("user_level")=='user' || $this->session->userdata("user")=='super_user')){
     		$where = " and {$this->_table_name}.food_source='เมนูปรุงเอง'";
+    	}else if($this->_table_name=='self_food_menu' && ($this->session->userdata("user_level")=='shop')){
+    		$where = " and {$this->_table_name}.food_source='เมนูร้านค้า'";
+    	}
+
+    	if($this->_table_name=='users_drug' ||$this->_table_name=='users_food_time' ||$this->_table_name=='self_food_menu' || $this->_table_name=='users_result_exam_chemical' || $this->_table_name=='users_result_exam_food_allergy') {
+    		$where = " and {$this->_table_name}.user_id=".$this->session->userdata('user_id');
     	}
 
 		$this->db->from($this->_table_name);
@@ -437,10 +449,20 @@ class MY_Model extends CI_Model
 
 		$field_value_txt = $field_value;
 		if($table=='self_food_menu') {
-			$field_value_txt = $field_value.',food_source';
+			$field_value_txt = $field_value.',food_source,shops.shop_name_th';
 		}
 
-		$sql = "SELECT $field_value_txt, $field_text FROM $table $where $and fag_allow='allow' $order_by";
+		$join_txt = "";
+		$table_txt = "";
+		if($table=='self_food_menu') {
+			$join_txt="left join shops on self_food_menu.shop_id=shops.shop_id";
+			$table_txt = "self_food_menu.";
+
+			$order_by = 'ORDER BY shops.shop_name_th,self_food_name';
+		}
+
+		$sql = "SELECT $field_value_txt, $field_text FROM $table $join_txt $where $and {$table_txt}fag_allow='allow' $order_by";
+
 		$qry = $this->db->query($sql);
 		foreach ($qry->result_array() as $row) {
 			$selected = '';
@@ -449,11 +471,16 @@ class MY_Model extends CI_Model
 			}
 
 			$data_val = $row[$field_value];
+			$data_shop = "";
 			if($table=='self_food_menu') {
 				$data_val = $row['food_source'];
+
+				if($row['shop_name_th']!='') { 
+					$data_shop = $row['shop_name_th'].' - ';
+				}
 			}
 
-			$option = '<option data-val="'.$data_val.'" value="'. $row[$field_value] . '" '.$selected.'>' . $row[$field_text] . '</option>';
+			$option = '<option data-val="'.$data_val.'" value="'. $row[$field_value] . '" '.$selected.'>' .$data_shop.' '. $row[$field_text] . '</option>';
 			if($ret == true){
 				$list .= $option;
 			}else{

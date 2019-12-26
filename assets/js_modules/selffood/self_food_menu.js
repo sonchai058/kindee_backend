@@ -231,6 +231,7 @@ $(document).ready(function() {
 
 });
 
+
 function addSeftComp(setval) {
 	var txt = $(html_txt).html();
 	txt = txt.replace('id=""', "id='select"+num+"'");
@@ -266,3 +267,37 @@ $("#uploadContent img").on("click", function() {
    $('#imagepreview').attr('src', $(this).attr('src')); // here asign the image to the modal when the user click the enlarge link
    $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
 });
+
+/*
+function cal(node) {
+	//console.log($(".amount"));
+	var amount = 0;
+  $(".amount").each(function( i ) {
+  	if($(this).index()==0) {
+  		return false;
+  	}
+  	console.log(".rmat_id:eq("+$(this).index()+")");
+  	console.log($(".rmat_id:eq("+$(this).index()+")").html());
+    amount = amount+(parseFloat($(".rmat_id:eq("+$(this).index()+")").data('val'))*parseFloat($(this).val()));
+    //console.log($(this).val());
+    console.log(amount);
+    //console.log($(this).index());
+    //console.log($(".rmat_id:eq("+$(this).index()+")").data('val'));
+   $("#comp_val").html(currencyFormat(amount/1000));
+  });
+}*/
+
+/*
+function currencyFormat(num) {
+  return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+}
+*/
+
+/*
+var amount_sum = 0;
+function run(node) {
+	if(!$(node).val()){return};
+	amount_sum = parseFloat($(node).val());
+	console.log(amount_sum);
+}
+*/

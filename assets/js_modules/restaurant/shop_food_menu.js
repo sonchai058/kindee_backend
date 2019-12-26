@@ -66,7 +66,7 @@ var ShopFoodMenu = {
 
 						/* images reset */
 						if(add_array.length) {
-							var fdata = 'data='+JSON.stringify(add_array)+'&food_id='+results.id;
+							var fdata = 'data='+JSON.stringify(add_array)+'&self_food_id='+results.id;
 							fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
 							$.ajax({
 								method: 'POST',
@@ -159,7 +159,7 @@ var ShopFoodMenu = {
 	},
 
 	confirmDelete: function (pFoodId,  irow){
-		$('[name="encrypt_food_id"]').val(pFoodId);
+		$('[name="encrypt_self_food_id"]').val(pFoodId);
 
 		$('#xrow').text('['+ irow +']');
 		var my_thead = $('#row_' + irow).closest('table').find('th:not(:first-child):not(:last-child)');
@@ -243,7 +243,7 @@ $(document).ready(function() {
 		$('.btn-delete-row').removeClass('active_del');
 		$(this).addClass('active_del');
 		var row_num = $(this).attr('data-row-number');
-		var pFoodId = $(this).attr('data-food_id');
+		var pFoodId = $(this).attr('data-self_food_id');
 
 		ShopFoodMenu.confirmDelete(pFoodId,  row_num);
 	});//click
@@ -266,7 +266,7 @@ $(document).ready(function() {
 
 	if(num0>1) {
 		num0 = 1;
-		$.each(record_shop_food_menu_composition, function(i, item) {
+		$.each(record_self_food_menu_composition, function(i, item) {
 		    addShopComp(true);
 		});
 	}
@@ -291,9 +291,9 @@ function addShopComp(setval) {
 	num0++;
 }
 function setDefault(num_set) {
-	$('#select'+num_set).val(record_shop_food_menu_composition[num_set-1].rmat_id).trigger('change');
-	$(".amount:eq("+num_set+")").val(record_shop_food_menu_composition[num_set-1].amount);
-	$(".old_id:eq("+num_set+")").val(record_shop_food_menu_composition[num_set-1].food_id);
+	$('#select'+num_set).val(record_self_food_menu_composition[num_set-1].rmat_id).trigger('change');
+	$(".amount:eq("+num_set+")").val(record_self_food_menu_composition[num_set-1].amount);
+	$(".old_id:eq("+num_set+")").val(record_self_food_menu_composition[num_set-1].self_food_id);
 }
 
 $("#btn_comp").click(function(){
@@ -350,7 +350,7 @@ function readImage() {
 				var fdata = $('#formAdd #pro-image').serialize();
 				fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name)+'&filename='+file.name+"&blob="+picFile.result;
 				//console.log(fdata);
-				fdata += '&food_id='+data_id;
+				fdata += '&self_food_id='+data_id;
 				$.ajax({
 					method: 'POST',
 					url: site_url('restaurant/shop_food_menu/uploadfile'),

@@ -63,7 +63,7 @@
 						</div>
 						<div class="col-sm-12 col-md-4">
 							<label class="col-sm-4 control-label" for="amount">ปริมาณ(กรัม) :</label>
-							<input type="amount" step="0.01" class="form-control amount" name="amount[]" value="0">
+							<input type="number" step="1" class="form-control amount" name="amount[]" value="0">
 						</div>
 						<div class="col-sm-12 col-md-4">
 							<label class="col-sm-4 control-label" for=""></label><br/>
@@ -78,10 +78,26 @@
 				<div class="wrap_rmat_content">
 
 				</div>
-				
+
 				<br/>
+				
+				<!--
+				<div class="row">
+					<div class="col-sm-12 col-md-12" id="comp_val">	
+						
+					</div>
+				</div>
+				<br/>-->
+
 				<div class='form-group'>
 					<div class='col-sm-offset-2 col-sm-10'>
+					<!--
+						<button onclick='cal(this)' type="button"
+							class="btn btn-warning btn-md" >
+							&nbsp;&nbsp;<i class="fa fa-calculator"></i> คำนวณพลังงาน &nbsp;&nbsp;
+						</button>
+					-->
+
 						<button  type="button" class='btn btn-primary btn-md'  data-toggle='modal' data-target='#editModal' >&nbsp;&nbsp;<i class="fa fa-save"></i> บันทึก &nbsp;&nbsp;</button>
 
 						</div>

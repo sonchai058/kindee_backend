@@ -72,7 +72,7 @@ var Shops = {
 									fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
 									$.ajax({
 										method: 'POST',
-										url: site_url('shopdata/shop/setShopImages'),
+										url: site_url('shopdata/shops/setShopImages'),
 										dataType: 'json',
 										data:fdata,
 										success: function (results) {

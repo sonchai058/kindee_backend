@@ -275,7 +275,8 @@ class Shops extends CRUD_Controller
 		$frm->set_rules('shop_name_en', 'ชื่ออังกฤษ', 'trim|required');
 		$frm->set_rules('mobile_no', 'มือถือ', 'trim|required');
 		$frm->set_rules('email_addr', 'อีเมล', 'trim|required');
-		$frm->set_rules('shop_user', 'รหัสผู้ดูแล', 'trim|required|is_natural');
+		$frm->set_rules('cus_passwd', 'รหัสผ่าน', 'trim|required');
+		$frm->set_rules('shop_user', 'รหัสผู้ดูแล', 'trim');
 		$frm->set_rules('addr', 'เลขที่ ที่อยู่', 'trim|required');
 		$frm->set_rules('fag_allow', 'สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]', 'trim|required');
 		$frm->set_rules('point_lat', 'พิกัด ละติจูด', 'trim|required');
@@ -293,6 +294,7 @@ class Shops extends CRUD_Controller
 			$message .= form_error('shop_name_en');
 			$message .= form_error('mobile_no');
 			$message .= form_error('email_addr');
+			$message .= form_error('cus_passwd');
 			$message .= form_error('shop_user');
 			$message .= form_error('addr');
 			$message .= form_error('fag_allow');
@@ -338,6 +340,7 @@ class Shops extends CRUD_Controller
 		$frm->set_rules('shop_name_en', 'ชื่ออังกฤษ', 'trim|required');
 		$frm->set_rules('mobile_no', 'มือถือ', 'trim|required');
 		$frm->set_rules('email_addr', 'อีเมล', 'trim|required');
+		$frm->set_rules('cus_passwd', 'รหัสผ่าน', 'trim|required');
 		$frm->set_rules('shop_user', 'รหัสผู้ดูแล', 'trim');
 		$frm->set_rules('addr', 'เลขที่ ที่อยู่', 'trim|required');
 		$frm->set_rules('fag_allow', 'สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]', 'trim|required');
@@ -356,6 +359,7 @@ class Shops extends CRUD_Controller
 			$message .= form_error('shop_name_en');
 			$message .= form_error('mobile_no');
 			$message .= form_error('email_addr');
+			$message .= form_error('cus_passwd');
 			$message .= form_error('shop_user');
 			$message .= form_error('addr');
 			$message .= form_error('fag_allow');
@@ -480,6 +484,23 @@ class Shops extends CRUD_Controller
 			if($upload_error == 0){
 				$success = TRUE;
 				$id = $this->Shops->create($post);
+
+				$this->load->model("common_model");
+				$shop_user = $this->common_model->insert('users',
+					array(
+						'user_add'=>$this->session->userdata('user_id'),
+						'datetime_add'=>date("Y-m-d H:i:s"),
+						'fag_allow'=>'allow',
+						'shop_id'=>$id,
+						'user_fname'=>$post['shop_name_th'],
+						'email_addr'=>$post['email_addr'],
+						'cus_passwd'=>$post['cus_passwd'],
+						'mobile_no'=>$post['mobile_no'],
+						'user_level'=>'shop')
+				);
+
+				$shop_user = $this->common_model->update('shops',array('shop_user'=>$shop_user),array('shop_id'=>$id));
+
 				$encrypt_id = encrypt($id);
 				$message = '<strong>บันทึกข้อมูลเรียบร้อย</strong>';
 			}else{
@@ -760,6 +781,19 @@ class Shops extends CRUD_Controller
 				}
 			}
 
+			$this->load->model("common_model"); ////****
+			$shop_user = $this->common_model->update('users',
+				array(
+					'user_update'=>$this->session->userdata('user_id'),
+					'datetime_update'=>data("Y-m-d H:i:s"),
+					'email_addr'=>$post['email_addr'],
+					'cus_passwd'=>$post['cus_passwd']
+				),
+				array('user_id'=>$post['shop_user']));
+
+			$shop_user = $this->common_model->update('shop',array('shop_user'=>$shop_user),array('shop_id'=>$id));	
+
+
 			if($upload_error == 0){
 				$result = $this->Shops->update($post);
 				if($result == false){
@@ -934,6 +968,7 @@ class Shops extends CRUD_Controller
 		$this->data['record_shop_name_en'] = $data['shop_name_en'];
 		$this->data['record_mobile_no'] = $data['mobile_no'];
 		$this->data['record_email_addr'] = $data['email_addr'];
+		$this->data['record_cus_passwd'] = $data['cus_passwd'];
 		$this->data['record_shop_user'] = $data['shop_user'];
 		$this->data['record_addr'] = $data['addr'];
 		$this->data['record_user_delete'] = $data['user_delete'];

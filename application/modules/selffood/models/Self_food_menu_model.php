@@ -50,6 +50,7 @@ class Self_food_menu_model extends MY_Model
 				,'cate_id' => $post['cate_id']
 				,'fag_allow' => $post['fag_allow']
 				,'food_source' => $food_source
+				,'user_id'=>$this->session->userdata('user_id')
 		);
 		return $this->add_record($data);
 	}

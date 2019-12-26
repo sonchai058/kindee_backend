@@ -59,6 +59,7 @@
 							 <option value="">- เลือก แหล่งอาหาร -</option>
 							<option value="เมนูจากระบบ">เมนูจากระบบ</option>
 							<option value="เมนูปรุงเอง">เมนูปรุงเอง</option>
+							<option value="เมนูร้านอาหาร">เมนูร้านอาหาร</option>
 						</select>
 					</div>
 

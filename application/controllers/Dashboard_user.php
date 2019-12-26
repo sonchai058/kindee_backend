@@ -62,6 +62,8 @@ class Dashboard_user extends CRUD_Controller
 
 		$chartrows = $this->common_model->custom_query("select a.*,DATE(a.date_exam) as date from users_exam_weight as a where a.fag_allow='allow' and a.user_id={$this->session->userdata('user_id')} GROUP BY date order by date");
 
+		$chartrows_calo = $this->common_model->custom_query("select a.*,sum(food_energy) as num,DATE(a.date_eat) as date from users_food_time as a where a.fag_allow='allow' and a.user_id={$this->session->userdata('user_id')} GROUP BY date order by date LIMIT 10");
+
 		$users_exam_weight = rowArray($this->common_model->custom_query("select a.*,DATE(a.date_exam) as date from users_exam_weight as a where a.fag_allow='allow' and a.user_id={$this->session->userdata('user_id')} GROUP BY date order by date DESC"));
 		$this->data['users_exam_weight'] = isset($users_exam_weight['user_weight'])?$users_exam_weight['user_weight']:0;
 		$this->data['users_exam_weight'] = number_format($this->data['users_exam_weight']);
@@ -78,17 +80,19 @@ class Dashboard_user extends CRUD_Controller
 
 		$this->data['chart_bmi'] = $chartrows;
 		$this->data['chart_bmr'] = $chartrows;
-		$this->data['chart_calo'] = $chartrows;
+		$this->data['chart_calo'] = $chartrows_calo;
 
 		$this->data['chart_date'] = isset($chartrows[count($chartrows)-1]['date'])?$chartrows[count($chartrows)-1]['date']:0;
 		$chart_labels = array();
+		$chart_labels_calo = array();
 		$chart_bmi = array();
 		$chart_bmr = array();
 		$chart_calo = array();
 
 		$this->data['users_bmi'] = 0;
 		$this->data['users_bmi_txt'] = '-';
-		
+
+
 		foreach ($chartrows as $key => $value) {
 			$chart_labels[] = "new Date('{$value['date']} 00:00:00').toLocaleString()";
 
@@ -98,10 +102,10 @@ class Dashboard_user extends CRUD_Controller
 			$calo_val = 0;
 			if($this->data['user_sex']=='ชาย') {
 			  $bmr_val = 66+ (13.7 * $value['user_weight']) + (5 * $this->data['user_height']) - (6.8 * $this->data['age']);
-			  $calo_val = floatval($value['user_weight'])*31; 
+			  //$calo_val = floatval($value['user_weight'])*31; 
 			}else if($this->data['user_sex']=='หญิง'){
 			  $bmr_val = 665 + (9.6 * $value['user_weight']) + (1.8 * $this->data['user_height']) - (4.7 * $this->data['age']);
-			  $calo_val = floatval($value['user_weight'])*27; 
+			  //$calo_val = floatval($value['user_weight'])*27; 
 			}
 
 			$this->data['users_bmi'] = number_format($bmi_val,2);
@@ -121,16 +125,24 @@ class Dashboard_user extends CRUD_Controller
 
 			$chart_bmi[] = array('t'=>$value['date']." 00:00:00",'y'=>$bmi_val);
 			$chart_bmr[] = array('t'=>$value['date']." 00:00:00",'y'=>($bmr_val/1000));
-			$chart_calo[] = array('t'=>$value['date']." 00:00:00",'y'=>($calo_val/1000));
+			
+		}
+
+		foreach ($chartrows_calo as $key => $value) {
+			$chart_labels_calo[] = "new Date('{$value['date']} 00:00:00').toLocaleString()";
+			$chart_calo[] = array('t'=>$value['date']." 00:00:00",'y'=>($value['num']/1000));
 		}
 
 		$this->data['user_height'] = number_format($this->data['user_height']);
 		$chart_labels='['.implode(',',$chart_labels).']';
-		$this->data['chart_labels'] = $chart_labels;		
+		$this->data['chart_labels'] = $chart_labels;
+		$chart_labels_calo='['.implode(',',$chart_labels_calo).']';
+		$this->data['chart_labels_calo'] = $chart_labels_calo;		
 		$this->data['chart_bmi'] = json_encode($chart_bmi);
 		$this->data['chart_bmr'] = json_encode($chart_bmr);
+		$this->data['chart_bmr_credit'] = @$chart_bmr[count($chart_bmr)-1]['y'].' kcal/day';
 		$this->data['chart_calo'] = json_encode($chart_calo);
-
+		$this->data['chart_calo_credit'] = @$chart_calo[count($chart_calo)-1]['y'].' kcal/day';
 		$this->dashboard();
 	}
 

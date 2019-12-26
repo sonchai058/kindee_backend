@@ -27,11 +27,11 @@
 
 					<tr>
 						<td class="text-right fit"><b>รหัสไอดีหลัก :</b></td>
-						<td>{record_food_id}</td>
+						<td>{record_self_food_id}</td>
 					</tr>
 					<tr>
 						<td class="text-right fit"><b>ชื่อ :</b></td>
-						<td>{record_food_name}</td>
+						<td>{record_self_food_name}</td>
 					</tr>
 				<tr>
 					<td class="text-right fit"><b>ประเภทอาหาร :</b></td>

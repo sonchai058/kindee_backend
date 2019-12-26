@@ -212,7 +212,7 @@ class Users_food_time extends CRUD_Controller
 		$frm = $this->form_validation;
 
 		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim');
-		$frm->set_rules('food_source', 'แหล่งอาหาร [เมนูจากระบบ=เมนูจากระบบ,เมนูปรุงเอง=เมนูปรุงเอง]', 'trim|required');
+		$frm->set_rules('food_source', 'แหล่งอาหาร [เมนูจากระบบ=เมนูจากระบบ,เมนูปรุงเอง=เมนูปรุงเอง,ร้านอาหาร=ร้านอาหาร]', 'trim|required');
 		$frm->set_rules('eat_time', 'มื้ออาหาร [เช้า=เช้า,กลางวัน=กลางวัน,เย็น=เย็น]', 'trim|required');
 		$frm->set_rules('date_eat', 'วันที่', 'trim|required');
 		$frm->set_rules('food_id', 'เมนูอาหาร', 'trim|required|is_natural');
@@ -248,7 +248,7 @@ class Users_food_time extends CRUD_Controller
 		$frm = $this->form_validation;
 
 		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim');
-		$frm->set_rules('food_source', 'แหล่งอาหาร [เมนูจากระบบ=เมนูจากระบบ,เมนูปรุงเอง=เมนูปรุงเอง]', 'trim|required');
+		$frm->set_rules('food_source', 'แหล่งอาหาร [เมนูจากระบบ=เมนูจากระบบ,เมนูปรุงเอง=เมนูปรุงเอง,ร้านอาหาร=ร้านอาหาร]', 'trim|required');
 		$frm->set_rules('eat_time', 'มื้ออาหาร [เช้า=เช้า,กลางวัน=กลางวัน,เย็น=เย็น]', 'trim|required');
 		$frm->set_rules('date_eat', 'วันที่', 'trim|required');
 		$frm->set_rules('food_id', 'เมนูอาหาร', 'trim|required|is_natural');

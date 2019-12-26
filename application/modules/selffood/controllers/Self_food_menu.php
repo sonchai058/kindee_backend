@@ -200,10 +200,11 @@ class Self_food_menu extends CRUD_Controller
 		$this->data['category_rmat_id_option_list'] = "";
 		$rows = $this->common_model->custom_query("select * from raw_material where fag_allow='allow' and energy_val!=0.00 and rmat_name!=''");
 		foreach ($rows as $key => $value) {
-			$this->data['category_rmat_id_option_list'] = $this->data['category_rmat_id_option_list']."<option data-energy_val='{$value['energy_val']}' value='{$value['rmat_id']}'>{$value['rmat_name']}</option>";
+			$rmat_name = mb_substr($value['rmat_name'],0,40,'UTF-8');
+			$this->data['category_rmat_id_option_list'] = $this->data['category_rmat_id_option_list']."<option data-energy_val='{$value['energy_val']}' value='{$value['rmat_id']}'>{$rmat_name} - {$value['energy_val']}/กรัม</option>";
 		}
 		$this->data['count_record'] = 1;
-		$this->data['record_self_food_menu_composition'] = json_encode(array());
+		$this->data['record_self_food_menu_composition']  = json_encode(array());
 		$this->data['category_cate_id_option_list'] = $this->Self_food_menu->returnOptionList("category", "cate_id", "cate_name");
 		$this->data['users_user_delete_option_list'] = $this->Self_food_menu->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_add_option_list'] = $this->Self_food_menu->returnOptionList("users", "user_id", "user_fname");
@@ -237,6 +238,39 @@ class Self_food_menu extends CRUD_Controller
 			return $message;
 		}
 	}
+
+	/*
+	public function getRmat() {
+		$this->load->model("common_model");
+		$rows = $this->common_model->custom_query("select * from raw_material where fag_allow='allow' and energy_val!=0.00 and rmat_name!=''");
+
+        $data = array();
+
+            if ($query->num_rows() > 0) {
+
+                foreach ($query->result_array() as $row) {
+                
+                    $data[] =  array(
+                        "id"=> $row["id"],
+                        "name" => $row["name"].' : '.$row['org_district'].' : '.$row['org_provice']
+                    );
+                }
+            } else {
+                echo "0 results";
+            }
+
+        $json = array(
+            "total"=>"",
+            "items"=>$data  
+        );
+
+		$json = json_encode(array(
+					'is_successful' => FALSE,
+					'message' => $message
+		));
+		echo $json;
+	}
+	*/
 
 	// ------------------------------------------------------------------------
 
@@ -368,7 +402,8 @@ class Self_food_menu extends CRUD_Controller
 				$this->data['category_rmat_id_option_list'] = "";
 				$rows = $this->common_model->custom_query("select * from raw_material where fag_allow='allow' and energy_val!=0.00 and rmat_name!=''");
 				foreach ($rows as $key => $value) {
-					$this->data['category_rmat_id_option_list'] = $this->data['category_rmat_id_option_list']."<option data-energy_val='{$value['energy_val']}' value='{$value['rmat_id']}'>{$value['rmat_name']}</option>";
+					$rmat_name = mb_substr($value['rmat_name'],0,40,'UTF-8');
+					$this->data['category_rmat_id_option_list'] = $this->data['category_rmat_id_option_list']."<option data-energy_val='{$value['energy_val']}' value='{$value['rmat_id']}'>{$rmat_name} - {$value['energy_val']}/กรัม</option>";
 				}
 
 				$this->data['category_cate_id_option_list'] = $this->Self_food_menu->returnOptionList("category", "cate_id", "cate_name");

@@ -214,10 +214,10 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 		$this->load->library('form_validation');
 		$frm = $this->form_validation;
 
-		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim|required|is_natural');
+		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim');
 		$frm->set_rules('alg_id', 'รหัสอาหารที่แพ้', 'trim|required|is_natural');
 		$frm->set_rules('fag_allow', 'สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]', 'trim|required');
-		$frm->set_rules('food_alg_val', 'ค่า', 'trim|required|decimal');
+		$frm->set_rules('food_alg_val', 'ค่า', 'trim|required');
 
 		$frm->set_message('required', '- กรุณากรอก %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
@@ -244,10 +244,10 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 		$this->load->library('form_validation');
 		$frm = $this->form_validation;
 
-		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim|required|is_natural');
+		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim');
 		$frm->set_rules('alg_id', 'รหัสอาหารที่แพ้', 'trim|required|is_natural');
 		$frm->set_rules('fag_allow', 'สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]', 'trim|required');
-		$frm->set_rules('food_alg_val', 'ค่า', 'trim|required|decimal');
+		$frm->set_rules('food_alg_val', 'ค่า', 'trim|required');
 
 		$frm->set_message('required', '- กรุณากรอก %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
@@ -284,6 +284,7 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 			$post = $this->input->post(NULL, TRUE);
 
 			$encrypt_id = '';
+			$post['user_id'] = $this->session->userdata("user_id");
 			$id = $this->Users_result_exam_food_allergy->create($post);
 			if($id != ''){
 				$success = TRUE;
@@ -378,7 +379,7 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 			));
 			 echo $json;
 		} else {
-
+			unset($post['user_id']);
 			$result = $this->Users_result_exam_food_allergy->update($post);
 			if($result == false){
 				$message = $this->Users_result_exam_food_allergy->error_message;

@@ -1,8 +1,10 @@
 <script>
   var chart_labels = {chart_labels};
+  var chart_labels_calo = {chart_labels_calo};
   var chart_bmi = JSON.parse('{chart_bmi}');
   var chart_bmr = JSON.parse('{chart_bmr}');
   var chart_calo = JSON.parse('{chart_calo}');
+
 </script>
 
       <!-- Icon Cards-->
@@ -86,21 +88,25 @@
         <!-- Area Chart Example-->
         <div class="card col-sm-6">
           <div class="card-header">
-            <i class="fa fa-area-chart"></i> BMR Chart</div>
+            <i class="fa fa-area-chart"></i> BMR Chart
+            <div style="float:right">{chart_bmr_credit}</div>
+          </div>
           <div class="card-body">
             <canvas id="myAreaChart1" width="100%" height="30"></canvas>
           </div>
-          <div class="card-footer small text-muted">BMR : - kcal/day</div>
+          <!--<div class="card-footer small text-muted">BMR : {chart_bmr_credit}</div>-->
         </div>
 
         <!-- Area Chart Example-->
         <div class="card col-sm-6">
           <div class="card-header">
-            <i class="fa fa-area-chart"></i> Calories</div>
+            <i class="fa fa-area-chart"></i> Calories
+            <div style="float:right">{chart_calo_credit}</div>
+          </div>
           <div class="card-body">
             <canvas id="myAreaChart2" width="100%" height="30"></canvas>
           </div>
-          <div class="card-footer small text-muted"></div>
+         <!-- <div class="card-footer small text-muted">{chart_calo_credit}</div>-->
         </div>
       </div>
     </div>

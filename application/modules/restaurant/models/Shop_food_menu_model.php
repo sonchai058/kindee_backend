@@ -17,7 +17,7 @@ class Shop_food_menu_model extends MY_Model
 	public function __construct()
 	{
 		parent::__construct();
-		$this->my_table = 'shop_food_menu';
+		$this->my_table = 'self_food_menu';
 		$this->set_table_name($this->my_table);
 		$this->order_field = '';
 		$this->order_sort = '';
@@ -26,15 +26,15 @@ class Shop_food_menu_model extends MY_Model
 
 	public function exists($data)
 	{
-		$food_id = checkEncryptData($data['food_id']);
-		$this->set_where("$this->my_table.food_id = $food_id");
+		$self_food_id = checkEncryptData($data['self_food_id']);
+		$this->set_where("$this->my_table.self_food_id = $self_food_id");
 		return $this->count_record();
 	}
 
 
 	public function load($id)
 	{
-		$this->set_where("$this->my_table.food_id = $id");
+		$this->set_where("$this->my_table.self_food_id = $id");
 		return $this->load_record();
 	}
 
@@ -43,11 +43,14 @@ class Shop_food_menu_model extends MY_Model
 	{
 
 		$data = array(
-				'food_name' => $post['food_name']
+				'self_food_name' => $post['self_food_name']
 				,'cate_id' => $post['cate_id']
 				,'price_amt' => str_replace(",", "", $post['price_amt'])
 				//,'energy_amt' => str_replace(",", "", $post['energy_amt'])
 				,'fag_allow' => $post['fag_allow']
+				,'food_source'=> 'เมนูร้านอาหาร',
+				'shop_id'=>$post['shop_id'],
+				'user_id'=>$this->session->userdata('user_id')
 		);
 		return $this->add_record($data);
 	}
@@ -75,7 +78,7 @@ class Shop_food_menu_model extends MY_Model
 		if($search_field != '' && $value != ''){
 			$search_method_field = "$this->my_table.$search_field";
 			$search_method_value = '';
-			if($search_field == 'food_name'){
+			if($search_field == 'self_food_name'){
 				$search_method_value = "LIKE '%$value%'";				
 			}
 			if($search_field == 'cate_id'){
@@ -139,23 +142,23 @@ class Shop_food_menu_model extends MY_Model
 	public function update($post)
 	{
 		$data = array(
-				'food_name' => $post['food_name']
+				'self_food_name' => $post['self_food_name']
 				,'cate_id' => $post['cate_id']
 				,'price_amt' => str_replace(",", "",$post['price_amt'])
 				//,'energy_amt' => str_replace(",", "",$post['energy_amt'])
 				,'fag_allow' => $post['fag_allow']
 		);
 
-		$food_id = checkEncryptData($post['encrypt_food_id']);
-		$this->set_where("$this->my_table.food_id = $food_id");
+		$self_food_id = checkEncryptData($post['encrypt_self_food_id']);
+		$this->set_where("$this->my_table.self_food_id = $self_food_id");
 		return $this->update_record($data);
 	}
 
 
 	public function delete($post)
 	{
-		$food_id = checkEncryptData($post['encrypt_food_id']);
-		$this->set_where("$this->my_table.food_id = $food_id");
+		$self_food_id = checkEncryptData($post['encrypt_self_food_id']);
+		$this->set_where("$this->my_table.self_food_id = $self_food_id");
 		return $this->delete_record();
 	}
 

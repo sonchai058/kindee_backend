@@ -81,6 +81,12 @@
 						<label class='col-sm-12 control-label' for='email_addr'>อีเมล  :</label>
 						<input type="text" class="form-control " id="email_addr" name="email_addr" value="{record_email_addr}"  />
 					</div>
+					
+					<div class="col-sm-12 col-md-4">
+						<label class="col-sm-12 control-label" for="cus_passwd">รหัสผ่าน  :</label>
+						<input type="password" class="form-control " id="cus_passwd" name="cus_passwd" value="{record_cus_passwd}"  />
+					</div>
+
 				</div>
 				
 				<br/>

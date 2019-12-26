@@ -9,6 +9,7 @@
 			<form class='form-horizontal' id='formEdit' accept-charset='utf-8'>
 				{csrf_protection_field}
 				<input type="hidden" name="submit_case" value="edit" />
+				<!--
 				<div class='form-group'>
 					<label class='col-sm-2 control-label' for='user_id'>ชื่อสมาชิก  :</label>
 					<div class='col-sm-10'>
@@ -18,6 +19,7 @@
 					</select>
 					</div>
 				</div>
+			-->
 				<div class='form-group'>
 					<label class='col-sm-2 control-label' for='alg_id'>ชื่ออาหารที่แพ้  :</label>
 					<div class='col-sm-10'>
@@ -43,7 +45,7 @@
 					<label class='col-sm-2 control-label' for='food_alg_val'>ค่า  :</label>
 					<div class='col-sm-10'>
 
-						<input type="text" class="form-control " id="food_alg_val" name="food_alg_val" value="{record_food_alg_val}"  />
+						<input type="number" step='0.01' class="form-control " id="food_alg_val" name="food_alg_val" value="{record_food_alg_val}"  />
 					</div>
 				</div>
 				<div class='form-group'>

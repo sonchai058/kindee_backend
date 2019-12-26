@@ -240,12 +240,25 @@ $('#food_source').change(function (e) {
 		$('#food_id').html(food_id_content);
 		setDropdownList('#food_id');
 	}
-
+	//console.log($('#food_source').val());
 	if($('#food_source').val()=='เมนูจากระบบ') {
 		$.each($("#food_id > option[data-val='เมนูปรุงเอง']"),function(key,val){
 			$(this).remove();
 		});
+		$.each($("#food_id > option[data-val='เมนูร้านอาหาร']"),function(key,val){
+			$(this).remove();
+		});
 	}else if($('#food_source').val()=='เมนูปรุงเอง') {
+		$.each($("#food_id > option[data-val='เมนูจากระบบ']"),function(key,val){
+			$(this).remove();
+		});
+		$.each($("#food_id > option[data-val='เมนูร้านอาหาร']"),function(key,val){
+			$(this).remove();
+		});
+	}else if($('#food_source').val()=='เมนูร้านอาหาร') {
+		$.each($("#food_id > option[data-val='เมนูปรุงเอง']"),function(key,val){
+			$(this).remove();
+		});
 		$.each($("#food_id > option[data-val='เมนูจากระบบ']"),function(key,val){
 			$(this).remove();
 		});

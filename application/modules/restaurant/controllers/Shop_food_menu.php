@@ -230,7 +230,7 @@ class Shop_food_menu extends CRUD_Controller
 		}
 
 		$this->data['count_record'] = 1;
-		$this->data['record_shop_food_menu_composition'] = json_encode(array());
+		$this->data['record_self_food_menu_composition'] = json_encode(array());
 
 		$this->data['count_image'] = 1;
 		$this->data['data_id'] = 0;
@@ -253,7 +253,7 @@ class Shop_food_menu extends CRUD_Controller
 		$this->load->library('form_validation');
 		$frm = $this->form_validation;
 
-		$frm->set_rules('food_name', 'ชื่อ', 'trim|required');
+		$frm->set_rules('self_food_name', 'ชื่อ', 'trim|required');
 		$frm->set_rules('cate_id', 'ประเภทอาหาร', 'trim|required|is_natural');
 		$frm->set_rules('price_amt', 'ราคา', 'trim|required|callback_float_check');
 		$frm->set_rules('energy_amt', 'พลังงาน', 'trim|callback_float_check');
@@ -265,7 +265,7 @@ class Shop_food_menu extends CRUD_Controller
 
 		if ($frm->run() == FALSE) {
 			$message  = '';
-			$message .= form_error('food_name');
+			$message .= form_error('self_food_name');
 			$message .= form_error('cate_id');
 			$message .= form_error('price_amt');
 			$message .= form_error('energy_amt');
@@ -297,7 +297,7 @@ class Shop_food_menu extends CRUD_Controller
 		$this->load->library('form_validation');
 		$frm = $this->form_validation;
 
-		$frm->set_rules('food_name', 'ชื่อ', 'trim|required');
+		$frm->set_rules('self_food_name', 'ชื่อ', 'trim|required');
 		$frm->set_rules('cate_id', 'ประเภทอาหาร', 'trim|required|is_natural');
 		$frm->set_rules('price_amt', 'ราคา', 'trim|required|callback_float_check');
 		$frm->set_rules('energy_amt', 'พลังงาน', 'trim|callback_float_check');
@@ -309,7 +309,7 @@ class Shop_food_menu extends CRUD_Controller
 
 		if ($frm->run() == FALSE) {
 			$message  = '';
-			$message .= form_error('food_name');
+			$message .= form_error('self_food_name');
 			$message .= form_error('cate_id');
 			$message .= form_error('price_amt');
 			$message .= form_error('energy_amt');
@@ -354,11 +354,11 @@ class Shop_food_menu extends CRUD_Controller
 						$tmp = rowArray($this->common_model->custom_query("select energy_val from raw_material where fag_allow!='delete' and rmat_id='{$post['rmat_id'][$key]}' order by rmat_id desc limit 1"));
 						$energy_amt_tmp = isset($tmp['energy_val'])?$tmp['energy_val']:0;
 						$energy_amt+=($energy_amt_tmp*floatval($post['amount'][$key]));
-						$id_new = $this->common_model->insert("shop_food_menu_composition",
+						$id_new = $this->common_model->insert("self_food_menu_composition",
 							array(
 								'user_add'=>get_session('user_id'),
 								'datetime_add'=>date("Y-m-d H:i:s"),
-								'food_id'=>$id,
+								'self_food_id'=>$id,
 								'rmat_id'=>$post['rmat_id'][$key],
 								'amount'=>$post['amount'][$key]
 							)
@@ -367,7 +367,7 @@ class Shop_food_menu extends CRUD_Controller
 					}
 				}
 				if($energy_amt!=0) {
-					$this->common_model->update('shop_food_menu',array('energy_amt'=>$energy_amt),array('food_id'=>$id));
+					$this->common_model->update('self_food_menu',array('energy_amt'=>$energy_amt),array('self_food_id'=>$id));
 				}
 
 				$success = TRUE;
@@ -451,9 +451,9 @@ class Shop_food_menu extends CRUD_Controller
 	public function checkRecordKey($data)
 	{
 		$error = '';
-		$food_id = ci_decrypt($data['encrypt_food_id']);
-		if($food_id==''){
-			$error .= '- รหัส food_id';
+		$self_food_id = ci_decrypt($data['encrypt_self_food_id']);
+		if($self_food_id==''){
+			$error .= '- รหัส self_food_id';
 		}
 		return $error;
 	}
@@ -476,7 +476,7 @@ class Shop_food_menu extends CRUD_Controller
 			    $id = $this->common_model->update('shop_food_menu_images',
 			    	array('user_update'=>get_session('user_id'),
 			    		'datetime_update'=>date("Y-m-d H:i:s"),
-			    		'food_id'=>$post['food_id']
+			    		'food_id'=>$post['self_food_id']
 			    	),
 			    	array('image_id'=>$value)
 			    );
@@ -531,7 +531,7 @@ class Shop_food_menu extends CRUD_Controller
 		    		'datetime_add'=>date("Y-m-d H:i:s"),
 		    		'encrypt_name'=>$encrypt_name,
 		    		'filename'=>$filename,
-		    		'food_id'=>$post['food_id'],
+		    		'food_id'=>$post['self_food_id'],
 		    		'shop_id'=>$this->session->userdata('shop_id')
 		    	)
 		    );
@@ -618,7 +618,7 @@ class Shop_food_menu extends CRUD_Controller
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);
 
-		$encrypt_id = urldecode($post['encrypt_food_id']);
+		$encrypt_id = urldecode($post['encrypt_self_food_id']);
 		$id = decrypt($encrypt_id);
 
 		if ($error_pk_id != '') {
@@ -641,14 +641,14 @@ class Shop_food_menu extends CRUD_Controller
 				$ok = TRUE;
 
 				$this->load->model("common_model");
-				$this->common_model->update('shop_food_menu_composition',array(
+				$this->common_model->update('self_food_menu_composition',array(
 					'user_update'=>get_session('user_id'),
 					'datetime_update'=>date("Y-m-d H:i:s"),
 					'user_delete'=>get_session('user_id'),
 					'datetime_delete'=>date("Y-m-d H:i:s"),
 					'fag_allow'=>'delete'
 					),
-					array('food_id'=>$id)
+					array('self_food_id'=>$id)
 				);
 				$arr = $post['rmat_id'];
 				$energy_amt = 0;
@@ -659,11 +659,11 @@ class Shop_food_menu extends CRUD_Controller
 						$tmp = rowArray($this->common_model->custom_query("select energy_val from raw_material where fag_allow!='delete' and rmat_id='{$post['rmat_id'][$key]}' order by rmat_id desc limit 1"));
 						$energy_amt_tmp = isset($tmp['energy_val'])?$tmp['energy_val']:0;
 						$energy_amt+=($energy_amt_tmp*floatval($post['amount'][$key]));
-						$id_new = $this->common_model->insert("shop_food_menu_composition",
+						$id_new = $this->common_model->insert("self_food_menu_composition",
 							array(
 								'user_add'=>get_session('user_id'),
 								'datetime_add'=>date("Y-m-d H:i:s"),
-								'food_id'=>$id,
+								'self_food_id'=>$id,
 								'rmat_id'=>$post['rmat_id'][$key],
 								'amount'=>$post['amount'][$key]
 							)
@@ -672,7 +672,7 @@ class Shop_food_menu extends CRUD_Controller
 					}
 				}
 				if($energy_amt!=0) {
-					$this->common_model->update('shop_food_menu',array('energy_amt'=>$energy_amt),array('food_id'=>$id));
+					$this->common_model->update('self_food_menu',array('energy_amt'=>$energy_amt),array('self_food_id'=>$id));
 				}
 
 			}
@@ -719,15 +719,15 @@ class Shop_food_menu extends CRUD_Controller
 				$ok = TRUE;
 
 				$this->load->model('common_model');
-				$this->common_model->update("shop_food_menu_composition",
+				$this->common_model->update("self_food_menu_composition",
 					array('user_delete'=>get_session('user_id'),'datetime_delete'=>date("Y-m-d H:i:s"),'fag_allow'=>'delete'),
-					array('food_id'=>checkEncryptData($post['encrypt_food_id'])));
+					array('self_food_id'=>checkEncryptData($post['encrypt_self_food_id'])));
 
 
 				$this->common_model->update("shop_food_menu_images",
 					array('user_delete'=>get_session('user_id'),'datetime_delete'=>date("Y-m-d H:i:s"),'fag_allow'=>'delete'),
-					array('food_id'=>checkEncryptData($post['encrypt_food_id'])));
-				$rows = $this->common_model->custom_query("select * from shop_food_menu_images where food_id=".checkEncryptData($post['encrypt_food_id']));
+					array('food_id'=>checkEncryptData($post['encrypt_self_food_id'])));
+				$rows = $this->common_model->custom_query("select * from shop_food_menu_images where food_id=".checkEncryptData($post['encrypt_self_food_id']));
 
 				foreach ($rows as $key => $value) {
 					$year = (substr($value['datetime_add'],0,4)+543);
@@ -757,13 +757,13 @@ class Shop_food_menu extends CRUD_Controller
 		for($i=0;$i<$count;$i++){
 			$start_row++;
 			$data[$i]['record_number'] = $start_row;
-			$pk1 = $data[$i]['food_id'];
+			$pk1 = $data[$i]['self_food_id'];
 			$data[$i]['url_encrypt_id'] = urlencode(encrypt($pk1));
 
 			if($pk1 != ''){
 				$pk1 = encrypt($pk1);
 			}
-			$data[$i]['encrypt_food_id'] = $pk1;
+			$data[$i]['encrypt_self_food_id'] = $pk1;
 			$data[$i]['preview_fag_allow'] = $this->setFagAllowSubject($data[$i]['fag_allow']);
 			$data[$i]['price_amt'] = number_format($data[$i]['price_amt'],2);
 			$data[$i]['energy_amt'] = number_format(($data[$i]['energy_amt']/1000),2);
@@ -771,7 +771,7 @@ class Shop_food_menu extends CRUD_Controller
 			$data[$i]['datetime_add'] = setThaiDate($data[$i]['datetime_add']);
 			$data[$i]['datetime_update'] = setThaiDate($data[$i]['datetime_update']);
 
-			$rows = $this->common_model->custom_query("select a.*,b.rmat_name as rmat_name from shop_food_menu_composition as a left join raw_material as b on a.rmat_id=b.rmat_id where a.fag_allow='allow' and a.food_id=".$data[$i]['food_id']);
+			$rows = $this->common_model->custom_query("select a.*,b.rmat_name as rmat_name from self_food_menu_composition as a left join raw_material as b on a.rmat_id=b.rmat_id where a.fag_allow='allow' and a.self_food_id=".$data[$i]['self_food_id']);
 			$this->data['seft_comp'] = "";
 			$arr_tmp = array();
 			foreach ($rows as $key => $value) {
@@ -812,13 +812,13 @@ class Shop_food_menu extends CRUD_Controller
 	{
 		$data = $row_data;
 
-		$pk1 = $data['food_id'];
+		$pk1 = $data['self_food_id'];
 		$this->data['recode_url_encrypt_id'] = urlencode(encrypt($pk1));
 
 		if($pk1 != ''){
 			$pk1 = encrypt($pk1);
 		}
-		$this->data['encrypt_food_id'] = $pk1;
+		$this->data['encrypt_self_food_id'] = $pk1;
 
 
 		$cateIdCateName = $this->Shop_food_menu->getValueOf('category', 'cate_name', "cate_id = '$data[cate_id]'");
@@ -836,8 +836,8 @@ class Shop_food_menu extends CRUD_Controller
 		$userUpdateUserFname = $this->Shop_food_menu->getValueOf('users', 'user_fname', "user_id = '$data[user_update]'");
 		$this->data['userUpdateUserFname'] = $userUpdateUserFname;
 
-		$this->data['record_food_id'] = $data['food_id'];
-		$this->data['record_food_name'] = $data['food_name'];
+		$this->data['record_self_food_id'] = $data['self_food_id'];
+		$this->data['record_self_food_name'] = $data['self_food_name'];
 		$this->data['record_cate_id'] = $data['cate_id'];
 		$this->data['record_price_amt'] = $data['price_amt'];
 		$this->data['record_energy_amt'] = ($data['energy_amt']/1000);
@@ -851,7 +851,7 @@ class Shop_food_menu extends CRUD_Controller
 		$this->data['record_fag_allow'] = $data['fag_allow'];
 
 		$this->load->model('common_model');
-		$rows = $this->common_model->custom_query("select a.*,b.rmat_name as rmat_name from shop_food_menu_composition as a left join raw_material as b on a.rmat_id=b.rmat_id where a.fag_allow='allow' and a.food_id=".$data['food_id']);
+		$rows = $this->common_model->custom_query("select a.*,b.rmat_name as rmat_name from self_food_menu_composition as a left join raw_material as b on a.rmat_id=b.rmat_id where a.fag_allow='allow' and a.self_food_id=".$data['self_food_id']);
 		$this->data['record_seft_comp'] = "";
 		$arr_tmp = array();
 		foreach ($rows as $key => $value) {
@@ -861,10 +861,10 @@ class Shop_food_menu extends CRUD_Controller
 			$this->data['record_seft_comp'] = implode(',',$arr_tmp);
 		}
 
-		$this->data['record_shop_food_menu_composition'] = json_encode(array());
-		$rows = $this->common_model->custom_query("select * from shop_food_menu as a left join shop_food_menu_composition as b on a.food_id=b.food_id where a.fag_allow!='delete' and b.fag_allow!='delete' and a.food_id=".$data['food_id']);
+		$this->data['record_self_food_menu_composition'] = json_encode(array());
+		$rows = $this->common_model->custom_query("select * from self_food_menu as a left join self_food_menu_composition as b on a.self_food_id=b.self_food_id where a.fag_allow!='delete' and b.fag_allow!='delete' and a.self_food_id=".$data['self_food_id']);
 		if(count($rows)) {
-			$this->data['record_shop_food_menu_composition'] = json_encode($rows);
+			$this->data['record_self_food_menu_composition'] = json_encode($rows);
 		}
 		$this->data['count_record'] = count($rows);
 

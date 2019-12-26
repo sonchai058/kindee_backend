@@ -1,5 +1,5 @@
 <script>
-	var record_shop_food_menu_composition = JSON.parse('{record_shop_food_menu_composition}');
+	var record_self_food_menu_composition = JSON.parse('{record_self_food_menu_composition}');
 	var num0 = {count_record}+1;
 	var num = {count_image};
 	var data_id = {data_id};
@@ -9,7 +9,7 @@
 	<div class="card">
 		<!--
 		<div class="card-header bg-primary">
-			<h3 class="card-title"><i class="fa fa-edit"></i> แก้ไขข้อมูล <strong>shop_food_menu</strong></h3>
+			<h3 class="card-title"><i class="fa fa-edit"></i> แก้ไขข้อมูล <strong>self_food_menu</strong></h3>
 		</div>
 		-->
 		<div class="card-body">
@@ -19,9 +19,9 @@
 				<div class="row">
 
 					<div class="col-sm-12 col-md-3">
-						<label class="col-sm-3 control-label" for="self_food_name">ชื่อ :</label>
+						<label class="col-sm-3 control-label" for="self_self_food_name">ชื่อ :</label>
 
-						<input type="text" class="form-control " id="food_name" name="food_name" value="{record_food_name}"  />
+						<input type="text" class="form-control " id="self_food_name" name="self_food_name" value="{record_self_food_name}"  />
 					</div>
 
 					<div class="col-sm-12 col-md-3">
@@ -130,7 +130,7 @@
 						</div>
 				</div>
 
-				<input type="hidden" name="encrypt_food_id" value="{encrypt_food_id}" />
+				<input type="hidden" name="encrypt_self_food_id" value="{encrypt_self_food_id}" />
 
 
 			</form>

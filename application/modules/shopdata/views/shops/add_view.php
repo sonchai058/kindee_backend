@@ -80,6 +80,12 @@
 						<label class="col-sm-12 control-label" for="email_addr">อีเมล  :</label>
 						<input type="text" class="form-control " id="email_addr" name="email_addr" value=""  />
 					</div>
+
+					<div class="col-sm-12 col-md-4">
+						<label class="col-sm-12 control-label" for="cus_passwd">รหัสผ่าน  :</label>
+						<input type="password" class="form-control " id="cus_passwd" name="cus_passwd" value=""  />
+					</div>
+
 				</div>
 
 				<br/>
@@ -110,7 +116,7 @@
 				<div class="row">
 					<div class="col-sm-12 col-md-4">
 					<label class="col-sm-12 control-label" for="shop_user">ชื่อผู้ดูแล  :</label><br/>
-					<select  id="shop_user" name="shop_user" value="">
+					<select  id="shop_user" name="shop_user" value="" disabled="true">
 						<option value="">- เลือก ชื่อผู้ดูแล -</option>
 						{users_shop_user_option_list}
 					</select>

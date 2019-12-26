@@ -48,7 +48,7 @@ var ctx = document.getElementById("myAreaChart2");
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: chart_labels,
+    labels: chart_labels_calo,
     datasets: [{
       label: 'Calories (K)',
     options: {
