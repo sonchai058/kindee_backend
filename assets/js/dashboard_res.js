@@ -1,5 +1,5 @@
 
-    var im = "{base_url}assets/images/marker.png";
+    var im = baseURL+"assets/images/marker.png";
     function locate(){
         navigator.geolocation.getCurrentPosition(initMap,fail);
     }

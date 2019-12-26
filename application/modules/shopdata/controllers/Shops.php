@@ -785,13 +785,14 @@ class Shops extends CRUD_Controller
 			$shop_user = $this->common_model->update('users',
 				array(
 					'user_update'=>$this->session->userdata('user_id'),
-					'datetime_update'=>data("Y-m-d H:i:s"),
+					'datetime_update'=>date("Y-m-d H:i:s"),
 					'email_addr'=>$post['email_addr'],
 					'cus_passwd'=>$post['cus_passwd']
 				),
-				array('user_id'=>$post['shop_user']));
+				array('user_id'=>ci_decrypt($post['encrypt_shop_id'])));
 
-			$shop_user = $this->common_model->update('shop',array('shop_user'=>$shop_user),array('shop_id'=>$id));	
+			/*
+			$shop_user = $this->common_model->update('shop',array('shop_user'=>ci_decrypt($post['encrypt_shop_id'])),array('shop_id'=>ci_decrypt($post['encrypt_shop_id'])));	*/
 
 
 			if($upload_error == 0){
