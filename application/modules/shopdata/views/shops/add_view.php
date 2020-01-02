@@ -137,7 +137,7 @@
 				<h5>พิกัดร้าน :</h5>
 				<div class="row">
 					<div class="col-sm-12 col-md-12">
-	                    <input style="widht:500px; margin-top: 5px;" id="searchInput" name="searchInput" class="form-control controls" type="text" placeholder="ค้นหาตำแหน่ง" onclick="$(this).select()">
+	                    <input style="width: 500px !important; margin-top: 5px;" id="searchInput" name="searchInput" class="form-control controls" type="text" placeholder="ค้นหาตำแหน่ง" onclick="$(this).select()">
 	                    <div id="map" style="width:100%;height:300px;"></div>
 	                    <ul id="geoData" style="font-size:10px">
 	                        <li><b>ที่อยู่จากแผนที่:</b> <span id="location"></span> <b>รหัสไปรษณีย์:</b> <span id="postal_code"></span> <b>ประเทศ:</b> <span id="country"></span> <b>Latitude:</b> <span id="lat"></span> <b>Longitude:</b> <span id="lon"></span></li>

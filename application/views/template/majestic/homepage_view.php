@@ -267,7 +267,7 @@
   #imagemodal .modal-body {
     padding-bottom: 50px;
   }
-  a.file_link img{
+  a.file_link img,.div_file_preview img{
     margin-top: 3px;
     //max-width: 255px !important;
     //height: 200px !important;
