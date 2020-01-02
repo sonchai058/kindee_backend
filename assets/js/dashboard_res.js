@@ -26,14 +26,21 @@
           center: myLatLng,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         }
-        var map = new google.maps.Map(document.getElementById('map'),
-                                      mapOptions);
-        var userMarker = new google.maps.Marker({
-            position: myLatLng,
-            map: map,
-            icon: im,
-            /*//draggable:true*/
-        });
+
+        var map = null;
+        var userMarker = null;
+
+        setTimeout(function(){
+            map = new google.maps.Map(document.getElementById('map'),
+                                          mapOptions);
+            userMarker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                icon: im,
+                /*//draggable:true*/
+            });     
+        },1500);
+
 
 
         //var input = document.getElementById('searchInput');

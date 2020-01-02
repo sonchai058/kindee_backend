@@ -4,7 +4,7 @@
 			<h3>จัดการข้อมูลโปรโมชั่น</h3>
 		</div>
 	<div class="card-body">
-			<form class="form-horizontal" id="formAdd" accept-charset="utf-8">
+			<form class="form-horizontal formPro" id="formAdd" accept-charset="utf-8">
 				{csrf_protection_field}
 				
 				{results}

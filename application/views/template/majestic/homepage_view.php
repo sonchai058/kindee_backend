@@ -217,13 +217,15 @@
     background-color: #E97A2E !important;
     color: #fff !important; 
   }
-  .badge.badge-info {
+  }
+  .badge.badge-info,.badge.badge-default {
     background-color: #fff !important;
     color: #333 !important;
     font-weight: bold !important;
     font-size: 14px !important;
     padding: 0 !important;
   }
+
   .dataTables_info {
     padding: 4px;
   }
@@ -249,10 +251,11 @@
     height: 45px !important;
   }
   input[type='checkbox'].form-control {
-    position: absolute !important;
-    top: 28px !important;
-    left: 0 !important;
-    zoom: 1.0 !important;
+    margin-top: -28px !important;
+    width: 20px !important;
+    height: 20px !important;
+    margin-right: 15px !important;
+    margin-bottom: 10px;
   }
   table.preview tbody tr td:nth-child(2) {
     text-align: left !important;
@@ -267,6 +270,24 @@
     margin-top: 3px;
     //max-width: 255px !important;
     //height: 200px !important;
+
+    height: 30px !important;
+    width: 30px !important;
+    position: absolute;
+    right: 18px;
+    top: 38px;
+
+  }
+  .formPro input[type='checkbox'] {
+    //margin-bottom: 5px !important;
+  }
+
+  .formPro input[type='number']{
+    padding: 10px !important;
+    margin-bottom: 10px !important;
+  }
+  .formPro input[type='number']:focus {
+    border: 1px #C4DDF8 solid;
   }
   </style>
 

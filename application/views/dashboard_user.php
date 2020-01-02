@@ -9,7 +9,7 @@
 
       <!-- Icon Cards-->
       <div class="row">
-        <div class="col-xl-4 col-sm-6 mb-4">
+        <div class="col-xl-4 col-sm-6 mb-4" style="padding:0">
           <div class="card text-white bg-default o-hidden h-100">
             <div class="card-body" style="padding: 0;padding-top: 5px;color:#333;">
             <div class="col-sm-4" style="padding: 10px;">
@@ -23,7 +23,7 @@
             </div>
           </div>
         </div>
-        <div class="col-xl-2 col-sm-6 mb-2">
+        <div class="col-xl-2 col-sm-6 mb-2" style="padding:0">
           <div class="card text-white bg-default o-hidden" style="height: 128px;">
             <div class="card-body" style="color:#333;">
               <div class="mr-5" ><h2>{user_height}</h2>
@@ -32,21 +32,21 @@
             </div>
           </div>
         </div>
-        <div class="col-xl-2 col-sm-6 mb-2">
+        <div class="col-xl-2 col-sm-6 mb-2" style="padding:0">
           <div class="card text-white bg-default o-hidden" style="height: 128px;">
             <div class="card-body" style="color:#333">
               <div class="mr-5"><h2>{users_exam_weight}</h2><span class="float-left" style="color:#333;font-size:13px">น้ำหนัก (ก.ก.)</span></div>
             </div>
           </div>
         </div>
-        <div class="col-xl-2 col-sm-6 mb-2">
+        <div class="col-xl-2 col-sm-6 mb-2" style="padding:0">
           <div class="card text-white bg-default o-hidden" style="height: 128px;">
             <div class="card-body" style="color:#333">
               <div class="mr-5"><h2>{users_exam_waistline}</h2><span class="float-left" style="color:#333;font-size:13px">รอบเอว (ซ.ม.)</span></div>
             </div>
           </div>
         </div>
-        <div class="col-xl-2 col-sm-6 mb-2">
+        <div class="col-xl-2 col-sm-6 mb-2" style="padding:0">
           <div class="card text-white bg-default o-hidden" style="height: 128px;">
             <div class="card-body" style="color:#333">
               <div class="mr-5"><h2>{users_exam_hip}</h2><span class="float-left" style="color:#333;font-size:13px">รอบสะโพก (ซ.ม.)</span></div>
