@@ -44,7 +44,7 @@
 					<div class="col-sm-12 col-md-6">
 						<label class="col-sm-6 control-label" for="">ส่วนประกอบ :</label>
 						<button type="button" id="btn_comp"
-							class="btn btn-success btn-md" data-toggle="modal"
+							class="btn btn-warning btn-md" data-toggle="modal"
 							data-target="" >
 							&nbsp;&nbsp;<i class="fa fa-plus-square"></i> เพิ่มส่วนประกอบอาหาร/กรัม &nbsp;&nbsp;
 						</button>
@@ -68,7 +68,7 @@
 						<div class="col-sm-12 col-md-4">
 							<label class="col-sm-4 control-label" for=""></label><br/>
 							<button onclick='del(this)' style="margin-top:7px;" type="button" 
-								class="btn btn-danger btn-sm btn-del" data-toggle="modal"
+								class="btn btn-warning btn-sm btn-del" data-toggle="modal"
 								data-target="" >
 								ลบ
 							</button>
@@ -98,7 +98,7 @@
 						</button>
 					-->
 
-						<button  type="button" class='btn btn-primary btn-md'  data-toggle='modal' data-target='#editModal' >&nbsp;&nbsp;<i class="fa fa-save"></i> บันทึก &nbsp;&nbsp;</button>
+						<button  type="button" class='btn btn-warning btn-md'  data-toggle='modal' data-target='#editModal' >&nbsp;&nbsp;<i class="fa fa-save"></i> บันทึก &nbsp;&nbsp;</button>
 
 						</div>
 				</div>
@@ -134,8 +134,8 @@
 				</form>
 			</div>
 			<div class='modal-footer'>
-				<button type='button' class='btn btn-default' data-dismiss='modal'>ปิด</button>
-				<button type='button' class='btn btn-primary' id='btnSaveEdit'>&nbsp;บันทึก&nbsp;</button>
+				<button type='button' class='btn btn-warning' data-dismiss='modal'>ปิด</button>
+				<button type='button' class='btn btn-warning' id='btnSaveEdit'>&nbsp;บันทึก&nbsp;</button>
 			</div>
 		</div>
 	</div>

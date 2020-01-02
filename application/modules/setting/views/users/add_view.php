@@ -34,6 +34,9 @@
 					</div>
 
 				</div>
+
+				<br/>
+
 				<div class="row">
 					<div class="col-sm-12 col-md-4">
 							<label class="col-sm-12 control-label" for="user_photo">รูป  :</label>
@@ -89,6 +92,8 @@
 
 				</div>
 
+				<br/>
+
 				<div class="row">
 					<div class="col-sm-12 col-md-4">
 						<label class="col-sm-12 control-label" for="date_of_birth">วันเกิด  :</label>
@@ -106,6 +111,8 @@
 					</div>
 				</div>
 
+				<br/>
+
 				<div class="row">
 					<div class="col-sm-12 col-md-12">
 						<label class="col-sm-12 control-label" for="addr">ที่อยู่  :</label>
@@ -113,12 +120,16 @@
 					</div>
 				</div>
 
+				<br/>
+
 				<div class="row">
 					<div class="col-sm-12 col-md-4">
 						<label class="col-sm-12 control-label" for="user_height">ส่วนสูง CM  :</label>
 						<input type="number" step="0.01"  class="form-control " id="user_height" name="user_height" value=""  />
 					</div>
 				</div>
+
+				
 				
 				<div class="row">
 					<div class="col-sm-12 col-md-4">
@@ -234,7 +245,7 @@
 					<div class="col-sm-offset-2 col-sm-10">
 						<input type="hidden" id="add_encrypt_id" />
 						<button type="button" id="btnConfirmSave"
-							class="btn btn-primary btn-md" data-toggle="modal"
+							class="btn btn-warning btn-md" data-toggle="modal"
 							data-target="#addModal" >
 							&nbsp;&nbsp;<i class="fa fa-save"></i> บันทึก &nbsp;&nbsp;
 						</button>
@@ -311,8 +322,8 @@
 				<p class="alert alert-warning">ยืนยันการบันทึกข้อมูล ?</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-				<button type="button" class="btn btn-primary" id="btnSave">&nbsp;บันทึก&nbsp;</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal">ปิด</button>
+				<button type="button" class="btn btn-warning" id="btnSave">&nbsp;บันทึก&nbsp;</button>
 			</div>
 		</div>
 	</div>

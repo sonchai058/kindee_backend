@@ -120,6 +120,10 @@
   .nav-link i.fas.fa-user-circle.fa-fw{
     color: #fff;
   }
+  .btn-warning {
+    background-color: #E97A2E !important;
+    color: #fff !important; 
+  }
   </style>
 
   <script>

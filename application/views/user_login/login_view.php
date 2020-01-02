@@ -20,7 +20,7 @@
                   <input type="password" class="form-control form-control-lg" name="input_password"  id="input_password" placeholder="รหัสผ่าน" required>
                 </div>
                 <div class="mt-3">
-                  <button class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" id="btn_login" type="submit">SIGN IN</button>
+                  <button class="btn btn-block btn-warning btn-lg font-weight-medium auth-form-btn" id="btn_login" type="submit">SIGN IN</button>
                 </div>
                 <!--
                 <div class="my-2 d-flex justify-content-between align-items-center">

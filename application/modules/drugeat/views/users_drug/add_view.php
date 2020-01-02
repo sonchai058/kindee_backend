@@ -60,7 +60,7 @@
 					<div class="col-sm-offset-2 col-sm-10">
 						<input type="hidden" id="add_encrypt_id" />
 						<button type="button" id="btnConfirmSave"
-							class="btn btn-primary btn-md" data-toggle="modal"
+							class="btn btn-warning btn-md" data-toggle="modal"
 							data-target="#addModal" >
 							&nbsp;&nbsp;<i class="fa fa-save"></i> บันทึก &nbsp;&nbsp;
 						</button>
@@ -83,8 +83,8 @@
 				<p class="alert alert-warning">ยืนยันการบันทึกข้อมูล ?</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-				<button type="button" class="btn btn-primary" id="btnSave">&nbsp;บันทึก&nbsp;</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal">ปิด</button>
+				<button type="button" class="btn btn-warning" id="btnSave">&nbsp;บันทึก&nbsp;</button>
 			</div>
 		</div>
 	</div>

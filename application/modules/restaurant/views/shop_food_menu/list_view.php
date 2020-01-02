@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col-sm-12 col-md-12 mb-3">
 				<div class="text-right">
-					<a href="{page_url}/add" class="btn btn-success btn-md" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่">
+					<a href="{page_url}/add" class="btn btn-warning btn-md" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่">
 						<i class="fa fa-plus-square"></i></span> เพิ่มรายการใหม่
 					</a>
 		</div>
@@ -17,7 +17,7 @@
 			<div class="col-sm-12 col-md-9">
 				<form class="form-inline well well-sm" name="formSearch" method="post" action="{page_url}/search">
 					{csrf_protection_field}
-					<a href="{page_url}" class="btn btn-info">ทั้งหมด</a>
+					<a href="{page_url}" class="btn btn-warning">ทั้งหมด</a>
 					<div class="form-group">
 						<select  class="form-control" name="search_field" class="span2">
 					<option value="self_food_name">ชื่อ</option>
@@ -31,7 +31,7 @@
 						<input type="text" class="form-control col" id="txtSearch" name="txtSearch" value="{txt_search}">
 					</div>
 					<input type="hidden" value="{order_by}" name="order_by"/>
-					<button type="submit" name="submit" class="btn btn-info">
+					<button type="submit" name="submit" class="btn btn-warning">
 						<span class="glyphicon glyphicon-search"></span> ค้นหา
 					</button>
 				</form>
@@ -83,7 +83,7 @@
 						<td>
 							<div class="btn-group pull-right">
 								<a href="{page_url}/preview/{url_encrypt_id}" 
-									class="my-tooltip btn btn-info btn-sm"
+									class="my-tooltip btn btn-warning btn-sm"
 									data-toggle="tooltip" title="แสดงข้อมูลรายละเอียด">
 									<i class="fa fa-list"></i> รายละเอียด
 								</a>
@@ -92,7 +92,7 @@
 									data-toggle="tooltip" title="แก้ไขข้อมูล">
 									<i class="fa fa-edit"></i> แก้ไข
 								</a>
-								<a href="javascript:void(0);" class="btn-delete-row my-tooltip btn btn-danger btn-sm"
+								<a href="javascript:void(0);" class="btn-delete-row my-tooltip btn btn-warning btn-sm"
 									data-toggle="tooltip" title="ลบรายการนี้"
 									 data-self_food_id = "{encrypt_self_food_id}" data-row-number="{record_number}">
 									<i class="fa fa-trash"></i> ลบ
@@ -147,8 +147,8 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-danger" id="btn_confirm_delete" >Delete</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-warning" id="btn_confirm_delete" >Delete</button>
 			</div>
 		</div>
 	</div>
@@ -166,7 +166,7 @@
 				<div id="divPreview"></div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button> 
+				<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button> 
 			</div>
 		</div>
 	</div>

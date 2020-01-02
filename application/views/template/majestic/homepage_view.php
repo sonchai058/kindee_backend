@@ -208,6 +208,10 @@
   .table td {
     font-size: 13px;
   }
+  .btn-warning {
+    background-color: #E97A2E !important;
+    color: #fff !important; 
+  }
   </style>
 
   <script>
