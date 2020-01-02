@@ -216,8 +216,9 @@
   .btn-warning {
     background-color: #E97A2E !important;
     color: #fff !important; 
+    border: 0 !important; 
   }
-  }
+  
   .badge.badge-info,.badge.badge-default {
     background-color: #fff !important;
     color: #333 !important;
