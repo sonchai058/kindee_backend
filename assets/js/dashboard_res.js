@@ -30,7 +30,7 @@
         var map = null;
         var userMarker = null;
 
-        setTimeout(function(){
+        
             map = new google.maps.Map(document.getElementById('map'),
                                           mapOptions);
             userMarker = new google.maps.Marker({
@@ -39,7 +39,7 @@
                 icon: im,
                 /*//draggable:true*/
             });     
-        },1500);
+     
 
 
 
@@ -166,5 +166,7 @@ $(document).ready(function(){
      $('#imagepreview').attr('src', $(this).attr('src')); // here asign the image to the modal when the user click the enlarge link
      $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
   });
+
+  initMap(null);
 });
 
