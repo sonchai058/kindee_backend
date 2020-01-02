@@ -350,14 +350,14 @@ $("#goal_reduce_weight_select").change(function(){
 				$("#w1").show();
 				$("#w2").hide();
 				$("#goal_increase_weight").val(0.00);
-				$("#increase_date_start").val("");
-				$("#increase_date_end").val("");	
+				$("#increase_date_start").val(date_set);
+				$("#increase_date_end").val(date_set);	
 		}else {
 				$("#w1").hide();
 				$("#w2").show();
 				$("#goal_reduce_weight").val(0.00);
-				$("#reduce_date_start").val("");
-				$("#reduce_date_end").val("");	
+				$("#reduce_date_start").val(date_set);
+				$("#reduce_date_end").val(date_set);	
 		}
 	}
 });

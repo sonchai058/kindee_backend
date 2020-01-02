@@ -1,6 +1,7 @@
 <script>
 	var data_id = {data_id};
 	var state = 'add';
+	var date_set = "<?php echo date('d/m').'/'.(date("Y")+543);?>";
 </script>
 
 <!-- [ View File name : add_view.php ] -->
@@ -149,12 +150,12 @@
 					
 					<div class="col-sm-12 col-md-4">
 						<label class="col-sm-12 control-label" for="reduce_date_start">(ภายในวันที่) เริ่มต้น  :</label>
-						<input type="text" class="form-control  datepicker" id="reduce_date_start" name="reduce_date_start" value=""  />
+						<input type="text" class="form-control  datepicker" id="reduce_date_start" name="reduce_date_start" value="<?php echo date('d/m').'/'.(date("Y")+543);?>"  />
 					</div>
 
 					<div class="col-sm-12 col-md-4">
 						<label class="col-sm-12 control-label" for="reduce_date_end">(ภายในวันที่) สิ้นสุด  :</label>
-						<input type="text" class="form-control  datepicker" id="reduce_date_end" name="reduce_date_end" value=""  />
+						<input type="text" class="form-control  datepicker" id="reduce_date_end" name="reduce_date_end" value="<?php echo date('d/m').'/'.(date("Y")+543);?>"  />
 					</div>
 				</div>
 
@@ -167,12 +168,12 @@
 					</div>
 					<div class="col-sm-12 col-md-4">
 						<label class="col-sm-12 control-label" for="increase_date_start">(ภายในวันที่) เริ่มต้น  :</label>
-						<input type="text" class="form-control  datepicker" id="increase_date_start" name="increase_date_start" value=""  />
+						<input type="text" class="form-control  datepicker" id="increase_date_start" name="increase_date_start" value="<?php echo date('d/m').'/'.(date("Y")+543);?>"  />
 					</div>
 					
 					<div class="col-sm-12 col-md-4">
 						<label class="col-sm-12 control-label" for="increase_date_end">(ภายในวันที่) สิ้นสุด  :</label>
-						<input type="text" class="form-control  datepicker" id="increase_date_end" name="increase_date_end" value=""  />
+						<input type="text" class="form-control  datepicker" id="increase_date_end" name="increase_date_end" value="<?php echo date('d/m').'/'.(date("Y")+543);?>"  />
 					</div>
 				</div>
 
