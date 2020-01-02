@@ -20,8 +20,8 @@
 				</div>
 			-->
 				<div class="form-group">
-					<label class="col-sm-12 control-label" for="alg_id">ชื่ออาหารที่แพ้  :</label>
-					<div class="col-sm-10">
+					<label class="col-sm-12 col-md-4 control-label" for="alg_id">ชื่ออาหารที่แพ้  :</label>
+					<div class="col-sm-10 col-md-4">
 					<select  id="alg_id" name="alg_id" value="">
 						<option value="">- เลือก ชื่ออาหารที่แพ้ -</option>
 						{food_allergy_alg_id_option_list}
@@ -29,8 +29,8 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-12 control-label" for="fag_allow">สถานะ  :</label>
-					<div class="col-sm-10">
+					<label class="col-sm-12 col-md-4 control-label" for="fag_allow">สถานะ  :</label>
+					<div class="col-sm-10 col-md-4">
 
 						<select id="fag_allow" name="fag_allow" value="" >
 							<option value="">- เลือก สถานะ -</option>
@@ -41,10 +41,10 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-12 control-label" for="food_alg_val">ค่า  :</label>
-					<div class="col-sm-10">
+					<label class="col-sm-12 col-md-4 control-label" for="food_alg_val">ค่า  :</label>
+					<div class="col-sm-10 col-md-4">
 
-						<input type="number" step='0.01'  class="form-control " id="food_alg_val" name="food_alg_val" value=""  />
+						<input type="number" step='0.01'  class="form-control " id="food_alg_val" name="food_alg_val" value="0"  />
 					</div>
 				</div>
 				<div class="form-group">

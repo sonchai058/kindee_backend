@@ -17,7 +17,7 @@
 						
 						<div class="col-sm-12 col-md-4">
 							<label class="col-sm-12 control-label" for="date_public">วันที่ประกาศ  :</label>
-							<input type="text" class="form-control  datepicker" id="date_public" name="date_public" value=""  />
+							<input type="text" class="form-control  datepicker" id="date_public" name="date_public" value="<?php echo date('d/m').'/'.(date("Y")+543);?>"  />
 						</div>
 						
 						<div class="col-sm-12 col-md-4">

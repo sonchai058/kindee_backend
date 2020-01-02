@@ -21,7 +21,7 @@
 			<div class="col-sm-12 col-md-9">
 				<form class="form-inline well well-sm" name="formSearch" method="post" action="{page_url}/search">
 					{csrf_protection_field}
-					<a href="{page_url}" class="btn btn-warning">ทั้งหมด</a>
+					<a href="{page_url}" class="btn btn-warning">ทั้งหมด</a> &nbsp; 
 					<div class="form-group">
 						<select  class="form-control" name="search_field" class="span2">
 							<!--
@@ -32,10 +32,10 @@
 					<option value="user_update">ผู้อัปเดต</option>
 					<!-- <option value="fag_allow">สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]</option>-->
 						</select>
- 					</div>
+ 					</div> &nbsp;
 					<div class="form-group">
 						<input type="text" class="form-control col" id="txtSearch" name="txtSearch" value="{txt_search}">
-					</div>
+					</div> &nbsp;
 					<input type="hidden" value="{order_by}" name="order_by"/>
 					<button type="submit" name="submit" class="btn btn-warning">
 						<span class="glyphicon glyphicon-search"></span> ค้นหา
@@ -152,8 +152,8 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-warning" id="btn_confirm_delete" >Delete</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
+				<button type="button" class="btn btn-warning" id="btn_confirm_delete" >ยืนยัน</button>
 			</div>
 		</div>
 	</div>
@@ -164,14 +164,14 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">ปิด</span></button>
 				<h4 class="modal-title" id="modalPreviewLabel">แสดงข้อมูล</h4>
 			</div>
 			<div class="modal-body">
 				<div id="divPreview"></div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button> 
+				<button type="button" class="btn btn-warning" data-dismiss="modal">ปิด</button> 
 			</div>
 		</div>
 	</div>

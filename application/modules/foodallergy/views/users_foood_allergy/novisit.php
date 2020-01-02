@@ -7,7 +7,7 @@
 				<div class='row' style="margin: 10px;">
 					<div class="col-sm-12 col-md-6">
 						<label lass='col-sm-6 control-label' for=''>ท่านเคยตรวจ Food InTolerance หรือไม่  :</label><br/>
-					<select id='food_intol_exam'  name='food_intol_exam' value="Yes" >
+					<select style="height: 46px; font-size: 14px; color: #444; padding: 5px;" id='food_intol_exam'  name='food_intol_exam' value="Yes" >
 						<option value="Yes">เคยตรวจ Food InTolerance</option>
 						<option selected value="No">ไม่เคยตรวจ Food InTolerance</option>
 					</select>

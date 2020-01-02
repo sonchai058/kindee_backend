@@ -9,14 +9,16 @@
 				
 				{results}
 				
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
-						<button type="button" onclick="return false;" id="btnAlgSave"
-							class="btn btn-warning btn-md">
-							&nbsp;&nbsp;<i class="fa fa-save"></i> บันทึก &nbsp;&nbsp;
-						</button>
+				
+					<div class="col-sm-12 text-right">
+						<div class="form-group">
+							<button type="button" onclick="return false;" id="btnAlgSave"
+								class="btn btn-warning btn-md">
+								<i class="fa fa-save"></i> บันทึก
+							</button>
+						</div>
 					</div>
-				</div>
+				
 
 	</div>
 </div>

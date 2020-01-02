@@ -33,12 +33,6 @@
 					</div>
 
 					<div class="col-sm-12 col-md-3">
-						<label class="col-sm-12 control-label" for="fag_allow">ราคา  :</label>
-
-						<input type="number" step="0.01" class="form-control " id="price_amt" name="price_amt" value="{record_price_amt}"  />
-					</div>
-
-					<div class="col-sm-12 col-md-3">
 						<label class="col-sm-12 control-label" for="fag_allow">สถานะ :</label><br/>
 
 						<select id="fag_allow" name="fag_allow" value="{record_fag_allow}" >
@@ -49,6 +43,17 @@
 						</select>
 					</div>
 				</div>
+
+				<br/>
+
+				<div class="row">
+					<div class="col-sm-12 col-md-3">
+						<label class="col-sm-12 control-label" for="fag_allow">ราคา  :</label>
+
+						<input type="number" step="0.01" class="form-control " id="price_amt" name="price_amt" value="{record_price_amt}"  />
+					</div>
+				</div>
+
 			<!--
 				<div class='form-group'>
 					<label class='col-sm-2 control-label' for='energy_amt'>พลังงาน  :</label>

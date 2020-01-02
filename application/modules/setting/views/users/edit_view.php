@@ -96,7 +96,7 @@
 
 					<div class="col-sm-12 col-md-4">
 						<label class='col-sm-12 control-label' for='email_addr'>อีเมล  :</label>
-						<input type="text" class="form-control " id="email_addr" name="email_addr" value="{record_email_addr}"  />
+						<input type="email" class="form-control " id="email_addr" name="email_addr" value="{record_email_addr}"  />
 					</div>
 
 					<div class="col-sm-12 col-md-4">
@@ -135,6 +135,8 @@
 						</select>
 					</div>
 				</div>
+
+				<br/>
 
 				<div class="row" id="w1">
 					<div class="col-sm-12 col-md-4">
@@ -299,6 +301,24 @@
 					</div>
 				</div>
 	</div>
+</div>
+
+<!-- Creates the bootstrap modal where the image will appear -->
+<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <!-- <h4 class="modal-title" id="myModalLabel">Image preview</h4>-->
+      </div>
+      <div class="modal-body text-center">
+        <img src="" id="imagepreview" style="max-height: 400px;" >
+      </div><!--
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>-->
+    </div>
+  </div>
 </div>
 
 <!-- Modal -->

@@ -236,7 +236,36 @@
     text-align: center !important;
   }
   .btn-file {
+    background-color: #E97A2E !important;
+    color: #fff !important; 
     padding-top: 5px !important;
+  }
+  .select2-container {
+    width: 100% !important;
+  }
+  .select2-container > a.select2-choice {
+    line-height: 45px !important;
+    height: 45px !important;
+  }
+  input[type='checkbox'].form-control {
+    position: absolute !important;
+    top: 28px !important;
+    left: 0 !important;
+    zoom: 1.0 !important;
+  }
+  table.preview tbody tr td:nth-child(2) {
+    text-align: left !important;
+  }
+  #imagemodal .modal-header{
+    border: 0 !important;
+  }
+  #imagemodal .modal-body {
+    padding-bottom: 50px;
+  }
+  a.file_link img{
+    margin-top: 3px;
+    //max-width: 255px !important;
+    //height: 200px !important;
   }
   </style>
 

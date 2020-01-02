@@ -16,7 +16,7 @@
 	
 	<div class="card-body">
 		<div class="table-responsive">
-			<table class="table table-bordered table-hover">
+			<table class="table table-bordered table-hover preview">
 				<thead class="well">
 					<tr>
 						<th class="text-right fit">หัวข้อ</th>

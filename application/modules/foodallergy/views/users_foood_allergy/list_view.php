@@ -7,7 +7,7 @@
 				<div class='row' style="margin: 10px;">
 					<div class="col-sm-12 col-md-6">
 						<label lass='col-sm-6 control-label' for=''>ท่านเคยตรวจ Food InTolerance หรือไม่  :</label><br/>
-					<select id='food_intol_exam'  name='food_intol_exam' value="Yes" >
+					<select style="height: 46px; font-size: 14px; color: #444; padding: 5px;" id='food_intol_exam'  name='food_intol_exam' value="Yes" >
 						<option selected value="Yes">เคยตรวจ Food InTolerance</option>
 						<option value="No">ไม่เคยตรวจ Food InTolerance</option>
 					</select>
@@ -30,15 +30,15 @@
 			<div class="col-sm-12 col-md-9">
 				<form class="form-inline well well-sm" name="formSearch" method="post" action="{page_url}/search">
 					{csrf_protection_field}
-					<a href="{page_url}" class="btn btn-warning">ทั้งหมด</a>
+					<a href="{page_url}" class="btn btn-warning">ทั้งหมด</a> &nbsp;
 					<div class="form-group">
 						<select  class="form-control" name="search_field" class="span2">
 					<option value="ualg_id">รหัสไอดีหลัก</option>
 						</select>
- 					</div>
+ 					</div> &nbsp;
 					<div class="form-group">
 						<input type="text" class="form-control col" id="txtSearch" name="txtSearch" value="{txt_search}">
-					</div>
+					</div> &nbsp;
 					<input type="hidden" value="{order_by}" name="order_by"/>
 					<button type="submit" name="submit" class="btn btn-warning">
 						<span class="glyphicon glyphicon-search"></span> ค้นหา
@@ -154,8 +154,8 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-warning" id="btn_confirm_delete" >Delete</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
+				<button type="button" class="btn btn-warning" id="btn_confirm_delete" >ยืนยัน</button>
 			</div>
 		</div>
 	</div>
@@ -166,14 +166,14 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">ปิด</span></button>
 				<h4 class="modal-title" id="modalPreviewLabel">แสดงข้อมูล</h4>
 			</div>
 			<div class="modal-body">
 				<div id="divPreview"></div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button> 
+				<button type="button" class="btn btn-warning" data-dismiss="modal">ปิด</button> 
 			</div>
 		</div>
 	</div>

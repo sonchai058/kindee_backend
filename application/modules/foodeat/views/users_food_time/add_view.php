@@ -24,7 +24,7 @@
 					
 					<div class="col-sm-12 col-md-4">
 						<label class="col-sm-12 control-label" for="date_eat">วันที่  :</label>
-						<input type="text" class="form-control  datepicker" id="date_eat" name="date_eat" value=""  />
+						<input type="text" class="form-control  datepicker" id="date_eat" name="date_eat" value="<?php echo date('d/m').'/'.(date("Y")+543);?>"  />
 					</div>
 
 					<div class="col-sm-12 col-md-4">
@@ -48,6 +48,8 @@
 					</div>
 
 				</div>
+				
+				<br>
 
 				<div class="row">
 					<div class="col-sm-12 col-md-4">

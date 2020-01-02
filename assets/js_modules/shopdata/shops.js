@@ -410,3 +410,11 @@ function readImage() {
         console.log('Browser not support');
     }
 }
+
+$(".preview-image img,.file_link img").on("click", function() {
+   $('#imagepreview').attr('src', $(this).attr('src')); // here asign the image to the modal when the user click the enlarge link
+   $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+});
+$(".file_link").click(function(){
+	return false;
+});

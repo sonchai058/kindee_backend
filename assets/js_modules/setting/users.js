@@ -455,3 +455,11 @@ function user_infoadd3() {
 		notify('แจ้งเตือน!', "กรุณาตรวจสอบข้อมูลที่ป้อน หรือท่านจะต้องกดปุ่มเพื่อบันทึกข้อมูลผู้ใช้งานก่อน!", 'danger', 'center');
 	} 
 }
+
+$(".preview-image img,.file_link img").on("click", function() {
+   $('#imagepreview').attr('src', $(this).attr('src')); // here asign the image to the modal when the user click the enlarge link
+   $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+});
+$(".file_link").click(function(){
+	return false;
+});

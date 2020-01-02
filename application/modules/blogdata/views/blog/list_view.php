@@ -147,8 +147,8 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-warning" id="btn_confirm_delete" >Delete</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
+				<button type="button" class="btn btn-warning" id="btn_confirm_delete" >ยืนยัน</button>
 			</div>
 		</div>
 	</div>
@@ -159,14 +159,14 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">ปิด</span></button>
 				<h4 class="modal-title" id="modalPreviewLabel">แสดงข้อมูล</h4>
 			</div>
 			<div class="modal-body">
 				<div id="divPreview"></div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button> 
+				<button type="button" class="btn btn-warning" data-dismiss="modal">ปิด</button> 
 			</div>
 		</div>
 	</div>
