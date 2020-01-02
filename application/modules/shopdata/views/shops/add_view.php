@@ -134,7 +134,7 @@
 				</div>
 
 				<br/>
-				<h5>พิกัดร้าน</h5>
+				<h5>พิกัดร้าน :</h5>
 				<div class="row">
 					<div class="col-sm-12 col-md-12">
 	                    <input style="widht:500px; margin-top: 5px;" id="searchInput" name="searchInput" class="form-control controls" type="text" placeholder="ค้นหาตำแหน่ง" onclick="$(this).select()">
@@ -146,13 +146,7 @@
 				</div>
 
 				<br/>
-				<h5>พิกัดร้าน</h5>
-				<div class="row">
-					<div class="col-sm-12">
-						<label class="col-sm-4 control-label" for="shop_detail">รูปภาพ  :</label>
-					</div>
-				</div>
-
+				<h5>รูปภาพ : </h5>
 				<div class="row form-group">
 					<div class="col-sm-4">
 							<button onclick="$('#pro-image').click()" type="button" id=""
@@ -172,7 +166,7 @@
 				<br/>
 				
 				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
+					<div class="col-sm-12 text-right">
 						<input type="hidden" id="add_encrypt_id" />
 						<button type="button" id="btnConfirmSave"
 							class="btn btn-warning btn-md" data-toggle="modal"

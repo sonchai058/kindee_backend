@@ -135,7 +135,7 @@
 				</div>
 
 				<br/>
-				<h5>พิกัดร้าน</h5>
+				<h5>พิกัดร้าน :</h5>
 				<div class="row">
 					<div class="col-sm-12 col-md-12">
 	                    <input id="searchInput" name="searchInput" class="form-control controls" type="text" placeholder="ค้นหาตำแหน่ง" style="widht:500px; margin-top: 5px;" onclick="$(this).select()">
@@ -148,7 +148,7 @@
 				</div>	
 
 				<br/>
-				<h5>รูปภาพ</h5>
+				<h5>รูปภาพ :</h5>
 				<div class="row form-group">
 					<div class="col-sm-4">
 							<button onclick="$('#pro-image').click()" type="button" id=""
@@ -168,7 +168,7 @@
 				<br/>
 
 				<div class='form-group'>
-					<div class='col-sm-offset-2 col-sm-10'>
+					<div class="col-sm-12 text-right">
 						<button  type="button" class='btn btn-warning btn-md'  data-toggle='modal' data-target='#editModal' >&nbsp;&nbsp;<i class="fa fa-save"></i> บันทึก &nbsp;&nbsp;</button>
 
 						</div>

@@ -108,6 +108,11 @@
       width: 90px !important;
       height: 90px !important;
   }
+  .info_user tbody th,.info_user tbody td{
+    padding: 10px;
+    font-size: 14px;
+
+  }
   </style>
   
   <style>
@@ -211,6 +216,27 @@
   .btn-warning {
     background-color: #E97A2E !important;
     color: #fff !important; 
+  }
+  .badge.badge-info {
+    background-color: #fff !important;
+    color: #333 !important;
+    font-weight: bold !important;
+    font-size: 14px !important;
+  }
+  .dataTables_info {
+    padding: 4px;
+  }
+  form[name='formSearch'] .btn,.btn-del {
+    padding: 15px !important;
+  } 
+  .info {
+    text-align: center !important;
+  }
+  tbody tr td {
+    text-align: center !important;
+  }
+  .btn-file {
+    padding-top: 5px !important;
   }
   </style>
 

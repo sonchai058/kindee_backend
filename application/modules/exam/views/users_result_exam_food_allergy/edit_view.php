@@ -11,7 +11,7 @@
 				<input type="hidden" name="submit_case" value="edit" />
 				<!--
 				<div class='form-group'>
-					<label class='col-sm-2 control-label' for='user_id'>ชื่อสมาชิก  :</label>
+					<label class='col-sm-12 control-label' for='user_id'>ชื่อสมาชิก  :</label>
 					<div class='col-sm-10'>
 					<select id='user_id'  name='user_id' value="{record_user_id}" >
 						<option value="">- เลือก ชื่อสมาชิก -</option>
@@ -21,7 +21,7 @@
 				</div>
 			-->
 				<div class='form-group'>
-					<label class='col-sm-2 control-label' for='alg_id'>ชื่ออาหารที่แพ้  :</label>
+					<label class='col-sm-12 control-label' for='alg_id'>ชื่ออาหารที่แพ้  :</label>
 					<div class='col-sm-10'>
 					<select id='alg_id'  name='alg_id' value="{record_alg_id}" >
 						<option value="">- เลือก ชื่ออาหารที่แพ้ -</option>
@@ -30,7 +30,7 @@
 					</div>
 				</div>
 				<div class='form-group'>
-					<label class='col-sm-2 control-label' for='fag_allow'>สถานะ  :</label>
+					<label class='col-sm-12 control-label' for='fag_allow'>สถานะ  :</label>
 					<div class='col-sm-10'>
 
 						<select id="fag_allow" name="fag_allow" value="{record_fag_allow}" >
@@ -42,14 +42,14 @@
 					</div>
 				</div>
 				<div class='form-group'>
-					<label class='col-sm-2 control-label' for='food_alg_val'>ค่า  :</label>
+					<label class='col-sm-12 control-label' for='food_alg_val'>ค่า  :</label>
 					<div class='col-sm-10'>
 
 						<input type="number" step='0.01' class="form-control " id="food_alg_val" name="food_alg_val" value="{record_food_alg_val}"  />
 					</div>
 				</div>
 				<div class='form-group'>
-					<div class='col-sm-offset-2 col-sm-10'>
+					<div class="col-sm-12 text-right">
 						<button  type="button" class='btn btn-warning btn-md'  data-toggle='modal' data-target='#editModal' >&nbsp;&nbsp;<i class="fa fa-save"></i> บันทึก &nbsp;&nbsp;</button>
 
 						</div>

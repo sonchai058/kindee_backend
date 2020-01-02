@@ -23,12 +23,12 @@
 				<div class="row">
 					
 					<div class="col-sm-12 col-md-4">
-						<label class="col-sm-4 control-label" for="date_eat">วันที่  :</label>
+						<label class="col-sm-12 control-label" for="date_eat">วันที่  :</label>
 						<input type="text" class="form-control  datepicker" id="date_eat" name="date_eat" value=""  />
 					</div>
 
 					<div class="col-sm-12 col-md-4">
-						<label class="col-sm-4 control-label" for="eat_time">มื้ออาหาร  :</label><br/>
+						<label class="col-sm-12 control-label" for="eat_time">มื้ออาหาร  :</label><br/>
 						<select id="eat_time" name="eat_time" value="เช้า" >
 							<!--<option value="">- เลือก มื้ออาหาร -</option>-->
 							<option value="เช้า">เช้า</option>
@@ -38,7 +38,7 @@
 					</div>
 
 					<div class="col-sm-12 col-md-4">
-						<label class="col-sm-4 control-label" for="fag_allow">สถานะ  :</label><br/>
+						<label class="col-sm-12 control-label" for="fag_allow">สถานะ  :</label><br/>
 						<select id="fag_allow" name="fag_allow" value="allow" >
 							<!-- <option value="">- เลือก สถานะ -</option> -->
 							<option value="allow">ปกติ</option>
@@ -51,7 +51,7 @@
 
 				<div class="row">
 					<div class="col-sm-12 col-md-4">
-						<label class="col-sm-4 control-label" for="food_source">แหล่งอาหาร  :</label><br/>
+						<label class="col-sm-12 control-label" for="food_source">แหล่งอาหาร  :</label><br/>
 						<select id="food_source" name="food_source" value="" >
 							<option value="">- เลือก แหล่งอาหาร -</option>
 							<option value="เมนูจากระบบ">เมนูจากระบบ</option>
@@ -61,7 +61,7 @@
 					</div>
 
 					<div class="col-sm-12 col-md-4">
-						<label class="col-sm-4 control-label" for="food_id">เมนูอาหาร  :</label><br/>
+						<label class="col-sm-12 control-label" for="food_id">เมนูอาหาร  :</label><br/>
 						<select  id="food_id" name="food_id" value="">
 							<option value="">- เลือก เมนูอาหาร -</option>
 							{self_food_menu_food_id_option_list}
@@ -73,14 +73,14 @@
 				<br/>
 				<div class="row">
 					<div class="col-sm-12 col-md-4">
-						<label class="col-sm-6 control-label" for="food_energy">พลังงานที่ได้รับ(K)  :</label>
+						<label class="col-sm-12 control-label" for="food_energy">พลังงานที่ได้รับ(K)  :</label>
 						<input type="number" step="0.01" readonly="true" class="form-control " id="food_energy" name="food_energy" value=""  />
 					</div>
 				</div>
 				<br/>
 
 				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
+					<div class="col-sm-12 text-right">
 						<input type="hidden" id="add_encrypt_id" />
 						<button type="button" id="btnConfirmSave"
 							class="btn btn-warning btn-md" data-toggle="modal"

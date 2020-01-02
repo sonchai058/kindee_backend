@@ -1,5 +1,6 @@
 <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <ul class="navbar-nav mr-lg-4 w-100">
+          <!--
           <li class="nav-item nav-search d-none d-lg-block w-100">
             <div class="input-group">
               <div class="input-group-prepend">
@@ -9,10 +10,12 @@
               </div>
               <input type="text" class="form-control" placeholder="ค้นหา..." aria-label="search" aria-describedby="search">
             </div>
+          -->
           </li>
         </ul>
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item dropdown mr-1">
+            <!--
             <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
               <i class="mdi mdi-message-text mx-0"></i>
               <span class="count"></span>
@@ -56,8 +59,10 @@
                 </div>
               </a>
             </div>
+          -->
           </li>
           <li class="nav-item dropdown mr-4">
+            <!--
             <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center notification-dropdown" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="mdi mdi-bell mx-0"></i>
               <span class="count"></span>
@@ -104,7 +109,9 @@
                 </div>
               </a>
             </div>
+          -->
           </li>
+
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link" href="#">
               <img src="{base_url}<?php echo get_session('user_photo');?>" alt="profile">

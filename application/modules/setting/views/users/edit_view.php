@@ -57,7 +57,7 @@
 					</div>
 					
 					<div class="col-sm-12 col-md-4">
-						<label class="col-sm-2 control-label" for="user_sex">เพศ  :</label> <br>
+						<label class="col-sm-12 control-label" for="user_sex">เพศ  :</label> <br>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<span class="">
 							<input  type="radio"
@@ -135,7 +135,6 @@
 						</select>
 					</div>
 				</div>
-				<br/>
 
 				<div class="row" id="w1">
 					<div class="col-sm-12 col-md-4">
@@ -154,6 +153,8 @@
 					</div>
 				</div>
 
+				<br/>
+
 				<div class="row" id="w2">
 					<div class="col-sm-12 col-md-4">
 						<label class='col-sm-12 control-label' for='goal_increase_weight'>เป้าหมายในการเพิ่มน้ำหนัก (น้ำหนัก)  :</label>
@@ -169,6 +170,7 @@
 					</div>
 				</div>
 
+				<br/>
 
 				<div class="row">
 					<div class="col-sm-12 col-md-4">
@@ -201,6 +203,7 @@
 					</div>
 
 				</div>
+				<br/>
 
 <!--
 				<div class='form-group'>
@@ -237,7 +240,7 @@
 				{promotions2}
 			<br/>
 				<div class='form-group'>
-					<div class='col-sm-offset-2 col-sm-10'>
+					<div class="col-sm-12 text-right">
 						<button  type="button" class='btn btn-warning btn-md'  data-toggle='modal' data-target='#editModal' >&nbsp;&nbsp;<i class="fa fa-save"></i> บันทึก &nbsp;&nbsp;</button>
 
 						</div>
@@ -259,9 +262,9 @@
 		<div class="card-body">
 				<div class='row form-group'>
 					<div class='col-sm-4'>
-						<input id='user_dataadd1' style="width:60%; flot:left;" type="number" step="0.01" class="" placeholder="น้ำหนัก">
-						<input style="flot:right; color: #fff; margin-top:-10px" class="btn btn-warning btn-sm" type="button" value="บันทึกน้ำหนัก" onclick='user_infoadd1()'>
-						<table width="100%" border=1 style='margin-top:5px;font-size: 12px;'>
+						<input id='user_dataadd1' style="width:60%; flot:left; padding: 9px;" type="number" step="0.01" class="" placeholder="น้ำหนัก">
+						<input style="flot:right; color: #fff; margin-top:-6px; padding: 15px;" class="btn btn-warning btn-sm" type="button" value="บันทึกน้ำหนัก" onclick='user_infoadd1()'>
+						<table class="info_user" width="100%" border=1 style='margin-top:5px;font-size: 12px;'>
 							<tr align="center" style="background-color: #eee">
 								<th align="center">น้ำหนัก</th>
 								<th align="center">วันที่</th>
@@ -271,9 +274,9 @@
 						</table>
 					</div>
 					<div class='col-sm-4'>
-						<input id='user_dataadd2' style="width:60%; flot:left;" type="number" step="0.01" class="" placeholder="รอบเอว">
-						<input style="flot:right; color: #fff; margin-top:-10px" class="btn btn-warning btn-sm" type="button" value="บันทึกรอบเอว" onclick='user_infoadd2()'>
-						<table width="100%" border=1 style='margin-top:5px;font-size: 12px;'>
+						<input id='user_dataadd2' style="width:60%; flot:left; padding: 9px;" type="number" step="0.01" class="" placeholder="รอบเอว">
+						<input style="flot:right; color: #fff; margin-top:-6px; padding: 15px;" class="btn btn-warning btn-sm" type="button" value="บันทึกรอบเอว" onclick='user_infoadd2()'>
+						<table class="info_user" width="100%" border=1 style='margin-top:5px;font-size: 12px;'>
 							<tr align="center" style="background-color: #eee">
 								<th align="center">รอบเอว</th>
 								<th align="center">วันที่</th>
@@ -283,9 +286,9 @@
 						</table>
 					</div>
 					<div class='col-sm-4'>
-						<input id='user_dataadd3' style="width:60%; flot:left;" type="number" step="0.01" class="" placeholder="สะโพก">
-						<input style="flot:right; color: #fff; margin-top:-10px" class="btn btn-warning btn-sm" type="button" value="บันทึกสะโพก" onclick='user_infoadd3()'>
-						<table width="100%" border=1 style='margin-top:5px;font-size: 12px;'>
+						<input id='user_dataadd3' style="width:60%; flot:left; padding: 9px;" type="number" step="0.01" class="" placeholder="สะโพก">
+						<input style="flot:right; color: #fff; margin-top:-6px; padding: 15px;" class="btn btn-warning btn-sm" type="button" value="บันทึกสะโพก" onclick='user_infoadd3()'>
+						<table class="info_user" width="100%" border=1 style='margin-top:5px;font-size: 12px;'>
 							<tr align="center" style="background-color: #eee">
 								<th align="center">สะโพก</th>
 								<th align="center">วันที่</th>

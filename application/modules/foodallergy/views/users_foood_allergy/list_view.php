@@ -92,17 +92,17 @@
 								<a href="{page_url}/preview/{url_encrypt_id}" 
 									class="my-tooltip btn btn-warning btn-sm"
 									data-toggle="tooltip" title="แสดงข้อมูลรายละเอียด">
-									<i class="fa fa-list"></i> รายละเอียด
+									<i class="fa fa-list"></i>
 								</a>
 								<a href="{page_url}/edit/{url_encrypt_id}" 
 									class="my-tooltip btn btn-warning btn-sm"
 									data-toggle="tooltip" title="แก้ไขข้อมูล">
-									<i class="fa fa-edit"></i> แก้ไข
+									<i class="fa fa-edit"></i>
 								</a>
 								<a href="javascript:void(0);" class="btn-delete-row my-tooltip btn btn-warning btn-sm"
 									data-toggle="tooltip" title="ลบรายการนี้"
 									 data-ualg_id = "{encrypt_ualg_id}" data-row-number="{record_number}">
-									<i class="fa fa-trash"></i> ลบ
+									<i class="fa fa-trash"></i>
 								</a>
 							</div>
 						</td>

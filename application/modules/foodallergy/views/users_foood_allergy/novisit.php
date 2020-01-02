@@ -25,7 +25,7 @@
 				{results}
 				
 				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
+					<div class="col-sm-12 text-right">
 						<button type="button" onclick="return false;" id="btnAlgSave"
 							class="btn btn-warning btn-md">
 							&nbsp;&nbsp;<i class="fa fa-save"></i> บันทึก &nbsp;&nbsp;

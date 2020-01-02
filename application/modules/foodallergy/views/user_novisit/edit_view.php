@@ -10,14 +10,14 @@
 				{csrf_protection_field}
 				<input type="hidden" name="submit_case" value="edit" />
 				<div class='form-group'>
-					<label class='col-sm-2 control-label' for='user_id'>รหัสไอดีหลัก  :</label>
+					<label class='col-sm-12 control-label' for='user_id'>รหัสไอดีหลัก  :</label>
 					<div class='col-sm-10'>
 
 						<input type="text" class="form-control " id="user_id" name="user_id" value="{record_user_id}" readonly="readonly" />
 					</div>
 				</div>
 				<div class='form-group'>
-					<label class='col-sm-2 control-label' for='user_update'>ผู้อัปเดต  :</label>
+					<label class='col-sm-12 control-label' for='user_update'>ผู้อัปเดต  :</label>
 					<div class='col-sm-10'>
 					<select id='user_update'  name='user_update' value="{record_user_update}" >
 						<option value="">- เลือก ผู้อัปเดต -</option>
@@ -26,14 +26,14 @@
 					</div>
 				</div>
 				<div class='form-group'>
-					<label class='col-sm-2 control-label' for='datetime_update'>วันเวลา ที่อัปเดต  :</label>
+					<label class='col-sm-12 control-label' for='datetime_update'>วันเวลา ที่อัปเดต  :</label>
 					<div class='col-sm-10'>
 
 						<input type="text" class="form-control  datepicker" id="datetime_update" name="datetime_update" value="{record_datetime_update}"  />
 					</div>
 				</div>
 				<div class='form-group'>
-					<label class='col-sm-2 control-label' for='food_intol_exam'>เคยตรวจ Food Intolerance หรือไม่  :</label>
+					<label class='col-sm-12 control-label' for='food_intol_exam'>เคยตรวจ Food Intolerance หรือไม่  :</label>
 					<div class='col-sm-10'>
 						<select name="food_intol_exam" id="food_intol_exam">
 							<option value="Yes">เคยตรวจ Food InTolerance</option>
@@ -59,7 +59,7 @@
 					</div>
 				</div>
 				<div class='form-group'>
-					<div class='col-sm-offset-2 col-sm-10'>
+					<div class="col-sm-12 text-right">
 						<button  type="button" class='btn btn-warning btn-md'  data-toggle='modal' data-target='#editModal' >&nbsp;&nbsp;<i class="fa fa-save"></i> บันทึก &nbsp;&nbsp;</button>
 
 						</div>

@@ -18,12 +18,12 @@
 				<div class="row">
 
 					<div class="col-sm-12 col-md-3">
-						<label class="col-sm-3 control-label" for="self_self_food_name">ชื่อ :</label>
+						<label class="col-sm-12 control-label" for="self_self_food_name">ชื่อ :</label>
 						<input type="text" class="form-control " id="self_food_name" name="self_food_name" value=""  />
 					</div>
 
 					<div class="col-sm-12 col-md-3">
-						<label class="col-sm-4 control-label" for="cate_id">ประเภท :</label><br/>
+						<label class="col-sm-12 control-label" for="cate_id">ประเภท :</label><br/>
 					<select  id="cate_id" name="cate_id" value="">
 						<!--<option value="">- เลือก ประเภทอาหาร -</option>-->
 						{category_cate_id_option_list}
@@ -31,12 +31,12 @@
 					</div>
 
 					<div class="col-sm-12 col-md-3">
-						<label class="col-sm-4 control-label" for="fag_allow">ราคา  :</label>
+						<label class="col-sm-12 control-label" for="fag_allow">ราคา  :</label>
 
 						<input type="number" step="0.01" class="form-control " id="price_amt" name="price_amt" value=""  />
 					</div>
 					<div class="col-sm-12 col-md-3">
-						<label class="col-sm-4 control-label" for="fag_allow">สถานะ :</label><br/>
+						<label class="col-sm-12 control-label" for="fag_allow">สถานะ :</label><br/>
 
 						<select id="fag_allow" name="fag_allow" value="allow" >
 							<!--<option value="">- เลือก สถานะ -</option>-->
@@ -59,7 +59,7 @@
 				<br/>
 				<div class="row">
 					<div class="col-sm-12 col-md-6">
-						<label class="col-sm-6 control-label" for="">ส่วนประกอบ :</label>
+						<label class="col-sm-12 control-label" for="">ส่วนประกอบ :</label>
 						<button type="button" id="btn_comp"
 							class="btn btn-warning btn-md" data-toggle="modal"
 							data-target="" >
@@ -71,7 +71,7 @@
 				
 				<div class="row rmat_content_tmp" style="display: none">
 						<div class="col-sm-12 col-md-4">
-							<label class="col-sm-4 control-label" for="">ส่วนประกอบ  :</label><br/>
+							<label class="col-sm-12 control-label" for="">ส่วนประกอบ  :</label><br/>
 							<select class="rmat_id" id="" name="rmat_id[]" value="">
 								<option value="">- เลือก ส่วนประกอบอาหาร -</option>
 								{category_rmat_id_option_list}
@@ -79,11 +79,11 @@
 							<input type="hidden" class="old_id" name="old_id[]" value="0">
 						</div>
 						<div class="col-sm-12 col-md-4">
-							<label class="col-sm-4 control-label" for="amount">ปริมาณ(กรัม) :</label>
+							<label class="col-sm-12 control-label" for="amount">ปริมาณ(กรัม) :</label>
 							<input type="amount" step="0.01" class="form-control amount" name="amount[]" value="0">
 						</div>
 						<div class="col-sm-12 col-md-4">
-							<label class="col-sm-4 control-label" for=""></label><br/>
+							<label class="col-sm-12 control-label" for=""></label><br/>
 							<button onclick='del(this)' style="margin-top:7px;" type="button" 
 								class="btn btn-warning btn-sm btn-del" data-toggle="modal"
 								data-target="" >
@@ -99,7 +99,7 @@
 				
 				<div class="row">
 					<div class="col-sm-12">
-						<label class="col-sm-4 control-label" for="images_detail">รูปภาพ  :</label>
+						<label class="col-sm-12 control-label" for="images_detail">รูปภาพ  :</label>
 					</div>
 				</div>
 
@@ -121,7 +121,7 @@
 
 
 				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
+					<div class="col-sm-12 text-right">
 						<input type="hidden" id="add_encrypt_id" />
 						<button type="button" id="btnConfirmSave"
 							class="btn btn-warning btn-md" data-toggle="modal"

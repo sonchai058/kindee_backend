@@ -16,17 +16,17 @@
 				<div class="row">
 						
 						<div class="col-sm-12 col-md-4">
-							<label class="col-sm-4 control-label" for="date_public">วันที่ประกาศ  :</label>
+							<label class="col-sm-12 control-label" for="date_public">วันที่ประกาศ  :</label>
 							<input type="text" class="form-control  datepicker" id="date_public" name="date_public" value=""  />
 						</div>
 						
 						<div class="col-sm-12 col-md-4">
-							<label class="col-sm-4 control-label" for="blog_name">หัวข้อ  :</label>
+							<label class="col-sm-12 control-label" for="blog_name">หัวข้อ  :</label>
 							<input type="text" class="form-control " id="blog_name" name="blog_name" value=""  />
 						</div>
 
 						<div class="col-sm-12 col-md-4">
-							<label class="col-sm-4 control-label" for="fag_allow">สถานะ  :</label><br/>
+							<label class="col-sm-12 control-label" for="fag_allow">สถานะ  :</label><br/>
 							<select id="fag_allow" name="fag_allow" value="allow" >
 								<!--<option value="">- เลือก สถานะ -</option>-->
 								<option selected value="allow">เผยแพร่</option>
@@ -37,7 +37,7 @@
 				</div>
 
 				<div class="row">
-					<label class="col-sm-4 control-label" for="blog_detail">รายละเอียด  :</label>
+					<label class="col-sm-12 control-label" for="blog_detail">รายละเอียด  :</label>
 					<div class="col-sm-12 col-md-12">
 
 						<textarea  class="form-control" id="blog_detail" name="blog_detail" rows="5"></textarea>
@@ -46,7 +46,7 @@
 
 				<div class="row">
 					<div class="col-sm-12">
-						<label class="col-sm-4 control-label" for="blog_detail">รูปภาพ  :</label>
+						<label class="col-sm-12 control-label" for="blog_detail">รูปภาพ  :</label>
 					</div>
 				</div>
 
@@ -68,7 +68,7 @@
 
 
 				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
+					<div class="col-sm-12 text-right">
 						<input type="hidden" id="add_encrypt_id" />
 						<button type="button" id="btnConfirmSave"
 							class="btn btn-warning btn-md" data-toggle="modal"
