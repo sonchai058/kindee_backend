@@ -290,6 +290,10 @@
   .formPro input[type='number']:focus {
     border: 1px #C4DDF8 solid;
   }
+  .card.col-sm-3{
+    border: 0px;
+    margin-bottom: 5px;
+  }
   </style>
 
   <script>
