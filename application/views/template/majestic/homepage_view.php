@@ -222,6 +222,7 @@
     color: #333 !important;
     font-weight: bold !important;
     font-size: 14px !important;
+    padding: 0 !important;
   }
   .dataTables_info {
     padding: 4px;
