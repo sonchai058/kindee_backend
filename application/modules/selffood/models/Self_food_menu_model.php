@@ -42,7 +42,7 @@ class Self_food_menu_model extends MY_Model
 	public function create($post)
 	{
 		$food_source = 'เมนูจากระบบ';
-		if($this->session->userdate('user_level')=='user' || $this->session->userdate('user_level')=='super_user') {
+		if($this->session->userdata('user_level')=='user' || $this->session->userdata('user_level')=='super_user') {
 			$food_source = 'เมนูปรุงเอง';
 		}
 		$data = array(
