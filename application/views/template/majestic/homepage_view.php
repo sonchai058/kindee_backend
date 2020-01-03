@@ -495,6 +495,12 @@
     }
   ?>
 
+<script>
+  $(function(){
+    $("body").find('input').attr('autocomplete', 'off');
+});
+</script>
+
 </body>
 
 </html>

@@ -27,3 +27,7 @@ function LogIn(){
     });
 	return false;
 }
+
+$(function(){
+    $("body").find('input').attr('autocomplete', 'off');
+});
