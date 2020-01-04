@@ -1,3 +1,11 @@
+<style type="text/css">
+  input[type='number']:focus,input:focus,textarea:focus,select:focus{
+    border: .5px #7caff8 solid !important;
+  }
+  input,textarea {
+    border: .5px #eee solid !important;
+  }
+</style>
  <div class="container-scroller">
     <div class="container-fluid page-body-wrapper full-page-wrapper">
       <div class="content-wrapper d-flex align-items-center auth px-0">

@@ -382,7 +382,7 @@ class Users extends CRUD_Controller
 			if($value[0]=='Yes') {
 				$selected = 'checked';
 			}
-			$tmp_data = $tmp_data."<div onclick=\"if($('.{$key}:checked').length==0)".'{'."$('.{$key}').prop('checked',true);".'}'."else ".'{'."$('.{$key}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value[1]}</label><input style='margin-top: -40px;' type='checkbox' class='form-control {$key}' name='limit[{$key}]' value='{$value[0]}' {$selected}></div>";
+			$tmp_data = $tmp_data."<div onclick=\"if($('.{$key}:checked').length==0)".'{'."$('.{$key}').prop('checked',true);".'}'."else ".'{'."$('.{$key}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='col-sm-12 control-label chk' for=''>&nbsp;&nbsp;&nbsp;{$value[1]}</label><input style='margin-top: -40px;' type='checkbox' class='form-control {$key}' name='limit[{$key}]' value='{$value[0]}' {$selected}></div>";
 		}
 		$this->data['limit'] = $tmp_data.'</div>';
 
@@ -407,7 +407,7 @@ class Users extends CRUD_Controller
 				if(isset($setSelect[$value['pro_id']])) {
 					$selected = 'checked';
 				}
-					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
 
 				
 			}
@@ -424,7 +424,7 @@ class Users extends CRUD_Controller
 				if(isset($setSelect[$value['pro_id']])) {
 					$selected = 'checked';
 				}
-					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
 				
 			}
 			$tmp_data.="</div>";
@@ -468,7 +468,7 @@ class Users extends CRUD_Controller
 		$frm->set_rules('email_addr', 'อีเมล', 'trim|required');
 		$frm->set_rules('cus_passwd', 'รหัสผ่าน', 'trim|required');
 		$frm->set_rules('addr', 'ที่อยู่', 'trim|required');
-		$frm->set_rules('fag_allow', 'สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]', 'trim|required');
+		$frm->set_rules('fag_allow', 'สถานะ', 'trim|required');
 		$frm->set_rules('org_id', 'รหัสองค์กรที่สังกัด', 'trim|required|is_natural');
 		$frm->set_rules('user_sex', 'เพศ [ชาย=ชาย,หญิง=หญิง,ไม่ระบุ=ไม่ระบุ]', 'trim|required');
 		$frm->set_rules('user_height', 'ส่วนสูง CM', 'trim|required|callback_float_check');
@@ -571,7 +571,7 @@ class Users extends CRUD_Controller
 		$frm->set_rules('email_addr', 'อีเมล', 'trim|required');
 		$frm->set_rules('cus_passwd', 'รหัสผ่าน', 'trim|required');
 		$frm->set_rules('addr', 'ที่อยู่', 'trim|required');
-		$frm->set_rules('fag_allow', 'สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]', 'trim|required');
+		$frm->set_rules('fag_allow', 'สถานะ', 'trim|required');
 		$frm->set_rules('org_id', 'รหัสองค์กรที่สังกัด', 'trim|required|is_natural');
 		$frm->set_rules('user_sex', 'เพศ [ชาย=ชาย,หญิง=หญิง,ไม่ระบุ=ไม่ระบุ]', 'trim|required');
 		$frm->set_rules('user_height', 'ส่วนสูง CM', 'trim|required|callback_float_check');
@@ -856,7 +856,7 @@ class Users extends CRUD_Controller
 			if($value[0]=='Yes') {
 				$selected = 'checked';
 			}
-			$tmp_data = $tmp_data."<div onclick=\"if($('.{$key}:checked').length==0)".'{'."$('.{$key}').prop('checked',true);".'}'."else ".'{'."$('.{$key}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value[1]}</label><input style='margin-top: -40px;' type='checkbox' class='form-control {$key}' name='limit[{$key}]' value='{$value[0]}' {$selected}></div>";
+			$tmp_data = $tmp_data."<div onclick=\"if($('.{$key}:checked').length==0)".'{'."$('.{$key}').prop('checked',true);".'}'."else ".'{'."$('.{$key}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value[1]}</label><input style='margin-top: -40px;' type='checkbox' class='form-control {$key}' name='limit[{$key}]' value='{$value[0]}' {$selected}></div>";
 		}
 		$this->data['limit'] = $tmp_data.'</div>';
 
@@ -880,7 +880,7 @@ class Users extends CRUD_Controller
 				if(isset($setSelect[$value['pro_id']])) {
 					$selected = 'checked';
 				}
-					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
 
 				
 			}
@@ -897,7 +897,7 @@ class Users extends CRUD_Controller
 				if(isset($setSelect[$value['pro_id']])) {
 					$selected = 'checked';
 				}
-					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
 				
 			}
 			$tmp_data.="</div>";

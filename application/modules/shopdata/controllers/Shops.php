@@ -278,7 +278,7 @@ class Shops extends CRUD_Controller
 		$frm->set_rules('cus_passwd', 'รหัสผ่าน', 'trim|required');
 		$frm->set_rules('shop_user', 'รหัสผู้ดูแล', 'trim');
 		$frm->set_rules('addr', 'เลขที่ ที่อยู่', 'trim|required');
-		$frm->set_rules('fag_allow', 'สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]', 'trim|required');
+		$frm->set_rules('fag_allow', 'สถานะ', 'trim|required');
 		$frm->set_rules('point_lat', 'พิกัด ละติจูด', 'trim|required');
 		$frm->set_rules('point_long', 'พิกัด ลองจิจูด', 'trim|required');
 
@@ -343,7 +343,7 @@ class Shops extends CRUD_Controller
 		$frm->set_rules('cus_passwd', 'รหัสผ่าน', 'trim|required');
 		$frm->set_rules('shop_user', 'รหัสผู้ดูแล', 'trim');
 		$frm->set_rules('addr', 'เลขที่ ที่อยู่', 'trim|required');
-		$frm->set_rules('fag_allow', 'สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]', 'trim|required');
+		$frm->set_rules('fag_allow', 'สถานะ', 'trim|required');
 		$frm->set_rules('point_lat', 'พิกัด ละติจูด', 'trim|required');
 		$frm->set_rules('point_long', 'พิกัด ลองจิจูด', 'trim|required');
 

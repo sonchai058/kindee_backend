@@ -98,7 +98,7 @@ class Users_foood_allergy extends CRUD_Controller
 				if(isset($setSelect[$value['alg_id']])) {
 					$selected = 'checked';
 				}
-					$tmp_data = $tmp_data."<div onclick=\"if($('.alg_id{$value['alg_id']}:checked').length==0)".'{'."$('.alg_id{$value['alg_id']}').prop('checked',true);".'}'."else ".'{'."$('.alg_id{$value['alg_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-6'><label class='col-sm-8 control-label' for='alg_id'>&nbsp;&nbsp;&nbsp;{$value['alg_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control alg_id{$value['alg_id']}' name='alg_id[]' value='{$value['alg_id']}' {$selected}></div>";
+					$tmp_data = $tmp_data."<div onclick=\"if($('.alg_id{$value['alg_id']}:checked').length==0)".'{'."$('.alg_id{$value['alg_id']}').prop('checked',true);".'}'."else ".'{'."$('.alg_id{$value['alg_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-6'><label class='chk col-sm-12 control-label' for='alg_id'>&nbsp;&nbsp;&nbsp;{$value['alg_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control alg_id{$value['alg_id']}' name='alg_id[]' value='{$value['alg_id']}' {$selected}></div>";
 				
 			}
 			$this->data['rows'] = json_encode($rows);

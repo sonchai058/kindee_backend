@@ -108,7 +108,7 @@
 				<br/>
 
 				<div class='form-group'>
-					<label class='col-sm-2 control-label' for='addr'>ที่อยู่  :</label>
+					<label class='col-sm-12 control-label' for='addr'>ที่อยู่  :</label>
 					<div class='col-sm-10'>
 
 						<textarea  class="form-control" id="addr" name="addr" rows="5">{record_addr}</textarea>

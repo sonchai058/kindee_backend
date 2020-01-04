@@ -111,7 +111,18 @@
   .info_user tbody th,.info_user tbody td{
     padding: 10px;
     font-size: 14px;
-
+    border: 1px #999 solid;
+  }
+  form label {
+    font-size: 14px !important;
+    color: #555556 !important;
+    font-weight: bold;
+    letter-spacing: .2px;
+  }
+  .chk {
+    font-size: 14px !important;
+    font-weight: normal !important;
+    margin-left: 3px;
   }
   </style>
   
@@ -238,6 +249,7 @@
   }
   tbody tr td {
     text-align: center !important;
+    letter-spacing: .2px;
   }
   .btn-file {
     background-color: #E97A2E !important;
@@ -252,7 +264,7 @@
     height: 45px !important;
   }
   input[type='checkbox'].form-control {
-    margin-top: -28px !important;
+    margin-top: -25px !important;
     width: 20px !important;
     height: 20px !important;
     margin-right: 15px !important;
@@ -287,8 +299,14 @@
     padding: 10px !important;
     margin-bottom: 10px !important;
   }
-  .formPro input[type='number']:focus {
-    border: 1px #C4DDF8 solid;
+  .formPro input[type='number']:focus,input:focus,textarea:focus,select:focus{
+    border: .5px #7caff8 solid !important;
+  }
+  input[type='number']:focus,input:focus,textarea:focus,select:focus{
+    border: .5px #7caff8 solid !important;
+  }
+  input,textarea {
+    border: .5px #eee solid !important;
   }
   .card.col-sm-3{
     border: 0px;

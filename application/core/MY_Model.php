@@ -121,6 +121,8 @@ class MY_Model extends CI_Model
     	//$data['fag_allow'] = 'allow';
     	$data['user_add'] = $this->session->userdata('user_id');
     	$data['datetime_add'] = date("Y-m-d H:i:s");
+    	$data['user_update'] = $this->session->userdata('user_id');
+    	$data['datetime_update'] = date("Y-m-d H:i:s");
 		$this->db->set($data);
         $query = $this->db->insert($this->_table_name);
         return $this->db->insert_id();

@@ -1,3 +1,8 @@
+<style>
+	#formAdd label {
+		font-size: 15px !important;
+	}
+</style>
 <!-- [ View File name : list_view.php ] -->
 <div class="card">
 		<div class="card-header">

@@ -1,3 +1,9 @@
+<style type="text/css">
+	thead tr th,tbody tr td {
+		font-size: 12px !important;
+		letter-spacing: .2px;
+	}
+</style>
 <!-- [ View File name : list_view.php ] -->
 <div class="card">
 <!--	

@@ -168,6 +168,7 @@ var UsersFoodTime = {
 }
 
 var food_id_content = $('#food_id > option').clone();
+$('#food_id').html("<option value=''>- เลือก เมนูอาหาร -</option>");
 $(document).ready(function() {
 
 	$(document).on('change','#set_order_by',function(){

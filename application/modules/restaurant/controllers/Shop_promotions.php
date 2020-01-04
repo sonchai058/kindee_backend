@@ -120,7 +120,7 @@ class Shop_promotions extends CRUD_Controller
 					$selected = 'checked';
 					$pro_discount = $setSelect[$value['pro_id']];
 				}
-					$tmp_data = $tmp_data."<div class='row'><div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-6'><label class='col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+					$tmp_data = $tmp_data."<div class='row'><div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-6'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
 					$tmp_data = $tmp_data."<div  class='col-6'><input type='number' step='0.01' value='{$pro_discount}' onkeypress=\"$('.pro_id{$value['pro_id']}').prop('checked',true);\" name='pro_discount[{$value['pro_id']}]'></div></div>";
 
 				
@@ -138,7 +138,7 @@ class Shop_promotions extends CRUD_Controller
 					$selected = 'checked';
 					$pro_discount = $setSelect[$value['pro_id']];
 				}
-					$tmp_data = $tmp_data."<div class='row'><div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-6'><label class='col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+					$tmp_data = $tmp_data."<div class='row'><div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-6'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
 					$tmp_data = $tmp_data."<div  class='col-6'><input type='number' step='0.01' value='{$pro_discount}' onkeypress=\"$('.pro_id{$value['pro_id']}').prop('checked',true);\" name='pro_discount[{$value['pro_id']}]'></div></div>";
 
 				
