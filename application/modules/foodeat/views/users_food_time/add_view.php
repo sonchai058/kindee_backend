@@ -36,16 +36,18 @@
 							<option value="เย็น">เย็น</option>
 						</select>
 					</div>
-
+				<!--
 					<div class="col-sm-12 col-md-4">
 						<label class="col-sm-12 control-label" for="fag_allow">สถานะ  :</label><br/>
 						<select id="fag_allow" name="fag_allow" value="allow" >
 							<!-- <option value="">- เลือก สถานะ -</option> -->
+							<!--
 							<option value="allow">ปกติ</option>
 							<option value="block">ระงับ</option>
 							<option value="delete">ลบ</option>
 						</select>
 					</div>
+				-->
 
 				</div>
 				
@@ -69,16 +71,13 @@
 							{self_food_menu_food_id_option_list}
 						</select>
 					</div>
-
-				</div>
-
-				<br/>
-				<div class="row">
+					
 					<div class="col-sm-12 col-md-4">
 						<label class="col-sm-12 control-label" for="food_energy">พลังงานที่ได้รับ(K)  :</label>
 						<input type="number" step="0.01" readonly="true" class="form-control " id="food_energy" name="food_energy" value=""  />
 					</div>
 				</div>
+
 				<br/>
 
 				<div class="form-group">

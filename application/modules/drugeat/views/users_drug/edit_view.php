@@ -36,7 +36,7 @@
 							<option value="หลังอาหาร">หลังอาหาร</option>
 						</select>
 					</div>
-
+				<!--
 					<div class="col-sm-12 col-md-4">
 						<label class="col-sm-12 control-label" for="fag_allow">สถานะ  :</label><br/>
 
@@ -47,13 +47,11 @@
 							<option value="delete">ลบ</option>
 						</select>
 					</div>
-				</div>
-
-				<div class="row">
+				-->
 					<div class="col-sm-12 col-md-4">
 						<label class="col-sm-12 control-label" for="date_eat">เวลา  :</label><br/>
-
-						<input type="time" class="form-control" id="date_eat" name="date_eat" value="{record_date_eat}"  />
+						
+						<input id="date_eat" name="date_eat" type="time" class="form-control" value="{record_date_eat}">
 					</div>
 				</div>
 

@@ -215,4 +215,8 @@ $(document).ready(function() {
 		});
 	},1000);
 
+	$("#date_eat").clockpicker({
+    	autoclose: true
+	});
+
 });

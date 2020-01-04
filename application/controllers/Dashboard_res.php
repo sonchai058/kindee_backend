@@ -16,7 +16,7 @@ class Dashboard_res extends CRUD_Controller
 
 		chkUserPerm();
 
-		$this->upload_store_path = './assets/uploads/shop_food_menu/';
+		$this->upload_store_path = './assets/uploads/shops/';
 
 		$this->another_js .= '<script src="'. base_url('assets/themes/sb-admin/vendor/chart.js/Chart.min.js').'"></script>';
 		$this->another_js .= '<script src="'. base_url('assets/themes/sb-admin/js/sb-admin-charts.min.js').'"></script>';
@@ -35,7 +35,7 @@ class Dashboard_res extends CRUD_Controller
 
 		$user = rowArray($this->common_model->custom_query("select * from shops where shop_id={$this->session->userdata('shop_id')} limit 1"));
 
-		$this->data['shop_photo'] = $user['shop_photo'];
+		$this->data['shop_photo'] = base_url($user['shop_photo']);
 		$this->data['shop_name_th'] = $user['shop_name_th'];
 		$this->data['mobile_no'] = $user['mobile_no'];
 		$this->data['email_addr'] = $user['email_addr'];
@@ -52,7 +52,7 @@ class Dashboard_res extends CRUD_Controller
 		$shop_food_menu_images = "";
 		foreach ($rows as $key => $value) {
             $shop_food_menu_images =  $shop_food_menu_images.'<div class="card col-sm-3">
-          <img class="pic" src="'.$this->upload_store_path.'2562/'.$value['encrypt_name'].'" height="200">
+          <img class="pic" src="'.base_url().$value['encrypt_name'].'" height="200">
         </div>';
 		}
 		$this->data['shop_food_menu_images'] = $shop_food_menu_images;

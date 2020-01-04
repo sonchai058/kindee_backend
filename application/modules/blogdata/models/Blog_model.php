@@ -46,7 +46,7 @@ class Blog_model extends MY_Model
 				'date_public' => setDateToStandard($post['date_public'])
 				,'blog_name' => $post['blog_name']
 				,'blog_detail' => $post['blog_detail']
-				,'fag_allow' => $post['fag_allow']
+				,'fag_allow' => 'allow'
 		);
 		return $this->add_record($data);
 	}
@@ -130,7 +130,7 @@ class Blog_model extends MY_Model
 				'date_public' => setDateToStandard($post['date_public'])
 				,'blog_name' => $post['blog_name']
 				,'blog_detail' => $post['blog_detail']
-				,'fag_allow' => $post['fag_allow']
+				//,'fag_allow' => $post['fag_allow']
 		);
 
 		$blog_id = checkEncryptData($post['encrypt_blog_id']);

@@ -22,7 +22,7 @@
         <ul class="nav">
 
     <?php if($this->session->userdata('user_level')=='admin'){ ?>
-          <li class="nav-item <?php if($this->uri->segment(1)=='' || $this->uri->segment(2)=='dashboard'){?>active<?php }?>">
+          <li class="nav-item <?php if($this->uri->segment(1)=='' || $this->uri->segment(1)=='dashboard'){?>active<?php }?>">
             <a class="nav-link" href="{site_url}">
               <i class="mdi mdi-home menu-icon"></i>
               <span class="menu-title">หน้าหลัก</span>

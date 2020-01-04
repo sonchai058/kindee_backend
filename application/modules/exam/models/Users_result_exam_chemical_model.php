@@ -52,7 +52,7 @@ class Users_result_exam_chemical_model extends MY_Model
 				,'hdl_chol' => str_replace(",", "", $post['hdl_chol'])
 				,'ldl_chol' => str_replace(",", "", $post['ldl_chol'])
 				,'trig_cer' => str_replace(",", "", $post['trig_cer'])
-				,'fag_allow' => $post['fag_allow']
+				,'fag_allow' => 'allow'
 				,'user_id' => $post['user_id']
 		);
 		return $this->add_record($data);
@@ -140,7 +140,7 @@ class Users_result_exam_chemical_model extends MY_Model
 				,'hdl_chol' => str_replace(",", "",$post['hdl_chol'])
 				,'ldl_chol' => str_replace(",", "",$post['ldl_chol'])
 				,'trig_cer' => str_replace(",", "",$post['trig_cer'])
-				,'fag_allow' => $post['fag_allow']
+				//,'fag_allow' => $post['fag_allow']
 				//,'user_id' => $post['user_id']
 		);
 

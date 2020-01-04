@@ -25,32 +25,34 @@
 
 					<div class="col-sm-12 col-md-4">
 						<label class="col-sm-12 control-label" for="food_alg_val">ค่า  :</label>
-						<input type="number" step="0.01" class="form-control " id="food_alg_val" name="food_alg_val" value=""  />
+						<input type="number" step="0.01" class="form-control " id="food_alg_val" name="food_alg_val" value="0"  />
 					</div>
 
-					
+
+						<div class="col-sm-12 col-md-4">
+							<label class="col-sm-12 control-label" for="time_len_eat">ระยะเวลาที่ควรบริโภค  :</label><br/>
+							<select id="time_len_eat" name="time_len_eat" value="ไม่จำกัด" >
+								<!-- <option value="">- เลือก ระยะเวลาที่ควรบริโภค -</option>-->
+								<option value="จำกัด">จำกัด</option>
+								<option value="ไม่จำกัด">ไม่จำกัด</option>
+							</select>
+						</div>
+
+
+					<!--
 					<div class="col-sm-12 col-md-4">
 						<label class="col-sm-12 control-label" for="fag_allow">สถานะ  :</label><br/>
 						<select id="fag_allow" name="fag_allow" value="allow" >
 							<!-- <option value="">- เลือก สถานะ -</option>-->
+							<!--
 							<option value="allow">ปกติ</option>
 							<option value="block">ระงับ</option>
 							<option value="delete">ลบ</option>
 						</select>
 					</div>
+				-->
 				</div>
 				
-				<br/>
-				<div class="row">
-					<div class="col-sm-12 col-md-4">
-						<label class="col-sm-12 control-label" for="time_len_eat">ระยะเวลาที่ควรบริโภค  :</label><br/>
-						<select id="time_len_eat" name="time_len_eat" value="ไม่จำกัด" >
-							<!-- <option value="">- เลือก ระยะเวลาที่ควรบริโภค -</option>-->
-							<option value="จำกัด">จำกัด</option>
-							<option value="ไม่จำกัด">ไม่จำกัด</option>
-						</select>
-					</div>
-				</div>
 				<br/>
 
 				<div class="form-group">

@@ -226,7 +226,8 @@ class Shop_food_menu extends CRUD_Controller
 		$this->data['category_rmat_id_option_list'] = "";
 		$rows = $this->common_model->custom_query("select * from raw_material where fag_allow='allow' and energy_val!=0.00 and rmat_name!=''");
 		foreach ($rows as $key => $value) {
-			$this->data['category_rmat_id_option_list'] = $this->data['category_rmat_id_option_list']."<option data-energy_val='{$value['energy_val']}' value='{$value['rmat_id']}'>{$value['rmat_name']}</option>";
+			$rmat_name = mb_substr($value['rmat_name'],0,40,'UTF-8');
+			$this->data['category_rmat_id_option_list'] = $this->data['category_rmat_id_option_list']."<option data-energy_val='{$value['energy_val']}' value='{$value['rmat_id']}'>{$rmat_name} - {$value['energy_val']}/กรัม</option>";
 		}
 
 		$this->data['count_record'] = 1;
@@ -257,9 +258,9 @@ class Shop_food_menu extends CRUD_Controller
 		$frm->set_rules('cate_id', 'ประเภทอาหาร', 'trim|required|is_natural');
 		$frm->set_rules('price_amt', 'ราคา', 'trim|required|callback_float_check');
 		$frm->set_rules('energy_amt', 'พลังงาน', 'trim|callback_float_check');
-		$frm->set_rules('fag_allow', 'สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]', 'trim|required');
+		$frm->set_rules('fag_allow', 'สถานะ', 'trim');
 
-		$frm->set_message('required', '- กรุณากรอก %s');
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
 		$frm->set_message('decimal', '- %s ต้องระบุตัวเลขทศนิยม');
 
@@ -301,9 +302,9 @@ class Shop_food_menu extends CRUD_Controller
 		$frm->set_rules('cate_id', 'ประเภทอาหาร', 'trim|required|is_natural');
 		$frm->set_rules('price_amt', 'ราคา', 'trim|required|callback_float_check');
 		$frm->set_rules('energy_amt', 'พลังงาน', 'trim|callback_float_check');
-		$frm->set_rules('fag_allow', 'สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]', 'trim|required');
+		$frm->set_rules('fag_allow', 'สถานะ', 'trim');
 
-		$frm->set_message('required', '- กรุณากรอก %s');
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
 		$frm->set_message('decimal', '- %s ต้องระบุตัวเลขทศนิยม');
 
@@ -422,7 +423,8 @@ class Shop_food_menu extends CRUD_Controller
 				$this->data['category_rmat_id_option_list'] = "";
 				$rows = $this->common_model->custom_query("select * from raw_material where fag_allow='allow' and energy_val!=0.00 and rmat_name!=''");
 				foreach ($rows as $key => $value) {
-					$this->data['category_rmat_id_option_list'] = $this->data['category_rmat_id_option_list']."<option data-energy_val='{$value['energy_val']}' value='{$value['rmat_id']}'>{$value['rmat_name']}</option>";
+					$rmat_name = mb_substr($value['rmat_name'],0,40,'UTF-8');
+					$this->data['category_rmat_id_option_list'] = $this->data['category_rmat_id_option_list']."<option data-energy_val='{$value['energy_val']}' value='{$value['rmat_id']}'>{$rmat_name} - {$value['energy_val']}/กรัม</option>";
 				}
 
 				$this->data['data_id'] = $id;
@@ -430,9 +432,9 @@ class Shop_food_menu extends CRUD_Controller
 				$this->data['count_image'] = count($rows);
 				$shop_food_menu_images = "";
 				foreach ($rows as $key => $value) {
-					$year = (substr($value['datetime_add'],0,4)+543);
+					//$year = (substr($value['datetime_add'],0,4)+543);
                 	$shop_food_menu_images =  $shop_food_menu_images.'<div class="preview-image preview-show-'.($key+1).'">' .
-                            '<div data-image_id="'.$value['image_id'].'" class="image-cancel" data-no="'.($key+1).'">x</div>'.'<div class="image-zone"><img id="pro-img-'.($key+1).'" src="'.base_url().$this->upload_store_path.'/'.$year.'/'.$value['encrypt_name'].'"></div>'.
+                            '<div data-image_id="'.$value['image_id'].'" class="image-cancel" data-no="'.($key+1).'">x</div>'.'<div class="image-zone"><img id="pro-img-'.($key+1).'" src="'.base_url().$value['encrypt_name'].'"></div>'.
                             '</div>';
 				}
 				$this->data['shop_food_menu_images'] = $shop_food_menu_images;
@@ -508,7 +510,8 @@ class Shop_food_menu extends CRUD_Controller
 		$filename = $post['filename'];
 		
 
-		$path = $this->upload_store_path .(date('Y')+543);
+		//$path = $this->upload_store_path .(date('Y')+543);
+		$path = $this->upload_store_path;
 		
 		$blob = $post['blob'];
 
@@ -529,7 +532,7 @@ class Shop_food_menu extends CRUD_Controller
 		    $id = $this->common_model->insert('shop_food_menu_images',
 		    	array('user_add'=>get_session('user_id'),
 		    		'datetime_add'=>date("Y-m-d H:i:s"),
-		    		'encrypt_name'=>$encrypt_name,
+		    		'encrypt_name'=>$path.$encrypt_name,
 		    		'filename'=>$filename,
 		    		'food_id'=>$post['self_food_id'],
 		    		'shop_id'=>$this->session->userdata('shop_id')
@@ -566,8 +569,8 @@ class Shop_food_menu extends CRUD_Controller
 			$this->load->model('common_model');
 			$row = rowArray($this->common_model->custom_query("select * from shop_food_menu_images where image_id='".$id."'"));
 			if(isset($row['datetime_add'])) {
-				$year = substr($row['datetime_add'],0,4);
-				$this->removeFile($this->upload_store_path.($year+543).'/'.$row['encrypt_name']);
+				//$year = substr($row['datetime_add'],0,4);
+				$this->removeFile($row['encrypt_name']);
 				$this->common_model->update('shop_food_menu_images',array('user_delete'=>get_session('user_id'),'datetime_delete'=>date("Y-m-d H:i:s"),'fag_allow'=>'delete'),array('image_id'=>$id));
 			}
 		}else {
@@ -730,8 +733,8 @@ class Shop_food_menu extends CRUD_Controller
 				$rows = $this->common_model->custom_query("select * from shop_food_menu_images where food_id=".checkEncryptData($post['encrypt_self_food_id']));
 
 				foreach ($rows as $key => $value) {
-					$year = (substr($value['datetime_add'],0,4)+543);
-					$this->removeFile($this->upload_store_path.$year.'/'.$value['encrypt_name']);
+					//$year = (substr($value['datetime_add'],0,4)+543);
+					$this->removeFile($value['encrypt_name']);
 				}
 
 			}

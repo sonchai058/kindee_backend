@@ -29,6 +29,7 @@
 					</select>
 					</div>
 				</div>
+				<!--
 				<div class='form-group'>
 					<label class='col-sm-12 col-md-4 control-label' for='fag_allow'>สถานะ  :</label>
 					<div class='col-sm-10 col-md-4'>
@@ -41,6 +42,7 @@
 						</select>
 					</div>
 				</div>
+			-->
 				<div class='form-group'>
 					<label class='col-sm-12 col-md-4 control-label' for='food_alg_val'>ค่า  :</label>
 					<div class='col-sm-10 col-md-4'>

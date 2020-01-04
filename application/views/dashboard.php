@@ -1,6 +1,7 @@
 <script>
   var chart_labels = {chart_labels};
   var chart_data = JSON.parse('{chart_data}');
+  var chart_data1 = {chart_data1};
 </script>
       <!-- Icon Cards-->
       <div class="row">
@@ -38,11 +39,15 @@
       </div>
       <!-- Area Chart Example-->
       <div class="card mb-3">
-        <div class="card-header">
+        <div class="card-header" style="background-color: #fff !important">
           <i class="fa fa-area-chart"></i> <b>สถิติการเข้าใช้งาน</b></div>
         <div class="card-body">
-          <canvas id="myAreaChartD" width="100%" height="30"></canvas>
+          <!-- <canvas id="myAreaChartD" width="100%" height="30"></canvas>-->
+          <div id="chartContainer1" style="height: 270px; width: 100%;"></div>
         </div>
         <div class="card-footer small text-muted"><?php echo date("d/m").'/'.(date("Y")+543).' '.date("H:i:s");?></div>
       </div>
     </div>
+    <!--
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+-->

@@ -224,9 +224,9 @@ class Self_food_menu extends CRUD_Controller
 
 		$frm->set_rules('self_food_name', 'ชื่อ', 'trim|required');
 		$frm->set_rules('cate_id', 'ประเภทอาหาร', 'trim|required|is_natural');
-		$frm->set_rules('fag_allow', 'สถานะ', 'trim|required');
+		$frm->set_rules('fag_allow', 'สถานะ', 'trim');
 
-		$frm->set_message('required', '- กรุณากรอก %s');
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
 		$frm->set_message('decimal', '- %s ต้องระบุตัวเลขทศนิยม');
 
@@ -285,9 +285,9 @@ class Self_food_menu extends CRUD_Controller
 
 		$frm->set_rules('self_food_name', 'ชื่อ', 'trim|required');
 		$frm->set_rules('cate_id', 'ประเภทอาหาร', 'trim|required|is_natural');
-		$frm->set_rules('fag_allow', 'สถานะ', 'trim|required');
+		$frm->set_rules('fag_allow', 'สถานะ', 'trim');
 
-		$frm->set_message('required', '- กรุณากรอก %s');
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
 		$frm->set_message('decimal', '- %s ต้องระบุตัวเลขทศนิยม');
 

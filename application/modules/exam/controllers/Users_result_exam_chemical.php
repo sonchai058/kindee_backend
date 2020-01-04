@@ -235,10 +235,10 @@ class Users_result_exam_chemical extends CRUD_Controller
 		$frm->set_rules('hdl_chol', 'HDL Cholesterol', 'trim|required|callback_float_check');
 		$frm->set_rules('ldl_chol', 'LDL Cholesterol', 'trim|required|callback_float_check');
 		$frm->set_rules('trig_cer', 'Triglycerides', 'trim|required|callback_float_check');
-		$frm->set_rules('fag_allow', 'สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]', 'trim|required');
+		$frm->set_rules('fag_allow', 'สถานะ', 'trim');
 		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim');
 
-		$frm->set_message('required', '- กรุณากรอก %s');
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('callback_float_check', '- %s ต้องระบุตัวเลขทศนิยม');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
 
@@ -279,10 +279,10 @@ class Users_result_exam_chemical extends CRUD_Controller
 		$frm->set_rules('hdl_chol', 'HDL Cholesterol', 'trim|required|callback_float_check');
 		$frm->set_rules('ldl_chol', 'LDL Cholesterol', 'trim|required|callback_float_check');
 		$frm->set_rules('trig_cer', 'Triglycerides', 'trim|required|callback_float_check');
-		$frm->set_rules('fag_allow', 'สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]', 'trim|required');
+		$frm->set_rules('fag_allow', 'สถานะ', 'trim');
 		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim');
 
-		$frm->set_message('required', '- กรุณากรอก %s');
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('callback_float_check', '- %s ต้องระบุตัวเลขทศนิยม');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
 

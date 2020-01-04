@@ -3,6 +3,8 @@
   var chart_labels_calo = {chart_labels_calo};
   var chart_bmi = JSON.parse('{chart_bmi}');
   var chart_bmr = JSON.parse('{chart_bmr}');
+  var chart_bmr1 = {chart_bmr1};
+  var chart_calo1 = {chart_calo1};
   var chart_calo = JSON.parse('{chart_calo}');
 
 </script>
@@ -87,26 +89,30 @@
       <div class="row">
         <!-- Area Chart Example-->
         <div class="card col-sm-6">
-          <div class="card-header">
-            <i class="fa fa-area-chart"></i> BMR Chart
+          <div class="card-header" style="background: #fff !important">
+            <i class="fa fa-area-chart"></i> <b>BMR Chart</b>
             <div style="float:right">{chart_bmr_credit}</div>
           </div>
           <div class="card-body">
-            <canvas id="myAreaChart1" width="100%" height="30"></canvas>
+            <!-- <canvas id="myAreaChart1" width="100%" height="30"></canvas>-->
+            <div id="chartContainer1" style="height: 270px; width: 100%;"></div>
           </div>
           <!--<div class="card-footer small text-muted">BMR : {chart_bmr_credit}</div>-->
         </div>
 
         <!-- Area Chart Example-->
         <div class="card col-sm-6">
-          <div class="card-header">
-            <i class="fa fa-area-chart"></i> Calories
+          <div class="card-header" style="background: #fff !important">
+            <i class="fa fa-area-chart"></i> <b>Calories</b>
             <div style="float:right">{chart_calo_credit}</div>
           </div>
           <div class="card-body">
-            <canvas id="myAreaChart2" width="100%" height="30"></canvas>
+            <div id="chartContainer2" style="height: 270px; width: 100%;"></div>
+            <!-- <canvas id="myAreaChart2" width="100%" height="30"></canvas>-->
           </div>
          <!-- <div class="card-footer small text-muted">{chart_calo_credit}</div>-->
         </div>
       </div>
     </div>
+
+<!-- <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>-->

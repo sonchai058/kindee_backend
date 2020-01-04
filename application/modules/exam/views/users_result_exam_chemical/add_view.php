@@ -71,6 +71,7 @@
 						<input type="number" step="0.01" class="form-control " id="trig_cer" name="trig_cer" value="0"  />
 					</div>
 				</div>
+				<!--
 				<div class="form-group">
 					<label class="col-sm-6 col-md-4 control-label" for="fag_allow">สถานะ  :</label>
 					<div class="col-sm-4 col-md-4">
@@ -83,6 +84,7 @@
 						</select>
 					</div>
 				</div>
+			-->
 			<!--
 				<div class="form-group">
 					<label class="col-sm-12 control-label" for="user_id">ชื่อสมาชิก  :</label>

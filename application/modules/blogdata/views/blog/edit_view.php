@@ -26,16 +26,18 @@
 						<input type="text" class="form-control " id="blog_name" name="blog_name" value="{record_blog_name}"  />
 					</div>
 
-					
+					<!--
 					<div class="col-sm-12 col-md-4">
 						<label class='col-sm-12 control-label' for='fag_allow'>สถานะ  :</label><br/>
 						<select id="fag_allow" name="fag_allow" value="{record_fag_allow}" >
 							<!--<option value="">- เลือก สถานะ -</option>-->
+					<!--
 							<option value="allow">เผยแพร่</option>
 							<option value="block">ไม่เผยแพร่</option>
 							<option value="delete">ลบ</option>
 						</select>
 					</div>
+				-->
 
 				</div>
 				<div class="row">

@@ -52,7 +52,7 @@ class Shops_model extends MY_Model
 				,'email_addr' => $post['email_addr']
 				,'shop_user' => 0
 				,'addr' => $post['addr']
-				,'fag_allow' => $post['fag_allow']
+				,'fag_allow' => 'allow'
 				,'point_lat' => $post['point_lat']
 				,'point_long' => $post['point_long']
 		);
@@ -158,7 +158,7 @@ class Shops_model extends MY_Model
 				,'email_addr' => $post['email_addr']
 				//,'shop_user' => $post['shop_user']
 				,'addr' => $post['addr']
-				,'fag_allow' => $post['fag_allow']
+				//,'fag_allow' => $post['fag_allow']
 				,'point_lat' => $post['point_lat']
 				,'point_long' => $post['point_long']
 		);

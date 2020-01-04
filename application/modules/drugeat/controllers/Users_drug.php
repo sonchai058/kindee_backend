@@ -26,6 +26,9 @@ class Users_drug extends CRUD_Controller
 		$this->data['page_title'] = 'ข้อมูลยาที่ทานประจำ';
 		$js_url = 'assets/js_modules/drugeat/users_drug.js?ft='. filemtime('assets/js_modules/drugeat/users_drug.js');
 		$this->another_js = '<script src="'. base_url($js_url) .'"></script>';
+		$this->another_js .= '<script src="'.base_url('assets/themes/majestic/clockpicker-gh-pages/index.js').'"></script>';
+
+		$this->another_css.='<link rel="stylesheet" type="text/css" href="'.base_url('assets/themes/majestic/clockpicker-gh-pages/jquery-clockpicker.min.css').'">';
 	}
 
 	// ------------------------------------------------------------------------
@@ -243,9 +246,9 @@ class Users_drug extends CRUD_Controller
 		$frm->set_rules('drug_name', 'ชื่อ', 'trim|required');
 		$frm->set_rules('eat_time', 'ก่อน/หลังอาหาร [ก่อนอาหาร=ก่อนอาหาร,หลังอาหาร=หลังอาหาร]', 'trim|required');
 		$frm->set_rules('date_eat', 'เวลา', 'required');
-		$frm->set_rules('fag_allow', 'สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]', 'trim|required');
+		$frm->set_rules('fag_allow', 'สถานะ', 'trim');
 
-		$frm->set_message('required', '- กรุณากรอก %s');
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
 
 		if ($frm->run() == FALSE) {
@@ -274,9 +277,9 @@ class Users_drug extends CRUD_Controller
 		$frm->set_rules('drug_name', 'ชื่อ', 'trim|required');
 		$frm->set_rules('eat_time', 'ก่อน/หลังอาหาร [ก่อนอาหาร=ก่อนอาหาร,หลังอาหาร=หลังอาหาร]', 'trim|required');
 		$frm->set_rules('date_eat', 'เวลา', 'required');
-		$frm->set_rules('fag_allow', 'สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]', 'trim|required');
+		$frm->set_rules('fag_allow', 'สถานะ', 'trim');
 
-		$frm->set_message('required', '- กรุณากรอก %s');
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
 
 		if ($frm->run() == FALSE) {

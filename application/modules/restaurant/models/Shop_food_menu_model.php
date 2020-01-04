@@ -47,7 +47,7 @@ class Shop_food_menu_model extends MY_Model
 				,'cate_id' => $post['cate_id']
 				,'price_amt' => str_replace(",", "", $post['price_amt'])
 				//,'energy_amt' => str_replace(",", "", $post['energy_amt'])
-				,'fag_allow' => $post['fag_allow']
+				,'fag_allow' => 'allow'
 				,'food_source'=> 'เมนูร้านอาหาร',
 				'shop_id'=>$post['shop_id'],
 				'user_id'=>$this->session->userdata('user_id')
@@ -146,7 +146,7 @@ class Shop_food_menu_model extends MY_Model
 				,'cate_id' => $post['cate_id']
 				,'price_amt' => str_replace(",", "",$post['price_amt'])
 				//,'energy_amt' => str_replace(",", "",$post['energy_amt'])
-				,'fag_allow' => $post['fag_allow']
+				//,'fag_allow' => $post['fag_allow']
 		);
 
 		$self_food_id = checkEncryptData($post['encrypt_self_food_id']);

@@ -45,7 +45,7 @@ class Users_result_exam_food_allergy_model extends MY_Model
 		$data = array(
 				'user_id' => $post['user_id']
 				,'alg_id' => $post['alg_id']
-				,'fag_allow' => $post['fag_allow']
+				,'fag_allow' => 'allow'
 				,'food_alg_val' => str_replace(",", "", $post['food_alg_val'])
 		);
 		return $this->add_record($data);
@@ -137,7 +137,7 @@ class Users_result_exam_food_allergy_model extends MY_Model
 		$data = array(
 				'user_id' => $post['user_id']
 				,'alg_id' => $post['alg_id']
-				,'fag_allow' => $post['fag_allow']
+				//,'fag_allow' => $post['fag_allow']
 				,'food_alg_val' => str_replace(",", "",$post['food_alg_val'])
 		);
 

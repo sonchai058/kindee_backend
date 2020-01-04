@@ -120,7 +120,7 @@ class Blog extends CRUD_Controller
 	public function search()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Blog', 'class' => 'active', 'url' => '#'),
+						array('title' => 'Dashboard', 'class' => 'active', 'url' => '#'),
 		);
 		if (isset($_POST['submit'])) {
 			$search_field =  $this->input->post('search_field', TRUE);
@@ -246,9 +246,9 @@ class Blog extends CRUD_Controller
 		$frm->set_rules('date_public', 'วันที่ประกาศ', 'trim|required');
 		$frm->set_rules('blog_name', 'หัวข้อ', 'trim|required');
 		$frm->set_rules('blog_detail', 'รายละเอียด', 'trim|required');
-		$frm->set_rules('fag_allow', 'สถานะ', 'trim|required');
+		$frm->set_rules('fag_allow', 'สถานะ', 'trim');
 
-		$frm->set_message('required', '- กรุณากรอก %s');
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
 
 		if ($frm->run() == FALSE) {
@@ -275,9 +275,9 @@ class Blog extends CRUD_Controller
 		$frm->set_rules('date_public', 'วันที่ประกาศ', 'trim|required');
 		$frm->set_rules('blog_name', 'หัวข้อ', 'trim|required');
 		$frm->set_rules('blog_detail', 'รายละเอียด', 'trim|required');
-		$frm->set_rules('fag_allow', 'สถานะ', 'trim|required');
+		$frm->set_rules('fag_allow', 'สถานะ', 'trim');
 
-		$frm->set_message('required', '- กรุณากรอก %s');
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
 
 		if ($frm->run() == FALSE) {
@@ -371,9 +371,9 @@ class Blog extends CRUD_Controller
 				$this->data['count_image'] = count($rows);
 				$blog_images = "";
 				foreach ($rows as $key => $value) {
-					$year = (substr($value['datetime_add'],0,4)+543);
+					//$year = (substr($value['datetime_add'],0,4)+543);
                 	$blog_images =  $blog_images.'<div class="preview-image preview-show-'.($key+1).'">' .
-                            '<div data-image_id="'.$value['image_id'].'" class="image-cancel" data-no="'.($key+1).'">x</div>'.'<div class="image-zone"><img id="pro-img-'.($key+1).'" src="'.base_url().$this->upload_store_path.'/'.$year.'/'.$value['encrypt_name'].'"></div>'.
+                            '<div data-image_id="'.$value['image_id'].'" class="image-cancel" data-no="'.($key+1).'">x</div>'.'<div class="image-zone"><img id="pro-img-'.($key+1).'" src="'.base_url().$value['encrypt_name'].'"></div>'.
                             '</div>';
 				}
 				$this->data['blog_images'] = $blog_images;
@@ -449,7 +449,8 @@ class Blog extends CRUD_Controller
 		$filename = $post['filename'];
 		
 
-		$path = $this->upload_store_path .(date('Y')+543);
+		//$path = $this->upload_store_path .(date('Y')+543);
+		$path = $this->upload_store_path;
 		
 		$blob = $post['blob'];
 
@@ -470,7 +471,7 @@ class Blog extends CRUD_Controller
 		    $id = $this->common_model->insert('blog_images',
 		    	array('user_add'=>get_session('user_id'),
 		    		'datetime_add'=>date("Y-m-d H:i:s"),
-		    		'encrypt_name'=>$encrypt_name,
+		    		'encrypt_name'=>$path.$encrypt_name,
 		    		'filename'=>$filename,
 		    		'blog_id'=>$post['blog_id']
 		    	)
@@ -506,8 +507,8 @@ class Blog extends CRUD_Controller
 			$this->load->model('common_model');
 			$row = rowArray($this->common_model->custom_query("select * from blog_images where image_id='".$id."'"));
 			if(isset($row['datetime_add'])) {
-				$year = substr($row['datetime_add'],0,4);
-				$this->removeFile($this->upload_store_path.($year+543).'/'.$row['encrypt_name']);
+				//$year = substr($row['datetime_add'],0,4);
+				$this->removeFile($row['encrypt_name']);
 				$this->common_model->update('blog_images',array('user_delete'=>get_session('user_id'),'datetime_delete'=>date("Y-m-d H:i:s"),'fag_allow'=>'delete'),array('image_id'=>$id));
 			}
 		}else {
@@ -621,8 +622,8 @@ class Blog extends CRUD_Controller
 				$rows = $this->common_model->custom_query("select * from blog_images where blog_id=".checkEncryptData($post['encrypt_blog_id']));
 
 				foreach ($rows as $key => $value) {
-					$year = (substr($value['datetime_add'],0,4)+543);
-					$this->removeFile($this->upload_store_path.$year.'/'.$value['encrypt_name']);
+					//$year = (substr($value['datetime_add'],0,4)+543);
+					$this->removeFile($value['encrypt_name']);
 				}
 			}
 			$json = json_encode(array(

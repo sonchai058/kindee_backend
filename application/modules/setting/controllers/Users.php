@@ -468,8 +468,7 @@ class Users extends CRUD_Controller
 		$frm->set_rules('email_addr', 'อีเมล', 'trim|required');
 		$frm->set_rules('cus_passwd', 'รหัสผ่าน', 'trim|required');
 		$frm->set_rules('addr', 'ที่อยู่', 'trim|required');
-		$frm->set_rules('fag_allow', 'สถานะ', 'trim|required');
-		$frm->set_rules('org_id', 'รหัสองค์กรที่สังกัด', 'trim|required|is_natural');
+		$frm->set_rules('fag_allow', 'สถานะ', 'trim');
 		$frm->set_rules('user_sex', 'เพศ [ชาย=ชาย,หญิง=หญิง,ไม่ระบุ=ไม่ระบุ]', 'trim|required');
 		$frm->set_rules('user_height', 'ส่วนสูง CM', 'trim|required|callback_float_check');
 		$frm->set_rules('goal_reduce_weight', 'เป้าหมายในการลดน้ำหนัก (น้ำหนัก)', 'trim|callback_float_check');
@@ -478,7 +477,15 @@ class Users extends CRUD_Controller
 		$frm->set_rules('goal_increase_weight', 'เป้าหมายในการเพิ่มน้ำหนัก (น้ำหนัก)', 'trim|callback_float_check');
 		$frm->set_rules('increase_date_start', 'เป้าหมายในการเพิ่มน้ำหนัก (ภายในวันที่) เริ่มต้น', 'trim');
 		$frm->set_rules('increase_date_end', 'เป้าหมายในการเพิ่มน้ำหนัก (ภายในวันที่) สิ้นสุด', 'trim');
-		$frm->set_rules('user_level', 'ระดับผู้ใช้งาน [admin=ผู้ดูแลระบบ,super_user=สมาชิกพิเศษ,user=สมาชิก,shop=ร้านค้า]', 'trim|required');
+
+		if($this->session->userdata('user_level')=='admin') {
+			$frm->set_rules('user_level', 'ระดับผู้ใช้งาน', 'trim|required');
+			$frm->set_rules('org_id', 'รหัสองค์กรที่สังกัด', 'trim|required|is_natural');
+		}else {
+			$frm->set_rules('user_level', 'ระดับผู้ใช้งาน', 'trim');
+			$frm->set_rules('org_id', 'รหัสองค์กรที่สังกัด', 'trim');
+		}
+
 		$frm->set_rules('food_intol_exam', 'เคยตรวจ Food Intolerance หรือไม่ Yes | No [Yes=ใช่,No=ไม่ใช่]', 'trim');
 		/*
 		$frm->set_rules('limit_allmeat', 'ข้อจำกัดการบริโภค (เนื้อสัตว์ทุกชนิด) [Yes=ใช่,No=ไม่ใช่]', 'trim|required');
@@ -488,7 +495,7 @@ class Users extends CRUD_Controller
 		$frm->set_rules('limit_seafood', 'ข้อจำกัดการบริโภค (อาหารทะเล) [Yes=ใช่,No=ไม่ใช่]', 'trim|required');
 		$frm->set_rules('limit_additives', 'ข้อจำกัดการบริโภค (สารเติมแต่ง เช่น ผงชูรส) [Yes=ใช่,No=ไม่ใช่]', 'trim|required');
 		*/
-		$frm->set_message('required', '- กรุณากรอก %s');
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
 		$frm->set_message('callback_float_check', '- %s ต้องระบุตัวเลขทศนิยม');
 		$frm->set_message('decimal', '- %s ต้องระบุตัวเลขทศนิยม');
@@ -571,8 +578,8 @@ class Users extends CRUD_Controller
 		$frm->set_rules('email_addr', 'อีเมล', 'trim|required');
 		$frm->set_rules('cus_passwd', 'รหัสผ่าน', 'trim|required');
 		$frm->set_rules('addr', 'ที่อยู่', 'trim|required');
-		$frm->set_rules('fag_allow', 'สถานะ', 'trim|required');
-		$frm->set_rules('org_id', 'รหัสองค์กรที่สังกัด', 'trim|required|is_natural');
+		$frm->set_rules('fag_allow', 'สถานะ', 'trim');
+		
 		$frm->set_rules('user_sex', 'เพศ [ชาย=ชาย,หญิง=หญิง,ไม่ระบุ=ไม่ระบุ]', 'trim|required');
 		$frm->set_rules('user_height', 'ส่วนสูง CM', 'trim|required|callback_float_check');
 		$frm->set_rules('goal_reduce_weight', 'เป้าหมายในการลดน้ำหนัก (น้ำหนัก)', 'trim|callback_float_check');
@@ -581,7 +588,13 @@ class Users extends CRUD_Controller
 		$frm->set_rules('goal_increase_weight', 'เป้าหมายในการเพิ่มน้ำหนัก (น้ำหนัก)', 'trim|callback_float_check');
 		$frm->set_rules('increase_date_start', 'เป้าหมายในการเพิ่มน้ำหนัก (ภายในวันที่) เริ่มต้น', 'trim');
 		$frm->set_rules('increase_date_end', 'เป้าหมายในการเพิ่มน้ำหนัก (ภายในวันที่) สิ้นสุด', 'trim');
-		$frm->set_rules('user_level', 'ระดับผู้ใช้งาน [admin=ผู้ดูแลระบบ,super_user=สมาชิกพิเศษ,user=สมาชิก,shop=ร้านค้า]', 'trim|required');
+		if($this->session->userdata('user_level')=='admin') {
+			$frm->set_rules('user_level', 'ระดับผู้ใช้งาน', 'trim|required');
+			$frm->set_rules('org_id', 'รหัสองค์กรที่สังกัด', 'trim|required|is_natural');
+		}else {
+			$frm->set_rules('user_level', 'ระดับผู้ใช้งาน', 'trim');
+			$frm->set_rules('org_id', 'รหัสองค์กรที่สังกัด', 'trim');
+		}
 		$frm->set_rules('food_intol_exam', 'เคยตรวจ Food Intolerance หรือไม่ Yes | No [Yes=ใช่,No=ไม่ใช่]', 'trim');
 		/*
 		$frm->set_rules('limit_allmeat', 'ข้อจำกัดการบริโภค (เนื้อสัตว์ทุกชนิด) [Yes=ใช่,No=ไม่ใช่]', 'trim|required');
@@ -591,7 +604,7 @@ class Users extends CRUD_Controller
 		$frm->set_rules('limit_seafood', 'ข้อจำกัดการบริโภค (อาหารทะเล) [Yes=ใช่,No=ไม่ใช่]', 'trim|required');
 		$frm->set_rules('limit_additives', 'ข้อจำกัดการบริโภค (สารเติมแต่ง เช่น ผงชูรส) [Yes=ใช่,No=ไม่ใช่]', 'trim|required');
 		*/
-		$frm->set_message('required', '- กรุณากรอก %s');
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
 		$frm->set_message('callback_float_check', '- %s ต้องระบุตัวเลขทศนิยม');
 		$frm->set_message('decimal', '- %s ต้องระบุตัวเลขทศนิยม');
@@ -668,7 +681,7 @@ class Users extends CRUD_Controller
 		if($dir != '' && substr($dir, 0, 1) != '/'){
 			$dir = '/'.$dir;
 		}
-		$path = $this->upload_store_path . (date('Y')+543) . $dir;
+		$path = $this->upload_store_path.$dir;
 		//เปิดคอนฟิก Auto ชื่อไฟล์ใหม่ด้วย
 		$config['upload_path']          = $path;
 		$config['allowed_types']        = $this->file_allow_type;
@@ -992,7 +1005,7 @@ class Users extends CRUD_Controller
 				}
 				unset($post['limit']);
 
-			    if(count($post['pro_id'])) {
+			    if(count(@$post['pro_id'])) {
 				    $this->load->model("common_model");
 
 				    $this->common_model->update("users_promotions",array('fag_allow'=>'delete',"user_delete"=>get_session("user_id"),'datetime_delete'=>date('Y-m-d H:i:s')),array('user_id'=>$id));

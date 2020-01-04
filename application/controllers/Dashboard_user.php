@@ -18,10 +18,12 @@ class Dashboard_user extends CRUD_Controller
 
 		//die(print_r($_SESSION));
 
-		$this->another_js .= '<script src="'. base_url('assets/themes/sb-admin/vendor/chart.js/Chart.min.js').'"></script>';
-		$this->another_js .= '<script src="'. base_url('assets/themes/sb-admin/js/sb-admin-charts.js').'"></script>';
-
+		//$this->another_js .= '<script src="'. base_url('assets/themes/sb-admin/vendor/chart.js/Chart.min.js').'"></script>';
+		//pt$this->another_js .= '<scri src="'. base_url('assets/themes/sb-admin/js/sb-admin-charts.js').'"></script>';
+		$this->another_js .= '<script src="'. base_url('assets/themes/majestic/canvasjs.min.js').'"></script>';
+		
 		$this->another_js .= '<script src="'. base_url('assets/js/dashboard_user.js').'"></script>';
+		
 	}
 
 	// ------------------------------------------------------------------------
@@ -52,7 +54,7 @@ class Dashboard_user extends CRUD_Controller
 
 		$user = rowArray($this->common_model->custom_query("select * from users where user_id={$this->session->userdata('user_id')} limit 1"));
 
-		$this->data['user_photo'] = $user['user_photo'];
+		$this->data['user_photo'] = base_url($user['user_photo']);
 		$this->data['date_of_birth'] = substr($user['date_of_birth'],8,2).'/'.substr($user['date_of_birth'],5,2).'/'.(substr($user['date_of_birth'],0,4)+543);
 		$this->data['user_flname'] = $user['user_fname'].' '.$user['user_lname'];
 		$this->data['user_height'] = $user['user_height'];
@@ -93,6 +95,11 @@ class Dashboard_user extends CRUD_Controller
 		$this->data['users_bmi_txt'] = '-';
 
 
+		$this->data['chart_bmr1'] = '[]';
+		$chart_bmr1 = array();
+		$this->data['chart_calo1'] = '[]';
+		$chart_calo1 = array();
+
 		foreach ($chartrows as $key => $value) {
 			$chart_labels[] = "new Date('{$value['date']} 00:00:00').toLocaleString()";
 
@@ -125,13 +132,19 @@ class Dashboard_user extends CRUD_Controller
 
 			$chart_bmi[] = array('t'=>$value['date']." 00:00:00",'y'=>$bmi_val);
 			$chart_bmr[] = array('t'=>$value['date']." 00:00:00",'y'=>($bmr_val/1000));
-			
+
+			$chart_bmr1[] = '{ x: new Date('.substr($value['date'],0,4).','.(substr($value['date'],5,4)-1).','.substr($value['date'],8,2).'), y: '.($bmr_val/1000).' }';
 		}
+		$this->data['chart_bmr1'] = '['.implode(',',$chart_bmr1).']';
 
 		foreach ($chartrows_calo as $key => $value) {
 			$chart_labels_calo[] = "new Date('{$value['date']} 00:00:00').toLocaleString()";
 			$chart_calo[] = array('t'=>$value['date']." 00:00:00",'y'=>($value['num']/1000));
+
+			$chart_calo1[] = '{ x: new Date('.substr($value['date'],0,4).','.(substr($value['date'],5,4)-1).','.substr($value['date'],8,2).'), y: '.($value['num']/1000).' }';
+
 		}
+		$this->data['chart_calo1'] = '['.implode(',',$chart_calo1).']';
 
 		$this->data['user_height'] = number_format($this->data['user_height']);
 		$chart_labels='['.implode(',',$chart_labels).']';
@@ -143,6 +156,8 @@ class Dashboard_user extends CRUD_Controller
 		$this->data['chart_bmr_credit'] = @$chart_bmr[count($chart_bmr)-1]['y'].' kcal/day';
 		$this->data['chart_calo'] = json_encode($chart_calo);
 		$this->data['chart_calo_credit'] = @$chart_calo[count($chart_calo)-1]['y'].' kcal/day';
+		//die(print_r($this->data));
+
 		$this->dashboard();
 	}
 

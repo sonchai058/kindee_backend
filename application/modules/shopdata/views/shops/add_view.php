@@ -109,11 +109,7 @@
 						<label class="col-sm-12 control-label" for="point_long">พิกัด ลองจิจูด  :</label>
 						<input  type="number" step="0.01" class="form-control " id="point_long" name="point_long" value=""  />
 					</div>
-				</div>
 
-				<br/>
-
-				<div class="row">
 					<div class="col-sm-12 col-md-4">
 					<label class="col-sm-12 control-label" for="shop_user">ชื่อผู้ดูแล  :</label><br/>
 					<select  id="shop_user" name="shop_user" value="" disabled="true">
@@ -122,16 +118,26 @@
 					</select>
 					</div>
 
+				</div>
+
+				
+			<!--
+				<br/>
+				<div class="row">
+
+
 					<div class="col-sm-12 col-md-4">
 					<label class="col-sm-12 control-label" for="fag_allow">สถานะ  :</label><br/>
 						<select id="fag_allow" name="fag_allow" value="allow" >
 							<!-- <option value="">- เลือก สถานะ -</option> -->
+			<!--
 							<option value="allow">เผยแพร่</option>
 							<option value="block">ไม่เผยแพร่</option>
 							<option value="delete">ลบ</option>
 						</select>
 					</div>
 				</div>
+			-->
 
 				<br/>
 				<h5>พิกัดร้าน :</h5>

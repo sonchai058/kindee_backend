@@ -16,9 +16,9 @@ class Dashboard extends CRUD_Controller
 
 		chkUserPerm();
 
-		$this->another_js .= '<script src="'. base_url('assets/themes/sb-admin/vendor/chart.js/Chart.min.js').'"></script>';
-		$this->another_js .= '<script src="'. base_url('assets/themes/sb-admin/js/sb-admin-charts.min.js').'"></script>';
-
+		//$this->another_js .= '<script src="'. base_url('assets/themes/sb-admin/vendor/chart.js/Chart.min.js').'"></script>';
+		//$this->another_js .= '<script src="'. base_url('assets/themes/sb-admin/js/sb-admin-charts.min.js').'"></script>';
+		$this->another_js .= '<script src="'. base_url('assets/themes/majestic/canvasjs.min.js').'"></script>';
 		$this->another_js .= '<script src="'. base_url('assets/js/dashboard.js').'"></script>';
 	}
 
@@ -81,13 +81,18 @@ class Dashboard extends CRUD_Controller
 
 		$chart_labels = array();
 		$chart_data = array();
+		$chart_data1 = array();
 		foreach ($chart as $key => $value) {
 			$chart_labels[] = "new Date('{$value['date']} 00:00:00').toLocaleString()";
 			$chart_data[] = array('t'=>$value['date']." 00:00:00",'y'=>$value['num']);
+
+			$chart_data1[] = '{ x: new Date('.substr($value['date'],0,4).','.(substr($value['date'],5,4)-1).','.substr($value['date'],8,2).'), y: '.$value['num'].' }';
+
 		}
 		$chart_labels='['.implode(',',$chart_labels).']';
 		$this->data['chart_labels'] = $chart_labels;
 		$this->data['chart_data'] = json_encode($chart_data);
+		$this->data['chart_data1'] = '['.implode(',',$chart_data1).']';
 
 		$this->render_view('dashboard');
 	}

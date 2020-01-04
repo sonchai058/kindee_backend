@@ -214,7 +214,7 @@ class User_novisit extends CRUD_Controller
 		$frm->set_rules('datetime_update', 'วันเวลา ที่อัปเดต', 'trim|required');
 		$frm->set_rules('food_intol_exam', 'เคยตรวจ Food Intolerance หรือไม่ [Yes=Yes,No=No]', 'trim|required');
 
-		$frm->set_message('required', '- กรุณากรอก %s');
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
 		$frm->set_message('decimal', '- %s ต้องระบุตัวเลขทศนิยม');
 
@@ -242,7 +242,7 @@ class User_novisit extends CRUD_Controller
 		$frm->set_rules('datetime_update', 'วันเวลา ที่อัปเดต', 'trim|required');
 		$frm->set_rules('food_intol_exam', 'เคยตรวจ Food Intolerance หรือไม่ [Yes=Yes,No=No]', 'trim|required');
 
-		$frm->set_message('required', '- กรุณากรอก %s');
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
 		$frm->set_message('decimal', '- %s ต้องระบุตัวเลขทศนิยม');
 

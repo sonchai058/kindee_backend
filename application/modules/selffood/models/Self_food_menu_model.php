@@ -48,7 +48,7 @@ class Self_food_menu_model extends MY_Model
 		$data = array(
 				'self_food_name' => $post['self_food_name']
 				,'cate_id' => $post['cate_id']
-				,'fag_allow' => $post['fag_allow']
+				,'fag_allow' => 'allow'
 				,'food_source' => $food_source
 				,'user_id'=>$this->session->userdata('user_id')
 		);
@@ -137,7 +137,7 @@ class Self_food_menu_model extends MY_Model
 		$data = array(
 				'self_food_name' => $post['self_food_name']
 				,'cate_id' => $post['cate_id']
-				,'fag_allow' => $post['fag_allow']
+				//,'fag_allow' => $post['fag_allow']
 		);
 
 		$self_food_id = checkEncryptData($post['encrypt_self_food_id']);

@@ -1,5 +1,6 @@
   // Chart.js scripts
 // -- Set new default font family and font color to mimic Bootstrap's default styling
+/*
 Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#292b2c';
 // -- Area Chart Example
@@ -84,3 +85,112 @@ var myLineChart = new Chart(ctx, {
     }]
   }
 });
+
+*/
+
+
+window.onload = function () {
+  var chart1 = new CanvasJS.Chart("chartContainer1", {
+    backgroundColor: "#F0F8FF",
+    animationEnabled: true,
+    theme: "light2",
+    title:{
+      text: "(Kilocal)"
+    },
+    axisX:{
+      valueFormatString: "DD/MM/YYYY",
+      crosshair: {
+        enabled: true,
+        snapToDataPoint: true
+      }
+    },
+    axisY: {
+      //title: "Number of Visits",
+      crosshair: {
+        enabled: true
+      }
+    },
+    toolTip:{
+      shared:true
+    },  
+    legend:{
+      cursor:"pointer",
+      verticalAlign: "bottom",
+      horizontalAlign: "left",
+      dockInsidePlotArea: true,
+      itemclick: toogleDataSeries1
+    },
+    data: [{
+      type: "line",
+      showInLegend: true,
+      //name: "Total Visit",
+      markerType: "square",
+      xValueFormatString: "DD MMM, YYYY",
+      color: "#FF4040",
+      dataPoints: chart_bmr1
+    }]
+  });
+  chart1.render();
+  function toogleDataSeries1(e){
+    if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+      e.dataSeries.visible = false;
+    } else{
+      e.dataSeries.visible = true;
+    }
+    chart1.render();
+  }
+
+  var chart2 = new CanvasJS.Chart("chartContainer2", {
+    backgroundColor: "#F0F8FF",
+    animationEnabled: true,
+    theme: "light2",
+    title:{
+      text: "(Kilocal)"
+    },
+    axisX:{
+      valueFormatString: "DD/MM/YYYY",
+      crosshair: {
+        enabled: true,
+        snapToDataPoint: true
+      }
+    },
+    axisY: {
+      //title: "Number of Visits",
+      crosshair: {
+        enabled: true
+      }
+    },
+    toolTip:{
+      shared:true
+    },  
+    legend:{
+      cursor:"pointer",
+      verticalAlign: "bottom",
+      horizontalAlign: "left",
+      dockInsidePlotArea: true,
+      itemclick: toogleDataSeries2
+    },
+    data: [{
+      type: "line",
+      showInLegend: true,
+      //name: "Total Visit",
+      markerType: "square",
+      xValueFormatString: "DD MMM, YYYY",
+      color: "#FF4040",
+      dataPoints: chart_calo1
+    }]
+  });
+  chart2.render();
+  function toogleDataSeries2(e){
+    if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+      e.dataSeries.visible = false;
+    } else{
+      e.dataSeries.visible = true;
+    }
+    chart2.render();
+  }
+
+}
+
+
+

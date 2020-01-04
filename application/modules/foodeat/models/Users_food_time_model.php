@@ -49,7 +49,7 @@ class Users_food_time_model extends MY_Model
 				,'date_eat' => setDateToStandard($post['date_eat'])
 				,'food_id' => $post['food_id']
 				,'food_energy' => (str_replace(",", "", $post['food_energy'])*1000)
-				,'fag_allow' => $post['fag_allow']
+				,'fag_allow' => 'allow'
 		);
 		return $this->add_record($data);
 	}
@@ -140,7 +140,7 @@ class Users_food_time_model extends MY_Model
 				,'date_eat' => setDateToStandard($post['date_eat'])
 				,'food_id' => $post['food_id']
 				,'food_energy' => (str_replace(",", "",$post['food_energy'])*1000)
-				,'fag_allow' => $post['fag_allow']
+				//,'fag_allow' => $post['fag_allow']
 		);
 
 		$foodt_id = checkEncryptData($post['encrypt_foodt_id']);

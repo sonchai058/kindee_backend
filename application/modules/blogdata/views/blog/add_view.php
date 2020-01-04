@@ -24,16 +24,18 @@
 							<label class="col-sm-12 control-label" for="blog_name">หัวข้อ  :</label>
 							<input type="text" class="form-control " id="blog_name" name="blog_name" value=""  />
 						</div>
-
+					<!--
 						<div class="col-sm-12 col-md-4">
 							<label class="col-sm-12 control-label" for="fag_allow">สถานะ  :</label><br/>
 							<select id="fag_allow" name="fag_allow" value="allow" >
 								<!--<option value="">- เลือก สถานะ -</option>-->
+					<!--
 								<option selected value="allow">เผยแพร่</option>
 								<option value="block">ไม่เผยแพร่</option>
 								<option value="delete">ลบ</option>
 							</select>
 						</div>
+					-->
 				</div>
 
 				<div class="row">

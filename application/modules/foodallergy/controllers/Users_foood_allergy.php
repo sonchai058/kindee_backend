@@ -354,11 +354,11 @@ class Users_foood_allergy extends CRUD_Controller
 
 		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim');
 		$frm->set_rules('alg_id', 'รหัสอาหารที่แพ้', 'trim|required|is_natural');
-		$frm->set_rules('fag_allow', 'สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]', 'trim|required');
+		$frm->set_rules('fag_allow', 'สถานะ', 'trim');
 		$frm->set_rules('food_alg_val', 'ค่า', 'trim|required|callback_float_check');
 		$frm->set_rules('time_len_eat', 'ระยะเวลาที่ควรบริโภค [จำกัด=จำกัด,ไม่จำกัด=ไม่จำกัด]', 'trim|required');
 
-		$frm->set_message('required', '- กรุณากรอก %s');
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
 		$frm->set_message('decimal', '- %s ต้องระบุตัวเลขทศนิยม');
 
@@ -386,11 +386,11 @@ class Users_foood_allergy extends CRUD_Controller
 
 		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim');
 		$frm->set_rules('alg_id', 'รหัสอาหารที่แพ้', 'trim|required|is_natural');
-		$frm->set_rules('fag_allow', 'สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]', 'trim|required');
+		$frm->set_rules('fag_allow', 'สถานะ', 'trim');
 		$frm->set_rules('food_alg_val', 'ค่า', 'trim|required|callback_float_check');
 		$frm->set_rules('time_len_eat', 'ระยะเวลาที่ควรบริโภค [จำกัด=จำกัด,ไม่จำกัด=ไม่จำกัด]', 'trim|required');
 
-		$frm->set_message('required', '- กรุณากรอก %s');
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
 		$frm->set_message('decimal', '- %s ต้องระบุตัวเลขทศนิยม');
 

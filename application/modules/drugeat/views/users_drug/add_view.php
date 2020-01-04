@@ -33,23 +33,21 @@
 							<option value="หลังอาหาร">หลังอาหาร</option>
 						</select>
 					</div>
-
+				<!--
 					<div class="col-sm-12 col-md-4">
 						<label class="col-sm-12 control-label" for="fag_allow">สถานะ  :</label><br/>
 						<select id="fag_allow" name="fag_allow" value="allow" >
 							<!--<option value="">- เลือก สถานะ -</option>-->
+				<!--
 							<option value="allow">ปกติ</option>
 							<option value="block">ระงับ</option>
 							<option value="delete">ลบ</option>
 						</select>
 					</div>
-
-				</div>
-
-				<div class="row">
+				-->
 					<div class="col-sm-12 col-md-4">
 						<label class="col-sm-12 control-label" for="date_eat">เวลา  :</label><br/>
-						<input type="time" class="form-control" id="date_eat" name="date_eat" value=""  />
+						<input id="date_eat" name="date_eat" type="time" class="form-control" value="<?php echo date("H:i");?>">
 					</div>
 
 				</div>

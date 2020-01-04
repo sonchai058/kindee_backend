@@ -217,9 +217,9 @@ class Users_food_time extends CRUD_Controller
 		$frm->set_rules('date_eat', 'วันที่', 'trim|required');
 		$frm->set_rules('food_id', 'เมนูอาหาร', 'trim|required|is_natural');
 		$frm->set_rules('food_energy', 'พลังงาน', 'trim|required');
-		$frm->set_rules('fag_allow', 'สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]', 'trim|required');
+		$frm->set_rules('fag_allow', 'สถานะ', 'trim');
 
-		$frm->set_message('required', '- กรุณากรอก %s');
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
 		$frm->set_message('decimal', '- %s ต้องระบุตัวเลขทศนิยม');
 
@@ -253,9 +253,9 @@ class Users_food_time extends CRUD_Controller
 		$frm->set_rules('date_eat', 'วันที่', 'trim|required');
 		$frm->set_rules('food_id', 'เมนูอาหาร', 'trim|required|is_natural');
 		$frm->set_rules('food_energy', 'พลังงาน', 'trim|required');
-		$frm->set_rules('fag_allow', 'สถานะ [allow=ปกติ,block=ระงับ,delete=ลบ]', 'trim|required');
+		$frm->set_rules('fag_allow', 'สถานะ', 'trim');
 
-		$frm->set_message('required', '- กรุณากรอก %s');
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
 		$frm->set_message('decimal', '- %s ต้องระบุตัวเลขทศนิยม');
 

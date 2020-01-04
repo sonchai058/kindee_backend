@@ -68,7 +68,7 @@ class Shop_promotions extends CRUD_Controller
 
 		$post = $this->input->post(NULL, TRUE);
 
-	    if(count($post['pro_id'])) {
+	    if(count(@$post['pro_id'])) {
 		    $this->load->model("common_model");
 
 		    $this->common_model->update("shop_promotions",array('fag_allow'=>'delete',"user_delete"=>get_session("user_id"),'datetime_delete'=>date('Y-m-d H:i:s')),array('shop_id'=>$this->session->userdata('shop_id')));
@@ -339,7 +339,7 @@ class Shop_promotions extends CRUD_Controller
 		$frm->set_rules('user_update', 'ผู้อัปเดต', 'trim|required|is_natural');
 		$frm->set_rules('datetime_update', 'วันเวลา ที่อัปเดต', 'trim|required');
 
-		$frm->set_message('required', '- กรุณากรอก %s');
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
 
 		if ($frm->run() == FALSE) {
@@ -364,7 +364,7 @@ class Shop_promotions extends CRUD_Controller
 		$frm->set_rules('user_update', 'ผู้อัปเดต', 'trim|required|is_natural');
 		$frm->set_rules('datetime_update', 'วันเวลา ที่อัปเดต', 'trim|required');
 
-		$frm->set_message('required', '- กรุณากรอก %s');
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
 
 		if ($frm->run() == FALSE) {

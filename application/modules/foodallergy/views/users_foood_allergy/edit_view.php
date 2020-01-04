@@ -34,20 +34,18 @@
 						<input type="text" class="form-control " id="food_alg_val" name="food_alg_val" value="{record_food_alg_val}"  />
 					</div>
 
+				<!--
 					<div class="col-sm-12 col-md-4">
 						<label class="col-sm-12 control-label" for="fag_allow">สถานะ  :</label><br/>
 						<select id="fag_allow" name="fag_allow" value="{record_fag_allow}" >
 							<!-- <option value="">- เลือก สถานะ -</option>-->
+				<!--
 							<option value="allow">ปกติ</option>
 							<option value="block">ระงับ</option>
 							<option value="delete">ลบ</option>
 						</select>
 					</div>
-	
-				</div>
-
-				<br/>
-				<div class="row">
+				-->
 					<div class="col-sm-12 col-md-4">
 						<label class='col-sm-12 control-label' for='time_len_eat'>ระยะเวลาที่ควรบริโภค  :</label><br/>
 						<select id="time_len_eat" name="time_len_eat" value="{record_time_len_eat}" >
@@ -56,9 +54,10 @@
 							<option value="ไม่จำกัด">ไม่จำกัด</option>
 						</select>
 					</div>
-				</div>
-				<br/>
 
+				</div>
+
+				<br/>
 				<div class='form-group'>
 					<div class="col-sm-12 text-right">
 						<button  type="button" class='btn btn-warning btn-md'  data-toggle='modal' data-target='#editModal' >&nbsp;&nbsp;<i class="fa fa-save"></i> บันทึก &nbsp;&nbsp;</button>

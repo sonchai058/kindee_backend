@@ -48,7 +48,7 @@ class Users_drug_model extends MY_Model
 				,'drug_name' => $post['drug_name']
 				,'eat_time' => $post['eat_time']
 				,'date_eat' => $date_eat
-				,'fag_allow' => $post['fag_allow']
+				,'fag_allow' => 'allow'
 		);
 		return $this->add_record($data);
 	}
@@ -141,7 +141,7 @@ class Users_drug_model extends MY_Model
 				'drug_name' => $post['drug_name']
 				,'eat_time' => $post['eat_time']
 				,'date_eat' => $date_eat
-				,'fag_allow' => $post['fag_allow']
+				//,'fag_allow' => $post['fag_allow']
 		);
 
 		$drug_id = checkEncryptData($post['encrypt_drug_id']);

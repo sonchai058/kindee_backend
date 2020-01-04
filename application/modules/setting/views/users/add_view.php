@@ -178,7 +178,10 @@
 				</div>
 
 				<br/>
-
+				
+			<?php
+			if($this->session->userdata('user_level')=='admin') {
+			?>
 				<div class="row">
 					<div class="col-sm-12 col-md-4">
 						<label class="col-sm-12 control-label" for="org_id">ชื่อองค์กรที่สังกัด  :</label><br/>
@@ -198,21 +201,24 @@
 							<option value="shop">ร้านค้า</option>
 						</select>
 					</div>
-
+				<!--
 					<div class="col-sm-12 col-md-4">
 						<label class="col-sm-12 control-label" for="fag_allow">สถานะ  :</label><br/>
 						<select id="fag_allow" name="fag_allow" value="allow" >
 							<!-- <option value="">- เลือก สถานะ -</option> -->
+				<!--
 							<option value="allow">เผยแพร่</option>
 							<option value="block">ไม่เผยแพร่</option>
 							<option value="delete">ลบ</option>
 						</select>
 					</div>
+				-->
 
 				</div>
-
 				<br/>
-
+			<?php
+			}
+			?>
 <!--
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="food_intol_exam">เคยตรวจ Food Intolerance หรือไม่ Yes | No  :</label>

@@ -53,8 +53,8 @@ class Users_model extends MY_Model
 				//,'cus_passwd' => pass_secure_hash($post['cus_passwd'])
 				,'cus_passwd' => $post['cus_passwd']
 				,'addr' => $post['addr']
-				,'fag_allow' => $post['fag_allow']
-				,'org_id' => $post['org_id']
+				,'fag_allow' => 'allow'
+				,'org_id' => @$post['org_id']
 				,'user_sex' => $post['user_sex']
 				,'user_height' => str_replace(",", "", $post['user_height'])
 				,'goal_reduce_weight' => str_replace(",", "", $post['goal_reduce_weight'])
@@ -63,7 +63,7 @@ class Users_model extends MY_Model
 				,'goal_increase_weight' => str_replace(",", "", $post['goal_increase_weight'])
 				,'increase_date_start' => setDateToStandard($post['increase_date_start'])
 				,'increase_date_end' => setDateToStandard($post['increase_date_end'])
-				,'user_level' => $post['user_level']
+				,'user_level' => @$post['user_level']
 				//,'food_intol_exam' => $post['food_intol_exam']
 				,'limit_allmeat' => $post['limit_allmeat']
 				,'limit_pig' => $post['limit_pig']
@@ -172,8 +172,8 @@ class Users_model extends MY_Model
 				//,'cus_passwd' => pass_secure_hash($post['cus_passwd'])
 				,'cus_passwd' => $post['cus_passwd']
 				,'addr' => $post['addr']
-				,'fag_allow' => $post['fag_allow']
-				,'org_id' => $post['org_id']
+				//,'fag_allow' => @$post['fag_allow']
+				,'org_id' => @$post['org_id']
 				,'user_sex' => $post['user_sex']
 				,'user_height' => str_replace(",", "",$post['user_height'])
 				,'goal_reduce_weight' => str_replace(",", "",$post['goal_reduce_weight'])
@@ -182,7 +182,7 @@ class Users_model extends MY_Model
 				,'goal_increase_weight' => str_replace(",", "",$post['goal_increase_weight'])
 				,'increase_date_start' => setDateToStandard($post['increase_date_start'])
 				,'increase_date_end' => setDateToStandard($post['increase_date_end'])
-				,'user_level' => $post['user_level']
+				,'user_level' => @$post['user_level']
 				//,'food_intol_exam' => $post['food_intol_exam']
 				,'limit_allmeat' => $post['limit_allmeat']
 				,'limit_pig' => $post['limit_pig']
