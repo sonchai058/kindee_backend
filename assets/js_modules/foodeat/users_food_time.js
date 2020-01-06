@@ -60,6 +60,7 @@ var UsersFoodTime = {
 					if(results.is_successful){
 						$('#formAdd')[0].reset();
 						$("#food_id").select2("val", "");
+						setTimeout(function(){location.reload();},700);
 					}
 				},
 				error : function(jqXHR, exception){

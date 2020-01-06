@@ -81,6 +81,7 @@ var Shops = {
 											num = 1;
 											$("#uploadContent").html("");
 											//$('#divPreview').html(results);
+											setTimeout(function(){location.reload();},700);
 										},
 										error : function(jqXHR, exception){
 											ajaxErrorMessage(jqXHR, exception);

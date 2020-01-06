@@ -62,6 +62,7 @@ var SelfFoodMenu = {
 						$('#formAdd')[0].reset();
 						num = 1;
 						$(".wrap_rmat_content").html("");
+						setTimeout(function(){location.reload();},700);
 					}
 				},
 				error : function(jqXHR, exception){

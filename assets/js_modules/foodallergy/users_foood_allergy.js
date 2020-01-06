@@ -59,6 +59,7 @@ var UsersFooodAllergy = {
 
 					if(results.is_successful){
 					$('#formAdd')[0].reset();
+					setTimeout(function(){location.reload();},700);
 					}
 				},
 				error : function(jqXHR, exception){

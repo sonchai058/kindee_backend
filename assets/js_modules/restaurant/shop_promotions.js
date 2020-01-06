@@ -66,6 +66,7 @@ var ShopPromotions = {
 							if(results.is_successful){
 								notify('แจ้งเตือน', 'บันทึกข้อมูลหลักเรียบร้อย ดำเนินการในขั้นตอนต่อไป', 'success', 'center');
 								$("#frmUploadDetail :input").attr("disabled", false);
+								setTimeout(function(){location.reload();},700);
 
 							}else{
 								notify('เพิ่มข้อมูล', results.message, 'danger', 'center');
