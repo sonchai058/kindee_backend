@@ -1,6 +1,11 @@
 <?php
-
 defined('BASEPATH') OR exit('No direct script access allowed');
+
+require APPPATH . '/libraries/jwt/JWT.php';
+require APPPATH . '/libraries/jwt/BeforeValidException.php';
+require APPPATH . '/libraries/jwt/ExpiredException.php';
+require APPPATH . '/libraries/jwt/SignatureInvalidException.php';
+use \Firebase\JWT\JWT;
 
 /**
  * CodeIgniter Rest Controller
@@ -285,16 +290,16 @@ abstract class REST_Controller extends CI_Controller {
     /**
      * The start of the response time from the server
      *
-     * @var string
+     * @var number
      */
-    protected $_start_rtime = '';
+    protected $_start_rtime;
 
     /**
      * The end of the response time from the server
      *
-     * @var string
+     * @var number
      */
-    protected $_end_rtime = '';
+    protected $_end_rtime;
 
     /**
      * List all supported methods, the first will be the default format
@@ -360,6 +365,13 @@ abstract class REST_Controller extends CI_Controller {
     ];
 
     /**
+     * The Secret Key of the JWT authentication
+     *
+     * @var string
+     */
+    protected $jwt_secret_key = '';
+
+    /**
      * Extend this function to apply additional checking early on in the process
      *
      * @access protected
@@ -375,27 +387,12 @@ abstract class REST_Controller extends CI_Controller {
      * @access public
      * @param string $config Configuration filename minus the file extension
      * e.g: my_rest.php is passed as 'my_rest'
-     * @return void
      */
     public function __construct($config = 'rest')
     {
         parent::__construct();
 
-        // Disable XML Entity (security vulnerability)
-        libxml_disable_entity_loader(TRUE);
-
-        // Check to see if PHP is equal to or greater than 5.4.x
-        if (is_php('5.4') === FALSE)
-        {
-            // CodeIgniter 3 is recommended for v5.4 or above
-            throw new Exception('Using PHP v'.PHP_VERSION.', though PHP v5.4 or greater is required');
-        }
-
-        // Check to see if this is CI 3.x
-        if (explode('.', CI_VERSION, 2)[0] < 3)
-        {
-            throw new Exception('REST Server requires CodeIgniter 3.x');
-        }
+        $this->preflight_checks();
 
         // Set the default value of global xss filtering. Same approach as CodeIgniter 3
         $this->_enable_xss = ($this->config->item('global_xss_filtering') === TRUE);
@@ -412,6 +409,9 @@ abstract class REST_Controller extends CI_Controller {
 
         // At present the library is bundled with REST_Controller 2.5+, but will eventually be part of CodeIgniter (no citation)
         $this->load->library('format');
+
+        //Get JWT secret key
+        $this->jwt_secret_key = $this->config->item('jwt_secret_key');
 
         // Determine supported output formats from configuration
         $supported_formats = $this->config->item('rest_supported_formats');
@@ -491,6 +491,12 @@ abstract class REST_Controller extends CI_Controller {
 
         $this->{'_parse_' . $this->request->method}();
 
+        // Fix parse method return arguments null
+        if($this->{'_'.$this->request->method.'_args'} === null)
+        {
+            $this->{'_'.$this->request->method.'_args'} = [];
+        }
+
         // Now we know all about our request, let's try and parse the body if it exists
         if ($this->request->format && $this->request->body)
         {
@@ -501,6 +507,7 @@ abstract class REST_Controller extends CI_Controller {
 
         //get header vars
         $this->_head_args = $this->input->request_headers();
+
 
         // Merge both for one mega-args variable
         $this->_args = array_merge(
@@ -573,6 +580,9 @@ abstract class REST_Controller extends CI_Controller {
                 case 'session':
                     $this->_check_php_session();
                     break;
+                case 'jwt':
+                    $this->_check_jwt();
+                    break;
             }
             if ($this->config->item('rest_ip_whitelist_enabled') === TRUE)
             {
@@ -582,7 +592,7 @@ abstract class REST_Controller extends CI_Controller {
     }
 
     /**
-     * Deconstructor
+     * De-constructor
      *
      * @author Chris Kacerguis
      * @access public
@@ -601,13 +611,35 @@ abstract class REST_Controller extends CI_Controller {
     }
 
     /**
+     * Checks to see if we have everything we need to run this library.
+     *
+     * @access protected
+     * @throws Exception
+     */
+    protected function preflight_checks()
+    {
+        // Check to see if PHP is equal to or greater than 5.4.x
+        if (is_php('5.4') === FALSE)
+        {
+            // CodeIgniter 3 is recommended for v5.4 or above
+            throw new Exception('Using PHP v'.PHP_VERSION.', though PHP v5.4 or greater is required');
+        }
+
+        // Check to see if this is CI 3.x
+        if (explode('.', CI_VERSION, 2)[0] < 3)
+        {
+            throw new Exception('REST Server requires CodeIgniter 3.x');
+        }
+    }
+
+    /**
      * Requests are not made to methods directly, the request will be for
      * an "object". This simply maps the object and method to the correct
      * Controller method
      *
      * @access public
-     * @param  string $object_called
-     * @param  array $arguments The arguments passed to the controller method
+     * @param string $object_called
+     * @param array $arguments The arguments passed to the controller method
      */
     public function _remap($object_called, $arguments = [])
     {
@@ -624,6 +656,11 @@ abstract class REST_Controller extends CI_Controller {
         $object_called = preg_replace('/^(.*)\.(?:'.implode('|', array_keys($this->_supported_formats)).')$/', '$1', $object_called);
 
         $controller_method = $object_called.'_'.$this->request->method;
+	    // Does this method exist? If not, try executing an index method
+	    if (!method_exists($this, $controller_method)) {
+		    $controller_method = "index_" . $this->request->method;
+		    array_unshift($arguments, $object_called);
+	    }
 
         // Do we want to log this method (if allowed by config)?
         $log_method = ! (isset($this->methods[$controller_method]['log']) && $this->methods[$controller_method]['log'] === FALSE);
@@ -637,6 +674,11 @@ abstract class REST_Controller extends CI_Controller {
             if ($this->config->item('rest_enable_logging') && $log_method)
             {
                 $this->_log_request();
+            }
+
+            // fix cross site to option request error
+            if($this->request->method == 'options') {
+                exit;
             }
 
             $this->response([
@@ -660,7 +702,7 @@ abstract class REST_Controller extends CI_Controller {
         }
 
         // Sure it exists, but can they do anything with it?
-        if (!method_exists($this, $controller_method))
+        if (! method_exists($this, $controller_method))
         {
             $this->response([
                     $this->config->item('rest_status_field_name') => FALSE,
@@ -696,6 +738,13 @@ abstract class REST_Controller extends CI_Controller {
             }
         }
 
+        //check request limit by ip without login
+        elseif ($this->config->item('rest_limits_method') == "IP_ADDRESS" && $this->config->item('rest_enable_limits') && $this->_check_limit($controller_method) === FALSE)
+        {
+            $response = [$this->config->item('rest_status_field_name') => FALSE, $this->config->item('rest_message_field_name') => $this->lang->line('text_rest_ip_address_time_limit')];
+            $this->response($response, self::HTTP_UNAUTHORIZED);
+        }
+
         // No key stuff, but record that stuff is happening
         elseif ($this->config->item('rest_enable_logging') && $log_method)
         {
@@ -709,14 +758,13 @@ abstract class REST_Controller extends CI_Controller {
         }
         catch (Exception $ex)
         {
+            if ($this->config->item('rest_handle_exceptions') === FALSE) {
+                throw $ex;
+            }
+
             // If the method doesn't exist, then the error will be caught and an error response shown
-            $this->response([
-                    $this->config->item('rest_status_field_name') => FALSE,
-                    $this->config->item('rest_message_field_name') => [
-                        'classname' => get_class($ex),
-                        'message' => $ex->getMessage()
-                    ]
-                ], self::HTTP_INTERNAL_SERVER_ERROR);
+	        $_error = &load_class('Exceptions', 'core');
+	        $_error->show_exception($ex);
         }
     }
 
@@ -731,6 +779,7 @@ abstract class REST_Controller extends CI_Controller {
      */
     public function response($data = NULL, $http_code = NULL, $continue = FALSE)
     {
+		ob_start();
         // If the HTTP status is not NULL, then cast as an integer
         if ($http_code !== NULL)
         {
@@ -758,7 +807,7 @@ abstract class REST_Controller extends CI_Controller {
                 $output = $this->format->factory($data)->{'to_' . $this->response->format}();
 
                 // An array must be parsed as a string, so as not to cause an array to string error
-                // Json is the most appropriate form for such a datatype
+                // Json is the most appropriate form for such a data type
                 if ($this->response->format === 'array')
                 {
                     $output = $this->format->factory($output)->{'to_json'}();
@@ -799,6 +848,10 @@ abstract class REST_Controller extends CI_Controller {
             $this->output->_display();
             exit;
         }
+		else
+		{
+			ob_end_flush();
+		}
 
         // Otherwise dump the output automatically
     }
@@ -1109,7 +1162,7 @@ abstract class REST_Controller extends CI_Controller {
      * Check if the requests to a controller method exceed a limit
      *
      * @access protected
-     * @param  string $controller_method The method being called
+     * @param string $controller_method The method being called
      * @return bool TRUE the call limit is below the threshold; otherwise, FALSE
      */
     protected function _check_limit($controller_method)
@@ -1121,16 +1174,21 @@ abstract class REST_Controller extends CI_Controller {
             return TRUE;
         }
 
+        $api_key = isset($this->rest->key) ? $this->rest->key : '';
+
         switch ($this->config->item('rest_limits_method'))
         {
+          case 'IP_ADDRESS':
+            $limited_uri = 'ip-address:' .$this->input->ip_address();
+            $api_key = $this->input->ip_address();
+            break;
+
           case 'API_KEY':
-            $limited_uri = 'api-key:' . (isset($this->rest->key) ? $this->rest->key : '');
-            $limited_method_name = isset($this->rest->key) ? $this->rest->key : '';
+            $limited_uri = 'api-key:' . $api_key;
             break;
 
           case 'METHOD_NAME':
             $limited_uri = 'method-name:' . $controller_method;
-            $limited_method_name =  $controller_method;
             break;
 
           case 'ROUTED_URL':
@@ -1141,25 +1199,24 @@ abstract class REST_Controller extends CI_Controller {
                 $limited_uri = substr($limited_uri,0, -strlen($this->response->format) - 1);
             }
             $limited_uri = 'uri:'.$limited_uri.':'.$this->request->method; // It's good to differentiate GET from PUT
-            $limited_method_name = $controller_method;
             break;
         }
 
-        if (isset($this->methods[$limited_method_name]['limit']) === FALSE )
+        if (isset($this->methods[$controller_method]['limit']) === FALSE )
         {
             // Everything is fine
             return TRUE;
         }
 
         // How many times can you get to this method in a defined time_limit (default: 1 hour)?
-        $limit = $this->methods[$limited_method_name]['limit'];
+        $limit = $this->methods[$controller_method]['limit'];
 
-        $time_limit = (isset($this->methods[$limited_method_name]['time']) ? $this->methods[$limited_method_name]['time'] : 3600); // 3600 = 60 * 60
+        $time_limit = (isset($this->methods[$controller_method]['time']) ? $this->methods[$controller_method]['time'] : 3600); // 3600 = 60 * 60
 
         // Get data about a keys' usage and limit to one row
         $result = $this->rest->db
             ->where('uri', $limited_uri)
-            ->where('api_key', $this->rest->key)
+            ->where('api_key', $api_key)
             ->get($this->config->item('rest_limits_table'))
             ->row();
 
@@ -1169,7 +1226,7 @@ abstract class REST_Controller extends CI_Controller {
             // Create a new row for the following key
             $this->rest->db->insert($this->config->item('rest_limits_table'), [
                 'uri' => $limited_uri,
-                'api_key' => isset($this->rest->key) ? $this->rest->key : '',
+                'api_key' =>$api_key,
                 'count' => 1,
                 'hour_started' => time()
             ]);
@@ -1181,7 +1238,7 @@ abstract class REST_Controller extends CI_Controller {
             // Reset the started period and count
             $this->rest->db
                 ->where('uri', $limited_uri)
-                ->where('api_key', isset($this->rest->key) ? $this->rest->key : '')
+                ->where('api_key', $api_key)
                 ->set('hour_started', time())
                 ->set('count', 1)
                 ->update($this->config->item('rest_limits_table'));
@@ -1199,7 +1256,7 @@ abstract class REST_Controller extends CI_Controller {
             // Increase the count by one
             $this->rest->db
                 ->where('uri', $limited_uri)
-                ->where('api_key', $this->rest->key)
+                ->where('api_key', $api_key)
                 ->set('count', 'count + 1', FALSE)
                 ->update($this->config->item('rest_limits_table'));
         }
@@ -1254,6 +1311,14 @@ abstract class REST_Controller extends CI_Controller {
                     return TRUE;
                 }
 
+                // JWT auth override found, check jwt
+                if ($auth_override_class_method[$this->router->class]['*'] === 'jwt')
+                {
+                    $this->_check_jwt();
+
+                    return TRUE;
+                }
+
                 // Whitelist auth override found, check client's ip against config whitelist
                 if ($auth_override_class_method[$this->router->class]['*'] === 'whitelist')
                 {
@@ -1292,6 +1357,14 @@ abstract class REST_Controller extends CI_Controller {
                 if ($auth_override_class_method[$this->router->class][$this->router->method] === 'session')
                 {
                     $this->_check_php_session();
+
+                    return TRUE;
+                }
+
+                // JWT auth override found, check jwt
+                if ($auth_override_class_method[$this->router->class][$this->router->method] === 'jwt')
+                {
+                    $this->_check_jwt();
 
                     return TRUE;
                 }
@@ -1345,6 +1418,14 @@ abstract class REST_Controller extends CI_Controller {
                     return TRUE;
                 }
 
+                // JWT auth override found, check jwt
+                if ($auth_override_class_method_http[$this->router->class]['*'][$this->request->method] === 'jwt')
+                {
+                    $this->_check_jwt();
+
+                    return TRUE;
+                }
+
                 // Whitelist auth override found, check client's ip against config whitelist
                 if ($auth_override_class_method_http[$this->router->class]['*'][$this->request->method] === 'whitelist')
                 {
@@ -1383,6 +1464,14 @@ abstract class REST_Controller extends CI_Controller {
                 if ($auth_override_class_method_http[$this->router->class][$this->router->method][$this->request->method] === 'session')
                 {
                     $this->_check_php_session();
+
+                    return TRUE;
+                }
+
+                // JWT auth override found, check jwt
+                if ($auth_override_class_method_http[$this->router->class][$this->router->method][$this->request->method] === 'jwt')
+                {
+                    $this->_check_jwt();
 
                     return TRUE;
                 }
@@ -1445,7 +1534,7 @@ abstract class REST_Controller extends CI_Controller {
         }
         else if ($this->input->method() === 'put')
         {
-           // If no filetype is provided, then there are probably just arguments
+           // If no file type is provided, then there are probably just arguments
            $this->_put_args = $this->input->input_stream();
         }
     }
@@ -1495,7 +1584,7 @@ abstract class REST_Controller extends CI_Controller {
         }
         else if ($this->input->method() === 'patch')
         {
-            // If no filetype is provided, then there are probably just arguments
+            // If no file type is provided, then there are probably just arguments
             $this->_patch_args = $this->input->input_stream();
         }
     }
@@ -1581,8 +1670,13 @@ abstract class REST_Controller extends CI_Controller {
         {
             return $this->_head_args;
         }
+        $strtolower_key = isset($this->_head_args[strtolower($key)]) ? $this->_xss_clean($this->_head_args[strtolower($key)], $xss_clean) : NULL;
+        if($strtolower_key != ''){
+          return $strtolower_key;
+        }else{
+          return isset($this->_head_args[$key]) ? $this->_xss_clean($this->_head_args[$key], $xss_clean) : NULL;
+        }
 
-        return isset($this->_head_args[$key]) ? $this->_xss_clean($this->_head_args[$key], $xss_clean) : NULL;
     }
 
     /**
@@ -1685,8 +1779,8 @@ abstract class REST_Controller extends CI_Controller {
      * prevented
      *
      * @access protected
-     * @param  string $value Input data
-     * @param  bool $xss_clean Whether to apply XSS filtering
+     * @param string $value Input data
+     * @param bool $xss_clean Whether to apply XSS filtering
      * @return string
      */
     protected function _xss_clean($value, $xss_clean)
@@ -1715,8 +1809,8 @@ abstract class REST_Controller extends CI_Controller {
      * Perform LDAP Authentication
      *
      * @access protected
-     * @param  string $username The username to validate
-     * @param  string $password The password to validate
+     * @param string $username The username to validate
+     * @param string $password The password to validate
      * @return bool
      */
     protected function _perform_ldap_auth($username = '', $password = NULL)
@@ -1810,8 +1904,8 @@ abstract class REST_Controller extends CI_Controller {
      * Perform Library Authentication - Override this function to change the way the library is called
      *
      * @access protected
-     * @param  string $username The username to validate
-     * @param  string $password The password to validate
+     * @param string $username The username to validate
+     * @param string $password The password to validate
      * @return bool
      */
     protected function _perform_library_auth($username = '', $password = NULL)
@@ -1849,8 +1943,8 @@ abstract class REST_Controller extends CI_Controller {
      * Check if the user is logged in
      *
      * @access protected
-     * @param  string $username The user's name
-     * @param  bool|string $password The user's password
+     * @param string $username The user's name
+     * @param bool|string $password The user's password
      * @return bool
      */
     protected function _check_login($username = NULL, $password = FALSE)
@@ -1903,6 +1997,106 @@ abstract class REST_Controller extends CI_Controller {
     }
 
     /**
+     * Check to see if the JWT is valid
+     *
+     * @access protected
+     * @return void
+     */
+    protected function _check_jwt()
+    {
+        $authorization = $this->head('Authorization');
+
+        if (!empty($authorization))
+        {
+            if (preg_match('/Bearer\s(\S+)/', $authorization, $matches))
+            {
+                $bearer = $matches[1];
+                try
+                {
+                    $decoded = JWT::decode($bearer, $this->jwt_secret_key, array('HS256'));
+
+                    /*$this->response([
+                        $this->config->item('rest_status_field_name') => 'decoded '.$decoded,
+                        $this->config->item('rest_message_field_name') => $bearer
+                    ], self::HTTP_UNAUTHORIZED);*/
+                }
+                catch (Exception $e)
+                {
+                    $this->response([
+                        $this->config->item('rest_status_field_name') => 'invalid_token',
+                        $this->config->item('rest_message_field_name') => $e->getMessage()
+                    ], self::HTTP_UNAUTHORIZED);
+                }
+            }
+            else
+            {
+                $this->response([
+                    $this->config->item('rest_status_field_name') => 'empty_bearer',
+                    $this->config->item('rest_message_field_name') => 'Bearer is missing'
+                ], self::HTTP_UNPROCESSABLE_ENTITY);
+            }
+        }
+        else
+        {
+
+            foreach ($this->_head_args as $key => $value) {
+              $head_args .= "|".$key.":".$value;
+            }
+            $this->response([
+                $this->config->item('rest_status_field_name') => 'empty_authorization',
+                $this->config->item('rest_message_field_name') => 'Authorization Header is missing'.$head_args
+            ], self::HTTP_UNPROCESSABLE_ENTITY);
+        }
+    }
+
+    /**
+     * JWT encoding
+     *
+     * @access protected
+     * @param array $token The JWT Token data
+     * @return string
+     */
+    protected function jwt_encode($token)
+    {
+        return JWT::encode($token, $this->jwt_secret_key);
+    }
+
+    /**
+     * JWT decoding
+     *
+     * @access protected
+     * @param string $token The JWT Token
+     * @return array
+     */
+    protected function jwt_decode($token)
+    {
+        $decoded = JWT::decode($token, $this->jwt_secret_key, array('HS256'));
+        $decoded_array = (array) $decoded;
+        return $decoded_array;
+    }
+
+    /**
+     * Get JWT Token Bearer
+     *
+     * @access protected
+     * @return string
+     */
+    protected function jwt_token()
+    {
+        $authorization = $this->head('Authorization');
+
+        if (!empty($authorization))
+        {
+            if (preg_match('/Bearer\s(\S+)/', $authorization, $matches))
+            {
+                return $matches[1];
+            }
+            return FALSE;
+        }
+        return FALSE;
+    }
+
+    /**
      * Check to see if the user is logged in with a PHP session key
      *
      * @access protected
@@ -1913,7 +2107,7 @@ abstract class REST_Controller extends CI_Controller {
         // Get the auth_source config item
         $key = $this->config->item('auth_source');
 
-        // If falsy, then the user isn't logged in
+        // If false, then the user isn't logged in
         if ( ! $this->session->userdata($key))
         {
             // Display an error response
@@ -2154,6 +2348,16 @@ abstract class REST_Controller extends CI_Controller {
             return TRUE;
         }
 
+        //check if the key has all_access
+        $accessRow = $this->rest->db
+            ->where('key', $this->rest->key)
+            ->get($this->config->item('rest_access_table'))->row_array();
+
+        if (!empty($accessRow) && !empty($accessRow['all_access']))
+        {
+        	return TRUE;
+        }
+
         // Fetch controller based on path and controller name
         $controller = implode(
             '/', [
@@ -2216,5 +2420,4 @@ abstract class REST_Controller extends CI_Controller {
             exit;
         }
     }
-
 }

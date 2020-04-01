@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-require APPPATH . 'libraries/REST_Controller.php';
+require APPPATH . '/libraries/REST_Controller.php';
 
 /*
  * Changes:
@@ -24,7 +24,8 @@ class Auth extends REST_Controller
     {
         parent::__construct();
         $this->load->model('api/Login_api_model', 'auth');
-        $this->load->helper(['jwt', 'authorization']);
+        //$this->load->helper(['jwt', 'authorization']);
+        //$this->load->library(array('ion_auth'));
     }
 
     /**
@@ -40,14 +41,23 @@ class Auth extends REST_Controller
         $pid = $request->username;
         $passcode = $request->password;
 
-
         $res = $this->auth->getLogin($pid, $passcode);
 
         $output = array();
         if ($res) {
             $output['status'] = true;
             $output['data'] = $res;
-            $output['token'] = AUTHORIZATION::generateToken($res['user_id']);
+
+            $token['user_id'] = $res['user_id'];
+            $token['username'] = $res['email_addr'];
+            $token['permission'] = @$this->permission;
+            $output['token'] = $this->jwt_encode($token);
+
+            //$output['token'] = JWT::encode('123456','kindee');
+            //$output['token'] = $this->jwt_encode($token);
+
+
+            //$output['token'] = AUTHORIZATION::generateToken($res['user_id']);
             return $this->set_response($output, REST_Controller::HTTP_OK);
         }
         $output['status'] = false;
@@ -55,6 +65,41 @@ class Auth extends REST_Controller
 
 
     }
+
+    /**
+     * URL: http://localhost/CodeIgniter-JWT-Sample/auth/token
+     * Method: GET
+     */
+    public function day_get($day='', $pn='')
+    {
+      $res['today'] = date('Ymd');
+
+      if($pn != ''){
+        if($day != ''){
+          $sub_month = substr($day, 4, 2);
+          $sub_day = substr($day, 6, 2);
+          $sub_year = substr($day, 0, 4);
+          //$res['month'] = $sub_month;
+          //$res['day'] = $sub_day;
+          //$res['year'] = $sub_year;
+        }
+        $mktime = mktime(0, 0, 0, intval($sub_month), intval($sub_day), intval($sub_year));
+        $valday = date('Ymd',strtotime($pn."day", $mktime));
+      }else{
+        $valday = date('Ymd');
+      }
+
+      $sub_valmonth = substr($valday, 4, 2);
+      $sub_valday = substr($valday, 6, 2);
+      $sub_valyear = substr($valday, 0, 4);
+
+      $res['valday'] = $valday;
+      $res['formatday'] = $sub_valday.'/'.$sub_valmonth.'/'.($sub_valyear+543);
+      $output['status'] = true;
+      $output['data'] = $res;
+      return $this->set_response($output, REST_Controller::HTTP_OK);
+    }
+
 
        /**
      * URL: http://localhost/CodeIgniter-JWT-Sample/auth/token

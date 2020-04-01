@@ -104,13 +104,25 @@ $config['rest_realm'] = 'REST API';
 | Set to specify the REST API requires to be logged in
 |
 | FALSE     No login required
-| 'basic'   Unsecure login
-| 'digest'  More secure login
+| 'basic'   Unsecured login
+| 'digest'  More secured login
 | 'session' Check for a PHP session variable. See 'auth_source' to set the
 |           authorization key
+| 'jwt'     Check jwt bearer on authorization header and validate it.
 |
 */
-$config['rest_auth'] = FALSE;
+$config['rest_auth'] = 'jwt';
+
+/*
+|--------------------------------------------------------------------------
+| JWT Settings
+|--------------------------------------------------------------------------
+|
+| Required for jwt authentication
+|
+*/
+$config['jwt_secret_key'] = '&fV7Txf}%JrSkw$[M~W*jUQ)z"3?5s!w';
+$config['jwt_token_expire'] = 86500;
 
 /*
 |--------------------------------------------------------------------------
@@ -126,7 +138,7 @@ $config['rest_auth'] = FALSE;
 | Note: If 'rest_auth' is set to 'session' then change 'auth_source' to the name of the session variable
 |
 */
-$config['auth_source'] = 'ldap';
+$config['auth_source'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -187,9 +199,33 @@ $config['auth_library_function'] = '';
 // ---Uncomment list line for the wildard unit test
 // $config['auth_override_class_method']['wildcard_test_cases']['*'] = 'basic';
 
+// JWT Exmaple
+//$config['auth_override_class_method_http']['jwt']['token']['post'] = 'none';
+//$config['auth_override_class_method_http']['jwt']['token_refresh']['get'] = 'jwt';
+//$config['auth_override_class_method_http']['jwt']['token_info']['get'] = 'jwt';
+$config['auth_override_class_method_http']['auth']['login']['post'] = 'none';
+$config['auth_override_class_method_http']['auth']['token']['get'] = 'none';
+//$config['auth_override_class_method_http']['body']['bmi']['get'] = 'none';
+
+$config['auth_override_class_method_http']['authen']['token_info']['get'] = 'jwt';
+$config['auth_override_class_method_http']['authen']['repassword_info']['post'] = 'none';
+$config['auth_override_class_method_http']['authen']['repassword']['post'] = 'none';
+$config['auth_override_class_method_http']['authen']['re_password_info']['get'] = 'none';
+$config['auth_override_class_method_http']['authen']['re_password']['get'] = 'none';
+$config['auth_override_class_method_http']['authen']['register']['post'] = 'none';
+
+$config['auth_override_class_method_http']['dropdown']['complain_type_lists']['get'] = 'none';
+
+//by pass report
+$config['auth_override_class_method_http']['report']['month_report']['get'] = 'none';
+$config['auth_override_class_method_http']['report']['report_statistic_by_type']['get'] = 'none';
+$config['auth_override_class_method_http']['report']['report_statistic_by_type_max']['get'] = 'none';
+$config['auth_override_class_method_http']['report']['list_year']['get'] = 'none';
+
+
 /*
 |--------------------------------------------------------------------------
-| Override auth types for specfic 'class/method/HTTP method'
+| Override auth types for specific 'class/method/HTTP method'
 |--------------------------------------------------------------------------
 |
 | example:
@@ -214,24 +250,34 @@ $config['rest_valid_logins'] = ['admin' => '1234'];
 
 /*
 |--------------------------------------------------------------------------
-| Global IP Whitelisting
+| Global IP White-listing
 |--------------------------------------------------------------------------
 |
-| Limit connections to your REST server to whitelisted IP addresses
+| Limit connections to your REST server to White-listed IP addresses
 |
 | Usage:
 | 1. Set to TRUE and select an auth option for extreme security (client's IP
-|    address must be in whitelist and they must also log in)
-| 2. Set to TRUE with auth set to FALSE to allow whitelisted IPs access with no login
-| 3. Set to FALSE but set 'auth_override_class_method' to 'whitelist' to
-|    restrict certain methods to IPs in your whitelist
+|    address must be in white-list and they must also log in)
+| 2. Set to TRUE with auth set to FALSE to allow White-listed IPs access with no login
+| 3. Set to FALSE but set 'auth_override_class_method' to 'white-list' to
+|    restrict certain methods to IPs in your white-list
 |
 */
 $config['rest_ip_whitelist_enabled'] = FALSE;
 
 /*
 |--------------------------------------------------------------------------
-| REST IP Whitelist
+| REST Handle Exceptions
+|--------------------------------------------------------------------------
+|
+| Handle exceptions caused by the controller
+|
+*/
+$config['rest_handle_exceptions'] = TRUE;
+
+/*
+|--------------------------------------------------------------------------
+| REST IP White-list
 |--------------------------------------------------------------------------
 |
 | Limit connections to your REST server with a comma separated
@@ -334,6 +380,7 @@ $config['rest_key_column'] = 'key';
 | Specify the method used to limit the API calls
 |
 | Available methods are :
+| $config['rest_limits_method'] = 'IP_ADDRESS'; // Put a limit per ip address
 | $config['rest_limits_method'] = 'API_KEY'; // Put a limit per api key
 | $config['rest_limits_method'] = 'METHOD_NAME'; // Put a limit on method calls
 | $config['rest_limits_method'] = 'ROUTED_URL';  // Put a limit on the routed URL
@@ -417,6 +464,7 @@ $config['rest_logs_table'] = 'logs';
 |   CREATE TABLE `access` (
 |       `id` INT(11) unsigned NOT NULL AUTO_INCREMENT,
 |       `key` VARCHAR(40) NOT NULL DEFAULT '',
+|       `all_access` TINYINT(1) NOT NULL DEFAULT '0',
 |       `controller` VARCHAR(50) NOT NULL DEFAULT '',
 |       `date_created` DATETIME DEFAULT NULL,
 |       `date_modified` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -496,7 +544,7 @@ $config['rest_limits_table'] = 'limits';
 | Only do this if you are using the $this->rest_format or /format/xml in URLs
 |
 */
-$config['rest_ignore_http_accept'] = FALSE;
+$config['rest_ignore_http_accept'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
@@ -533,7 +581,7 @@ $config['rest_language'] = 'english';
 | will access it through a browser
 |
 */
-$config['check_cors'] = FALSE;
+$config['check_cors'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------
@@ -548,6 +596,7 @@ $config['allowed_cors_headers'] = [
   'X-Requested-With',
   'Content-Type',
   'Accept',
+  'Authorization',
   'Access-Control-Request-Method'
 ];
 
@@ -577,7 +626,7 @@ $config['allowed_cors_methods'] = [
 | source domain
 |
 */
-$config['allow_any_cors_domain'] = FALSE;
+$config['allow_any_cors_domain'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------

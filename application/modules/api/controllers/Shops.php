@@ -17,37 +17,41 @@ require APPPATH . 'libraries/REST_Controller.php';
  *
  */
 
-class User extends REST_Controller
+class Shops extends REST_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('api/User_api_model', 'user');
+        $this->load->model('api/Shops_api_model', 'shops');
+        $this->load->helper(['jwt', 'authorization']);
     }
 
     /**
      * URL: http://localhost/CodeIgniter-JWT-Sample/auth/token
      * Method: GET
      */
-     public function userinfo_get()
-     {
+    public function info_get($date='')
+    {
 
-       $jwt_token = $this->jwt_decode($this->jwt_token());
-       $pid = $jwt_token['username'];
-       $res = $this->user->getInfo($pid);
-       $output = array();
-       if ($res) {
-           $output['status'] = true;
-           $output['data'] = $res;
+        $jwt_token = $this->jwt_decode($this->jwt_token());
+        //$pid = 'user@gmail.com';
+        $pid = $jwt_token['username'];
 
-           return $this->set_response($output, REST_Controller::HTTP_OK);
-       }
-       $output['status'] = false;
-       return $this->set_response($output, REST_Controller::HTTP_UNAUTHORIZED);
-     }
+        $res = $this->shops->getShops();
 
+        $output = array();
+        if ($res) {
+            $output['status'] = true;
+            $output['data'] = $res;
+            $output['token'] = $this->jwt_token();
+            return $this->response($output, REST_Controller::HTTP_OK);
+        }
 
+        $output['status'] = false;
+        return $this->set_response($output, REST_Controller::HTTP_UNAUTHORIZED);
+
+    }
 
 
 }
