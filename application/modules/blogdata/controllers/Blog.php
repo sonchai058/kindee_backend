@@ -16,13 +16,13 @@ class Blog extends CRUD_Controller
 		parent::__construct();
 
 		chkUserPerm();
-		
+
 		$this->per_page = 30;
 		$this->num_links = 6;
 		$this->uri_segment = 4;
 		$this->load->model('blogdata/Blog_model', 'Blog');
 		$this->data['page_url'] = site_url('blogdata/blog');
-		
+
 		$this->data['page_title'] = 'ข่าว/บทความ';
 
 
@@ -103,7 +103,7 @@ class Blog extends CRUD_Controller
 	// ------------------------------------------------------------------------
 
 	/**
-	 * List all record 
+	 * List all record
 	 */
 	public function list_all() {
 		$this->session->unset_userdata($this->Blog->session_name . '_search_field');
@@ -229,7 +229,7 @@ class Blog extends CRUD_Controller
 		$this->data['users_user_delete_option_list'] = $this->Blog->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_add_option_list'] = $this->Blog->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_update_option_list'] = $this->Blog->returnOptionList("users", "user_id", "user_fname");
-		$this->render_view('blogdata/blog/add_view'); 
+		$this->render_view('blogdata/blog/add_view');
 	}
 
 	// ------------------------------------------------------------------------
@@ -373,7 +373,7 @@ class Blog extends CRUD_Controller
 				foreach ($rows as $key => $value) {
 					//$year = (substr($value['datetime_add'],0,4)+543);
                 	$blog_images =  $blog_images.'<div class="preview-image preview-show-'.($key+1).'">' .
-                            '<div data-image_id="'.$value['image_id'].'" class="image-cancel" data-no="'.($key+1).'">x</div>'.'<div class="image-zone"><img id="pro-img-'.($key+1).'" src="'.base_url().$value['encrypt_name'].'"></div>'.
+                            '<div data-image_id="'.$value['image_id'].'" class="image-cancel" data-no="'.($key+1).'">x</div>'.'<div class="image-zone"><img style="width:320px; height: 320px;" id="pro-img-'.($key+1).'" src="'.base_url().$value['encrypt_name'].'"></div>'.
                             '</div>';
 				}
 				$this->data['blog_images'] = $blog_images;
@@ -435,7 +435,7 @@ class Blog extends CRUD_Controller
 		));
 		echo $json;
 	}
-	
+
 	public function uploadfile() {
 		$message = '<strong>อัปโหลดสำเร็จ</strong>';
 		$upload_error = 0;
@@ -447,11 +447,11 @@ class Blog extends CRUD_Controller
 
 		$post = $this->input->post(NULL, TRUE);
 		$filename = $post['filename'];
-		
+
 
 		//$path = $this->upload_store_path .(date('Y')+543);
 		$path = $this->upload_store_path;
-		
+
 		$blob = $post['blob'];
 
 		$blob = str_replace("[removed]",'data:image/png;base64,',$blob);
@@ -525,7 +525,7 @@ class Blog extends CRUD_Controller
 		));
 		echo $json;
 	}
-	
+
 	/*
 	public function __destruct() {
 		$this->db->query('UNLOCK TABLES');
@@ -550,7 +550,7 @@ class Blog extends CRUD_Controller
 		//if ($edit_remark == '') {
 		//	$message .= 'ระบุเหตุผล';
 		//}
-		
+
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);
 		if ($error_pk_id != '') {
@@ -602,7 +602,7 @@ class Blog extends CRUD_Controller
 		if ($message != '') {
 			$json = json_encode(array(
 						'is_successful' => FALSE,
-						'message' => $message    
+						'message' => $message
 			));
 			echo $json;
 		}else{

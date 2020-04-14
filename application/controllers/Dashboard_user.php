@@ -4,7 +4,7 @@ if (!defined('BASEPATH'))  exit('No direct script access allowed');
 /**
  * [ Controller File name : Dashboard.php ]
  */
-class Dashboard_user extends CRUD_Controller 
+class Dashboard_user extends CRUD_Controller
 {
 	private $per_page;
 	private $another_js;
@@ -20,10 +20,13 @@ class Dashboard_user extends CRUD_Controller
 
 		//$this->another_js .= '<script src="'. base_url('assets/themes/sb-admin/vendor/chart.js/Chart.min.js').'"></script>';
 		//pt$this->another_js .= '<scri src="'. base_url('assets/themes/sb-admin/js/sb-admin-charts.js').'"></script>';
-		$this->another_js .= '<script src="'. base_url('assets/themes/majestic/canvasjs.min.js').'"></script>';
-		
+		// $this->another_js .= '<script src="'. base_url('assets/themes/majestic/canvasjs.min.js').'"></script>';
+		$this->another_js .= '<script src="'. base_url('assets/highcharts/highcharts.js').'"></script>';
+		$this->another_js .= '<script src="'. base_url('assets/highcharts/modules/series-label.js').'"></script>';
+		$this->another_js .= '<script src="'. base_url('assets/highcharts/modules/accessibility.js').'"></script>';
+
 		$this->another_js .= '<script src="'. base_url('assets/js/dashboard_user.js').'"></script>';
-		
+
 	}
 
 	// ------------------------------------------------------------------------
@@ -109,24 +112,24 @@ class Dashboard_user extends CRUD_Controller
 			$calo_val = 0;
 			if($this->data['user_sex']=='ชาย') {
 			  $bmr_val = 66+ (13.7 * $value['user_weight']) + (5 * $this->data['user_height']) - (6.8 * $this->data['age']);
-			  //$calo_val = floatval($value['user_weight'])*31; 
+			  //$calo_val = floatval($value['user_weight'])*31;
 			}else if($this->data['user_sex']=='หญิง'){
 			  $bmr_val = 665 + (9.6 * $value['user_weight']) + (1.8 * $this->data['user_height']) - (4.7 * $this->data['age']);
-			  //$calo_val = floatval($value['user_weight'])*27; 
+			  //$calo_val = floatval($value['user_weight'])*27;
 			}
 
 			$this->data['users_bmi'] = number_format($bmi_val,2);
-	          if($bmi_val < 18.5) { 
+	          if($bmi_val < 18.5) {
 	          	$this->data['users_bmi_txt'] = "<br/><h6>น้ำหนักหน่อยกว่ามาตรฐาน</h6>";
-	          } elseif($bmi_val >= 18.5 && $bmi_val < 24.9) { 
+	          } elseif($bmi_val >= 18.5 && $bmi_val < 24.9) {
 	          	$this->data['users_bmi_txt'] = "<br/><h6>น้ำหนักปกติ</h6>";
-	          } elseif($bmi_val >= 25 && $bmi_val < 29.9) { 
+	          } elseif($bmi_val >= 25 && $bmi_val < 29.9) {
 	          	$this->data['users_bmi_txt'] = "<br/><h6>อ้วนระดับ 1</h6>";
-	          } elseif($bmi_val >= 30 && $bmi_val < 34.9) { 
+	          } elseif($bmi_val >= 30 && $bmi_val < 34.9) {
 	          	$this->data['users_bmi_txt'] = "<br/><h6>อ้วนระดับ 2</h6>";
-	          }elseif($bmi_val >= 35 && $bmi_val < 39.9) { 
+	          }elseif($bmi_val >= 35 && $bmi_val < 39.9) {
 	          	$this->data['users_bmi_txt'] = "<br/><h6>อ้วนระดับ 3</h6>";
-	          }elseif($bmi_val >40) { 
+	          }elseif($bmi_val >40) {
 	          	$this->data['users_bmi_txt'] = "<br/><h6>อ้วนระดับ 4</h6>";
 	          }
 
@@ -150,7 +153,7 @@ class Dashboard_user extends CRUD_Controller
 		$chart_labels='['.implode(',',$chart_labels).']';
 		$this->data['chart_labels'] = $chart_labels;
 		$chart_labels_calo='['.implode(',',$chart_labels_calo).']';
-		$this->data['chart_labels_calo'] = $chart_labels_calo;		
+		$this->data['chart_labels_calo'] = $chart_labels_calo;
 		$this->data['chart_bmi'] = json_encode($chart_bmi);
 		$this->data['chart_bmr'] = json_encode($chart_bmr);
 		$this->data['chart_bmr_credit'] = @$chart_bmr[count($chart_bmr)-1]['y'].' kcal/day';
@@ -178,8 +181,8 @@ class Dashboard_user extends CRUD_Controller
 		$this->data['another_js'] = $this->another_js;
 		$this->parser->parse('includes/homepage_view', $this->data);
 		*/
-		
-		
+
+
 		$this->data['top_navbar'] = $this->parser->parse('template/majestic/top_navbar_view', $this->top_navbar_data, TRUE);
 		$this->data['left_sidebar'] = $this->parser->parse('template/majestic/left_sidebar_view', $this->left_sidebar_data, TRUE);
 		$this->data['breadcrumb_list'] = $this->parser->parse('template/majestic/breadcrumb_view', $this->breadcrumb_data, TRUE);
@@ -187,7 +190,7 @@ class Dashboard_user extends CRUD_Controller
 		$this->data['another_css'] = $this->another_css;
 		$this->data['another_js'] = $this->another_js;
 		$this->parser->parse('template/majestic/homepage_view', $this->data);
-		
+
 	}
 
 	public function dashboard()

@@ -1,120 +1,114 @@
 <!-- [ View File name : list_view.php ] -->
-<div class="card">
-	<!--
-	<div class="card-header bg-primary">
-		<h3 class="card-title"><i class="fa fa-list-alt"></i> ตารางแสดงรายการ ข้อมูล<b>self_food_menu</b></h3>
-	</div>
-	-->
-	<div class="card-body">
-		<div class="row">
-			<div class="col-sm-12 col-md-12 mb-3">
-				<div class="text-right">
-					<a href="{page_url}/add" class="btn btn-warning btn-md" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่">
-						<i class="fa fa-plus-square"></i></span> เพิ่มรายการใหม่
-					</a>
-		</div>
-		</div>
-			<div class="col-sm-12 col-md-9">
-				<form class="form-inline well well-sm" name="formSearch" method="post" action="{page_url}/search">
-					{csrf_protection_field}
-					<a href="{page_url}" class="btn btn-warning">ทั้งหมด</a> &nbsp;
-					<div class="form-group">
-						<select  class="form-control" name="search_field" class="span2">
-					<option value="self_food_name">ชื่อ</option>
-					<option value="cate_id">ประเภทอาหาร</option>
-					<option value="user_update">ผู้อัปเดต</option>
-					<!--<option value="fag_allow">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]</option>-->
-						</select>
- 					</div> &nbsp;
-					<div class="form-group">
-						<input type="text" class="form-control col" id="txtSearch" name="txtSearch" value="{txt_search}">
-					</div> &nbsp;
-					<input type="hidden" value="{order_by}" name="order_by"/>
-					<button type="submit" name="submit" class="btn btn-warning">
-						<span class="glyphicon glyphicon-search"></span> ค้นหา
-					</button>
-				</form>
-			</div>
-			<div class="col-sm-12 col-md-3">
-				<div class="pull-right text-right">
-					<div class="form-group">
-						<select  class="form-control" id="set_order_by" class="span2" value="{order_by}">
-					<option value="">- จัดเรียงตาม -</option>
-					<option value="self_food_name|asc">ชื่อ ก - ฮ</option><option value="self_food_name|desc">ชื่อ ฮ - ก</option><option value="cate_id|asc">ประเภทอาหาร น้อย - มาก</option><option value="cate_id|desc">ประเภทอาหาร มาก - น้อย</option><option value="user_update|asc">ผู้อัปเดต น้อย - มาก</option><option value="user_update|desc">ผู้อัปเดต มาก - น้อย</option><!--<option value="fag_allow|asc">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ] น้อย - มาก</option><option value="fag_allow|desc">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ] มาก - น้อย</option>-->
-						</select>
- 					</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header card-header-success card-header-icon">
+					<div class="card-icon">
+						<i class="material-icons">assignment</i>
+					</div>
+					<h4 class="card-title">รายการข้อมูลเมนูปรุงเอง(ระบบ)</h4>
 				</div>
-			</div>
-		</div>
-		<div class="row dataTables_wrapper">
-			<div class="col-sm-12 col-md-5">
-				<div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
-					แสดงรายการที่ <span class="badge badge-default">{start_row}</span> ถึง <b>{end_row}</b> จากทั้งหมด <span class="badge badge-info"> {search_row}</span> รายการ
-				</div>
-			</div>
-			<div class="col-sm-12 col-md-7">
-				<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-					{pagination_link}
-				</div>
-			</div>
-		</div>
-
-		<div class="table-responsive">
-
-			<table class="table table-bordered table-striped table-hover">
-				<thead class="info">
-					<tr bgcolor="#dddddd">
-						<th width="20px;">#</th>
-						<th>รายการอาหาร</th>
-						<th>ประเภท</th>
-						<th>ส่วนประกอบ</th>
-						<th>พลังงาน(K)</th>
-						<th>เครื่องมือ</th>
-						<th class="text-center" style="width:200px">เครื่องมือ</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr parser-repeat="[data_list]" id="row_{record_number}">
-						<td style="text-align:center;">[{record_number}]</td>
-						<td>{self_food_name}</td>
-						<td>{cateIdCateName}</td>
-						<td>{seft_comp}</td>
-						<td>{energy_amt}</td>
-						<td>{preview_fag_allow}</td>
-						<td>
-							<div class="btn-group pull-right">
-								<a href="{page_url}/preview/{url_encrypt_id}" 
-									class="my-tooltip btn btn-warning btn-sm"
-									data-toggle="tooltip" title="แสดงข้อมูลรายละเอียด">
-									<i class="fa fa-list"></i>
-								</a>
-								<a href="{page_url}/edit/{url_encrypt_id}" 
-									class="my-tooltip btn btn-warning btn-sm"
-									data-toggle="tooltip" title="แก้ไขข้อมูล">
-									<i class="fa fa-edit"></i>
-								</a>
-								<a href="javascript:void(0);" class="btn-delete-row my-tooltip btn btn-warning btn-sm"
-									data-toggle="tooltip" title="ลบรายการนี้"
-									 data-self_food_id = "{encrypt_self_food_id}" data-row-number="{record_number}">
-									<i class="fa fa-trash"></i>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-sm-12 col-md-12 mb-3">
+							<div class="text-right">
+								<a href="{page_url}/add" class="btn btn-success" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่">
+									<i class="fa fa-plus-square"></i></span>&nbsp;&nbsp;เพิ่มรายการใหม่
 								</a>
 							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+						</div>
+						<div class="col-sm-12 col-md-9">
+							<form class="form-inline well well-sm" name="formSearch" method="post" action="{page_url}/search">
+								{csrf_protection_field}
+								<a href="{page_url}" class="btn btn-warning">ทั้งหมด</a> &nbsp;&nbsp;&nbsp;&nbsp;&emsp;
+								<div class="form-group" id="search">
+									<select class="select2-search" name="search_field" class="span2">
+										<option value="self_food_name">ชื่อ</option>
+										<option value="cate_id">ประเภทอาหาร</option>
+										<option value="user_update">ผู้อัปเดต</option>
+										<!--<option value="fag_allow">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]</option>-->
+									</select>
+								</div> &nbsp;&nbsp;&nbsp;&nbsp;&emsp;
+								<div class="form-group has-warning bmd-form-group">
+									<input type="text" class="form-control col" id="txtSearch" name="txtSearch" value="{txt_search}">
+								</div> &nbsp;&nbsp;&nbsp;&nbsp;&emsp;
+								<input type="hidden" value="{order_by}" name="order_by" />
+								<button type="submit" name="submit" class="btn btn-warning">
+									<span class="glyphicon glyphicon-search"></span> ค้นหา
+								</button>
+							</form>
+						</div>
+						<div class="col-sm-12 col-md-3">
+							<div class="pull-right">
+								<div class="form-group">
+									<select class="select2-search" id="set_order_by" class="span2" value="{order_by}">
+										<option value="">- จัดเรียงตาม -</option>
+										<option value="self_food_name|asc">ชื่อ ก - ฮ</option>
+										<option value="self_food_name|desc">ชื่อ ฮ - ก</option>
+										<option value="cate_id|asc">ประเภทอาหาร น้อย - มาก</option>
+										<option value="cate_id|desc">ประเภทอาหาร มาก - น้อย</option>
+										<option value="user_update|asc">ผู้อัปเดต น้อย - มาก</option>
+										<option value="user_update|desc">ผู้อัปเดต มาก - น้อย</option>
+										<!--<option value="fag_allow|asc">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ] น้อย - มาก</option><option value="fag_allow|desc">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ] มาก - น้อย</option>-->
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
 
-		</div>
+					<div class="table-responsive">
 
-		<div class="row dataTables_wrapper">
-			<div class="col-sm-12 col-md-5">
-				<div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
-					แสดงรายการที่ <b>{start_row}</b> ถึง <b>{end_row}</b> จากทั้งหมด <span class="badge badge-info"> {search_row}</span> รายการ
-				</div>
-			</div>
-			<div class="col-sm-12 col-md-7">
-				<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-					{pagination_link}
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th class="text-center">#</th>
+									<th class="text-center">รายการอาหาร</th>
+									<th class="text-center">ประเภท</th>
+									<th class="text-center">ส่วนประกอบ</th>
+									<th class="text-center">พลังงาน(K)</th>
+									<th class="text-center">สถานะ</th>
+									<th class="text-center" style="width:200px">เครื่องมือ</th>
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr parser-repeat="[data_list]" id="row_{record_number}">
+									<td style="text-align:center;">{record_number}</td>
+									<td style="text-align:center;">{self_food_name}</td>
+									<td style="text-align:center;">{cateIdCateName}</td>
+									<td style="text-align:center;">{seft_comp}</td>
+									<td style="text-align:center;">{energy_amt}</td>
+									<td style="text-align:center;">{preview_fag_allow}</td>
+									<td class="td-actions text-center">
+										<a href="{page_url}/preview/{url_encrypt_id}" class="my-tooltip btn btn-warning btn-md" data-toggle="tooltip" title="แสดงข้อมูลรายละเอียด">
+											<i class="material-icons">list</i>
+										</a>
+										<a href="{page_url}/edit/{url_encrypt_id}" class="my-tooltip btn btn-warning " data-toggle="tooltip" title="แก้ไขข้อมูล">
+											<i class="material-icons">edit</i>
+										</a>
+										<a href="javascript:void(0);" class="btn-delete-row my-tooltip btn btn-danger" data-toggle="tooltip" title="ลบรายการนี้" data-self_food_id="{encrypt_self_food_id}" data-row-number="{record_number}">
+											<i class="material-icons">delete_forever</i>
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+
+					<div class="row dataTables_wrapper">
+						<div class="col-sm-12 col-md-5">
+							<div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
+								แสดงรายการที่ <b>{start_row}</b> ถึง <b>{end_row}</b> จากทั้งหมด <span class="badge badge-success"> {search_row}</span> รายการ
+							</div>
+						</div>
+						<div class="col-sm-12 col-md-7">
+							<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+								{pagination_link}
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -130,7 +124,7 @@
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 			</div>
 			<div class="modal-body">
-				<h4 class="text-center">***  ท่านต้องการลบข้อมูลแถวที่ <span id="xrow"></span> ???  ***</h4>
+				<h4 style="font-weight: bold" class="text-center">*** ท่านต้องการลบข้อมูลแถวที่ <span id="xrow"></span> ??? ***</h4>
 				<div id="div_del_detail"></div>
 				<form id="formDelete">
 					<div class="form-group">
@@ -142,14 +136,14 @@
 						<input type="text" class="form-control" name="delete_remark">
 					</div>
 				-->
-				</div>
+					</div>
 					<input type="hidden" name="encrypt_self_food_id" />
 
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
-				<button type="button" class="btn btn-warning" id="btn_confirm_delete" >ยืนยัน</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal">&nbsp;ยกเลิก&nbsp;</button>&emsp;
+				<button type="button" class="btn btn-warning" id="btn_confirm_delete">&nbsp;ยืนยัน&nbsp;</button>
 			</div>
 		</div>
 	</div>
@@ -167,7 +161,7 @@
 				<div id="divPreview"></div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-warning" data-dismiss="modal">ปิด</button> 
+				<button type="button" class="btn btn-warning" data-dismiss="modal">ปิด</button>
 			</div>
 		</div>
 	</div>

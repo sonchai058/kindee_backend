@@ -1,53 +1,125 @@
+<!-- chart -->
+<style type="text/css">
+	.highcharts-figure,
+	.highcharts-data-table table {
+		min-width: 360px;
+		max-width: 100%;
+		margin: 1em auto;
+
+	}
+
+	.highcharts-data-table table {
+		font-family: Verdana, sans-serif;
+		border-collapse: collapse;
+		border: 1px solid #EBEBEB;
+		margin: 10px auto;
+		text-align: center;
+		width: 100%;
+		max-width: 500px;
+	}
+
+	.highcharts-data-table caption {
+		padding: 1em 0;
+		font-size: 1.2em;
+		color: #555;
+	}
+
+	.highcharts-data-table th {
+		font-weight: 600;
+		padding: 0.5em;
+	}
+
+	.highcharts-data-table td,
+	.highcharts-data-table th,
+	.highcharts-data-table caption {
+		padding: 0.5em;
+	}
+</style>
 <script>
-  var chart_labels = {chart_labels};
-  var chart_data = JSON.parse('{chart_data}');
-  var chart_data1 = {chart_data1};
+	var chart_labels = {
+		chart_labels
+	};
+	var chart_data = JSON.parse('{chart_data}');
+	var chart_data1 = {
+		chart_data1
+	};
+
 </script>
-      <!-- Icon Cards-->
-      <div class="row">
-        <div class="col-xl-4 col-sm-6 mb-4">
-          <div class="card text-white bg-default o-hidden h-100">
-            <div class="card-body" style="color:#333; padding-right: 5px !important">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-user-friends" style="font-size: 80px;"></i>
-              </div>
-              <div style="float:right; margin-top:-70px; font-size: 18px; font-weight: bold; text-align: right;" class="mr-5">สมาชิกทั้งหมด <br/>{userCount1}</div>
-              
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-4 col-sm-6 mb-4">
-          <div class="card text-white bg-default o-hidden h-100">
-            <div class="card-body" style="color:#333; padding-right: 5px !important">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-user" style="font-size: 80px; color: #ec9d3d"></i>
-              </div>
-              <div style="color: #ec9d3d;float:right; margin-top:-70px; font-size: 18px; font-weight: bold; text-align: right;"  class="mr-5">สมาชิกทั่วไป <br/>{userCount2}</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-4 col-sm-6 mb-4">
-          <div class="card text-white bg-default o-hidden h-100">
-            <div class="card-body" style="color:#333; padding-right: 5px !important">
-              <div class="card-body-icon">
-                <i class="fa fa-fw fa-user-check" style="font-size: 80px; color: #30dc1b"></i>
-              </div>
-              <div style="color:#30dc1b;float:right; margin-top:-70px; font-size: 18px; font-weight: bold; text-align: right;"  class="mr-5">สมาชิก VIP <br/>{userCount3}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Area Chart Example-->
-      <div class="card mb-3">
-        <div class="card-header" style="background-color: #fff !important">
-          <i class="fa fa-area-chart"></i> <b>สถิติการเข้าใช้งาน</b></div>
-        <div class="card-body">
-          <!-- <canvas id="myAreaChartD" width="100%" height="30"></canvas>-->
-          <div id="chartContainer1" style="height: 270px; width: 100%;"></div>
-        </div>
-        <div class="card-footer small text-muted"><?php echo date("d/m").'/'.(date("Y")+543).' '.date("H:i:s");?></div>
-      </div>
-    </div>
-    <!--
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
--->
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-4 col-md-6 col-sm-12">
+			<div class="card card-stats">
+				<div class="card-header card-header-dark card-header-icon">
+					<div class="card-icon">
+						<i class="material-icons">supervisor_account</i>
+					</div>
+					<h1 class="card-title text-dark">{userCount1}
+						<!-- <small>GB</small> -->
+					</h1>
+				</div>
+				<div class="card-footer">
+					<div class="stats">
+						<p class="card-category text-dark">สมาชิกทั้งหมด</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-6 col-sm-12">
+			<div class="card card-stats">
+				<div class="card-header card-header-info card-header-icon">
+					<div class="card-icon">
+						<i class="material-icons">person</i>
+					</div>
+					<h1 class="card-title text-info">{userCount2}</h1>
+				</div>
+				<div class="card-footer">
+					<div class="stats">
+						<p class="card-category text-info">สมาชิกทั่วไป</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4 col-md-6 col-sm-12">
+			<div class="card card-stats">
+				<div class="card-header card-header-success card-header-icon">
+					<div class="card-icon">
+						<i class="material-icons">how_to_reg</i>
+					</div>
+					<h1 class="card-title text-success">{userCount3}</h1>
+				</div>
+				<div class="card-footer">
+					<div class="stats">
+						<p class="card-category text-success">สมาชิก VIP</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12">
+			<div class="card">
+				<div class="card-header card-header-tabs card-header-warning">
+					<div class="nav-tabs-navigation">
+						<div class="nav-tabs-wrapper">
+							<h4 class="nav-tabs-title">สถิติการเข้าใช้งาน</span>
+						</div>
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="tab-content">
+						<div class="tab-pane active">
+							<figure class="highcharts-figure">
+								<div style="height: 270px;" id="container1"></div>
+							</figure>
+						</div>
+					</div>
+				</div>
+				<div class="card-footer">
+					<div class="stats">
+						<?php echo date("d/m") . '/' . (date("Y") + 543) . ' ' . date("H:i:s"); ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

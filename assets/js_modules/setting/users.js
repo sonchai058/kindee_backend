@@ -84,9 +84,9 @@ var Users = {
 							if(results.is_successful){
 								notify('แจ้งเตือน', 'บันทึกข้อมูลหลักเรียบร้อย ดำเนินการในขั้นตอนต่อไป', 'success', 'center');
 								$("#frmUploadDetail :input").attr("disabled", false);
-							
+
 								$(window.location).attr('href', site_url('setting/users/edit/'+ results.encrypt_id));
-							
+
 							}else{
 								notify('เพิ่มข้อมูล', results.message, 'danger', 'center');
 							}
@@ -318,7 +318,7 @@ $(document).ready(function() {
 	//Set default value
 	var order_by = $('#set_order_by').attr('value');
 	$('#set_order_by option[value="'+order_by+'"]').prop('selected', true);
-	
+
 	//Set default selected
 	$("input[type='radio']").prop( "checked", function() {
 		return $(this).val() == $(this).data('record-value');
@@ -338,7 +338,7 @@ $(document).ready(function() {
 			$("#w2").show();
 			$("#goal_reduce_weight").val(0.00);
 			$("#reduce_date_start").val("");
-			$("#reduce_date_end").val("");	
+			$("#reduce_date_end").val("");
 		}
 	},1000);
 
@@ -351,13 +351,13 @@ $("#goal_reduce_weight_select").change(function(){
 				$("#w2").hide();
 				$("#goal_increase_weight").val(0.00);
 				$("#increase_date_start").val(date_set);
-				$("#increase_date_end").val(date_set);	
+				$("#increase_date_end").val(date_set);
 		}else {
 				$("#w1").hide();
 				$("#w2").show();
 				$("#goal_reduce_weight").val(0.00);
 				$("#reduce_date_start").val(date_set);
-				$("#reduce_date_end").val(date_set);	
+				$("#reduce_date_end").val(date_set);
 		}
 	}
 });
@@ -391,7 +391,7 @@ function user_infoadd1() {
 		});
 	}else {
 		notify('แจ้งเตือน!', "กรุณาตรวจสอบข้อมูลที่ป้อน หรือท่านจะต้องกดปุ่มเพื่อบันทึกข้อมูลผู้ใช้งานก่อน!", 'danger', 'center');
-	} 
+	}
 }
 function user_infoadd2() {
 	if($("#user_dataadd2").val()!='' && data_id!='') {
@@ -422,7 +422,7 @@ function user_infoadd2() {
 		});
 	}else {
 		notify('แจ้งเตือน!', "กรุณาตรวจสอบข้อมูลที่ป้อน หรือท่านจะต้องกดปุ่มเพื่อบันทึกข้อมูลผู้ใช้งานก่อน!", 'danger', 'center');
-	} 
+	}
 }
 function user_infoadd3() {
 	if($("#user_dataadd3").val()!='' && data_id!='') {
@@ -453,7 +453,7 @@ function user_infoadd3() {
 		});
 	}else {
 		notify('แจ้งเตือน!', "กรุณาตรวจสอบข้อมูลที่ป้อน หรือท่านจะต้องกดปุ่มเพื่อบันทึกข้อมูลผู้ใช้งานก่อน!", 'danger', 'center');
-	} 
+	}
 }
 
 $(".preview-image img,.file_link img").on("click", function() {
@@ -463,3 +463,4 @@ $(".preview-image img,.file_link img").on("click", function() {
 $(".file_link").click(function(){
 	return false;
 });
+

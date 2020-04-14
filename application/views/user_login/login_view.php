@@ -17,11 +17,11 @@
               </div>
               <h4>Hello! let's inno story</h4>
               <h6 class="font-weight-light">Sign in to continue.</h6>
-              <form class="form-signin pt-3" class="form-signin" role="form" method="post" id="frm_login" 
+              <form class="form-signin pt-3" class="form-signin" role="form" method="post" id="frm_login"
     onsubmit="return LogIn();return false;">
                 {csrf_protection_field}
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-lg" name="input_username"  id="input_username" class="form-control" 
+                  <input type="email" class="form-control form-control-lg" name="input_username"  id="input_username" class="form-control"
         placeholder="อีเมลล็อคอิน" required autofocus>
                 </div>
                 <div class="form-group">

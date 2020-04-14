@@ -1,110 +1,90 @@
 <!-- [ View File name : list_view.php ] -->
-<div class="card">
-<!--	
-	<div class="card-header bg-primary">
-		<h3 class="card-title"><i class="fa fa-list-alt"></i> ตารางแสดงรายการ ข้อมูล<b>users</b></h3>
-	</div>
--->
-	<div class="card-body">
-		<div class="row">
-			<div class="col-sm-12 col-md-12 mb-3">
-				<div class="text-right">
-					<a href="{page_url}/add" class="btn btn-warning btn-md" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่">
-						<i class="fa fa-plus-square"></i></span> เพิ่มรายการใหม่
-					</a>
-		</div>
-		</div>
-			<div class="col-sm-12 col-md-9">
-				<form class="form-inline well well-sm" name="formSearch" method="post" action="{page_url}/search">
-					{csrf_protection_field}
-					<a href="{page_url}" class="btn btn-warning">ทั้งหมด</a> &nbsp;
-					<div class="form-group">
-						<select  class="form-control" name="search_field" class="span2">
-					<option value="user_fname">ชื่อผู้ใช้งาน</option>
-					<option value="user_level">ระดับผู้ใช้งาน</option>
-					<!--
-					<option value="user_lname">นามสกุล</option>
-					<option value="mobile_no">มือถือ</option>
-					<option value="fag_allow">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]</option>
-					<option value="org_id">รหัสองค์กรที่สังกัด</option>
-					<option value="user_sex">เพศ [ชาย=ชาย,หญิง=หญิง,ไม่ระบุ=ไม่ระบุ]</option>
-					<option value="user_level">ระดับผู้ใช้งาน [admin=ผู้ดูแลระบบ,super_user=สมาชิกพิเศษ,user=สมาชิก,shop=ร้านค้า]</option>-->
-						</select>
- 					</div> &nbsp;
-					<div class="form-group">
-						<input type="text" class="form-control col" id="txtSearch" name="txtSearch" value="{txt_search}">
-					</div> &nbsp;
-					<input type="hidden" value="{order_by}" name="order_by"/>
-					<button type="submit" name="submit" class="btn btn-warning">
-						<span class="glyphicon glyphicon-search"></span> ค้นหา
-					</button>
-				</form>
-			</div>
-			<div class="col-sm-12 col-md-3">
-				<div class="pull-right text-right">
-					<div class="form-group">
-						<select  class="form-control" id="set_order_by" class="span2" value="{order_by}">
-					<option value="">- จัดเรียงตาม -</option>
-					<option value="user_fname|asc">ชื่อ ก - ฮ</option><option value="user_fname|desc">ชื่อ ฮ - ก</option><!--<option value="user_lname|asc">นามสกุล ก - ฮ</option><option value="user_lname|desc">นามสกุล ฮ - ก</option><option value="mobile_no|asc">มือถือ ก - ฮ</option><option value="mobile_no|desc">มือถือ ฮ - ก</option>-->
-						</select>
- 					</div>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header card-header-success card-header-icon">
+					<div class="card-icon">
+						<i class="material-icons">assignment</i>
+					</div>
+					<h4 class="card-title">รายการผู้ใช้งาน</h4>
 				</div>
-			</div>
-		</div>
-		<div class="row dataTables_wrapper">
-			<div class="col-sm-12 col-md-5">
-				<div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
-					แสดงรายการที่ <span class="badge badge-default">{start_row}</span> ถึง <b>{end_row}</b> จากทั้งหมด <span class="badge badge-info"> {search_row}</span> รายการ
-				</div>
-			</div>
-			<div class="col-sm-12 col-md-7">
-				<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-					{pagination_link}
-				</div>
-			</div>
-		</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-sm-12 col-md-12 mb-3">
+							<div class="text-right">
+								<a href="{page_url}/add" class="btn btn-success btn-md" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่">
+									<i class="fa fa-plus-square"></i></span> เพิ่มรายการใหม่
+								</a>
+							</div>
+						</div>
+						<div class="col-sm-12 col-md-9">
+							<form class="form-inline well well-sm" name="formSearch" method="post" action="{page_url}/search">
+								{csrf_protection_field}
+								<a href="{page_url}" class="btn btn-warning ">ทั้งหมด</a> &nbsp;&nbsp;&nbsp;&nbsp;&emsp;
+								<div class="form-group" id="search">
+									<select class="select2-search" name="search_field" class="span2">
+									<option value="user_fname">ชื่อผู้ใช้งาน</option>
+									<option value="user_level">ระดับผู้ใช้งาน</option>
+									<!-- <option value="user_update">ผู้สร้าง</option> -->
+										<!-- <option value="fag_allow">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]</option> -->
+									</select>
+								</div> &nbsp;&nbsp;&nbsp;&nbsp;&emsp;
+								<div class="form-group has-warning bmd-form-group">
+									<input type="text" class="form-control col" id="txtSearch" name="txtSearch" value="{txt_search}">
+								</div> &nbsp;&nbsp;&nbsp;&nbsp;&emsp;
+								<input type="hidden" value="{order_by}" name="order_by" />
+								<button type="submit" name="submit" class="btn btn-warning">
+									<span class="glyphicon glyphicon-search"></span> ค้นหา
+								</button>
+							</form>
+						</div>
+						<div class="col-sm-12 col-md-3">
+							<div class="pull-right">
+								<div class="form-group">
+									<select class="select2-search" id="set_order_by" class="span2" value="{order_by}">
+									<option value="">- จัดเรียงตาม -</option>
+									<option value="user_fname|asc">ชื่อ ก - ฮ</option><option value="user_fname|desc">ชื่อ ฮ - ก</option>
+									<!--<option value="user_lname|asc">นามสกุล ก - ฮ</option><option value="user_lname|desc">นามสกุล ฮ - ก</option><option value="mobile_no|asc">มือถือ ก - ฮ</option><option value="mobile_no|desc">มือถือ ฮ - ก</option>-->
+										<!-- <option value="fag_allow|asc">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ] น้อย - มาก</option><option value="fag_allow|desc">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ] มาก - น้อย</option> -->
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="table-responsive">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th class="text-center">#</th>
+									<th class="text-center">ชื่อผู้ใช้งาน</th>
+									<th class="text-center">เบอร์โทร</th>
+									<th class="text-center">อีเมล</th>
+									<th class="text-center">ระดับผู้ใช้งาน</th>
+									<th class="text-center" style="width:200px">เครื่องมือ</th>
+								</tr>
+							</thead>
 
-		<div class="table-responsive">
-
-			<table class="table table-bordered table-striped table-hover">
-				<thead class="info">
-					<tr bgcolor="#dddddd">
-						<th width="20px;">#</th>
-						<th>ชื่อผู้ใช้งาน</th>
-						<th>เบอร์โทร</th>
-						<th>อีเมล</th>
-						<th>ระดับผู้ใช้งาน</th>
-						<th class="text-center" style="width:200px">เครื่องมือ</th>
-					</tr>
-				</thead>
 				<tbody>
 					<tr parser-repeat="[data_list]" id="row_{record_number}">
 						<td style="text-align:center;">[{record_number}]</td>
 						<!--<td>{preview_user_photo}</td> -->
-						<td>{user_fname}</td>
-						<td>{mobile_no}</td>
-						<td>{email_addr}</td>
+						<td style="text-align:center;">{user_fname}</td>
+						<td style="text-align:center;">{mobile_no}</td>
+						<td style="text-align:center;">{email_addr}</td>
 						<!--<td>{datetime_update}</td>-->
-						<td>{preview_user_level}</td>
-						<td>
-							<div class="btn-group pull-right">
-								<a href="{page_url}/preview/{url_encrypt_id}" 
-									class="my-tooltip btn btn-warning btn-sm"
-									data-toggle="tooltip" title="แสดงข้อมูลรายละเอียด">
-									<i class="fa fa-list"></i>
-								</a>
-								<a href="{page_url}/edit/{url_encrypt_id}" 
-									class="my-tooltip btn btn-warning btn-sm"
-									data-toggle="tooltip" title="แก้ไขข้อมูล">
-									<i class="fa fa-edit"></i>
-								</a>
-								<a href="javascript:void(0);" class="btn-delete-row my-tooltip btn btn-warning btn-sm"
-									data-toggle="tooltip" title="ลบรายการนี้"
-									 data-user_id = "{encrypt_user_id}" data-row-number="{record_number}">
-									<i class="fa fa-trash"></i>
-								</a>
-							</div>
-						</td>
+						<td style="text-align:center;">{preview_user_level}</td>
+						<td class="td-actions text-center">
+										<a href="{page_url}/preview/{url_encrypt_id}" class="my-tooltip btn btn-warning btn-md" data-toggle="tooltip" title="แสดงข้อมูลรายละเอียด">
+											<i class="material-icons">list</i>
+										</a>
+										<a href="{page_url}/edit/{url_encrypt_id}" class="my-tooltip btn btn-warning " data-toggle="tooltip" title="แก้ไขข้อมูล">
+											<i class="material-icons">edit</i>
+										</a>
+										<a href="javascript:void(0);" class="btn-delete-row my-tooltip btn btn-danger" data-toggle="tooltip" title="ลบรายการนี้" data-user_id = "{encrypt_user_id}" data-row-number="{record_number}">
+											<i class="material-icons">delete_forever</i>
+										</a>
+									</td>
 					</tr>
 				</tbody>
 			</table>
@@ -114,7 +94,7 @@
 		<div class="row dataTables_wrapper">
 			<div class="col-sm-12 col-md-5">
 				<div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
-					แสดงรายการที่ <b>{start_row}</b> ถึง <b>{end_row}</b> จากทั้งหมด <span class="badge badge-info"> {search_row}</span> รายการ
+					แสดงรายการที่ <b>{start_row}</b> ถึง <b>{end_row}</b> จากทั้งหมด <span class="badge badge-success"> {search_row}</span> รายการ
 				</div>
 			</div>
 			<div class="col-sm-12 col-md-7">
@@ -125,6 +105,10 @@
 		</div>
 	</div>
 </div>
+</div>
+</div>
+</div>
+
 
 <!-- Modal Delete -->
 <div class="modal fade" id="confirmDelModal" tabindex="-1" role="dialog" aria-labelledby="confirmDelModalLabel" aria-hidden="true">
@@ -172,7 +156,7 @@
 				<div id="divPreview"></div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-warning" data-dismiss="modal">ปิด</button> 
+				<button type="button" class="btn btn-warning" data-dismiss="modal">ปิด</button>
 			</div>
 		</div>
 	</div>

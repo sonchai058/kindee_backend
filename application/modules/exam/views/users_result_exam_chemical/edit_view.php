@@ -1,78 +1,81 @@
 <!--  [ View File name : edit_view.php ] -->
-	<div class="card">
-	<!--	
-		<div class="card-header bg-primary">
-			<h3 class="card-title"><i class="fa fa-edit"></i> แก้ไขข้อมูล <strong>users_result_exam_chemical</strong></h3>
-		</div>
-	-->
-		<div class="card-body">
-			<form class='form-horizontal' id='formEdit' accept-charset='utf-8'>
-				{csrf_protection_field}
-				<input type="hidden" name="submit_case" value="edit" />
-				<div class='form-group'>
-					<label class='col-sm-12 col-md-4 control-label' for='exam_date'>วันที่ตรวจ  :</label>
-					<div class='col-sm-10 col-md-4'>
-
-						<input type="text" class="form-control  datepicker" id="exam_date" name="exam_date" value="{record_exam_date}"  />
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header card-header-success card-header-text">
+					<div class="card-icon">
+						<i class="material-icons">edit</i>
 					</div>
 				</div>
-				<div class='form-group'>
-					<label class='col-sm-12 col-md-4 control-label' for='total_chol'>Total Cholesterol  :</label>
-					<div class='col-sm-10 col-md-4'>
+				<div class="card-body">
+					<form class='form-horizontal' id='formEdit' accept-charset='utf-8'>
+						{csrf_protection_field}
+						<input type="hidden" name="submit_case" value="edit" />
+						<div class="container">
+							<div class="form-row justify-content-between">
+								<div class="form-group col-md-4 ">
+									<label class="control-label" for="exam_date">วันที่ตรวจ :</label>
+									<div class="form-group has-success">
+										<input type="text" class="form-control  datepicker" id="exam_date" name="exam_date" value="{record_exam_date}" />
+									</div>
+								</div>
+								<div class="form-group col-md-4 ">
+									<label class="control-label" for="total_chol">Total Cholesterol :</label>
+									<div class="form-group has-success">
+										<input type="text" class="form-control " id="total_chol" name="total_chol" value="{record_total_chol}" />
+									</div>
+								</div>
+								<div class="form-group col-md-4 ">
+									<label class="control-label" for="fasting_glu">fasting glucose :</label>
+									<div class="form-group has-success">
+										<input type="text" class="form-control " id="fasting_glu" name="fasting_glu" value="{record_fasting_glu}" />
+									</div>
+								</div>
+							</div>
+							<div class="form-row justify-content-between">
+								<div class="form-group col-md-4 ">
+									<label class="control-label" for="hemo_glo">Hemoglobin A1C% :</label>
+									<div class="form-group has-success">
+										<input type="text" class="form-control " id="hemo_glo" name="hemo_glo" value="{record_hemo_glo}" />
+									</div>
+								</div>
+								<div class="form-group col-md-4 ">
+									<label class="control-label" for="kidney_blood">Kidney : Blood Urea Nitrogen :</label>
+									<div class="form-group has-success">
+										<input type="text" class="form-control " id="kidney_blood" name="kidney_blood" value="{record_kidney_blood}" />
+									</div>
+								</div>
+								<div class="form-group col-md-4 ">
+									<label class="control-label" for="uric_arid">Uric Acid (Gout) :</label>
+									<div class="form-group has-success">
+										<input type="text" class="form-control " id="uric_arid" name="uric_arid" value="{record_uric_arid}" />
+									</div>
+								</div>
+							</div>
+							<div class="form-row justify-content-between">
+								<div class="form-group col-md-4 ">
+									<label class="control-label" for="hdl_chol">HDL Cholesterol :</label>
+									<div class="form-group has-success">
+										<input type="text" class="form-control " id="hdl_chol" name="hdl_chol" value="{record_hdl_chol}" />
+									</div>
+								</div>
+								<div class="form-group col-md-4 ">
+									<label class="control-label" for="ldl_chol">LDL Cholesterol :</label>
+									<div class="form-group has-success">
+										<input type="text" class="form-control " id="ldl_chol" name="ldl_chol" value="{record_ldl_chol}" />
+									</div>
+								</div>
+								<div class="form-group col-md-4 ">
+									<label class="control-label" for="trig_cer">Triglycerides :</label>
+									<div class="form-group has-success">
+										<input type="text" class="form-control " id="trig_cer" name="trig_cer" value="{record_trig_cer}" />
+									</div>
+								</div>
+							</div>
+						</div>
 
-						<input type="text" class="form-control " id="total_chol" name="total_chol" value="{record_total_chol}"  />
-					</div>
-				</div>
-				<div class='form-group'>
-					<label class='col-sm-12 col-md-4 control-label' for='fasting_glu'>fasting glucose  :</label>
-					<div class='col-sm-10 col-md-4'>
-
-						<input type="text" class="form-control " id="fasting_glu" name="fasting_glu" value="{record_fasting_glu}"  />
-					</div>
-				</div>
-				<div class='form-group'>
-					<label class='col-sm-12 col-md-4 control-label' for='hemo_glo'>Hemoglobin A1C%  :</label>
-					<div class='col-sm-10 col-md-4'>
-
-						<input type="text" class="form-control " id="hemo_glo" name="hemo_glo" value="{record_hemo_glo}"  />
-					</div>
-				</div>
-				<div class='form-group'>
-					<label class='col-sm-12 col-md-4 control-label' for='kidney_blood'>Kidney : Blood Urea Nitrogen  :</label>
-					<div class='col-sm-10 col-md-4'>
-
-						<input type="text" class="form-control " id="kidney_blood" name="kidney_blood" value="{record_kidney_blood}"  />
-					</div>
-				</div>
-				<div class='form-group'>
-					<label class='col-sm-12 col-md-4 control-label' for='uric_arid'>Uric Acid (Gout)  :</label>
-					<div class='col-sm-10 col-md-4'>
-
-						<input type="text" class="form-control " id="uric_arid" name="uric_arid" value="{record_uric_arid}"  />
-					</div>
-				</div>
-				<div class='form-group'>
-					<label class='col-sm-12 col-md-4 control-label' for='hdl_chol'>HDL Cholesterol  :</label>
-					<div class='col-sm-10 col-md-4'>
-
-						<input type="text" class="form-control " id="hdl_chol" name="hdl_chol" value="{record_hdl_chol}"  />
-					</div>
-				</div>
-				<div class='form-group'>
-					<label class='col-sm-12 col-md-4 control-label' for='ldl_chol'>LDL Cholesterol  :</label>
-					<div class='col-sm-10 col-md-4'>
-
-						<input type="text" class="form-control " id="ldl_chol" name="ldl_chol" value="{record_ldl_chol}"  />
-					</div>
-				</div>
-				<div class='form-group'>
-					<label class='col-sm-12 col-md-4 control-label' for='trig_cer'>Triglycerides  :</label>
-					<div class='col-sm-10 col-md-4'>
-
-						<input type="text" class="form-control " id="trig_cer" name="trig_cer" value="{record_trig_cer}"  />
-					</div>
-				</div>
-				<!--
+						<!--
 				<div class='form-group'>
 					<label class='col-sm-12 col-md-4 control-label' for='fag_allow'>สถานะ  :</label>
 					<div class='col-sm-10 col-md-4'>
@@ -86,7 +89,7 @@
 					</div>
 				</div>
 			-->
-				<!--
+						<!--
 				<div class='form-group'>
 					<label class='col-sm-12 control-label' for='user_id'>ชื่อสมาชิก  :</label>
 					<div class='col-sm-10'>
@@ -97,19 +100,27 @@
 					</div>
 				</div>
 			-->
-				<div class='form-group'>
-					<div class="col-sm-12 text-right">
-						<button  type="button" class='btn btn-warning btn-md'  data-toggle='modal' data-target='#editModal' >&nbsp;&nbsp;<i class="fa fa-save"></i> บันทึก &nbsp;&nbsp;</button>
+						<div class='form-group'>
+							<div class="col-sm-12 text-right">
+								<button type="button" class='btn btn-success ' data-toggle='modal' data-target='#editModal'>&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;บันทึก &nbsp;&nbsp;</button>
 
+							</div>
 						</div>
+
+						<input type="hidden" name="encrypt_exam_id" value="{encrypt_exam_id}" />
+
+
+					</form>
 				</div>
-
-				<input type="hidden" name="encrypt_exam_id" value="{encrypt_exam_id}" />
-
-
-			</form>
-		</div> <!--card-body-->
-	</div> <!--card-->
+				<!--card-body-->
+			</div>
+			<!--card-->
+		</div>
+		<!--card-->
+	</div>
+	<!--card-->
+</div>
+<!--card-->
 
 <!-- Modal -->
 <div class='modal fade' id='editModal' tabindex='-1' role='dialog' aria-labelledby='editModalLabel' aria-hidden='true'>
@@ -121,7 +132,7 @@
 			</div>
 			<div class='modal-body'>
 				<h4>ยืนยันการเปลี่ยนแปลงแก้ไขข้อมูล ?</h4>
-				<form class="form-horizontal" onsubmit="return false;" >
+				<form class="form-horizontal" onsubmit="return false;">
 					<!--
 					<div class="form-group">
 						<div class="col-sm-8">
@@ -135,8 +146,8 @@
 				</form>
 			</div>
 			<div class='modal-footer'>
-				<button type='button' class='btn btn-warning' data-dismiss='modal'>ปิด</button>
-				<button type='button' class='btn btn-warning' id='btnSaveEdit'>&nbsp;บันทึก&nbsp;</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal">&nbsp;ปิด&nbsp;</button>&emsp;
+				<button type='button' class='btn btn-success' id='btnSaveEdit'>&nbsp;บันทึก&nbsp;</button>
 			</div>
 		</div>
 	</div>

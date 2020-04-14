@@ -1,6 +1,42 @@
+<nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+	<div class="container-fluid">
+		<div class="navbar-wrapper">
+			<!-- <a class="navbar-brand" href="{site_url}">HOME</a> -->
+		</div>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="navbar-toggler-icon icon-bar"></span>
+			<span class="navbar-toggler-icon icon-bar"></span>
+			<span class="navbar-toggler-icon icon-bar"></span>
+		</button>
+		<div class="collapse navbar-collapse justify-content-end">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<img alt="profile" class="avatar" src="{base_url}<?php echo get_session('user_photo'); ?>" />&nbsp;
+						<span class="nav-profile-name"><?php echo get_session('user_fname') . ' ' . get_session('user_lname'); ?></span>
+					</a>
+					<!-- <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
+						<a class="dropdown-item" href="#">Profile</a>
+						<a class="dropdown-item" href="#">Settings</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="{site_url}user_login/destroy">ออกจากระบบ</a>
+					</div> -->
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{site_url}user_login/destroy">
+							<i class="material-icons" style="font-size:30px; color:#333">exit_to_app</i>
+          </a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<!--
 <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <ul class="navbar-nav mr-lg-4 w-100">
-          <!--
+
           <li class="nav-item nav-search d-none d-lg-block w-100">
             <div class="input-group">
               <div class="input-group-prepend">
@@ -10,12 +46,12 @@
               </div>
               <input type="text" class="form-control" placeholder="ค้นหา..." aria-label="search" aria-describedby="search">
             </div>
-          -->
+
           </li>
         </ul>
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item dropdown mr-1">
-            <!--
+
             <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
               <i class="mdi mdi-message-text mx-0"></i>
               <span class="count"></span>
@@ -59,10 +95,10 @@
                 </div>
               </a>
             </div>
-          -->
+
           </li>
           <li class="nav-item dropdown mr-4">
-            <!--
+
             <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center notification-dropdown" id="notificationDropdown" href="#" data-toggle="dropdown">
               <i class="mdi mdi-bell mx-0"></i>
               <span class="count"></span>
@@ -109,13 +145,13 @@
                 </div>
               </a>
             </div>
-          -->
+
           </li>
 
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link" href="#">
-              <img src="{base_url}<?php echo get_session('user_photo');?>" alt="profile">
-              <span class="nav-profile-name"><?php echo get_session('user_fname').' '.get_session('user_lname');?></span>
+              <img src="{base_url}<?php echo get_session('user_photo'); ?>" alt="profile">
+              <span class="nav-profile-name"><?php echo get_session('user_fname') . ' ' . get_session('user_lname'); ?></span>
             </a>
             <a class="nav-link" href="{site_url}user_login/destroy">
               <i class="mdi mdi-logout menu-icon" style="font-size:30px; color:#333"></i>
@@ -125,4 +161,4 @@
         <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
           <span class="mdi mdi-menu"></span>
         </button>
-      </div>
+			</div> -->

@@ -21,14 +21,14 @@ class Users extends CRUD_Controller
 		parent::__construct();
 
 		chkUserPerm();
-		
+
 		$this->per_page = 30;
 		$this->num_links = 6;
 		$this->uri_segment = 4;
 		$this->load->model('setting/Users_model', 'Users');
 		$this->load->model('FileUpload_model', 'FileUpload');
 		$this->data['page_url'] = site_url('setting/users');
-		
+
 		$this->data['page_title'] = 'จัดการผู้ใช้งาน';
 		$this->upload_store_path = './assets/uploads/users/';
 		$this->file_allow = array(
@@ -112,7 +112,7 @@ class Users extends CRUD_Controller
 			    		'datetime_update'=>date("Y-m-d H:i:s"),
 			    	),
 			    	array('eweight_id'=>$tmp['eweight_id'])
-			    );	    	
+			    );
 		    }else {
 			    $id = $this->common_model->insert('users_exam_weight',
 			    	array(
@@ -122,7 +122,7 @@ class Users extends CRUD_Controller
 			    		'datetime_add'=>date("Y-m-d H:i:s"),
 			    		'user_id'=>$post['user_id']
 			    	)
-			    );		    	
+			    );
 		    }
 		}else {
 			$success = FALSE;
@@ -158,7 +158,7 @@ class Users extends CRUD_Controller
 			    		'datetime_update'=>date("Y-m-d H:i:s"),
 			    	),
 			    	array('ewaist_id'=>$tmp['ewaist_id'])
-			    );	    	
+			    );
 		    }else {
 			    $id = $this->common_model->insert('users_exam_waistline',
 			    	array(
@@ -204,7 +204,7 @@ class Users extends CRUD_Controller
 			    		'datetime_update'=>date("Y-m-d H:i:s"),
 			    	),
 			    	array('ehib_id'=>$tmp['ehib_id'])
-			    );	    	
+			    );
 		    }else {
 			    $id = $this->common_model->insert('users_exam_hip',
 			    	array(
@@ -244,7 +244,7 @@ class Users extends CRUD_Controller
 	// ------------------------------------------------------------------------
 
 	/**
-	 * List all record 
+	 * List all record
 	 */
 	public function list_all() {
 		$this->session->unset_userdata($this->Users->session_name . '_search_field');
@@ -363,7 +363,7 @@ class Users extends CRUD_Controller
 						array('title' => 'Users', 'url' => site_url('setting/users')),
 						array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'active')
 		);
-		
+
 
 		$this->data['data_id'] = 0;
 
@@ -375,14 +375,16 @@ class Users extends CRUD_Controller
 			'limit_seafood'=>array('No','อาหารทะเล'),
 			'limit_additives'=>array('No','สารเติมแต่ง เช่น ผงชูรส'),
 		);
-		$tmp_data = '<div class="row">';
+		$tmp_data = '<div class="form-row justify-content-start">';
 		foreach ($rows as $key => $value) {
 			$selected='';
 			//if($value[0]=='Yes')continue;
 			if($value[0]=='Yes') {
 				$selected = 'checked';
 			}
-			$tmp_data = $tmp_data."<div onclick=\"if($('.{$key}:checked').length==0)".'{'."$('.{$key}').prop('checked',true);".'}'."else ".'{'."$('.{$key}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='col-sm-12 control-label chk' for=''>&nbsp;&nbsp;&nbsp;{$value[1]}</label><input style='margin-top: -40px;' type='checkbox' class='form-control {$key}' name='limit[{$key}]' value='{$value[0]}' {$selected}></div>";
+			// $tmp_data = $tmp_data."<div onclick=\"if($('.{$key}:checked').length==0)".'{'."$('.{$key}').prop('checked',true);".'}'."else ".'{'."$('.{$key}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='col-sm-12 control-label chk' for=''>&nbsp;&nbsp;&nbsp;{$value[1]}</label><input style='margin-top: -40px;' type='checkbox' class='form-control {$key}' name='limit[{$key}]' value='{$value[0]}' {$selected}></div>";
+			$tmp_data = $tmp_data."<div onclick=\"if($('.{$key}:checked').length==0)".'{'."$('.{$key}').prop('checked',true);".'}'."else ".'{'."$('.{$key}').prop('checked',false);".'}'."\" class='form-group col-md-4'><div class='form-check'><label class='form-check-label'><input class='form-check-input {$key}' name='limit[{$key}]' value='{$value[0]}' {$selected} type='checkbox'> {$value[1]} <span class='form-check-sign'><span class='check'></span></span></label></div></div>";
+
 		}
 		$this->data['limit'] = $tmp_data.'</div>';
 
@@ -399,7 +401,7 @@ class Users extends CRUD_Controller
 			}
 
 			$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='credit_cart' order by a.pro_name");
-			$tmp_data = '<div class="row">';
+			$tmp_data = '<div class="form-row justify-content-start">';
 			foreach ($rows as $key => $value) {
 				$selected='';
 				//if($value['b_fag_allow']=='delete')continue;
@@ -407,16 +409,17 @@ class Users extends CRUD_Controller
 				if(isset($setSelect[$value['pro_id']])) {
 					$selected = 'checked';
 				}
-					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+					// $tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\"  class='form-group col-md-4'><div class='form-check'><label class='form-check-label'><input class='form-check-input {$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected} type='checkbox'> {$value['pro_name']} <span class='form-check-sign'><span class='check'></span></span></label></div></div>";
 
-				
+
 			}
 			$tmp_data.="</div>";
 			$this->data['promotions1'] = $tmp_data;
-			
+
 			$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='mobile_chanel' order by a.pro_name");
 
-			$tmp_data = '<div class="row">';
+			$tmp_data = '<div class="form-row justify-content-start">';
 			foreach ($rows as $key => $value) {
 				$selected='';
 				//if($value['b_fag_allow']=='delete')continue;
@@ -424,8 +427,9 @@ class Users extends CRUD_Controller
 				if(isset($setSelect[$value['pro_id']])) {
 					$selected = 'checked';
 				}
-					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
-				
+					// $tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\"  class='form-group col-md-4'><div class='form-check'><label class='form-check-label'><input class='form-check-input {$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected} type='checkbox'> {$value['pro_name']} <span class='form-check-sign'><span class='check'></span></span></label></div></div>";
+
 			}
 			$tmp_data.="</div>";
 			$this->data['promotions2'] = $tmp_data;
@@ -436,7 +440,7 @@ class Users extends CRUD_Controller
 		$this->data['organizations_org_id_option_list'] = $this->Users->returnOptionList("organizations", "org_id", "org_name");
 		$this->data['preview_user_photo'] = '<div id="div_preview_user_photo" class="py-3 div_file_preview" style="clear:both"><img id="user_photo_preview" height="300"/></div>';
 		$this->data['record_user_photo_label'] = '';
-		$this->render_view('setting/users/add_view'); 
+		$this->render_view('setting/users/add_view');
 	}
 
 	// ------------------------------------------------------------------------
@@ -542,7 +546,7 @@ class Users extends CRUD_Controller
 	 * see also https://www.codeigniter.com/userguide3/libraries/form_validation.html
 	 */
     public function float_check($val)
-    {	
+    {
     	return TRUE;
     /*
     	die($val);
@@ -579,7 +583,7 @@ class Users extends CRUD_Controller
 		$frm->set_rules('cus_passwd', 'รหัสผ่าน', 'trim|required');
 		$frm->set_rules('addr', 'ที่อยู่', 'trim|required');
 		$frm->set_rules('fag_allow', 'สถานะ', 'trim');
-		
+
 		$frm->set_rules('user_sex', 'เพศ [ชาย=ชาย,หญิง=หญิง,ไม่ระบุ=ไม่ระบุ]', 'trim|required');
 		$frm->set_rules('user_height', 'ส่วนสูง CM', 'trim|required|callback_float_check');
 		$frm->set_rules('goal_reduce_weight', 'เป้าหมายในการลดน้ำหนัก (น้ำหนัก)', 'trim|callback_float_check');
@@ -811,9 +815,9 @@ class Users extends CRUD_Controller
 		$id = decrypt($encrypt_id);
 
 		$this->data['data_id'] = $id;
-		
+
 		$this->load->model("common_model");
-		
+
 		$rows1 = $this->common_model->custom_query("select * from users_exam_hip where fag_allow='allow'  and user_id={$id} order by date_exam");
 		$this->data['users_exam_hip'] = "<tr><td>-</td><td>-</td></tr>";
 		if(count($rows1)) {
@@ -862,14 +866,16 @@ class Users extends CRUD_Controller
 			'limit_seafood'=>array($results['limit_seafood'],'อาหารทะเล'),
 			'limit_additives'=>array($results['limit_additives'],'สารเติมแต่ง เช่น ผงชูรส'),
 		);
-		$tmp_data = '<div class="row">';
+		$tmp_data = '<div class="form-row justify-content-start">';
 		foreach ($rows as $key => $value) {
 			$selected='';
 			//if($value[0]=='Yes')continue;
 			if($value[0]=='Yes') {
 				$selected = 'checked';
 			}
-			$tmp_data = $tmp_data."<div onclick=\"if($('.{$key}:checked').length==0)".'{'."$('.{$key}').prop('checked',true);".'}'."else ".'{'."$('.{$key}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value[1]}</label><input style='margin-top: -40px;' type='checkbox' class='form-control {$key}' name='limit[{$key}]' value='{$value[0]}' {$selected}></div>";
+			// $tmp_data = $tmp_data."<div onclick=\"if($('.{$key}:checked').length==0)".'{'."$('.{$key}').prop('checked',true);".'}'."else ".'{'."$('.{$key}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value[1]}</label><input style='margin-top: -40px;' type='checkbox' class='form-control {$key}' name='limit[{$key}]' value='{$value[0]}' {$selected}></div>";
+			$tmp_data = $tmp_data."<div onclick=\"if($('.{$key}:checked').length==0)".'{'."$('.{$key}').prop('checked',true);".'}'."else ".'{'."$('.{$key}').prop('checked',false);".'}'."\" class='form-group col-md-4'><div class='form-check'><label class='form-check-label'><input class='form-check-input {$key}' name='limit[{$key}]' value='{$value[0]}' {$selected} type='checkbox'> {$value[1]} <span class='form-check-sign'><span class='check'></span></span></label></div></div>";
+
 		}
 		$this->data['limit'] = $tmp_data.'</div>';
 
@@ -885,7 +891,7 @@ class Users extends CRUD_Controller
 			}
 
 			$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='credit_cart' order by a.pro_name");
-			$tmp_data = '<div class="row">';
+			$tmp_data = '<div class="form-row justify-content-start">';
 			foreach ($rows as $key => $value) {
 				$selected='';
 				//if($value['b_fag_allow']=='delete')continue;
@@ -893,16 +899,16 @@ class Users extends CRUD_Controller
 				if(isset($setSelect[$value['pro_id']])) {
 					$selected = 'checked';
 				}
-					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+					// $tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\"  class='form-group col-md-4'><div class='form-check'><label class='form-check-label'><input class='form-check-input {$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected} type='checkbox'> {$value['pro_name']} <span class='form-check-sign'><span class='check'></span></span></label></div></div>";
 
-				
 			}
 			$tmp_data.="</div>";
 			$this->data['promotions1'] = $tmp_data;
-			
+
 			$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='mobile_chanel' order by a.pro_name");
 
-			$tmp_data = '<div class="row">';
+			$tmp_data = '<div class="form-row justify-content-start">';
 			foreach ($rows as $key => $value) {
 				$selected='';
 				//if($value['b_fag_allow']=='delete')continue;
@@ -910,8 +916,9 @@ class Users extends CRUD_Controller
 				if(isset($setSelect[$value['pro_id']])) {
 					$selected = 'checked';
 				}
-					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
-				
+					// $tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\"  class='form-group col-md-4'><div class='form-check'><label class='form-check-label'><input class='form-check-input {$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected} type='checkbox'> {$value['pro_name']} <span class='form-check-sign'><span class='check'></span></span></label></div></div>";
+
 			}
 			$tmp_data.="</div>";
 			$this->data['promotions2'] = $tmp_data;
@@ -952,7 +959,7 @@ class Users extends CRUD_Controller
 			$message .= 'ระบุเหตุผล';
 		}
 		*/
-		
+
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);
 
@@ -1051,7 +1058,7 @@ class Users extends CRUD_Controller
 			$message .= 'ระบุเหตุผล';
 		}
 		*/
-		
+
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);
 		if ($error_pk_id != '') {
@@ -1060,7 +1067,7 @@ class Users extends CRUD_Controller
 		if ($message != '') {
 			$json = json_encode(array(
 						'is_successful' => FALSE,
-						'message' => $message    
+						'message' => $message
 			));
 			echo $json;
 		}else{

@@ -314,7 +314,7 @@ $(document).ready(function() {
 	//Set default value
 	var order_by = $('#set_order_by').attr('value');
 	$('#set_order_by option[value="'+order_by+'"]').prop('selected', true);
-	
+
 	//Set default selected
 	setDatePicker('.datepicker');
 
@@ -322,9 +322,9 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     document.getElementById('pro-image').addEventListener('change', readImage, false);
-    
+
     $( ".preview-images-zone" ).sortable();
-    
+
     $(document).on('click', '.image-cancel', function() {
 
     	let no = $(this).data('no');
@@ -356,9 +356,9 @@ function readImage() {
             var file = files[i];
             //console.log(file);
             if (!file.type.match('image')) continue;
-            
+
             var picReader = new FileReader();
-            
+
             picReader.addEventListener('load', function (event) {
                 var picFile = event.target;
 				var fdata = $('#formAdd #pro-image').serialize();
@@ -386,7 +386,7 @@ function readImage() {
 							//$('#formAdd')[0].reset();
                 			var html =  '<div class="preview-image preview-show-' + num + '">' +
                             '<div data-image_id="'+results.id+'" class="image-cancel" data-no="' + num + '">x</div>' +
-                            '<div class="image-zone"><img id="pro-img-' + num + '" src="' + picFile.result + '"></div>' +
+                            '<div class="image-zone"><img style="width:320px; height: 320px;" id="pro-img-' + num + '" src="' + picFile.result + '"></div>' +
                             //'<div class="tools-edit-image"><a href="javascript:void(0)" data-no="' + num + '" class="btn btn-light btn-edit-image">edit</a></div>' +
                             '</div>';
 

@@ -46,7 +46,7 @@
 		<a class="nav-link {login_inactive_class}" href="{site_url}/member_login" >
 			<i class="fas fa-user-circle fa-fw"></i>
 		</a>
-		
+
 		<a class="nav-link dropdown-toggle {login_active_class}" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			<i class="fas fa-user-circle fa-fw"></i>
 		</a>
@@ -57,9 +57,9 @@
 			<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modal_change_pass">เปลี่ยนรหัสผ่าน</a>
 			<div class="dropdown-divider"></div>
 			<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
-			
-			
-			
+
+
+
 		</div>
 	</li>
 </ul>

@@ -219,7 +219,7 @@ $(document).ready(function() {
 	//Set default value
 	var order_by = $('#set_order_by').attr('value');
 	$('#set_order_by option[value="'+order_by+'"]').prop('selected', true);
-	
+
 	//Set default selected
 	setDatePicker('.datepicker');
 
@@ -268,6 +268,7 @@ $("#uploadContent img").on("click", function() {
    $('#imagepreview').attr('src', $(this).attr('src')); // here asign the image to the modal when the user click the enlarge link
    $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
 });
+
 
 /*
 function cal(node) {

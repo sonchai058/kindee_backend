@@ -1,6 +1,9 @@
 <!-- [ View File name : list_view.php ] -->
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
 <div class="card">
-<!--	
+<!--
 	<div class="card-header bg-primary">
 		<h3 class="card-title"><i class="fa fa-list-alt"></i> ตารางแสดงรายการ ข้อมูล<b>users</b></h3>
 	</div>
@@ -80,12 +83,12 @@
 						<td>{preview_food_intol_exam}</td>
 						<td>
 							<div class="btn-group pull-right">
-								<a href="{page_url}/preview/{url_encrypt_id}" 
+								<a href="{page_url}/preview/{url_encrypt_id}"
 									class="my-tooltip btn btn-warning btn-sm"
 									data-toggle="tooltip" title="แสดงข้อมูลรายละเอียด">
 									<i class="fa fa-list"></i>
 								</a>
-								<a href="{page_url}/edit/{url_encrypt_id}" 
+								<a href="{page_url}/edit/{url_encrypt_id}"
 									class="my-tooltip btn btn-warning btn-sm"
 									data-toggle="tooltip" title="แก้ไขข้อมูล">
 									<i class="fa fa-edit"></i>
@@ -164,7 +167,7 @@
 				<div id="divPreview"></div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-warning" data-dismiss="modal">ปิด</button> 
+				<button type="button" class="btn btn-warning" data-dismiss="modal">ปิด</button>
 			</div>
 		</div>
 	</div>

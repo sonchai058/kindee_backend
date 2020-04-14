@@ -4,7 +4,7 @@ if (!defined('BASEPATH'))  exit('No direct script access allowed');
 /**
  * [ Controller File name : Dashboard.php ]
  */
-class Dashboard extends CRUD_Controller 
+class Dashboard extends CRUD_Controller
 {
 	private $per_page;
 	private $another_js;
@@ -18,7 +18,11 @@ class Dashboard extends CRUD_Controller
 
 		//$this->another_js .= '<script src="'. base_url('assets/themes/sb-admin/vendor/chart.js/Chart.min.js').'"></script>';
 		//$this->another_js .= '<script src="'. base_url('assets/themes/sb-admin/js/sb-admin-charts.min.js').'"></script>';
-		$this->another_js .= '<script src="'. base_url('assets/themes/majestic/canvasjs.min.js').'"></script>';
+		$this->another_js .= '<script src="'. base_url('assets/highcharts/highcharts.js').'"></script>';
+		$this->another_js .= '<script src="'. base_url('assets/highcharts/modules/series-label.js').'"></script>';
+		$this->another_js .= '<script src="'. base_url('assets/highcharts/modules/accessibility.js').'"></script>';
+
+		// $this->another_js .= '<script src="'. base_url('assets/themes/majestic/canvasjs.min.js').'"></script>';
 		$this->another_js .= '<script src="'. base_url('assets/js/dashboard.js').'"></script>';
 	}
 
@@ -49,8 +53,8 @@ class Dashboard extends CRUD_Controller
 		$this->data['another_js'] = $this->another_js;
 		$this->parser->parse('includes/homepage_view', $this->data);
 		*/
-		
-		
+
+
 		$this->data['top_navbar'] = $this->parser->parse('template/majestic/top_navbar_view', $this->top_navbar_data, TRUE);
 		$this->data['left_sidebar'] = $this->parser->parse('template/majestic/left_sidebar_view', $this->left_sidebar_data, TRUE);
 		$this->data['breadcrumb_list'] = $this->parser->parse('template/majestic/breadcrumb_view', $this->breadcrumb_data, TRUE);
@@ -58,7 +62,7 @@ class Dashboard extends CRUD_Controller
 		$this->data['another_css'] = $this->another_css;
 		$this->data['another_js'] = $this->another_js;
 		$this->parser->parse('template/majestic/homepage_view', $this->data);
-		
+
 	}
 
 	public function dashboard()
@@ -68,13 +72,13 @@ class Dashboard extends CRUD_Controller
 		$this->load->model("common_model");
 		$userCount1 = rowArray($this->common_model->custom_query("select count(user_id) as num from users where fag_allow='allow'"));
 		$this->data['userCount1'] = number_format($userCount1['num']);
-		
+
 		$userCount2 = rowArray($this->common_model->custom_query("select count(user_id) as num from users where fag_allow='allow' and user_level='user'"));
 		$this->data['userCount2'] = number_format($userCount2['num']);
 
 		$userCount3 = rowArray($this->common_model->custom_query("select count(user_id) as num from users where fag_allow='allow' and user_level='super_user'"));
 		$this->data['userCount3'] = number_format($userCount3['num']);
-		 
+
 		$chart = $this->common_model->custom_query("SELECT count(state_id) as num, DATE(action_datetime) as date FROM statistics where status='success' and action='login' GROUP BY DATE(action_datetime) order by date");
 		$this->data['chart'] = $chart;
 		$this->data['chart_date'] = isset($chart[count($chart)-1]['date'])?$chart[count($chart)-1]['date']:0;
