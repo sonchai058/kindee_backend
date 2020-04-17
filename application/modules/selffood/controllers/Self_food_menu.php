@@ -16,13 +16,13 @@ class Self_food_menu extends CRUD_Controller
 		parent::__construct();
 
 		chkUserPerm();
-		
+
 		$this->per_page = 30;
 		$this->num_links = 6;
 		$this->uri_segment = 4;
 		$this->load->model('selffood/Self_food_menu_model', 'Self_food_menu');
 		$this->data['page_url'] = site_url('selffood/self_food_menu');
-		
+
 		$this->data['page_title'] = 'ข้อมูลเมนูปรุงเอง';
 		$js_url = 'assets/js_modules/selffood/self_food_menu.js?ft='. filemtime('assets/js_modules/selffood/self_food_menu.js');
 		$this->another_js = '<script src="'. base_url($js_url) .'"></script>';
@@ -76,7 +76,7 @@ class Self_food_menu extends CRUD_Controller
 	// ------------------------------------------------------------------------
 
 	/**
-	 * List all record 
+	 * List all record
 	 */
 	public function list_all() {
 		$this->session->unset_userdata($this->Self_food_menu->session_name . '_search_field');
@@ -93,7 +93,7 @@ class Self_food_menu extends CRUD_Controller
 	public function search()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Self_food_menu', 'class' => 'active', 'url' => '#'),
+						array('title' => 'รายการข้อมูลเมนูปรุงเอง(ระบบ)', 'class' => 'active', 'url' => '#'),
 		);
 		if (isset($_POST['submit'])) {
 			$search_field =  $this->input->post('search_field', TRUE);
@@ -164,7 +164,7 @@ class Self_food_menu extends CRUD_Controller
 	public function preview($encrypt_id = "")
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Self_food_menu', 'url' => site_url('selffood/self_food_menu')),
+						array('title' => 'รายการข้อมูลเมนูปรุงเอง(ระบบ)', 'url' => site_url('selffood/self_food_menu')),
 						array('title' => 'แสดงข้อมูลรายละเอียด', 'url' => '#', 'class' => 'active')
 		);
 		$encrypt_id = urldecode($encrypt_id);
@@ -192,7 +192,7 @@ class Self_food_menu extends CRUD_Controller
 	public function add()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Self_food_menu', 'url' => site_url('selffood/self_food_menu')),
+						array('title' => 'รายการข้อมูลเมนูปรุงเอง(ระบบ)', 'url' => site_url('selffood/self_food_menu')),
 						array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 
@@ -208,7 +208,7 @@ class Self_food_menu extends CRUD_Controller
 		$this->data['category_cate_id_option_list'] = $this->Self_food_menu->returnOptionList("category", "cate_id", "cate_name");
 		$this->data['users_user_delete_option_list'] = $this->Self_food_menu->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_add_option_list'] = $this->Self_food_menu->returnOptionList("users", "user_id", "user_fname");
-		$this->render_view('selffood/self_food_menu/add_view'); 
+		$this->render_view('selffood/self_food_menu/add_view');
 	}
 
 	// ------------------------------------------------------------------------
@@ -249,7 +249,7 @@ class Self_food_menu extends CRUD_Controller
             if ($query->num_rows() > 0) {
 
                 foreach ($query->result_array() as $row) {
-                
+
                     $data[] =  array(
                         "id"=> $row["id"],
                         "name" => $row["name"].' : '.$row['org_district'].' : '.$row['org_provice']
@@ -261,7 +261,7 @@ class Self_food_menu extends CRUD_Controller
 
         $json = array(
             "total"=>"",
-            "items"=>$data  
+            "items"=>$data
         );
 
 		$json = json_encode(array(
@@ -378,7 +378,7 @@ class Self_food_menu extends CRUD_Controller
 	public function edit($encrypt_id = '')
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Self_food_menu', 'url' => site_url('selffood/self_food_menu')),
+						array('title' => 'รายการข้อมูลเมนูปรุงเอง(ระบบ)', 'url' => site_url('selffood/self_food_menu')),
 						array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 
@@ -438,7 +438,7 @@ class Self_food_menu extends CRUD_Controller
 			$message .= 'ระบุเหตุผล';
 		}
 		*/
-		
+
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);
 
@@ -521,7 +521,7 @@ class Self_food_menu extends CRUD_Controller
 			$message .= 'ระบุเหตุผล';
 		}
 		*/
-		
+
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);
 		if ($error_pk_id != '') {
@@ -530,7 +530,7 @@ class Self_food_menu extends CRUD_Controller
 		if ($message != '') {
 			$json = json_encode(array(
 						'is_successful' => FALSE,
-						'message' => $message    
+						'message' => $message
 			));
 			echo $json;
 		}else{
@@ -564,7 +564,7 @@ class Self_food_menu extends CRUD_Controller
 	{
 		$data = $lists_data;
 		$count = count($lists_data);
-		
+
 		$this->load->model('common_model');
 
 		for($i=0;$i<$count;$i++){

@@ -16,13 +16,13 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 		parent::__construct();
 
 		chkUserPerm();
-		
+
 		$this->per_page = 30;
 		$this->num_links = 6;
 		$this->uri_segment = 4;
 		$this->load->model('exam/Users_result_exam_food_allergy_model', 'Users_result_exam_food_allergy');
 		$this->data['page_url'] = site_url('exam/users_result_exam_food_allergy');
-		
+
 		$this->data['page_title'] = 'ผลตรวจการแพ้อาหาร';
 		$js_url = 'assets/js_modules/exam/users_result_exam_food_allergy.js?ft='. filemtime('assets/js_modules/exam/users_result_exam_food_allergy.js');
 		$this->another_js = '<script src="'. base_url($js_url) .'"></script>';
@@ -76,7 +76,7 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 	// ------------------------------------------------------------------------
 
 	/**
-	 * List all record 
+	 * List all record
 	 */
 	public function list_all() {
 		$this->session->unset_userdata($this->Users_result_exam_food_allergy->session_name . '_search_field');
@@ -93,7 +93,7 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 	public function search()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Users_result_exam_food_allergy', 'class' => 'majestic', 'url' => '#'),
+						array('title' => 'ผลตรวจการแพ้อาหาร', 'class' => 'majestic', 'url' => '#'),
 		);
 		if (isset($_POST['submit'])) {
 			$search_field =  $this->input->post('search_field', TRUE);
@@ -164,7 +164,7 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 	public function preview($encrypt_id = "")
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Users_result_exam_food_allergy', 'url' => site_url('exam/users_result_exam_food_allergy')),
+						array('title' => 'ผลตรวจการแพ้อาหาร', 'url' => site_url('exam/users_result_exam_food_allergy')),
 						array('title' => 'แสดงข้อมูลรายละเอียด', 'url' => '#', 'class' => 'majestic')
 		);
 		$encrypt_id = urldecode($encrypt_id);
@@ -192,7 +192,7 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 	public function add()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Users_result_exam_food_allergy', 'url' => site_url('exam/users_result_exam_food_allergy')),
+						array('title' => 'ผลตรวจการแพ้อาหาร', 'url' => site_url('exam/users_result_exam_food_allergy')),
 						array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'majestic')
 		);
 		$this->data['users_user_id_option_list'] = $this->Users_result_exam_food_allergy->returnOptionList("users", "user_id", "user_fname");
@@ -200,7 +200,7 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 		$this->data['users_user_delete_option_list'] = $this->Users_result_exam_food_allergy->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_add_option_list'] = $this->Users_result_exam_food_allergy->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_update_option_list'] = $this->Users_result_exam_food_allergy->returnOptionList("users", "user_id", "user_fname");
-		$this->render_view('exam/users_result_exam_food_allergy/add_view'); 
+		$this->render_view('exam/users_result_exam_food_allergy/add_view');
 	}
 
 	// ------------------------------------------------------------------------
@@ -313,7 +313,7 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 	public function edit($encrypt_id = '')
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Users_result_exam_food_allergy', 'url' => site_url('exam/users_result_exam_food_allergy')),
+						array('title' => 'ผลตรวจการแพ้อาหาร', 'url' => site_url('exam/users_result_exam_food_allergy')),
 						array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'majestic')
 		);
 
@@ -366,7 +366,7 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 			$message .= 'ระบุเหตุผล';
 		}
 		*/
-		
+
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);
 		if ($error_pk_id != '') {
@@ -409,7 +409,7 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 			$message .= 'ระบุเหตุผล';
 		}
 		*/
-		
+
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);
 		if ($error_pk_id != '') {
@@ -418,7 +418,7 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 		if ($message != '') {
 			$json = json_encode(array(
 						'is_successful' => FALSE,
-						'message' => $message    
+						'message' => $message
 			));
 			echo $json;
 		}else{

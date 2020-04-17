@@ -261,7 +261,7 @@ class Users extends CRUD_Controller
 	public function search()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Users', 'class' => 'active', 'url' => '#'),
+						array('title' => 'จัดการข้อมูลส่วนตัว', 'class' => 'active', 'url' => '#'),
 		);
 		if (isset($_POST['submit'])) {
 			$search_field =  $this->input->post('search_field', TRUE);
@@ -332,7 +332,7 @@ class Users extends CRUD_Controller
 	public function preview($encrypt_id = "")
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Users', 'url' => site_url('setting/users')),
+						array('title' => 'จัดการข้อมูลส่วนตัว', 'url' => site_url('setting/users')),
 						array('title' => 'แสดงข้อมูลรายละเอียด', 'url' => '#', 'class' => 'active')
 		);
 		$encrypt_id = urldecode($encrypt_id);
@@ -360,7 +360,7 @@ class Users extends CRUD_Controller
 	public function add()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Users', 'url' => site_url('setting/users')),
+						array('title' => 'จัดการข้อมูลส่วนตัว', 'url' => site_url('setting/users')),
 						array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 
@@ -807,7 +807,7 @@ class Users extends CRUD_Controller
 	public function edit($encrypt_id = '')
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Users', 'url' => site_url('setting/users')),
+						array('title' => 'จัดการข้อมูลส่วนตัว', 'url' => site_url('setting/users')),
 						array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 

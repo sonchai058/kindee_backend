@@ -92,7 +92,7 @@ class Shop_promotions extends CRUD_Controller
 	}
 	public function editpro() {
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'shop_promotions', 'url' => site_url('restaurant/shop_promotions/editpro')),
+						array('title' => 'ข้อมูลโปรโมชั่น', 'url' => site_url('restaurant/shop_promotions/editpro')),
 						array('title' => 'จัดการข้อมูลโปรโมชั่น', 'url' => '#', 'class' => 'active')
 		);
 
@@ -217,7 +217,7 @@ class Shop_promotions extends CRUD_Controller
 	public function search()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Shop_promotions', 'class' => 'active', 'url' => '#'),
+						array('title' => 'ข้อมูลโปรโมชั่น', 'class' => 'active', 'url' => '#'),
 		);
 		if (isset($_POST['submit'])) {
 			$search_field =  $this->input->post('search_field', TRUE);
@@ -288,7 +288,7 @@ class Shop_promotions extends CRUD_Controller
 	public function preview($encrypt_id = "")
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Shop_promotions', 'url' => site_url('restaurant/shop_promotions')),
+						array('title' => 'ข้อมูลโปรโมชั่น', 'url' => site_url('restaurant/shop_promotions')),
 						array('title' => 'แสดงข้อมูลรายละเอียด', 'url' => '#', 'class' => 'active')
 		);
 		$encrypt_id = urldecode($encrypt_id);
@@ -316,7 +316,7 @@ class Shop_promotions extends CRUD_Controller
 	public function add()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Shop_promotions', 'url' => site_url('restaurant/shop_promotions')),
+						array('title' => 'ข้อมูลโปรโมชั่น', 'url' => site_url('restaurant/shop_promotions')),
 						array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 		$this->data['users_user_update_option_list'] = $this->Shop_promotions->returnOptionList("users", "user_id", "user_fname");
@@ -501,7 +501,7 @@ class Shop_promotions extends CRUD_Controller
 	public function edit($encrypt_id = '')
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Shop_promotions', 'url' => site_url('restaurant/shop_promotions')),
+						array('title' => 'ข้อมูลโปรโมชั่น', 'url' => site_url('restaurant/shop_promotions')),
 						array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 

@@ -22,7 +22,7 @@ class Users_result_exam_chemical extends CRUD_Controller
 		$this->uri_segment = 4;
 		$this->load->model('exam/Users_result_exam_chemical_model', 'Users_result_exam_chemical');
 		$this->data['page_url'] = site_url('exam/users_result_exam_chemical');
-		
+
 		$this->data['page_title'] = 'ผลตรวจสุขภาพทางทางชีวเคมี';
 		$js_url = 'assets/js_modules/exam/users_result_exam_chemical.js?ft='. filemtime('assets/js_modules/exam/users_result_exam_chemical.js');
 		$this->another_js = '<script src="'. base_url($js_url) .'"></script>';
@@ -76,7 +76,7 @@ class Users_result_exam_chemical extends CRUD_Controller
 	// ------------------------------------------------------------------------
 
 	/**
-	 * List all record 
+	 * List all record
 	 */
 	public function list_all() {
 		$this->session->unset_userdata($this->Users_result_exam_chemical->session_name . '_search_field');
@@ -93,7 +93,7 @@ class Users_result_exam_chemical extends CRUD_Controller
 	public function search()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Users_result_exam_chemical', 'class' => 'majestic', 'url' => '#'),
+						array('title' => 'รายการผลตรวจสุขภาพทางทางชีวเคมี', 'class' => 'majestic', 'url' => '#'),
 		);
 		if (isset($_POST['submit'])) {
 			$search_field =  $this->input->post('search_field', TRUE);
@@ -164,7 +164,7 @@ class Users_result_exam_chemical extends CRUD_Controller
 	public function preview($encrypt_id = "")
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Users_result_exam_chemical', 'url' => site_url('exam/users_result_exam_chemical')),
+						array('title' => 'รายการผลตรวจสุขภาพทางทางชีวเคมี', 'url' => site_url('exam/users_result_exam_chemical')),
 						array('title' => 'แสดงข้อมูลรายละเอียด', 'url' => '#', 'class' => 'majestic')
 		);
 		$encrypt_id = urldecode($encrypt_id);
@@ -192,14 +192,14 @@ class Users_result_exam_chemical extends CRUD_Controller
 	public function add()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Users_result_exam_chemical', 'url' => site_url('exam/users_result_exam_chemical')),
+						array('title' => 'รายการผลตรวจสุขภาพทางทางชีวเคมี', 'url' => site_url('exam/users_result_exam_chemical')),
 						array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'majestic')
 		);
 		$this->data['users_user_delete_option_list'] = $this->Users_result_exam_chemical->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_add_option_list'] = $this->Users_result_exam_chemical->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_update_option_list'] = $this->Users_result_exam_chemical->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_id_option_list'] = $this->Users_result_exam_chemical->returnOptionList("users", "user_id", "user_fname");
-		$this->render_view('exam/users_result_exam_chemical/add_view'); 
+		$this->render_view('exam/users_result_exam_chemical/add_view');
 	}
 
 	// ------------------------------------------------------------------------
@@ -209,7 +209,7 @@ class Users_result_exam_chemical extends CRUD_Controller
 	 * see also https://www.codeigniter.com/userguide3/libraries/form_validation.html
 	 */
     public function float_check($val)
-    {	
+    {
     	return TRUE;
     /*
     	die($val);
@@ -353,7 +353,7 @@ class Users_result_exam_chemical extends CRUD_Controller
 	public function edit($encrypt_id = '')
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Users_result_exam_chemical', 'url' => site_url('exam/users_result_exam_chemical')),
+						array('title' => 'รายการผลตรวจสุขภาพทางทางชีวเคมี', 'url' => site_url('exam/users_result_exam_chemical')),
 						array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'majestic')
 		);
 
@@ -405,7 +405,7 @@ class Users_result_exam_chemical extends CRUD_Controller
 			$message .= 'ระบุเหตุผล';
 		}
 		*/
-		
+
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);
 		if ($error_pk_id != '') {
@@ -459,7 +459,7 @@ class Users_result_exam_chemical extends CRUD_Controller
 		if ($message != '') {
 			$json = json_encode(array(
 						'is_successful' => FALSE,
-						'message' => $message    
+						'message' => $message
 			));
 			echo $json;
 		}else{

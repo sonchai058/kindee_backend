@@ -74,7 +74,7 @@ class Users_foood_allergy extends CRUD_Controller
 		}
 
 		$this->breadcrumb_data['breadcrumb'] = array(
-			array('title' => 'Users_foood_allergy', 'url' => site_url('foodallergy/users_foood_allergy')),
+			array('title' => 'ข้อมูลอาหารที่ท่านแพ้', 'url' => site_url('foodallergy/users_foood_allergy')),
 			array('title' => 'ไม่เคยตรวจ', 'url' => '#', 'class' => 'active')
 		);
 
@@ -223,7 +223,7 @@ class Users_foood_allergy extends CRUD_Controller
 	public function search()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-			array('title' => 'Users_foood_allergy', 'class' => 'active', 'url' => '#'),
+			array('title' => 'ข้อมูลอาหารที่ท่านแพ้', 'class' => 'active', 'url' => '#'),
 		);
 		if (isset($_POST['submit'])) {
 			$search_field =  $this->input->post('search_field', TRUE);
@@ -298,7 +298,7 @@ class Users_foood_allergy extends CRUD_Controller
 	public function preview($encrypt_id = "")
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-			array('title' => 'Users_foood_allergy', 'url' => site_url('foodallergy/users_foood_allergy')),
+			array('title' => 'ข้อมูลอาหารที่ท่านแพ้', 'url' => site_url('foodallergy/users_foood_allergy')),
 			array('title' => 'แสดงข้อมูลรายละเอียด', 'url' => '#', 'class' => 'active')
 		);
 		$encrypt_id = urldecode($encrypt_id);
@@ -326,7 +326,7 @@ class Users_foood_allergy extends CRUD_Controller
 	public function add()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-			array('title' => 'Users_foood_allergy', 'url' => site_url('foodallergy/users_foood_allergy')),
+			array('title' => 'ข้อมูลอาหารที่ท่านแพ้', 'url' => site_url('foodallergy/users_foood_allergy')),
 			array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 		$this->data['users_user_id_option_list'] = $this->Users_foood_allergy->returnOptionList("users", "user_id", "user_fname");
@@ -465,7 +465,7 @@ class Users_foood_allergy extends CRUD_Controller
 	public function edit($encrypt_id = '')
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-			array('title' => 'Users_foood_allergy', 'url' => site_url('foodallergy/users_foood_allergy')),
+			array('title' => 'ข้อมูลอาหารที่ท่านแพ้', 'url' => site_url('foodallergy/users_foood_allergy')),
 			array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 

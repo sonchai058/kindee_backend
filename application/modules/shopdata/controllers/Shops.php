@@ -121,7 +121,7 @@ class Shops extends CRUD_Controller
 	public function search()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Shops', 'class' => 'active', 'url' => '#'),
+						array('title' => 'ข้อมูลร้านอาหาร', 'class' => 'active', 'url' => '#'),
 		);
 		if (isset($_POST['submit'])) {
 			$search_field =  $this->input->post('search_field', TRUE);
@@ -192,7 +192,7 @@ class Shops extends CRUD_Controller
 	public function preview($encrypt_id = "")
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Shops', 'url' => site_url('shopdata/shops')),
+						array('title' => 'ข้อมูลร้านอาหาร', 'url' => site_url('shopdata/shops')),
 						array('title' => 'แสดงข้อมูลรายละเอียด', 'url' => '#', 'class' => 'active')
 		);
 		$encrypt_id = urldecode($encrypt_id);
@@ -220,7 +220,7 @@ class Shops extends CRUD_Controller
 	public function add()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Shops', 'url' => site_url('shopdata/shops')),
+						array('title' => 'ข้อมูลร้านอาหาร', 'url' => site_url('shopdata/shops')),
 						array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 
@@ -526,7 +526,7 @@ class Shops extends CRUD_Controller
 	public function edit($encrypt_id = '')
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Shops', 'url' => site_url('shopdata/shops')),
+						array('title' => 'ข้อมูลร้านอาหาร', 'url' => site_url('shopdata/shops')),
 						array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 
@@ -561,7 +561,7 @@ class Shops extends CRUD_Controller
 				foreach ($rows as $key => $value) {
 					//$year = (substr($value['datetime_add'],0,4)+543);
                 	$shop_images =  $shop_images.'<div class="preview-image preview-show-'.($key+1).'">' .
-                            '<div data-image_id="'.$value['image_id'].'" class="image-cancel" data-no="'.($key+1).'">x</div>'.'<div class="image-zone"><img id="pro-img-'.($key+1).'" src="'.base_url().$value['encrypt_name'].'"></div>'.
+                            '<div data-image_id="'.$value['image_id'].'" class="image-cancel" data-no="'.($key+1).'">x</div>'.'<div class="image-zone"><img  style="width:320px; height: 320px;" id="pro-img-'.($key+1).'" src="'.base_url().$value['encrypt_name'].'"></div>'.
                             '</div>';
 				}
 				$this->data['shop_images'] = $shop_images;

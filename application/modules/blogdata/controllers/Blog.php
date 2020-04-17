@@ -120,7 +120,7 @@ class Blog extends CRUD_Controller
 	public function search()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Dashboard', 'class' => 'active', 'url' => '#'),
+						array('title' => 'ข่าว/บทความ', 'class' => 'active', 'url' => '#'),
 		);
 		if (isset($_POST['submit'])) {
 			$search_field =  $this->input->post('search_field', TRUE);
@@ -193,7 +193,7 @@ class Blog extends CRUD_Controller
 	public function preview($encrypt_id = "")
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Blog', 'url' => site_url('blogdata/blog')),
+						array('title' => 'ข่าว/บทความ', 'url' => site_url('blogdata/blog')),
 						array('title' => 'แสดงข้อมูลรายละเอียด', 'url' => '#', 'class' => 'active')
 		);
 		$encrypt_id = urldecode($encrypt_id);
@@ -221,7 +221,7 @@ class Blog extends CRUD_Controller
 	public function add()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Blog', 'url' => site_url('blogdata/blog')),
+						array('title' => 'ข่าว/บทความ', 'url' => site_url('blogdata/blog')),
 						array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 		$this->data['count_image'] = 1;
@@ -340,7 +340,7 @@ class Blog extends CRUD_Controller
 	public function edit($encrypt_id = '')
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Blog', 'url' => site_url('blogdata/blog')),
+						array('title' => 'ข่าว/บทความ', 'url' => site_url('blogdata/blog')),
 						array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 

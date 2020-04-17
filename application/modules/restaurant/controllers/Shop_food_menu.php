@@ -119,7 +119,7 @@ class Shop_food_menu extends CRUD_Controller
 	public function search()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Shop_food_menu', 'class' => 'active', 'url' => '#'),
+						array('title' => 'เมนูอาหาร', 'class' => 'active', 'url' => '#'),
 		);
 		if (isset($_POST['submit'])) {
 			$search_field =  $this->input->post('search_field', TRUE);
@@ -190,7 +190,7 @@ class Shop_food_menu extends CRUD_Controller
 	public function preview($encrypt_id = "")
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Shop_food_menu', 'url' => site_url('restaurant/shop_food_menu')),
+						array('title' => 'เมนูอาหาร', 'url' => site_url('restaurant/shop_food_menu')),
 						array('title' => 'แสดงข้อมูลรายละเอียด', 'url' => '#', 'class' => 'active')
 		);
 		$encrypt_id = urldecode($encrypt_id);
@@ -218,7 +218,7 @@ class Shop_food_menu extends CRUD_Controller
 	public function add()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Shop_food_menu', 'url' => site_url('restaurant/shop_food_menu')),
+						array('title' => 'เมนูอาหาร', 'url' => site_url('restaurant/shop_food_menu')),
 						array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 
@@ -399,7 +399,7 @@ class Shop_food_menu extends CRUD_Controller
 	public function edit($encrypt_id = '')
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Shop_food_menu', 'url' => site_url('restaurant/shop_food_menu')),
+						array('title' => 'เมนูอาหาร', 'url' => site_url('restaurant/shop_food_menu')),
 						array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 

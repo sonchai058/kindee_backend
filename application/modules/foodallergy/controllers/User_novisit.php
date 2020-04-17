@@ -16,13 +16,13 @@ class User_novisit extends CRUD_Controller
 		parent::__construct();
 
 		chkUserPerm();
-		
+
 		$this->per_page = 30;
 		$this->num_links = 6;
 		$this->uri_segment = 4;
 		$this->load->model('foodallergy/User_novisit_model', 'User_novisit');
 		$this->data['page_url'] = site_url('foodallergy/user_novisit');
-		
+
 		$this->data['page_title'] = 'ข้อมูลอาหารที่ท่านแพ้ (ไม่เคยตรวจ)';
 		$js_url = 'assets/js_modules/foodallergy/user_novisit.js?ft='. filemtime('assets/js_modules/foodallergy/user_novisit.js');
 		$this->another_js = '<script src="'. base_url($js_url) .'"></script>';
@@ -76,7 +76,7 @@ class User_novisit extends CRUD_Controller
 	// ------------------------------------------------------------------------
 
 	/**
-	 * List all record 
+	 * List all record
 	 */
 	public function list_all() {
 		$this->session->unset_userdata($this->User_novisit->session_name . '_search_field');
@@ -93,7 +93,7 @@ class User_novisit extends CRUD_Controller
 	public function search()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'User_novisit', 'class' => 'active', 'url' => '#'),
+						array('title' => 'ข้อมูลอาหารที่ท่านแพ้', 'class' => 'active', 'url' => '#'),
 		);
 		if (isset($_POST['submit'])) {
 			$search_field =  $this->input->post('search_field', TRUE);
@@ -164,7 +164,7 @@ class User_novisit extends CRUD_Controller
 	public function preview($encrypt_id = "")
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'User_novisit', 'url' => site_url('foodallergy/user_novisit')),
+						array('title' => 'ข้อมูลอาหารที่ท่านแพ้', 'url' => site_url('foodallergy/user_novisit')),
 						array('title' => 'แสดงข้อมูลรายละเอียด', 'url' => '#', 'class' => 'active')
 		);
 		$encrypt_id = urldecode($encrypt_id);
@@ -192,11 +192,11 @@ class User_novisit extends CRUD_Controller
 	public function add()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'User_novisit', 'url' => site_url('foodallergy/user_novisit')),
+						array('title' => 'ข้อมูลอาหารที่ท่านแพ้', 'url' => site_url('foodallergy/user_novisit')),
 						array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 		$this->data['users_user_update_option_list'] = $this->User_novisit->returnOptionList("users", "user_id", "user_fname");
-		$this->render_view('foodallergy/user_novisit/add_view'); 
+		$this->render_view('foodallergy/user_novisit/add_view');
 	}
 
 	// ------------------------------------------------------------------------
@@ -304,7 +304,7 @@ class User_novisit extends CRUD_Controller
 	public function edit($encrypt_id = '')
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'User_novisit', 'url' => site_url('foodallergy/user_novisit')),
+						array('title' => 'ข้อมูลอาหารที่ท่านแพ้', 'url' => site_url('foodallergy/user_novisit')),
 						array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 
@@ -353,7 +353,7 @@ class User_novisit extends CRUD_Controller
 			$message .= 'ระบุเหตุผล';
 		}
 		*/
-		
+
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);
 		if ($error_pk_id != '') {
@@ -396,7 +396,7 @@ class User_novisit extends CRUD_Controller
 			$message .= 'ระบุเหตุผล';
 		}
 		*/
-		
+
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);
 		if ($error_pk_id != '') {
@@ -405,7 +405,7 @@ class User_novisit extends CRUD_Controller
 		if ($message != '') {
 			$json = json_encode(array(
 						'is_successful' => FALSE,
-						'message' => $message    
+						'message' => $message
 			));
 			echo $json;
 		}else{

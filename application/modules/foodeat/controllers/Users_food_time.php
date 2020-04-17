@@ -93,7 +93,7 @@ class Users_food_time extends CRUD_Controller
 	public function search()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Users_food_time', 'class' => 'active', 'url' => '#'),
+						array('title' => 'ข้อมูลยาที่ทานประจำ', 'class' => 'active', 'url' => '#'),
 		);
 		if (isset($_POST['submit'])) {
 			$search_field =  $this->input->post('search_field', TRUE);
@@ -164,7 +164,7 @@ class Users_food_time extends CRUD_Controller
 	public function preview($encrypt_id = "")
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Users_food_time', 'url' => site_url('foodeat/users_food_time')),
+						array('title' => 'ข้อมูลยาที่ทานประจำ', 'url' => site_url('foodeat/users_food_time')),
 						array('title' => 'แสดงข้อมูลรายละเอียด', 'url' => '#', 'class' => 'active')
 		);
 		$encrypt_id = urldecode($encrypt_id);
@@ -192,7 +192,7 @@ class Users_food_time extends CRUD_Controller
 	public function add()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Users_food_time', 'url' => site_url('foodeat/users_food_time')),
+						array('title' => 'ข้อมูลยาที่ทานประจำ', 'url' => site_url('foodeat/users_food_time')),
 						array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 		$this->data['users_user_id_option_list'] = $this->Users_food_time->returnOptionList("users", "user_id", "user_fname");
@@ -322,7 +322,7 @@ class Users_food_time extends CRUD_Controller
 	public function edit($encrypt_id = '')
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'Users_food_time', 'url' => site_url('foodeat/users_food_time')),
+						array('title' => 'ข้อมูลยาที่ทานประจำ', 'url' => site_url('foodeat/users_food_time')),
 						array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 
