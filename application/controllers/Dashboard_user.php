@@ -120,17 +120,17 @@ class Dashboard_user extends CRUD_Controller
 
 			$this->data['users_bmi'] = number_format($bmi_val,2);
 	          if($bmi_val < 18.5) {
-	          	$this->data['users_bmi_txt'] = "<br/><h6>น้ำหนักหน่อยกว่ามาตรฐาน</h6>";
+	          	$this->data['users_bmi_txt'] = "<br/><h4>น้ำหนักหน่อยกว่ามาตรฐาน</h4>";
 	          } elseif($bmi_val >= 18.5 && $bmi_val < 24.9) {
-	          	$this->data['users_bmi_txt'] = "<br/><h6>น้ำหนักปกติ</h6>";
+	          	$this->data['users_bmi_txt'] = "<br/><h4>น้ำหนักปกติ</h4>";
 	          } elseif($bmi_val >= 25 && $bmi_val < 29.9) {
-	          	$this->data['users_bmi_txt'] = "<br/><h6>อ้วนระดับ 1</h6>";
+	          	$this->data['users_bmi_txt'] = "<br/><h4>อ้วนระดับ 1</h4>";
 	          } elseif($bmi_val >= 30 && $bmi_val < 34.9) {
-	          	$this->data['users_bmi_txt'] = "<br/><h6>อ้วนระดับ 2</h6>";
+	          	$this->data['users_bmi_txt'] = "<br/><h4>อ้วนระดับ 2</h4>";
 	          }elseif($bmi_val >= 35 && $bmi_val < 39.9) {
-	          	$this->data['users_bmi_txt'] = "<br/><h6>อ้วนระดับ 3</h6>";
+	          	$this->data['users_bmi_txt'] = "<br/><h4>อ้วนระดับ 3</h4>";
 	          }elseif($bmi_val >40) {
-	          	$this->data['users_bmi_txt'] = "<br/><h6>อ้วนระดับ 4</h6>";
+	          	$this->data['users_bmi_txt'] = "<br/><h4>อ้วนระดับ 4</h4>";
 	          }
 
 			$chart_bmi[] = array('t'=>$value['date']." 00:00:00",'y'=>$bmi_val);

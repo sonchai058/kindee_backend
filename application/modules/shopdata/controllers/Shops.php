@@ -21,14 +21,14 @@ class Shops extends CRUD_Controller
 		parent::__construct();
 
 		chkUserPerm();
-		
+
 		$this->per_page = 30;
 		$this->num_links = 6;
 		$this->uri_segment = 4;
 		$this->load->model('shopdata/Shops_model', 'Shops');
 		$this->load->model('FileUpload_model', 'FileUpload');
 		$this->data['page_url'] = site_url('shopdata/shops');
-		
+
 		$this->data['page_title'] = 'จัดการร้านอาหาร';
 		$this->upload_store_path = './assets/uploads/shops/';
 		$this->file_allow = array(
@@ -104,7 +104,7 @@ class Shops extends CRUD_Controller
 	// ------------------------------------------------------------------------
 
 	/**
-	 * List all record 
+	 * List all record
 	 */
 	public function list_all() {
 		$this->session->unset_userdata($this->Shops->session_name . '_search_field');
@@ -232,11 +232,11 @@ class Shops extends CRUD_Controller
 		$this->data['users_user_delete_option_list'] = $this->Shops->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_add_option_list'] = $this->Shops->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_update_option_list'] = $this->Shops->returnOptionList("users", "user_id", "user_fname");
-		$this->data['preview_shop_photo'] = '<div id="div_preview_shop_photo" class="py-3 div_file_preview" style="clear:both"><img id="shop_photo_preview" height="300"/></div>';
+		$this->data['preview_shop_photo'] = '<div id="div_preview_shop_photo" class="py-3 div_file_preview" style="clear:both"><img id="shop_photo_preview" height="300"width="350"/></div>';
 		$this->data['record_shop_photo_label'] = '';
-		$this->data['preview_shop_cover'] = '<div id="div_preview_shop_cover" class="py-3 div_file_preview" style="clear:both"><img id="shop_cover_preview" height="300"/></div>';
+		$this->data['preview_shop_cover'] = '<div id="div_preview_shop_cover" class="py-3 div_file_preview" style="clear:both"><img id="shop_cover_preview" height="300"width="350"/></div>';
 		$this->data['record_shop_cover_label'] = '';
-		$this->render_view('shopdata/shops/add_view'); 
+		$this->render_view('shopdata/shops/add_view');
 	}
 
 	// ------------------------------------------------------------------------
@@ -545,7 +545,7 @@ class Shops extends CRUD_Controller
 
 
 				$this->setPreviewFormat($results);
-				
+
 				$this->data['data_id'] = $id;
 
 				$this->data['category_cate_id_option_list'] = $this->Shops->returnOptionList("category", "cate_id", "cate_name");
@@ -618,7 +618,7 @@ class Shops extends CRUD_Controller
 		));
 		echo $json;
 	}
-	
+
 	public function uploadfile1() {
 		$message = '<strong>อัปโหลดสำเร็จ</strong>';
 		$upload_error = 0;
@@ -630,11 +630,11 @@ class Shops extends CRUD_Controller
 
 		$post = $this->input->post(NULL, TRUE);
 		$filename = $post['filename'];
-		
+
 
 		//$path = $this->upload_store_path .(date('Y')+543);
 		$path = $this->upload_store_path;
-		
+
 		$blob = $post['blob'];
 
 		$blob = str_replace("[removed]",'data:image/png;base64,',$blob);
@@ -708,7 +708,7 @@ class Shops extends CRUD_Controller
 		));
 		echo $json;
 	}
-	
+
 	/*
 	public function __destruct() {
 		$this->db->query('UNLOCK TABLES');
@@ -739,7 +739,7 @@ class Shops extends CRUD_Controller
 			$message .= 'ระบุเหตุผล';
 		}
 		*/
-		
+
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);
 		if ($error_pk_id != '') {
@@ -830,7 +830,7 @@ class Shops extends CRUD_Controller
 			$message .= 'ระบุเหตุผล';
 		}
 		*/
-		
+
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);
 		if ($error_pk_id != '') {
@@ -839,7 +839,7 @@ class Shops extends CRUD_Controller
 		if ($message != '') {
 			$json = json_encode(array(
 						'is_successful' => FALSE,
-						'message' => $message    
+						'message' => $message
 			));
 			echo $json;
 		}else{

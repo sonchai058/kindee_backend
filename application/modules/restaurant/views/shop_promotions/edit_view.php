@@ -1,6 +1,6 @@
 <!--  [ View File name : edit_view.php ] -->
 	<div class="card">
-	<!--	
+	<!--
 		<div class="card-header bg-primary">
 			<h3 class="card-title"><i class="fa fa-edit"></i> แก้ไขข้อมูล <strong>shops</strong></h3>
 		</div>

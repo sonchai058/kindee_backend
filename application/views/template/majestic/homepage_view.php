@@ -111,8 +111,13 @@
 			margin: 0px !important;
 		}
 
-		#search {
-			width: 120px;
+		@media only screen and (min-width: 500px) {
+			#search {
+			width: 100%;
+			}
+			#btn-search {
+				width: 100%;
+			}
 		}
 	</style>
 

@@ -11,7 +11,7 @@ function insert_csrf_field($return=false){
 	}else{
 		echo $input;
 	}
-	
+
 }
 
 function addTabs($num){
@@ -86,7 +86,7 @@ function setDateToThai($date, $time=true, $style=''){
 	$y      = (isset($dte[0]) && $dte[0] > 0) ? $dte[0]+543 : '-';
 	$m      = isset($dte[1]) ? $dte[1] : '-';
 	$d      = isset($dte[2]) ? $dte[2] : '-';
-	
+
 	switch($style){
 		case 'full_month':
 			$full = array('','มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม');
@@ -237,19 +237,19 @@ function my_simple_crypt( $string, $action = 'e' ) {
     // you may change these values to your own
     $secret_key = 'my@simple#secret-key234';
     $secret_iv = 'my@simple#secret-iv345';
- 
+
     $output = false;
     $encrypt_method = "AES-256-CBC";
     $key = hash( 'sha256', $secret_key );
     $iv = substr( hash( 'sha256', $secret_iv ), 0, 16 );
- 
+
     if( $action == 'e' ) {
         $output = base64_encode( openssl_encrypt( $string, $encrypt_method, $key, 0, $iv ) );
     }
     else if( $action == 'd' ){
         $output = openssl_decrypt( base64_decode( $string ), $encrypt_method, $key, 0, $iv );
     }
- 
+
     return $output;
 }
 
@@ -317,7 +317,7 @@ function pass_secure_hash($input_pass)
  * Call password_verify() with md5 + salting
  * @param String $input_pass from user Login
  * @param String $record_password from database user record
- * @return Boolean 
+ * @return Boolean
  */
 function pass_secure_verify($input_pass, $record_password)
 {
@@ -367,7 +367,7 @@ function setAttachPreview($input_name, $file_path, $title='เปิดไฟล
 	$icon = getFileIcon($file_path);
 	if($icon == 'picture.png'){
 		$link = '<a class="file_link" target="_blank" title="'.$title.'" href="'. site_url('file/preview/') . ci_encrypt($file_path) .'">';
-		$link .= '<img id="'.$input_name.'_preview" height="200" src="'.base_url().''.$file_path.'" />';
+		$link .= '<img id="'.$input_name.'_preview" height="300" width="363" src="'.base_url().''.$file_path.'" />';
 		$link .= '</a>';
 	}else{
 		$link = setAttachLink($input_name, $file_path, $title, $show_text);
@@ -382,14 +382,14 @@ function setAttachLink($input_name, $file_path, $title='เปิดไฟล์
 		$text_link = '&nbsp; ' . $title;
 		$btn_class = ' btn btn-warning';
 	}
-	
+
 	$icon = getFileIcon($file_path);
 	if($icon != 'file_not_found.png'){
-		
+
 		$link = '<a class="file_link'.$btn_class.'" target="_blank" title="'.$title.'" href="'. site_url('file/preview/') . ci_encrypt($file_path) .'">';
 		$link .= '<img id="'.$input_name.'_preview" class="link-file-attach" src="'.base_url().'assets/images/icon/'.$icon.'" />' . $text_link;
 		$link .= '</a>';
-	
+
 	}else{
 		$link = '<a href="javascript:alert(\'ไม่พบไฟล์แนบ\')">';
 		$link .= '<img id="'.$input_name.'_preview" class="link-file-attach" height="20" src="'.base_url().'assets/images/icon/'.$icon.'" />';

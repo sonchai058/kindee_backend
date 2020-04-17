@@ -7,13 +7,16 @@
 	width: 2%;
 }
 </style>
-<div class="card">
-	<!--
-	<div class="card-header bg-primary">
-		<h3 class="card-title"><i class="fa fa-clipboard"></i> รายละเอียด <b>Shop_food_menu</b></h3>
-	</div>
-	-->
-	
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+
+			<div class="card">
+				<div class="card-header card-header-success card-header-text">
+					<div class="card-icon">
+						<i class="material-icons">list</i>
+					</div>
+				</div>
 	<div class="card-body">
 		<div class="table-responsive">
 			<table class="table table-bordered table-hover preview">
@@ -70,4 +73,7 @@
 			</table>
 		</div>
 	</div>
+</div>
+</div>
+</div>
 </div>

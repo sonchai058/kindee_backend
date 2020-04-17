@@ -10,48 +10,58 @@
 					<h4 class="card-title">รายการผู้ใช้งาน</h4>
 				</div>
 				<div class="card-body">
-					<div class="row">
-						<div class="col-sm-12 col-md-12 mb-3">
-							<div class="text-right">
-								<a href="{page_url}/add" class="btn btn-success btn-md" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่">
-									<i class="fa fa-plus-square"></i></span> เพิ่มรายการใหม่
-								</a>
-							</div>
-						</div>
-						<div class="col-sm-12 col-md-9">
-							<form class="form-inline well well-sm" name="formSearch" method="post" action="{page_url}/search">
-								{csrf_protection_field}
-								<a href="{page_url}" class="btn btn-warning ">ทั้งหมด</a> &nbsp;&nbsp;&nbsp;&nbsp;&emsp;
-								<div class="form-group" id="search">
-									<select class="select2-search" name="search_field" class="span2">
-									<option value="user_fname">ชื่อผู้ใช้งาน</option>
-									<option value="user_level">ระดับผู้ใช้งาน</option>
-									<!-- <option value="user_update">ผู้สร้าง</option> -->
-										<!-- <option value="fag_allow">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]</option> -->
-									</select>
-								</div> &nbsp;&nbsp;&nbsp;&nbsp;&emsp;
-								<div class="form-group has-warning bmd-form-group">
-									<input type="text" class="form-control col" id="txtSearch" name="txtSearch" value="{txt_search}">
-								</div> &nbsp;&nbsp;&nbsp;&nbsp;&emsp;
-								<input type="hidden" value="{order_by}" name="order_by" />
-								<button type="submit" name="submit" class="btn btn-warning">
-									<span class="glyphicon glyphicon-search"></span> ค้นหา
-								</button>
-							</form>
-						</div>
-						<div class="col-sm-12 col-md-3">
-							<div class="pull-right">
-								<div class="form-group">
-									<select class="select2-search" id="set_order_by" class="span2" value="{order_by}">
-									<option value="">- จัดเรียงตาม -</option>
-									<option value="user_fname|asc">ชื่อ ก - ฮ</option><option value="user_fname|desc">ชื่อ ฮ - ก</option>
-									<!--<option value="user_lname|asc">นามสกุล ก - ฮ</option><option value="user_lname|desc">นามสกุล ฮ - ก</option><option value="mobile_no|asc">มือถือ ก - ฮ</option><option value="mobile_no|desc">มือถือ ฮ - ก</option>-->
-										<!-- <option value="fag_allow|asc">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ] น้อย - มาก</option><option value="fag_allow|desc">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ] มาก - น้อย</option> -->
-									</select>
+				<form class="form-horizontal" name="formSearch" method="post" action="{page_url}/search">
+						{csrf_protection_field}
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="row align-items-center">
+									<div class="col-md-2">
+										<div class="form-group has-warning bmd-form-group">
+											<a href="{page_url}" id="btn-search" class="btn btn-warning ">ทั้งหมด</a>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<div class="form-group has-warning bmd-form-group" id="search">
+											<select class="select2-search" name="search_field" class="span2">
+												<option value="user_fname">ชื่อผู้ใช้งาน</option>
+												<option value="user_level">ระดับผู้ใช้งาน</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<div class="form-group has-warning bmd-form-group">
+											<input type="text" class="form-control col" id="txtSearch" name="txtSearch" value="{txt_search}">
+										</div>
+									</div>
+									<input type="hidden" value="{order_by}" name="order_by" />
+									<div class="col-md-2">
+										<div class="form-group bmd-form-group">
+											<button type="submit" name="submit" class="btn btn-warning" id="btn-search">
+												<span class="glyphicon glyphicon-search"></span> ค้นหา
+											</button>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<div class="form-group bmd-form-group">
+											<select class="select2-search" id="set_order_by" class="span2" value="{order_by}">
+											<option value="">- จัดเรียงตาม -</option>
+											<option value="user_fname|asc">ชื่อ ก - ฮ</option>
+											<option value="user_fname|desc">ชื่อ ฮ - ก</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<div class="form-group bmd-form-group">
+											<a href="{page_url}/add" class="btn btn-success" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่" id="btn-search">
+												<i class="fa fa-plus-square"></i></span>&nbsp;&nbsp;เพิ่มรายการใหม่
+											</a>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+					</form>
+
 					<div class="table-responsive">
 						<table class="table table-striped">
 							<thead>
@@ -67,13 +77,13 @@
 
 				<tbody>
 					<tr parser-repeat="[data_list]" id="row_{record_number}">
-						<td style="text-align:center;">[{record_number}]</td>
+						<td style="text-align:center;">{record_number}</td>
 						<!--<td>{preview_user_photo}</td> -->
-						<td style="text-align:center;">{user_fname}</td>
-						<td style="text-align:center;">{mobile_no}</td>
-						<td style="text-align:center;">{email_addr}</td>
+						<td >{user_fname}</td>
+						<td >{mobile_no}</td>
+						<td >{email_addr}</td>
 						<!--<td>{datetime_update}</td>-->
-						<td style="text-align:center;">{preview_user_level}</td>
+						<td >{preview_user_level}</td>
 						<td class="td-actions text-center">
 										<a href="{page_url}/preview/{url_encrypt_id}" class="my-tooltip btn btn-warning btn-md" data-toggle="tooltip" title="แสดงข้อมูลรายละเอียด">
 											<i class="material-icons">list</i>

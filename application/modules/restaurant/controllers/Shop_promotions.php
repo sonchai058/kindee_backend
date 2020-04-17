@@ -21,14 +21,14 @@ class Shop_promotions extends CRUD_Controller
 		parent::__construct();
 
 		chkUserPerm();
-		
+
 		$this->per_page = 30;
 		$this->num_links = 6;
 		$this->uri_segment = 4;
 		$this->load->model('restaurant/Shop_promotions_model', 'Shop_promotions');
 		$this->load->model('FileUpload_model', 'FileUpload');
 		$this->data['page_url'] = site_url('restaurant/shop_promotions');
-		
+
 		$this->data['page_title'] = 'โปรโมชั่น';
 		$this->upload_store_path = './assets/uploads/shop_promotions/';
 		$this->file_allow = array(
@@ -61,7 +61,7 @@ class Shop_promotions extends CRUD_Controller
 	/**
 	 * Index of controller
 	 */
-	
+
 	public function editpro_save() {
 		$message = '<strong>บันทึกข้อมูลเรียบร้อย</strong>';
 		$success = TRUE;
@@ -123,11 +123,11 @@ class Shop_promotions extends CRUD_Controller
 					$tmp_data = $tmp_data."<div class='row'><div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-6'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
 					$tmp_data = $tmp_data."<div  class='col-6'><input type='number' step='0.01' value='{$pro_discount}' onkeypress=\"$('.pro_id{$value['pro_id']}').prop('checked',true);\" name='pro_discount[{$value['pro_id']}]'></div></div>";
 
-				
+
 			}
 
 			$tmp_data.="</div><div class='col-sm-12 col-md-6'><div class='col-sm-12 col-md-6'><div class='row'><div  class='col-6' style='color:#868787'>บัตรเครดิต</div><div  class='col-6' style='color:#868787'>ส่วนลด</div></div><br/>";
-			
+
 			$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='mobile_chanel' order by a.pro_name");
 
 			foreach ($rows as $key => $value) {
@@ -141,11 +141,11 @@ class Shop_promotions extends CRUD_Controller
 					$tmp_data = $tmp_data."<div class='row'><div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-6'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
 					$tmp_data = $tmp_data."<div  class='col-6'><input type='number' step='0.01' value='{$pro_discount}' onkeypress=\"$('.pro_id{$value['pro_id']}').prop('checked',true);\" name='pro_discount[{$value['pro_id']}]'></div></div>";
 
-				
+
 			}
 
 			$this->data['rows'] = json_encode($rows);
-			$this->data['results'] = $tmp_data."</div></div>";
+			$this->data['results'] = $tmp_data."</div></div></div>";
 			//$results = $this->Users_foood_allergy->load($id);
 			//if (empty($results)) {
 			//$this->data['message'] = "ไม่พบข้อมูลตามรหัสอ้างอิง <b>$id</b>";
@@ -200,7 +200,7 @@ class Shop_promotions extends CRUD_Controller
 	// ------------------------------------------------------------------------
 
 	/**
-	 * List all record 
+	 * List all record
 	 */
 	public function list_all() {
 		$this->session->unset_userdata($this->Shop_promotions->session_name . '_search_field');
@@ -322,7 +322,7 @@ class Shop_promotions extends CRUD_Controller
 		$this->data['users_user_update_option_list'] = $this->Shop_promotions->returnOptionList("users", "user_id", "user_fname");
 		$this->data['preview_shop_photo'] = '<div id="div_preview_shop_photo" class="py-3 div_file_preview" style="clear:both"><img id="shop_photo_preview" height="300"/></div>';
 		$this->data['record_shop_photo_label'] = '';
-		$this->render_view('restaurant/shop_promotions/add_view'); 
+		$this->render_view('restaurant/shop_promotions/add_view');
 	}
 
 	// ------------------------------------------------------------------------
@@ -551,7 +551,7 @@ class Shop_promotions extends CRUD_Controller
 			$message .= 'ระบุเหตุผล';
 		}
 		*/
-		
+
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);
 		if ($error_pk_id != '') {
@@ -615,7 +615,7 @@ class Shop_promotions extends CRUD_Controller
 			$message .= 'ระบุเหตุผล';
 		}
 		*/
-		
+
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);
 		if ($error_pk_id != '') {
@@ -624,7 +624,7 @@ class Shop_promotions extends CRUD_Controller
 		if ($message != '') {
 			$json = json_encode(array(
 						'is_successful' => FALSE,
-						'message' => $message    
+						'message' => $message
 			));
 			echo $json;
 		}else{

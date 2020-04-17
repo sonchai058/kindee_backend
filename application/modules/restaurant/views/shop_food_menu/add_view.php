@@ -6,62 +6,44 @@
 	var state = 'add';
 </script>
 <!-- [ View File name : add_view.php ] -->
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
 	<div class="card">
-		<!--
-		<div class="card-header bg-primary">
-			<h3 class="card-title"><i class="fa fa-plus-square"></i> เพิ่มข้อมูล <strong>Shop_food_menu</strong></h3>
-		</div>
-		-->
-		<div class="card-body">
-			<form class="form-horizontal" id="formAdd" accept-charset="utf-8">
-				{csrf_protection_field}
-				<div class="row">
-
-					<div class="col-sm-12 col-md-3">
-						<label class="col-sm-12 control-label" for="self_self_food_name">ชื่อ :</label>
-						<input type="text" class="form-control " id="self_food_name" name="self_food_name" value=""  />
-					</div>
-
-					<div class="col-sm-12 col-md-3">
-						<label class="col-sm-12 control-label" for="cate_id">ประเภท :</label><br/>
-					<select  id="cate_id" name="cate_id" value="">
-						<option value="">- เลือก ประเภทอาหาร -</option>
-						{category_cate_id_option_list}
-					</select>
-					</div>
-
-					<div class="col-sm-12 col-md-3">
-						<label class="col-sm-12 control-label" for="fag_allow">ราคา  :</label>
-
-						<input type="number" step="0.01" class="form-control " id="price_amt" name="price_amt" value="0"  />
-					</div>
-
-					<!--
-					<div class="col-sm-12 col-md-3">
-						<label class="col-sm-12 control-label" for="fag_allow">สถานะ :</label><br/>
-
-						<select id="fag_allow" name="fag_allow" value="allow" >
-							<!--<option value="">- เลือก สถานะ -</option>-->
-							<!--
-							<option value="allow">ปกติ</option>
-							<option value="block">ระงับ</option>
-							<option value="delete">ลบ</option>
-						</select>
-					</div>
-				-->
-				</div>
-			<!--
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="energy_amt">พลังงาน  :</label>
-					<div class="col-sm-10">
-
-						<input type="hidden" class="form-control " id="energy_amt" name="energy_amt" value=""  />
+	<div class="card-header card-header-success card-header-text">
+					<div class="card-icon">
+						<i class="material-icons">note_add</i>
 					</div>
 				</div>
-			-->
-
-				<br/>
-				<div class="row">
+				<div class="card-body ">
+					<form class="form-horizontal" id="formAdd" accept-charset="utf-8" method="post" enctype="multipart/form-data">
+						{csrf_protection_field}
+						<br>
+						<div class="container">
+							<div class="form-row justify-content-between">
+								<div class="form-group col-md-4 ">
+									<label class="control-label" for="self_self_food_name">ชื่อ :</label>
+									<div class="form-group has-success">
+										<input type="text" class="form-control " id="self_food_name" name="self_food_name" value=""  />
+									</div>
+								</div>
+								<div class="form-group col-md-4 ">
+									<label class="control-label" for="cate_id">ประเภท :</label><br/>
+									<div class="form-group has-success">
+									<select  id="cate_id" name="cate_id" value="">
+										<option value="">- เลือก ประเภทอาหาร -</option>
+										{category_cate_id_option_list}
+									</select>
+									</div>
+								</div>
+								<div class="form-group col-md-4 ">
+									<label class="control-label" for="fag_allow">ราคา  :</label>
+									<div class="form-group has-success">
+									<input type="number" step="0.01" class="form-control " id="price_amt" name="price_amt" value="0"  />
+									</div>
+								</div>
+							</div>
+							<div class="row">
 					<div class="col-sm-12 col-md-6">
 						<label class="col-sm-12 control-label" for="">ส่วนประกอบ :</label>
 						<button type="button" id="btn_comp"
@@ -72,7 +54,7 @@
 					</div>
 				</div>
 				<br/>
-				
+
 				<div class="row rmat_content_tmp" style="display: none">
 						<div class="col-sm-12 col-md-4">
 							<label class="col-sm-12 control-label" for="">ส่วนประกอบ  :</label><br/>
@@ -88,7 +70,7 @@
 						</div>
 						<div class="col-sm-12 col-md-4">
 							<label class="col-sm-12 control-label" for=""></label><br/>
-							<button onclick='del(this)' style="margin-top:7px;" type="button" 
+							<button onclick='del(this)' style="margin-top:7px;" type="button"
 								class="btn btn-warning btn-sm btn-del" data-toggle="modal"
 								data-target="" >
 								ลบ
@@ -98,45 +80,46 @@
 
 				<div class="wrap_rmat_content">
 				</div>
-				
-				<br/>
-				
-				<div class="row">
-					<div class="col-sm-12">
-						<label class="col-sm-12 control-label" for="images_detail">รูปภาพ  :</label>
-					</div>
+				<br>
+							<div class="form-row ustify-content-between">
+								<div class="form-group col-md-12 ">
+									<label class="control-label" for="blog_name">รูปภาพ :</label>
+									<div class="form-group has-success">
+										<button onclick="$('#pro-image').click()" type="button" id="" class="btn btn-warning btn-md" data-toggle="modal" data-target="">
+											&nbsp;&nbsp;<i class="fa fa-upload"></i> &nbsp;อัปโหลดรูป &nbsp;&nbsp;
+										</button>
+										<input accept="image/*" type="file" id="pro-image" name="pro-image[]" style="display: none;" class="form-control" multiple>
+									</div>
+								</div>
+							</div>
+							<div class="form-row ustify-content-between">
+								<div class="form-group col-md-12 ">
+									<label class="control-label"</label>
+									<div class="form-group has-success">
+										<div class="preview-images-zone" id="uploadContent">
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-12 text-right">
+								<input type="hidden" id="add_encrypt_id" />
+								<button type="button" id="btnConfirmSave" class="btn btn-success btn-md" data-toggle="modal" data-target="#addModal">
+									&nbsp;&nbsp;<i class="fa fa-save"></i> &nbsp;บันทึก &nbsp;&nbsp;
+								</button>
+							</div>
+						</div>
+
+					</form>
+
 				</div>
 
-				<div class="row form-group">
-					<div class="col-sm-4">
-							<button onclick="$('#pro-image').click()" type="button" id=""
-								class="btn btn-warning btn-md" data-toggle="modal"
-								data-target="" >
-								&nbsp;&nbsp;<i class="fa fa-upload"></i> อัปโหลดรูป &nbsp;&nbsp;
-							</button>
-								<input accept="image/*" type="file" id="pro-image" name="pro-image[]" style="display: none;" class="form-control" multiple>
-					</div>
-				</div>
-				<div class="row form-group">
-				    <div class="preview-images-zone" id="uploadContent">
-
-				    </div>
-				</div>
-
-
-				<div class="form-group">
-					<div class="col-sm-12 text-right">
-						<input type="hidden" id="add_encrypt_id" />
-						<button type="button" id="btnConfirmSave"
-							class="btn btn-warning btn-md" data-toggle="modal"
-							data-target="#addModal" >
-							&nbsp;&nbsp;<i class="fa fa-save"></i> บันทึก &nbsp;&nbsp;
-						</button>
-					</div>
-				</div>
-			</form>
-		</div> <!--panel-body-->
 	</div> <!--panel-->
+	</div> <!--panel-->
+	</div> <!--panel-->
+
 </div> <!--contrainer-->
 
 <!-- Modal Confirm Save -->
@@ -151,8 +134,8 @@
 				<p class="alert alert-warning">ยืนยันการบันทึกข้อมูล ?</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-warning" data-dismiss="modal">ปิด</button>
-				<button type="button" class="btn btn-warning" id="btnSave">&nbsp;บันทึก&nbsp;</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal">&nbsp;ปิด&nbsp;</button>&emsp;
+				<button type="button" class="btn btn-success" id="btnSave">&nbsp;บันทึก&nbsp;</button>
 			</div>
 		</div>
 	</div>

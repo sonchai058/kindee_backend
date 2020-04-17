@@ -10,56 +10,60 @@
 					<h4 class="card-title">รายการข่าว/บทความ</h4>
 				</div>
 				<div class="card-body">
-					<div class="row">
-						<div class="col-sm-12 col-md-12 mb-3">
-							<div class="text-right">
-								<a href="{page_url}/add" class="btn btn-success" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่">
-									<i class="fa fa-plus-square"></i></span>&nbsp;&nbsp;เพิ่มรายการใหม่
-								</a>
+					<form class="form-horizontal" name="formSearch" method="post" action="{page_url}/search">
+						{csrf_protection_field}
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="row align-items-center">
+									<div class="col-md-2">
+										<div class="form-group has-warning bmd-form-group">
+											<a href="{page_url}" id="btn-search" class="btn btn-warning ">ทั้งหมด</a>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<div class="form-group has-warning bmd-form-group" id="search">
+											<select class="select2-search" name="search_field" class="span2">
+												<option value="blog_name">หัวข้อ</option>
+												<option value="blog_detail">รายละเอียด</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<div class="form-group has-warning bmd-form-group">
+											<input type="text" class="form-control col" id="txtSearch" name="txtSearch" value="{txt_search}">
+										</div>
+									</div>
+									<input type="hidden" value="{order_by}" name="order_by" />
+									<div class="col-md-2">
+										<div class="form-group bmd-form-group">
+											<button type="submit" name="submit" class="btn btn-warning" id="btn-search">
+												<span class="glyphicon glyphicon-search"></span> ค้นหา
+											</button>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<div class="form-group bmd-form-group">
+											<select class="select2-search" id="set_order_by" class="span2" value="{order_by}">
+												<option value="">- จัดเรียงตาม -</option>
+												<option value="blog_name|asc">หัวข้อ ก - ฮ</option>
+												<option value="blog_name|desc">หัวข้อ ฮ - ก</option>
+												<option value="blog_detail|asc">รายละเอียด ก - ฮ</option>
+												<option value="blog_detail|desc">รายละเอียด ฮ - ก</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-md-2">
+										<div class="form-group bmd-form-group">
+											<a href="{page_url}/add" class="btn btn-success" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่" id="btn-search">
+												<i class="fa fa-plus-square"></i></span>&nbsp;&nbsp;เพิ่มรายการใหม่
+											</a>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class="col-sm-12 col-md-9">
-							<form class="form-inline well well-sm" name="formSearch" method="post" action="{page_url}/search">
-								{csrf_protection_field}
-								<div class="form-group">
-									<a href="{page_url}" class="btn btn-warning ">ทั้งหมด</a>&nbsp;&nbsp;&nbsp;&nbsp;&emsp;
-								</div>
-								<div class="form-group" id="search">
-									<select class="select2-search" name="search_field" class="span2">
-										<option value="blog_name">หัวข้อ</option>
-										<option value="blog_detail">รายละเอียด</option>
-										<!-- <option value="user_update">ผู้สร้าง</option> -->
-										<!-- <option value="fag_allow">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ]</option> -->
-									</select>
-								</div>&nbsp;&nbsp;&nbsp;&nbsp;&emsp;
-								<div class="form-group has-warning bmd-form-group">
-									<input type="text" class="form-control col" id="txtSearch" name="txtSearch" value="{txt_search}">
-								</div>&nbsp;&nbsp;&nbsp;&nbsp;&emsp;
-								<input type="hidden" value="{order_by}" name="order_by" />
-								<div class="form-group">
-								<button type="submit" name="submit" class="btn btn-warning">
-									<span class="glyphicon glyphicon-search"></span> ค้นหา
-								</button>
-								</div>
+					</form>
 
-
-							</form>
-						</div>
-						<div class="col-sm-12 col-md-3">
-							<div class="pull-right">
-								<div class="form-group">
-									<select class="select2-search" id="set_order_by" class="span2" value="{order_by}">
-										<option value="">- จัดเรียงตาม -</option>
-										<option value="blog_name|asc">หัวข้อ ก - ฮ</option>
-										<option value="blog_name|desc">หัวข้อ ฮ - ก</option>
-										<option value="blog_detail|asc">รายละเอียด ก - ฮ</option>
-										<option value="blog_detail|desc">รายละเอียด ฮ - ก</option>
-										<!-- <option value="fag_allow|asc">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ] น้อย - มาก</option><option value="fag_allow|desc">สถานะ [allow=เผยแพร่,block=ไม่เผยแพร่,delete=ลบ] มาก - น้อย</option> -->
-									</select>
-								</div>
-							</div>
-						</div>
-					</div>
 					<div class="table-responsive">
 						<table class="table table-striped">
 							<thead>
@@ -75,7 +79,7 @@
 							<tbody>
 								<tr parser-repeat="[data_list]" id="row_{record_number}">
 									<td style="text-align:center;">{record_number}</td>
-									<td style="text-align:center;">{blog_name}</td>
+									<td>{blog_name}</td>
 									<td style="text-align:center;">{date_public}</td>
 									<td style="text-align:center;">{preview_fag_allow}</td>
 									<td style="text-align:center;">{userAddUserFname}</td>

@@ -6,64 +6,44 @@
 	var state = 'edit';
 </script>
 <!--  [ View File name : edit_view.php ] -->
-	<div class="card">
-		<!--
-		<div class="card-header bg-primary">
-			<h3 class="card-title"><i class="fa fa-edit"></i> แก้ไขข้อมูล <strong>self_food_menu</strong></h3>
-		</div>
-		-->
-		<div class="card-body">
-			<form class='form-horizontal' id='formEdit' accept-charset='utf-8'>
-				{csrf_protection_field}
-				<input type="hidden" name="submit_case" value="edit" />
-				<div class="row">
-
-					<div class="col-sm-12 col-md-3">
-						<label class="col-sm-12 control-label" for="self_self_food_name">ชื่อ :</label>
-
-						<input type="text" class="form-control " id="self_food_name" name="self_food_name" value="{record_self_food_name}"  />
-					</div>
-
-					<div class="col-sm-12 col-md-3">
-						<label class="col-sm-12 control-label" for="cate_id">ประเภท :</label><br/>
-					<select id='cate_id'  name='cate_id' value="{record_cate_id}" >
-						<option value="">- เลือก ประเภทอาหาร -</option>
-						{category_cate_id_option_list}
-					</select>
-					</div>
-					<!--
-					<div class="col-sm-12 col-md-3">
-						<label class="col-sm-12 control-label" for="fag_allow">สถานะ :</label><br/>
-
-						<select id="fag_allow" name="fag_allow" value="{record_fag_allow}" >
-							<!--<option value="">- เลือก สถานะ -</option>-->
-							<!--
-							<option value="allow">ปกติ</option>
-							<option value="block">ระงับ</option>
-							<option value="delete">ลบ</option>
-						</select>
-					</div>
-				-->
-
-					<div class="col-sm-12 col-md-3">
-						<label class="col-sm-12 control-label" for="fag_allow">ราคา  :</label>
-
-						<input type="number" step="0.01" class="form-control " id="price_amt" name="price_amt" value="{record_price_amt}"  />
-					</div>
-
-				</div>
-			<!--
-				<div class='form-group'>
-					<label class='col-sm-2 control-label' for='energy_amt'>พลังงาน  :</label>
-					<div class='col-sm-10'>
-
-						<input type="text" class="form-control " id="energy_amt" name="energy_amt" value="{record_energy_amt}"  />
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header card-header-success card-header-text">
+					<div class="card-icon">
+						<i class="material-icons">edit</i>
 					</div>
 				</div>
-			-->
-
-				<br/>
-				<div class="row rmat_content">
+				<div class="card-body ">
+					<form class="form-horizontal" id="formAdd" accept-charset="utf-8" method="post" enctype="multipart/form-data">
+						{csrf_protection_field}
+						<br>
+						<div class="container">
+							<div class="form-row justify-content-between">
+								<div class="form-group col-md-4 ">
+									<label class="control-label" for="self_self_food_name">ชื่อ :</label>
+									<div class="form-group has-success">
+										<input type="text" class="form-control " id="self_food_name" name="self_food_name" value="{record_self_food_name}"  />
+									</div>
+								</div>
+								<div class="form-group col-md-4 ">
+									<label class="control-label" for="cate_id">ประเภท :</label><br/>
+									<div class="form-group has-success">
+									<select  id="cate_id" name="cate_id" value="{record_cate_id}" >
+										<option value="">- เลือก ประเภทอาหาร -</option>
+										{category_cate_id_option_list}
+									</select>
+									</div>
+								</div>
+								<div class="form-group col-md-4 ">
+									<label class="control-label" for="fag_allow">ราคา  :</label>
+									<div class="form-group has-success">
+									<input type="number" step="0.01" class="form-control " id="price_amt" name="price_amt" value="{record_price_amt}"  />
+									</div>
+								</div>
+							</div>
+							<div class="row rmat_content">
 					<div class="col-sm-12 col-md-6">
 						<label class="col-sm-12 control-label" for="">ส่วนประกอบ :</label>
 						<button type="button" id="btn_comp"
@@ -73,8 +53,9 @@
 						</button>
 					</div>
 				</div>
+
 				<br/>
-				
+
 				<div class="row rmat_content_tmp" style="display: none">
 						<div class="col-sm-12 col-md-4">
 							<label class="col-sm-12 control-label" for="">ส่วนประกอบ  :</label><br/>
@@ -90,7 +71,7 @@
 						</div>
 						<div class="col-sm-12 col-md-4">
 							<label class="col-sm-12 control-label" for=""></label><br/>
-							<button onclick='del(this)' style="margin-top:7px;" type="button" 
+							<button onclick='del(this)' style="margin-top:7px;" type="button"
 								class="btn btn-warning btn-sm btn-del" data-toggle="modal"
 								data-target="" >
 								ลบ
@@ -101,9 +82,9 @@
 				<div class="wrap_rmat_content">
 
 				</div>
-				
+
 				<br/>
-				
+
 				<div class="row">
 					<div class="col-sm-12">
 						<label class="col-sm-12 control-label" for="images_detail">รูปภาพ  :</label>
@@ -128,7 +109,7 @@
 
 				<div class='form-group'>
 					<div class="col-sm-12 text-right">
-						<button  type="button" class='btn btn-warning btn-md'  data-toggle='modal' data-target='#editModal' >&nbsp;&nbsp;<i class="fa fa-save"></i> บันทึก &nbsp;&nbsp;</button>
+						<button  type="button" class="btn btn-success btn-md"  data-toggle='modal' data-target='#editModal' >&nbsp;&nbsp;<i class="fa fa-save"></i> &nbsp;บันทึก &nbsp;&nbsp;</button>
 
 						</div>
 				</div>
@@ -164,14 +145,16 @@
 				</form>
 			</div>
 			<div class='modal-footer'>
-				<button type='button' class='btn btn-warning' data-dismiss='modal'>ปิด</button>
-				<button type='button' class='btn btn-warning' id='btnSaveEdit'>&nbsp;บันทึก&nbsp;</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal">&nbsp;ปิด&nbsp;</button>&emsp;
+				<button type="button" class="btn btn-success" id="btnSaveEdit">&nbsp;บันทึก&nbsp;</button>
 			</div>
 		</div>
 	</div>
 </div>
-
-
+</div>
+</div>
+</div>
+</div>
 <!-- Creates the bootstrap modal where the image will appear -->
 <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">

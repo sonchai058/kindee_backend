@@ -130,7 +130,9 @@ $('#container1').highcharts({
 	title: {
 		text: 'จำนวนการใช้งาน'
 	},
-	subtitle: false,
+	subtitle: {
+		text: 'วันท'
+	},
 	credits: {
 		enabled: false
 	},
@@ -161,7 +163,7 @@ $('#container1').highcharts({
         tooltipArray = ['DATE: <b>' + this.x + '</b>']
 
       points.forEach(function(point, index) {
-        tooltipArray.push('VALUE: <b>' + point.y + '</b>');
+        tooltipArray.push('จำนวนการเข้าใช้งาน: <b>' + point.y + '</b>');
       });
 
       return tooltipArray;

@@ -2,6 +2,7 @@
   var point_lat = {point_lat};
   var point_long = {point_long};
 </script>
+<div class="container-fluid">
 
     <div class="card">
       <div class="card-body">
@@ -32,8 +33,7 @@
         </div>
     </div>
 </div>
-
-    <div class="card">
+<div class="container-fluid">
       <div class="card-body">
         <h3>เมนูอาหาร</h3>
       <div class="row">
@@ -41,7 +41,9 @@
         {shop_food_menu_images}
       </div>
       </div>
-    </div>
+		</div>
+		</div>
+		</div>
 
 <!-- Creates the bootstrap modal where the image will appear -->
 <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

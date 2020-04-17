@@ -25,7 +25,7 @@
 </script>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-lg-4 col-md-6 col-sm-12">
+		<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
 			<div class="card card-stats">
 				<div class="col-sm-4" style="padding-top: 10px;">
 					<img style="border-radius:50%" src="{user_photo}" height="100" width="100">
@@ -40,7 +40,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-2 col-md-6 col-sm-12">
+		<div class="col-xl-2 col-lg-3 col-md-6 col-sm-12">
 			<div class="card card-stats">
 				<div class="card-header card-header-drak card-header-icon">
 					<h2 class="card-title text-drak">{user_height}</h2>
@@ -52,7 +52,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-2 col-md-6 col-sm-12">
+		<div class="col-xl-2 col-lg-3 col-md-6 col-sm-12">
 			<div class="card card-stats">
 				<div class="card-header card-header-drak card-header-icon">
 					<h2 class="card-title text-drak">{users_exam_weight}</h2>
@@ -64,7 +64,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-2 col-md-6 col-sm-12">
+		<div class="col-xl-2 col-lg-3 col-md-6 col-sm-12">
 			<div class="card card-stats">
 				<div class="card-header card-header-drak card-header-icon">
 					<h2 class="card-title text-drak">{users_exam_waistline}</h2>
@@ -76,7 +76,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-2 col-md-6 col-sm-12">
+		<div class="col-xl-2 col-lg-3 col-md-6 col-sm-12">
 			<div class="card card-stats">
 				<div class="card-header card-header-drak card-header-icon">
 					<h2 class="card-title text-drak">{users_exam_hip}</h2>
@@ -98,22 +98,22 @@
             <h1 width="30%">{users_bmi} BMI {users_bmi_txt}</h1>
             <!-- <img style="top:0px;     margin-top: -60px; float:right" src="{base_url}assets/images/bmi.PNG"> -->
             <div class="row">
-              <div class="col-sm-2" style="background-color:#DBFF33; text-align: center; font-size: 11px; padding-top:20px; padding-bottom: 20px;">
-                น้ำหนักหน่อยกว่ามาตรฐาน < 18.5
+              <div class="col-sm-2" style="background-color:#DBFF33; text-align: center; font-size: 14px; font-weight:bold; padding-top:20px; padding-bottom: 20px;">
+                น้ำหนักหน่อยกว่ามาตรฐาน &nbsp;&nbsp;< 18.5
               </div>
-              <div class="col-sm-2" style="background-color:#47A44B; text-align: center; font-size: 11px; padding-top:20px; padding-bottom: 20px;">
+              <div class="col-sm-2" style="background-color:#47A44B; text-align: center; font-size: 14px; font-weight:bold; padding-top:20px; padding-bottom: 20px;">
                 น้ำหนักปกติ 18.5 - 24.9
               </div>
-              <div class="col-sm-2" style="background-color:#E83E80; text-align: center; font-size: 11px; padding-top:20px; padding-bottom: 20px;">
+              <div class="col-sm-2" style="background-color:#E83E80; text-align: center; font-size: 14px; font-weight:bold; padding-top:20px; padding-bottom: 20px;">
                 อ้วนระดับ 1 25 - 29.9
               </div>
-              <div class="col-sm-2" style="background-color:#AF7AC5; text-align: center; font-size: 11px; padding-top:20px; padding-bottom: 20px;">
+              <div class="col-sm-2" style="background-color:#AF7AC5; text-align: center; font-size: 14px; font-weight:bold; padding-top:20px; padding-bottom: 20px;">
                 อ้วนระดับ 2 30 - 34.9
               </div>
-              <div class="col-sm-2" style="background-color:#F08F00; text-align: center; font-size: 11px; padding-top:20px; padding-bottom: 20px;">
+              <div class="col-sm-2" style="background-color:#F08F00; text-align: center; font-size: 14px; font-weight:bold; padding-top:20px; padding-bottom: 20px;">
                 อ้วนระดับ 3 35 - 39.9
               </div>
-              <div class="col-sm-2" style="background-color:#F33527; text-align: center; font-size: 11px; padding-top:20px; padding-bottom: 20px;">
+              <div class="col-sm-2" style="background-color:#F33527; text-align: center; font-size: 14px; font-weight:bold; padding-top:20px; padding-bottom: 20px;">
                 อ้วนระดับ >40
               </div>
             </div>
