@@ -778,8 +778,8 @@ pre code {
 	position: relative;
 	width: 100%;
 	min-height: 1px;
-	padding-right: 15px;
-	padding-left: 15px
+	padding-right: 10px;
+	padding-left: 10px
 }
 
 .col {
@@ -9002,6 +9002,7 @@ a.text-dark:hover {
 }
 
 .btn {
+	white-space: normal;
 	position: relative;
 	padding: 12px 10px;
 	margin: .3125rem 1px;
