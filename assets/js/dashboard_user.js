@@ -259,7 +259,7 @@ $('#chartContainer1').highcharts({
         tooltipArray = ['DATE: <b>' + this.x + '</b>']
 
       points.forEach(function(point, index) {
-        tooltipArray.push('VALUE: <b>' + point.y + '</b>');
+        tooltipArray.push('BMR: <b>' + point.y + '</b>' + ' '+'Kcal');
       });
 
       return tooltipArray;
@@ -325,7 +325,7 @@ $('#chartContainer2').highcharts({
         tooltipArray = ['DATE: <b>' + this.x + '</b>']
 
       points.forEach(function(point, index) {
-        tooltipArray.push('VALUE: <b>' + point.y + '</b>');
+        tooltipArray.push('Calories: <b>' + point.y + '</b>' + ' '+'Kcal');
       });
 
       return tooltipArray;

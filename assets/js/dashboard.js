@@ -102,10 +102,7 @@ var myLineChart = new Chart(ctx, {
 
 // }
 
-
-
-
-
+/*
 var processed_json = new Array();
 $.map(chart_data, function (obj, i) {
 	processed_json.push([obj.t, parseInt(obj.y)]);
@@ -128,10 +125,10 @@ $('#container1').highcharts({
   	dayFormat: { month: 'numeric', day: 'numeric', year: 'numeric' }
   },
 	title: {
-		text: 'จำนวนการใช้งาน'
+		text: ''
 	},
 	subtitle: {
-		text: 'วันท'
+		text: ''
 	},
 	credits: {
 		enabled: false
@@ -186,3 +183,100 @@ $('#container1').highcharts({
 		}]
 	}
 });
+
+
+/*
+
+
+var processed_json2 = new Array();
+$.map(chart_data2, function (obj, i) {
+	processed_json2.push([obj.t, parseInt(obj.y)]);
+});
+
+const series2 = chart_data2.map(o => o.t);
+
+var categories2 = series2.map(function(date) {
+    let formatOptions = { month: '2-digit', day: '2-digit', year: 'numeric' };
+    return new Date(date).toLocaleDateString('en', formatOptions);
+	});
+console.log(processed_json);
+
+$('#container2').highcharts({
+
+	chart: {
+		type: 'line'
+	},
+	dateRangeGrouping: {
+  	dayFormat: { month: 'numeric', day: 'numeric', year: 'numeric' }
+  },
+	title: {
+	 text: ''
+	},
+	subtitle: {
+		text: ''
+	},
+	credits: {
+		enabled: false
+	},
+	legend: {
+		enabled: false
+	},
+	xAxis: {
+				categories: categories2,
+				labels: {
+					rotation: 0
+			}
+	},
+	yAxis: {
+		title: ''
+	},
+	plotOptions: {
+		line: {
+			dataLabels: {
+				enabled: true
+			},
+			enableMouseTracking: true
+		}
+	},
+  tooltip: {
+    split: true,
+    formatter: function() {
+      var points = this.points,
+        tooltipArray = ['DATE: <b>' + this.x + '</b>']
+
+      points.forEach(function(point, index) {
+        tooltipArray.push('จำนวนการเข้าใช้งาน: <b>' + point.y + '</b>');
+      });
+
+      return tooltipArray;
+    }
+  },
+	series: [{
+		name: 'User',
+		data: processed_json2
+	}],
+	responsive: {
+		rules: [{
+			condition: {
+				maxWidth: 500
+			},
+			chartOptions: {
+				legend: {
+					enabled: false
+				}
+			}
+		}]
+	}
+});
+
+$('.date_viewer').change(function(){
+	var opt =$(this).val();
+	if(opt==15){
+		$('.container1').show();
+		$('.container2').hide();
+	} else {
+		$('.container1').hide();
+		$('.container2').show();
+	}
+});
+*/

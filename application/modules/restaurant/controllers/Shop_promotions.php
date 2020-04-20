@@ -110,7 +110,7 @@ class Shop_promotions extends CRUD_Controller
 			}
 
 			$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='credit_cart' order by a.pro_name");
-			$tmp_data = '<div class="row">'."<div class='col-sm-12 col-md-6'><div class='row'><div  class='col-6' style='color:#868787'>บัตรเครดิต</div><div  class='col-6' style='color:#868787'>ส่วนลด</div></div><br/>";
+			$tmp_data = '<div class="form-row justify-content-start">'."<div class='col-sm-12 col-md-6' style='padding: 0px 15px 0px 15px'><div class='row'><div  class='col-6' style='color:#868787'>บัตรเครดิต</div><div class='col-6' style='color:#868787'>ส่วนลด</div></div></br>";
 
 			foreach ($rows as $key => $value) {
 				$selected='';
@@ -120,13 +120,15 @@ class Shop_promotions extends CRUD_Controller
 					$selected = 'checked';
 					$pro_discount = $setSelect[$value['pro_id']];
 				}
-					$tmp_data = $tmp_data."<div class='row'><div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-6'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
-					$tmp_data = $tmp_data."<div  class='col-6'><input type='number' step='0.01' value='{$pro_discount}' onkeypress=\"$('.pro_id{$value['pro_id']}').prop('checked',true);\" name='pro_discount[{$value['pro_id']}]'></div></div>";
+					$tmp_data = $tmp_data . "<div class='row'><div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)" . '{' . "$('.pro_id{$value['pro_id']}').prop('checked',true);" . '}' . "else " . '{' . "$('.pro_id{$value['pro_id']}').prop('checked',false);" . '}' . "\" class='col-6' style='height: 30px'><div class='form-check'><label class='form-check-label'><input class='form-check-input pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]'  value='{$value['pro_id']}' {$selected} type='checkbox'> {$value['pro_name']} <span class='form-check-sign'><span class='check'></span></span></label></div></div>";
+					$tmp_data = $tmp_data."<div class='col-6'><div class='has-warning'><input type='number' class='form-control' step='0.01' value='{$pro_discount}' onkeypress=\"$('.pro_id{$value['pro_id']}').prop('checked',true);\" name='pro_discount[{$value['pro_id']}]'></div></div></div>";
 
+					//$tmp_data = $tmp_data."<div class='row'><div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-6'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+					// $tmp_data = $tmp_data."<div  class='col-6'><input type='number' step='0.01' value='{$pro_discount}' onkeypress=\"$('.pro_id{$value['pro_id']}').prop('checked',true);\" name='pro_discount[{$value['pro_id']}]'></div></div>";
 
 			}
 
-			$tmp_data.="</div><div class='col-sm-12 col-md-6'><div class='col-sm-12 col-md-6'><div class='row'><div  class='col-6' style='color:#868787'>บัตรเครดิต</div><div  class='col-6' style='color:#868787'>ส่วนลด</div></div><br/>";
+			$tmp_data.="</div><div class='col-sm-12 col-md-6' style='padding: 0px 15px 0px 15px'><div class='row'><div  class='col-6' style='color:#868787'>บัตรเครดิต</div><div  class='col-6' style='color:#868787'>ส่วนลด</div></div></br>";
 
 			$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='mobile_chanel' order by a.pro_name");
 
@@ -138,14 +140,14 @@ class Shop_promotions extends CRUD_Controller
 					$selected = 'checked';
 					$pro_discount = $setSelect[$value['pro_id']];
 				}
-					$tmp_data = $tmp_data."<div class='row'><div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-6'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
-					$tmp_data = $tmp_data."<div  class='col-6'><input type='number' step='0.01' value='{$pro_discount}' onkeypress=\"$('.pro_id{$value['pro_id']}').prop('checked',true);\" name='pro_discount[{$value['pro_id']}]'></div></div>";
+				$tmp_data = $tmp_data . "<div class='row'><div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)" . '{' . "$('.pro_id{$value['pro_id']}').prop('checked',true);" . '}' . "else " . '{' . "$('.pro_id{$value['pro_id']}').prop('checked',false);" . '}' . "\" class='col-6' style='height: 30px'><div class='form-check'><label class='form-check-label'><input class='form-check-input pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]'  value='{$value['pro_id']}' {$selected} type='checkbox'> {$value['pro_name']} <span class='form-check-sign'><span class='check'></span></span></label></div></div>";
+				$tmp_data = $tmp_data."<div class='col-6'><div class='has-warning'><input type='number' class='form-control' step='0.01' value='{$pro_discount}' onkeypress=\"$('.pro_id{$value['pro_id']}').prop('checked',true);\" name='pro_discount[{$value['pro_id']}]'></div></div></div>";
 
 
 			}
 
 			$this->data['rows'] = json_encode($rows);
-			$this->data['results'] = $tmp_data."</div></div></div>";
+			$this->data['results'] = $tmp_data."</div></div>";
 			//$results = $this->Users_foood_allergy->load($id);
 			//if (empty($results)) {
 			//$this->data['message'] = "ไม่พบข้อมูลตามรหัสอ้างอิง <b>$id</b>";
