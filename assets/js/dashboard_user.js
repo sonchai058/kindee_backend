@@ -191,7 +191,7 @@ var myLineChart = new Chart(ctx, {
 //   }
 
 // }
-
+/*
 var bmi_json = new Array();
 var bmr_json = new Array();
 
@@ -348,3 +348,4 @@ $('#chartContainer2').highcharts({
 		}]
 	}
 });
+*/
