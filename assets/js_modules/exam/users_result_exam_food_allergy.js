@@ -38,7 +38,7 @@ var UsersResultExamFoodAllergy = {
 
 			var fdata = $('#formAdd').serialize();
 			fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
-
+			console.log(fdata);
 			$.ajax({
 				method: 'POST',
 				url: frm_action,
@@ -84,6 +84,7 @@ var UsersResultExamFoodAllergy = {
 
 		var obj = $('#btnSaveEdit');
 		loading_on(obj);
+		// console.log(fdata);
 		$.ajax({
 			method: 'POST',
 			url: frm_action,
@@ -216,7 +217,7 @@ $(document).ready(function() {
 	//Set default value
 	var order_by = $('#set_order_by').attr('value');
 	$('#set_order_by option[value="'+order_by+'"]').prop('selected', true);
-	
+
 	//Set default selected
 	setDatePicker('.datepicker');
 

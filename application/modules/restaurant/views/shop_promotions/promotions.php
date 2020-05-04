@@ -16,7 +16,13 @@
 						{csrf_protection_field}
 
 						{results}
+						<br>
+						<div class="form-group has-success bmd-form-group">
+							<p style="color: #868787">อื่นๆ</p>
+							<textarea class="form-control has-success" name="other" rows="3">{other}</textarea>
 
+						</div>
+						<br>
 						<div class="col-sm-12 text-right">
 							<div class="form-group">
 								<button type="button" onclick="return false;" id="btnAlgSave" class="btn btn-success btn-md">

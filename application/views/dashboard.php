@@ -96,7 +96,7 @@
 				</div>
 				<div class="card-footer">
 					<div class="stats">
-						<p class="card-category text-success">สมาชิก VIP</p>
+						<p class="card-category text-success">Super User</p>
 					</div>
 				</div>
 			</div>
@@ -172,7 +172,7 @@
 								<div class="container1">
 									<div class="text-center">
 										<h3>จำนวนการเข้าใช้งาน</h3>
-										<div style="font-size: 16px;">วันที่ <span style="font-weight: bold"><?php echo date('d/m', strtotime($strdate)) .'/'. $year; ?></span>  ถึง <span style="font-weight: bold"><?php echo date('d/m', strtotime($enddate)) .'/'. $year; ?></span></div>
+										<div style="font-size: 16px;">วันที่ <span style="font-weight: bold"><?php echo date('d/m', strtotime($strdate)) . '/' . $year; ?></span> ถึง <span style="font-weight: bold"><?php echo date('d/m', strtotime($enddate)) . '/' . $year; ?></span></div>
 									</div>
 									<div style="height: 270px;" id="container1"></div>
 								</div>
@@ -214,8 +214,8 @@
 			categories: [<?php echo substr($dates, 1); ?>]
 		},
 		credits: {
-		enabled: false
-	},
+			enabled: false
+		},
 
 		legend: {
 			enable: true

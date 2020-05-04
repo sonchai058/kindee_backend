@@ -1,7 +1,9 @@
 <script>
-	var data_id = {data_id};
+	var data_id = {
+		data_id
+	};
 	var state = 'add';
-	var date_set = "<?php echo date('d/m').'/'.(date("Y")+543);?>";
+	var date_set = "<?php echo date('d/m') . '/' . (date("Y") + 543); ?>";
 </script>
 
 <!-- [ View File name : add_view.php ] -->
@@ -120,7 +122,7 @@
 									<label class="control-label" for="goal_reduce_weight_select">&nbsp;</label><br />
 									<div class="form-group has-success">
 										<select id="goal_reduce_weight_select" name="" value="เพิ่ม">
-										<option value="เพิ่ม"> เพื่มน้ำหนัก </option>
+											<option value="เพิ่ม"> เพื่มน้ำหนัก </option>
 											<option value="ลด"> ลดน้ำหนัก </option>
 										</select>
 									</div>
@@ -178,9 +180,10 @@
 											<select id="user_level" name="user_level" value="">
 												<option value="">- เลือก ระดับผู้ใช้งาน -</option>
 												<option value="admin">ผู้ดูแลระบบ</option>
-												<option value="super_user">สมาชิกพิเศษ</option>
+												<option value="super_user">Super User</option>
 												<option value="user">สมาชิก</option>
 												<option value="shop">ร้านค้า</option>
+												<option value="nutritionist">นักโภชนาการ</option>
 											</select>
 										</div>
 									</div>

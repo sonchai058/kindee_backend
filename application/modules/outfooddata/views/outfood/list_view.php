@@ -7,7 +7,7 @@
 					<div class="card-icon">
 						<i class="material-icons">assignment</i>
 					</div>
-					<h4 class="card-title">รายการผู้ใช้งาน</h4>
+					<h4 class="card-title">รายการ วัตถุดิบ</h4>
 				</div>
 				<div class="card-body">
 					<form class="form-horizontal" name="formSearch" method="post" action="{page_url}/search">
@@ -23,28 +23,13 @@
 									<div class="col-md-2">
 										<div class="form-group has-warning bmd-form-group" id="search">
 											<select class="select2-search" name="search_field" class="span2">
-												<option value="user_fname">ชื่อผู้ใช้งาน</option>
-												<option value="user_level">ระดับผู้ใช้งาน</option>
+												<option value="rmat_id">ชื่อวัตถุดิบ</option>
 											</select>
 										</div>
 									</div>
 									<div class="col-md-2">
 										<div class="form-group has-warning bmd-form-group">
-											<input type="text" class="form-control col" id="txtSearch" name="txtSearch" value="<?php
-																	if ($txt_search == 'shop') {
-																		echo 'ร้านค้า';
-																	} elseif ($txt_search == 'admin') {
-																		echo 'ผู้ดูแลระบบ';
-																	} elseif ($txt_search == 'super_user') {
-																		echo 'Super User';
-																	} elseif ($txt_search == 'nutritionist') {
-																		echo 'นักโภชนาการ';
-																	} elseif ($txt_search == 'user') {
-																		echo 'สมาชิก';
-																	} else {
-																		echo $txt_search;
-																	}
-																	?>">
+											<input type="text" class="form-control col" id="txtSearch" name="txtSearch" value="{txt_search}">
 										</div>
 									</div>
 									<input type="hidden" value="{order_by}" name="order_by" />
@@ -59,8 +44,8 @@
 										<div class="form-group bmd-form-group">
 											<select class="select2-search" id="set_order_by" class="span2" value="{order_by}">
 												<option value="">- จัดเรียงตาม -</option>
-												<option value="user_fname|asc">ชื่อ ก - ฮ</option>
-												<option value="user_fname|desc">ชื่อ ฮ - ก</option>
+												<option value="rmat_id|asc">หัวข้อ ก - ฮ</option>
+												<option value="rmat_id|desc">หัวข้อ ฮ - ก</option>
 											</select>
 										</div>
 									</div>
@@ -81,23 +66,16 @@
 							<thead>
 								<tr>
 									<th class="text-center">#</th>
-									<th class="text-center">ชื่อผู้ใช้งาน</th>
-									<th class="text-center">เบอร์โทร</th>
-									<th class="text-center">อีเมล</th>
-									<th class="text-center">ระดับผู้ใช้งาน</th>
+									<th class="text-center">ชื่อวัตถุดิบ</th>
+									<th class="text-center">วันที่วัตถุดิบหมด</th>
 									<th class="text-center" style="width:200px">เครื่องมือ</th>
 								</tr>
 							</thead>
-
 							<tbody>
 								<tr parser-repeat="[data_list]" id="row_{record_number}">
 									<td style="text-align:center;">{record_number}</td>
-									<!--<td>{preview_user_photo}</td> -->
-									<td>{user_fname}</td>
-									<td>{mobile_no}</td>
-									<td>{email_addr}</td>
-									<!--<td>{datetime_update}</td>-->
-									<td>{preview_user_level}</td>
+									<td>{seft_comp}</td>
+									<td style="text-align:center;">{date_public}</td>
 									<td class="td-actions text-center">
 										<a href="{page_url}/preview/{url_encrypt_id}" class="my-tooltip btn btn-warning btn-md" data-toggle="tooltip" title="แสดงข้อมูลรายละเอียด">
 											<i class="material-icons">list</i>
@@ -105,16 +83,14 @@
 										<a href="{page_url}/edit/{url_encrypt_id}" class="my-tooltip btn btn-warning " data-toggle="tooltip" title="แก้ไขข้อมูล">
 											<i class="material-icons">edit</i>
 										</a>
-										<a href="javascript:void(0);" class="btn-delete-row my-tooltip btn btn-danger" data-toggle="tooltip" title="ลบรายการนี้" data-user_id="{encrypt_user_id}" data-row-number="{record_number}">
+										<a href="javascript:void(0);" class="btn-delete-row my-tooltip btn btn-danger" data-toggle="tooltip" title="ลบรายการนี้" data-outfood_id="{encrypt_outfood_id}" data-row-number="{record_number}">
 											<i class="material-icons">delete_forever</i>
 										</a>
 									</td>
 								</tr>
 							</tbody>
 						</table>
-
 					</div>
-
 					<div class="row dataTables_wrapper">
 						<div class="col-sm-12 col-md-5">
 							<div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
@@ -132,31 +108,29 @@
 		</div>
 	</div>
 </div>
-
-
 <!-- Modal Delete -->
 <div class="modal fade" id="confirmDelModal" tabindex="-1" role="dialog" aria-labelledby="confirmDelModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="confirmDelModalLabel">ยืนยันการลบข้อมูล</h4>
+				<h4 class="modal-title" id="confirmDelModalLabel">ยืนยันการลบข้อมูล!</h4>
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 			</div>
 			<div class="modal-body">
-				<h4 class="text-center">*** ท่านต้องการลบข้อมูลแถวที่ <span id="xrow"></span> ??? ***</h4>
+				<h4 style="font-weight: bold" class="text-center">* ท่านต้องการลบข้อมูลแถวที่ <span id="xrow"></span> ? *</h4>
 				<div id="div_del_detail"></div>
 				<form id="formDelete">
+					<!--
 					<div class="form-group">
-						<!--
 						<div class="col-sm-8">
 <label class="col-sm-3 text-right badge badge-warning" for="edit_remark">ระบุเหตุผล :</label>
 						</div>
 					<div class="col-sm-12">
 						<input type="text" class="form-control" name="delete_remark">
 					</div>
-				-->
-					</div>
-					<input type="hidden" name="encrypt_user_id" />
+				</div>
+			-->
+					<input type="hidden" name="encrypt_outfood_id" />
 
 				</form>
 			</div>

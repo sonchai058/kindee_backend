@@ -5,6 +5,7 @@
 	.table td.fit {
 		white-space: nowrap;
 		width: 2%;
+		font-weight: bold;
 	}
 </style>
 <div class="container-fluid">
@@ -30,15 +31,15 @@
 
 								<tr>
 									<td class="text-right fit"><b>รหัสไอดีหลัก :</b></td>
-									<td>{record_exam_id}</td>
+									<td>{record_outfood_id}</td>
 								</tr>
 								<tr>
-									<td class="text-right fit"><b>ชื่อสมาชิก :</b></td>
-									<td>{userIdUserFname}</td>
+									<td class="text-right fit"><b>วันที่วัตถุดิบหมด :</b></td>
+									<td>{record_date_public}</td>
 								</tr>
 								<tr>
-									<td class="text-right fit"><b>ชื่ออาหารที่แพ้ :</b></td>
-									<td>{algIdAlgName}</td>
+									<td class="text-right fit"><b>ชื่อวัตถุดิบ :</b></td>
+									<td>{record_seft_comp}</td>
 								</tr>
 								<tr>
 									<td class="text-right fit"><b>ผู้เพิ่ม :</b></td>
@@ -59,14 +60,6 @@
 								<tr>
 									<td class="text-right fit"><b>สถานะ :</b></td>
 									<td>{preview_fag_allow}</td>
-								</tr>
-								<tr>
-									<td class="text-right fit"><b>ประเภท :</b></td>
-									<td>{preview_food_type}</td>
-								</tr>
-								<tr>
-									<td class="text-right fit"><b>ค่า :</b></td>
-									<td>{record_food_alg_val}</td>
 								</tr>
 
 							</tbody>

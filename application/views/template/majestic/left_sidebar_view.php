@@ -120,6 +120,13 @@ if ($this->session->userdata('user_level') == 'super_user') {
 						<p>ข้อมูลเมนูปรุงเอง</p>
 					</a>
 				</li>
+				
+				<li class="nav-item <?php if ($this->uri->segment(1) == 'questiondata' && $this->uri->segment(2) == 'question') { ?>active<?php } ?>">
+					<a class="nav-link" href="{site_url}questiondata/question">
+						<i class="material-icons">question_answer</i>
+						<p>ตอบคำถาม</p>
+					</a>
+				</li>
 			<?php
 			}
 			?>
@@ -150,6 +157,40 @@ if ($this->session->userdata('user_level') == 'super_user') {
 					<a class="nav-link" href="{site_url}restaurant/shop_promotions/editpro">
 						<i class="fa fa-bullhorn"></i>
 						<p>โปรโมชั่น</p>
+					</a>
+				</li>
+
+				<li class="nav-item <?php if ($this->uri->segment(1) == 'outfooddata' && $this->uri->segment(2) == 'outfood') { ?>active<?php } ?>">
+					<a class="nav-link" href="{site_url}outfooddata/outfood">
+						<i class="material-icons">shopping_basket</i>
+						<p>จัดการวัตถุดิบ</p>
+					</a>
+				</li>
+
+			<?php
+			}
+			?>
+
+			<?php if ($this->session->userdata('user_level') == 'nutritionist') { ?>
+				<li class="nav-item <?php if ($this->uri->segment(1) == '' || $this->uri->segment(1) == 'dashboard') { ?>active<?php } ?>">
+					<a class="nav-link" href="{site_url}">
+						<i class="material-icons">home</i>
+						<p>หน้าหลัก</p>
+					</a>
+				</li>
+
+				<li class="nav-item <?php if ($this->uri->segment(1) == 'blogdata' && $this->uri->segment(2) == 'blog') { ?>active<?php } ?>">
+					<a class="nav-link" href="{site_url}blogdata/blog">
+						<i class="material-icons">dashboard</i>
+						<p>ข่าว/บทความ</p>
+					</a>
+				</li>
+
+
+				<li class="nav-item <?php if ($this->uri->segment(1) == 'questiondata' && $this->uri->segment(2) == 'question') { ?>active<?php } ?>">
+					<a class="nav-link" href="{site_url}questiondata/question">
+						<i class="material-icons">question_answer</i>
+						<p>ตอบคำถาม</p>
 					</a>
 				</li>
 

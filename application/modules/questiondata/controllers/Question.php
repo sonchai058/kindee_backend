@@ -2,9 +2,9 @@
 if (!defined('BASEPATH'))  exit('No direct script access allowed');
 
 /**
- * [ Controller File name : Users_result_exam_food_allergy.php ]
+ * [ Controller File name : Question.php ]
  */
-class Users_result_exam_food_allergy extends CRUD_Controller
+class Question extends CRUD_Controller
 {
 
 	private $per_page;
@@ -20,11 +20,38 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 		$this->per_page = 30;
 		$this->num_links = 6;
 		$this->uri_segment = 4;
-		$this->load->model('exam/Users_result_exam_food_allergy_model', 'Users_result_exam_food_allergy');
-		$this->data['page_url'] = site_url('exam/users_result_exam_food_allergy');
+		$this->load->model('questiondata/Question_model', 'Question');
+		$this->data['page_url'] = site_url('questiondata/question');
 
-		$this->data['page_title'] = 'ผลตรวจการแพ้อาหาร';
-		$js_url = 'assets/js_modules/exam/users_result_exam_food_allergy.js?ft=' . filemtime('assets/js_modules/exam/users_result_exam_food_allergy.js');
+		$this->data['page_title'] = 'ตอบคำถาม';
+
+
+		$this->upload_store_path = './assets/uploads/question/';
+		/*
+		$this->file_allow = array(
+						'application/pdf' => 'pdf',
+						'application/msword' => 'doc',
+						'application/vnd.ms-msword' => 'doc',
+						'application/vnd.ms-excel' => 'xls',
+						'application/powerpoint' => 'ppt',
+						'application/vnd.ms-powerpoint' => 'ppt',
+						'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx',
+						'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'xlsx',
+						'application/vnd.openxmlformats-officedocument.presentationml.presentation' => 'pptx',
+						'application/vnd.oasis.opendocument.text' => 'odt',
+						'application/vnd.oasis.opendocument.spreadsheet' => 'ods',
+						'application/vnd.oasis.opendocument.presentation' => 'odp',
+						'image/bmp' => 'bmp',
+						'image/png' => 'png',
+						'image/pjpeg' => 'jpeg',
+						'image/jpeg' => 'jpg'
+		);
+		$this->file_allow_type = array_values($this->file_allow);
+		$this->file_allow_mime = array_keys($this->file_allow);
+		$this->file_check_name = '';
+		*/
+
+		$js_url = 'assets/js_modules/questiondata/question.js?ft=' . filemtime('assets/js_modules/questiondata/question.js');
 		$this->another_js = '<script src="' . base_url($js_url) . '"></script>';
 	}
 
@@ -81,8 +108,8 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 	 */
 	public function list_all()
 	{
-		$this->session->unset_userdata($this->Users_result_exam_food_allergy->session_name . '_search_field');
-		$this->session->unset_userdata($this->Users_result_exam_food_allergy->session_name . '_value');
+		$this->session->unset_userdata($this->Question->session_name . '_search_field');
+		$this->session->unset_userdata($this->Question->session_name . '_value');
 
 		$this->search();
 	}
@@ -94,17 +121,19 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 	 */
 	public function search()
 	{
+		$this->load->model("common_model");
+
 		$this->breadcrumb_data['breadcrumb'] = array(
-			array('title' => 'ผลตรวจการแพ้อาหาร', 'class' => 'majestic', 'url' => '#'),
+			array('title' => 'ตอบคำถาม', 'class' => 'active', 'url' => '#'),
 		);
 		if (isset($_POST['submit'])) {
 			$search_field =  $this->input->post('search_field', TRUE);
 			$value = $this->input->post('txtSearch', TRUE);
-			$arr = array($this->Users_result_exam_food_allergy->session_name . '_search_field' => $search_field, $this->Users_result_exam_food_allergy->session_name . '_value' => $value);
+			$arr = array($this->Question->session_name . '_search_field' => $search_field, $this->Question->session_name . '_value' => $value);
 			$this->session->set_userdata($arr);
 		} else {
-			$search_field = $this->session->userdata($this->Users_result_exam_food_allergy->session_name . '_search_field');
-			$value = $this->session->userdata($this->Users_result_exam_food_allergy->session_name . '_value');
+			$search_field = $this->session->userdata($this->Question->session_name . '_search_field');
+			$value = $this->session->userdata($this->Question->session_name . '_value');
 		}
 
 		$start_row = $this->uri->segment($this->uri_segment, '0');
@@ -125,16 +154,16 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 					$sort = 'DESC';
 					break;
 			}
-			$this->Users_result_exam_food_allergy->order_field = $field;
-			$this->Users_result_exam_food_allergy->order_sort = $sort;
+			$this->Question->order_field = $field;
+			$this->Question->order_sort = $sort;
 		}
-		$results = $this->Users_result_exam_food_allergy->read($start_row, $per_page);
+		$results = $this->Question->read($start_row, $per_page);
 		$total_row = $results['total_row'];
 		$search_row = $results['search_row'];
 		$list_data = $this->setDataListFormat($results['list_data'], $start_row);
 
 
-		$page_url = site_url('exam/users_result_exam_food_allergy');
+		$page_url = site_url('questiondata/question');
 		$pagination = $this->create_pagination($page_url . '/search', $search_row);
 		$end_row = $start_row + $per_page;
 		if ($search_row < $per_page) {
@@ -144,8 +173,35 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 		if ($end_row > $search_row) {
 			$end_row = $search_row;
 		}
+		// print_r($this->db->last_query());
+		// die();
 
-		$this->data['data_list']	= $list_data;
+		//die(print_r($list_data));
+		// print_r($this->db->last_query());
+		// die();
+
+
+
+		##echo '<pre>';
+		#print_r($list_data);
+		#echo '</pre>';
+		$data = array();
+		foreach ($list_data as $key => $v) {
+			$data[$key] = array();
+			foreach ($v as $column => $value) {
+				$data[$key][$column] = $value;
+			}
+			$data[$key]['status'] =  ($data[$key]['preview_question_status'] == 'ตอบแล้ว') ? 'disabled' : '';
+		}
+
+		#endregion#	echo '<pre>';
+		#print_r($data);
+		#echo '</pre>';
+
+
+		#exit;
+		$this->data['data_list']	= $data;
+
 		$this->data['search_field']	= $search_field;
 		$this->data['txt_search']	= $value;
 		$this->data['current_page_offset'] = $start_row;
@@ -157,8 +213,9 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 		$this->data['page_url']	= $page_url;
 		$this->data['pagination_link']	= $pagination;
 		$this->data['csrf_protection_field']	= insert_csrf_field(true);
-
-		$this->render_view('exam/users_result_exam_food_allergy/list_view');
+		// print_r($this->db->last_query());
+		// die();
+		$this->render_view('questiondata/question/list_view');
 	}
 
 	// ------------------------------------------------------------------------
@@ -170,8 +227,8 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 	public function preview($encrypt_id = "")
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-			array('title' => 'ผลตรวจการแพ้อาหาร', 'url' => site_url('exam/users_result_exam_food_allergy')),
-			array('title' => 'แสดงข้อมูลรายละเอียด', 'url' => '#', 'class' => 'majestic')
+			array('title' => 'ตอบคำถาม', 'url' => site_url('questiondata/question')),
+			array('title' => 'แสดงข้อมูลรายละเอียด', 'url' => '#', 'class' => 'active')
 		);
 		$encrypt_id = urldecode($encrypt_id);
 		$id = decrypt($encrypt_id);
@@ -179,13 +236,13 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 			$this->data['message'] = "กรุณาระบุรหัสอ้างอิงที่ต้องการแสดงข้อมูล";
 			$this->render_view('ci_message/warning');
 		} else {
-			$results = $this->Users_result_exam_food_allergy->load($id);
+			$results = $this->Question->load($id);
 			if (empty($results)) {
 				$this->data['message'] = "ไม่พบข้อมูลตามรหัสอ้างอิง <b>$id</b>";
 				$this->render_view('ci_message/danger');
 			} else {
 				$this->setPreviewFormat($results);
-				$this->render_view('exam/users_result_exam_food_allergy/preview_view');
+				$this->render_view('questiondata/question/preview_view');
 			}
 		}
 	}
@@ -198,15 +255,15 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 	public function add()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-			array('title' => 'ผลตรวจการแพ้อาหาร', 'url' => site_url('exam/users_result_exam_food_allergy')),
-			array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'majestic')
+			array('title' => 'ตอบคำถาม', 'url' => site_url('questiondata/question')),
+			array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'active')
 		);
-		$this->data['users_user_id_option_list'] = $this->Users_result_exam_food_allergy->returnOptionList("users", "user_id", "user_fname");
-		$this->data['food_allergy_alg_id_option_list'] = $this->Users_result_exam_food_allergy->returnOptionList("food_allergy", "alg_id", "alg_name");
-		$this->data['users_user_delete_option_list'] = $this->Users_result_exam_food_allergy->returnOptionList("users", "user_id", "user_fname");
-		$this->data['users_user_add_option_list'] = $this->Users_result_exam_food_allergy->returnOptionList("users", "user_id", "user_fname");
-		$this->data['users_user_update_option_list'] = $this->Users_result_exam_food_allergy->returnOptionList("users", "user_id", "user_fname");
-		$this->render_view('exam/users_result_exam_food_allergy/add_view');
+		// $this->data['count_image'] = 1;
+		$this->data['data_id'] = 0;
+		$this->data['users_user_delete_option_list'] = $this->Question->returnOptionList("users", "user_id", "user_fname");
+		$this->data['users_user_add_option_list'] = $this->Question->returnOptionList("users", "user_id", "user_fname");
+		$this->data['users_user_update_option_list'] = $this->Question->returnOptionList("users", "user_id", "user_fname");
+		$this->render_view('questiondata/question/add_view');
 	}
 
 	// ------------------------------------------------------------------------
@@ -220,23 +277,20 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 		$this->load->library('form_validation');
 		$frm = $this->form_validation;
 
-		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim');
-		$frm->set_rules('alg_id', 'รหัสอาหารที่แพ้', 'trim|required|is_natural');
+		$frm->set_rules('date_public', 'วันที่ประกาศ', 'trim|required');
+		$frm->set_rules('question_name', 'หัวข้อ', 'trim|required');
+		$frm->set_rules('question_detail', 'รายละเอียด', 'trim|required');
 		$frm->set_rules('fag_allow', 'สถานะ', 'trim');
-		$frm->set_rules('food_type', 'ประเภท', 'trim');
-		$frm->set_rules('food_alg_val', 'ค่า', 'trim|required');
 
 		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
-		$frm->set_message('decimal', '- %s ต้องระบุตัวเลขทศนิยม');
 
 		if ($frm->run() == FALSE) {
 			$message  = '';
-			$message .= form_error('user_id');
-			$message .= form_error('alg_id');
+			$message .= form_error('date_public');
+			$message .= form_error('question_name');
+			$message .= form_error('question_detail');
 			$message .= form_error('fag_allow');
-			$message .= form_error('food_type');
-			$message .= form_error('food_alg_val');
 			return $message;
 		}
 	}
@@ -252,23 +306,39 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 		$this->load->library('form_validation');
 		$frm = $this->form_validation;
 
-		$frm->set_rules('user_id', 'รหัสสมาชิก', 'trim');
-		$frm->set_rules('alg_id', 'รหัสอาหารที่แพ้', 'trim|required|is_natural');
+		$frm->set_rules('date_public', 'วันที่ประกาศ', 'trim|required');
+		$frm->set_rules('question_name', 'หัวข้อ', 'trim|required');
+		$frm->set_rules('question_detail', 'รายละเอียด', 'trim|required');
 		$frm->set_rules('fag_allow', 'สถานะ', 'trim');
-		$frm->set_rules('food_type', 'ประเภท', 'trim');
-		$frm->set_rules('food_alg_val', 'ค่า', 'trim|required');
 
 		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
-		$frm->set_message('decimal', '- %s ต้องระบุตัวเลขทศนิยม');
 
 		if ($frm->run() == FALSE) {
 			$message  = '';
-			$message .= form_error('user_id');
-			$message .= form_error('alg_id');
+			$message .= form_error('date_public');
+			$message .= form_error('question_name');
+			$message .= form_error('question_detail');
 			$message .= form_error('fag_allow');
-			$message .= form_error('food_type');
-			$message .= form_error('food_alg_val');
+			return $message;
+		}
+	}
+
+	// ------------------------------------------------------------------------
+
+	public function formValidateUpdate_Answer()
+	{
+		$this->load->library('form_validation');
+		$frm = $this->form_validation;
+
+		$frm->set_rules('answer_question', 'ตอบคำถาม', 'trim|required');
+
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
+		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
+
+		if ($frm->run() == FALSE) {
+			$message  = '';
+			$message .= form_error('answer_question');
 			return $message;
 		}
 	}
@@ -294,21 +364,21 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 			$post = $this->input->post(NULL, TRUE);
 
 			$encrypt_id = '';
-			$post['user_id'] = $this->session->userdata("user_id");
-			$id = $this->Users_result_exam_food_allergy->create($post);
+			$id = $this->Question->create($post);
 			if ($id != '') {
 				$success = TRUE;
 				$encrypt_id = encrypt($id);
 				$message = '<strong>บันทึกข้อมูลเรียบร้อย</strong>';
 			} else {
 				$success = FALSE;
-				$message = 'Error : ' . $this->Users_result_exam_food_allergy->error_message;
+				$message = 'Error : ' . $this->Question->error_message;
 			}
 
 			$json = json_encode(array(
 				'is_successful' => $success,
 				'encrypt_id' =>  $encrypt_id,
-				'message' => $message
+				'message' => $message,
+				'id' => $id
 			));
 			echo $json;
 		}
@@ -323,8 +393,8 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 	public function edit($encrypt_id = '')
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-			array('title' => 'ผลตรวจการแพ้อาหาร', 'url' => site_url('exam/users_result_exam_food_allergy')),
-			array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'majestic')
+			array('title' => 'ตอบคำถาม', 'url' => site_url('questiondata/question')),
+			array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 
 		$encrypt_id = urldecode($encrypt_id);
@@ -333,7 +403,7 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 			$this->data['message'] = "กรุณาระบุรหัสอ้างอิงที่ต้องการแก้ไขข้อมูล";
 			$this->render_view('ci_message/warning');
 		} else {
-			$results = $this->Users_result_exam_food_allergy->load($id);
+			$results = $this->Question->load($id);
 			if (empty($results)) {
 				$this->data['message'] = "ไม่พบข้อมูลตามรหัสอ้างอิง <b>$id</b>";
 				$this->render_view('ci_message/danger');
@@ -342,12 +412,50 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 
 
 				$this->setPreviewFormat($results);
-				$this->data['users_user_id_option_list'] = $this->Users_result_exam_food_allergy->returnOptionList("users", "user_id", "user_fname");
-				$this->data['food_allergy_alg_id_option_list'] = $this->Users_result_exam_food_allergy->returnOptionList("food_allergy", "alg_id", "alg_name");
-				$this->data['users_user_delete_option_list'] = $this->Users_result_exam_food_allergy->returnOptionList("users", "user_id", "user_fname");
-				$this->data['users_user_add_option_list'] = $this->Users_result_exam_food_allergy->returnOptionList("users", "user_id", "user_fname");
-				$this->data['users_user_update_option_list'] = $this->Users_result_exam_food_allergy->returnOptionList("users", "user_id", "user_fname");
-				$this->render_view('exam/users_result_exam_food_allergy/edit_view');
+
+				$this->data['data_id'] = $id;
+				$this->data['users_user_delete_option_list'] = $this->Question->returnOptionList("users", "user_id", "user_fname");
+				$this->data['users_user_add_option_list'] = $this->Question->returnOptionList("users", "user_id", "user_fname");
+				$this->data['users_user_update_option_list'] = $this->Question->returnOptionList("users", "user_id", "user_fname");
+
+
+				$this->render_view('questiondata/question/edit_view');
+			}
+		}
+	}
+
+	// ------------------------------------------------------------------------
+
+	public function answer($encrypt_id = '')
+	{
+		$this->breadcrumb_data['breadcrumb'] = array(
+			array('title' => 'ตอบคำถาม', 'url' => site_url('questiondata/question')),
+			array('title' => 'ตอบคำถาม', 'url' => '#', 'class' => 'active')
+		);
+
+		$encrypt_id = urldecode($encrypt_id);
+		$id = decrypt($encrypt_id);
+		if ($id == "") {
+			$this->data['message'] = "กรุณาระบุรหัสอ้างอิงที่ต้องการแก้ไขข้อมูล";
+			$this->render_view('ci_message/warning');
+		} else {
+			$results = $this->Question->load($id);
+			if (empty($results)) {
+				$this->data['message'] = "ไม่พบข้อมูลตามรหัสอ้างอิง <b>$id</b>";
+				$this->render_view('ci_message/danger');
+			} else {
+				$this->data['csrf_field'] = insert_csrf_field(true);
+
+
+				$this->setPreviewFormat($results);
+
+				$this->data['data_id'] = $id;
+				$this->data['users_user_delete_option_list'] = $this->Question->returnOptionList("users", "user_id", "user_fname");
+				$this->data['users_user_add_option_list'] = $this->Question->returnOptionList("users", "user_id", "user_fname");
+				$this->data['users_user_update_option_list'] = $this->Question->returnOptionList("users", "user_id", "user_fname");
+
+
+				$this->render_view('questiondata/question/answer_view');
 			}
 		}
 	}
@@ -356,9 +464,9 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 	public function checkRecordKey($data)
 	{
 		$error = '';
-		$exam_id = ci_decrypt($data['encrypt_exam_id']);
-		if ($exam_id == '') {
-			$error .= '- รหัส exam_id';
+		$question_id = ci_decrypt($data['encrypt_question_id']);
+		if ($question_id == '') {
+			$error .= '- รหัส question_id';
 		}
 		return $error;
 	}
@@ -366,10 +474,22 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 	/**
 	 * Update Record
 	 */
+
+	/*
+	public function __destruct() {
+		$this->db->query('UNLOCK TABLES');
+		$this->db->close();
+	}
+	*/
+
 	public function update()
 	{
 		$message = '';
 		$message .= $this->formValidateUpdate();
+		//$edit_remark = $this->input->post('edit_remark', TRUE);
+		//if ($edit_remark == '') {
+		//	$message .= 'ระบุเหตุผล';
+		//}
 
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);
@@ -383,14 +503,49 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 			));
 			echo $json;
 		} else {
-			// unset($post['user_id']);
-			$post['user_id'] = $this->session->userdata("user_id");
-			$result = $this->Users_result_exam_food_allergy->update($post);
-			if($result == false){
-				$message = $this->Users_result_exam_food_allergy->error_message;
+
+			$result = $this->Question->update($post);
+			if ($result == false) {
+				$message = $this->Question->error_message;
 				$ok = FALSE;
-			}else{
-				$message = '<strong>บันทึกข้อมูลเรียบร้อย</strong>' . $this->Users_result_exam_food_allergy->error_message;
+			} else {
+				$message = '<strong>บันทึกข้อมูลเรียบร้อย</strong>' . $this->Question->error_message;
+				$ok = TRUE;
+			}
+			$json = json_encode(array(
+				'is_successful' => $ok,
+				'message' => $message
+			));
+
+			echo $json;
+		}
+	}
+
+
+	public function update_answer()
+	{
+		$message = '';
+		$message .= $this->formValidateUpdate_Answer();
+
+		$post = $this->input->post(NULL, TRUE);
+		$error_pk_id = $this->checkRecordKey($post);
+		if ($error_pk_id != '') {
+			$message .= "รหัสอ้างอิงที่ใช้สำหรับอัพเดตข้อมูลไม่ถูกต้อง";
+		}
+		if ($message != '') {
+			$json = json_encode(array(
+				'is_successful' => FALSE,
+				'message' => $message
+			));
+			echo $json;
+		} else {
+
+			$result = $this->Question->update_answer($post);
+			if ($result == false) {
+				$message = $this->Question->error_message;
+				$ok = FALSE;
+			} else {
+				$message = '<strong>บันทึกข้อมูลเรียบร้อย</strong>' . $this->Question->error_message;
 				$ok = TRUE;
 			}
 			$json = json_encode(array(
@@ -407,14 +562,14 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 	 */
 	public function del()
 	{
-		//$delete_remark = $this->input->post('delete_remark', TRUE);
-		$message = '';
 		/*
+		$delete_remark = $this->input->post('delete_remark', TRUE);
+			$message = '';
 		if ($delete_remark == '') {
 			$message .= 'ระบุเหตุผล';
 		}
 		*/
-
+		$message = '';
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);
 		if ($error_pk_id != '') {
@@ -427,13 +582,24 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 			));
 			echo $json;
 		} else {
-			$result = $this->Users_result_exam_food_allergy->delete($post);
+			$result = $this->Question->delete($post);
 			if ($result == false) {
-				$message = $this->Users_result_exam_food_allergy->error_message;
+				$message = $this->Question->error_message;
 				$ok = FALSE;
 			} else {
 				$message = '<strong>ลบข้อมูลเรียบร้อย</strong>';
 				$ok = TRUE;
+
+				// $this->load->model('common_model');
+				// $this->common_model->update("question_images",
+				// 	array('user_delete'=>get_session('user_id'),'datetime_delete'=>date("Y-m-d H:i:s"),'fag_allow'=>'delete'),
+				// 	array('question_id'=>checkEncryptData($post['encrypt_question_id'])));
+				// $rows = $this->common_model->custom_query("select * from question_images where question_id=".checkEncryptData($post['encrypt_question_id']));
+
+				// foreach ($rows as $key => $value) {
+				// 	//$year = (substr($value['datetime_add'],0,4)+543);
+				// 	$this->removeFile($value['encrypt_name']);
+				// }
 			}
 			$json = json_encode(array(
 				'is_successful' => $ok,
@@ -454,20 +620,19 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 		for ($i = 0; $i < $count; $i++) {
 			$start_row++;
 			$data[$i]['record_number'] = $start_row;
-			$pk1 = $data[$i]['exam_id'];
+			$pk1 = $data[$i]['question_id'];
 			$data[$i]['url_encrypt_id'] = urlencode(encrypt($pk1));
 
 			if ($pk1 != '') {
 				$pk1 = encrypt($pk1);
 			}
-			$data[$i]['encrypt_exam_id'] = $pk1;
+			$data[$i]['encrypt_question_id'] = $pk1;
 			$data[$i]['preview_fag_allow'] = $this->setFagAllowSubject($data[$i]['fag_allow']);
-			$data[$i]['preview_food_type'] = $this->setFagAllowSubject($data[$i]['food_type']);
-
+			$data[$i]['preview_question_status'] = $this->setFagAllowSubject($data[$i]['question_status']);
+			$data[$i]['date_public'] = setThaiDate($data[$i]['date_public']);
 			$data[$i]['datetime_delete'] = setThaiDate($data[$i]['datetime_delete']);
 			$data[$i]['datetime_add'] = setThaiDate($data[$i]['datetime_add']);
 			$data[$i]['datetime_update'] = setThaiDate($data[$i]['datetime_update']);
-			$data[$i]['food_alg_val'] = number_format($data[$i]['food_alg_val'], 2);
 		}
 		return $data;
 	}
@@ -480,19 +645,19 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 		$subject = '';
 		switch ($value) {
 			case 'allow':
-				$subject = 'ปกติ';
+				$subject = 'เผยแพร่';
 				break;
 			case 'block':
-				$subject = 'ระงับ';
+				$subject = 'ไม่เผยแพร่';
 				break;
 			case 'delete':
 				$subject = 'ลบ';
 				break;
-			case 'food_allergy':
-				$subject = 'Food Allergy';
+			case 'responded':
+				$subject = 'ตอบแล้ว';
 				break;
-			case 'food_intolerance':
-				$subject = 'Food Intolerance';
+			case 'not_responded':
+				$subject = 'ยังไม่ตอบ';
 				break;
 		}
 		return $subject;
@@ -505,53 +670,49 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 	{
 		$data = $row_data;
 
-		$pk1 = $data['exam_id'];
+		$pk1 = $data['question_id'];
 		$this->data['recode_url_encrypt_id'] = urlencode(encrypt($pk1));
 
 		if ($pk1 != '') {
 			$pk1 = encrypt($pk1);
 		}
-		$this->data['encrypt_exam_id'] = $pk1;
+		$this->data['encrypt_question_id'] = $pk1;
 
 
-		$userIdUserFname = $this->Users_result_exam_food_allergy->getValueOf('users', 'user_fname', "user_id = '$data[user_id]'");
-		$this->data['userIdUserFname'] = $userIdUserFname;
-
-
-		$algIdAlgName = $this->Users_result_exam_food_allergy->getValueOf('food_allergy', 'alg_name', "alg_id = '$data[alg_id]'");
-		$this->data['algIdAlgName'] = $algIdAlgName;
-
-
-		$userDeleteUserFname = $this->Users_result_exam_food_allergy->getValueOf('users', 'user_fname', "user_id = '$data[user_delete]'");
+		$userDeleteUserFname = $this->Question->getValueOf('users', 'user_fname', "user_id = '$data[user_delete]'");
 		$this->data['userDeleteUserFname'] = $userDeleteUserFname;
 
 
-		$userAddUserFname = $this->Users_result_exam_food_allergy->getValueOf('users', 'user_fname', "user_id = '$data[user_add]'");
+		$userAddUserFname = $this->Question->getValueOf('users', 'user_fname', "user_id = '$data[user_add]'");
 		$this->data['userAddUserFname'] = $userAddUserFname;
 
 
-		$userUpdateUserFname = $this->Users_result_exam_food_allergy->getValueOf('users', 'user_fname', "user_id = '$data[user_update]'");
+		$userUpdateUserFname = $this->Question->getValueOf('users', 'user_fname', "user_id = '$data[user_update]'");
 		$this->data['userUpdateUserFname'] = $userUpdateUserFname;
 
-		$this->data['record_exam_id'] = $data['exam_id'];
-		$this->data['record_user_id'] = $data['user_id'];
-		$this->data['record_alg_id'] = $data['alg_id'];
+		$this->data['record_question_id'] = $data['question_id'];
+		$this->data['record_date_public'] = $data['date_public'];
+		$this->data['record_question_name'] = $data['question_name'];
+		$this->data['record_question_detail'] = $data['question_detail'];
+		$this->data['record_answer_question'] = $data['answer_question'];
+
 		$this->data['record_user_delete'] = $data['user_delete'];
 		$this->data['record_datetime_delete'] = $data['datetime_delete'];
 		$this->data['record_user_add'] = $data['user_add'];
 		$this->data['record_datetime_add'] = $data['datetime_add'];
 		$this->data['record_user_update'] = $data['user_update'];
 		$this->data['record_datetime_update'] = $data['datetime_update'];
+		$this->data['preview_question_status'] = $this->setFagAllowSubject($data['question_status']);
+		$this->data['record_question_status'] = $data['question_status'];
+
 		$this->data['preview_fag_allow'] = $this->setFagAllowSubject($data['fag_allow']);
 		$this->data['record_fag_allow'] = $data['fag_allow'];
-		$this->data['preview_food_type'] = $this->setFagAllowSubject($data['food_type']);
-		$this->data['record_food_type'] = $data['food_type'];
-		$this->data['record_food_alg_val'] = $data['food_alg_val'];
 
+
+		$this->data['record_date_public'] = setThaiDate($data['date_public']);
 		$this->data['record_datetime_delete'] = setThaiDate($data['datetime_delete']);
 		$this->data['record_datetime_add'] = setThaiDate($data['datetime_add']);
 		$this->data['record_datetime_update'] = setThaiDate($data['datetime_update']);
-		$this->data['record_food_alg_val'] = number_format($data['food_alg_val'], 2);
 	}
 }
 /*---------------------------- END Controller Class --------------------------------*/

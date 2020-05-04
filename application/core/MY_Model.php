@@ -187,7 +187,25 @@ class MY_Model extends CI_Model
 			//	$this->error_message = 'Could not create LOG';
 			//}
 		}
-    }
+	}
+
+	public function delete_record_Outfood()
+	{
+		if ($this->_where == '') {
+			return 'Choose WHERE Clause for Update / Delet';
+		} else {
+			//Move to LOG
+			//if($this->log_delete()){
+			//Delete Record
+			$this->set_query_parameter();
+			$this->db->set(array('rmat_id' => 'null','fag_allow' => 'delete', 'user_delete' => $this->session->userdata('user_id'), 'datetime_delete' => date("Y-m-d H:i:s")));
+			return $this->db->update($this->_table_name);
+			//return $this->db->delete($this->_table_name);
+			//}else{
+			//	$this->error_message = 'Could not create LOG';
+			//}
+		}
+	}
 
 	private function log_edit_history()
     {
@@ -248,7 +266,7 @@ class MY_Model extends CI_Model
 		//table, del condition, data
 		$n=0;
 		if($pk_field = $this->get_primary_key()){
-			
+
 			$log_del_remark = $this->input->post('delete_remark', TRUE);
 
 			$pk_field_name = $pk_field;
@@ -259,7 +277,7 @@ class MY_Model extends CI_Model
 					$pk_field_name = implode(',', $pk_field);//ใช้กับ CONCAT_WS(',', {$log_table_pk})
 				}
 			}
-			
+
 			//จะทำงานเมื่อพบ PRIMARY Key เท่านั้น
 			$this->set_query_parameter();
 			$query = $this->db->get($this->_table_name);
@@ -420,8 +438,8 @@ class MY_Model extends CI_Model
 			return $qry->row_array();
 		}
 	}
-	
-	
+
+
 	public function createOptionList($table, $field_value, $field_text, $condition = array())
 	{
 		$where = '';
@@ -446,7 +464,7 @@ class MY_Model extends CI_Model
 
 		$list = '';
 		$order_by = 'ORDER BY '. $order_by;
-		
+
 		$and = "and";
 		if($where=='') {
 			$and ='where';
@@ -480,7 +498,7 @@ class MY_Model extends CI_Model
 			if($table=='self_food_menu') {
 				$data_val = $row['food_source'];
 
-				if($row['shop_name_th']!='') { 
+				if($row['shop_name_th']!='') {
 					$data_shop = $row['shop_name_th'].' - ';
 				}
 			}
@@ -497,13 +515,13 @@ class MY_Model extends CI_Model
 			return $list;
 		}
 	}
-	
+
 	public function returnOptionList($table, $field_value, $field_text, $condition = array())
 	{
 		$condition['return'] = true;
 		return $this->createOptionList($table, $field_value, $field_text, $condition);
 	}
-	
+
 	public function isAdmin()
 	{
 		if($this->session->userdata('user_level') == $this->admin_level){

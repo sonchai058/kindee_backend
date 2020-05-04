@@ -14,18 +14,41 @@
 						<input type="hidden" name="submit_case" value="edit" />
 						<div class="container">
 							<div class="form-row justify-content-around">
+								<div class="form-group col-md-10 ">
+									<label class="control-label" for="alg_id">ประเภท :</label>
+									<div class="col-sm-10 checkbox-radios">
+										<div class="form-check">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" name="food_type" value="food_allergy" checked=''> Food Allergy
+												<span class="circle">
+													<span class="check"></span>
+												</span>
+											</label>
+										</div>
+										<div class="form-check">
+											<label class="form-check-label">
+												<input class="form-check-input" type="radio" name="food_type" value="food_intolerance"> Food Intolerance
+												<span class="circle">
+													<span class="check"></span>
+												</span>
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="form-row justify-content-around">
 								<div class="form-group col-md-4 ">
-									<label class="control-label"  for="alg_id">ชื่ออาหารที่แพ้ :</label>
+									<label class="control-label" for="alg_id">ชื่ออาหารที่แพ้ :</label>
 									<div class="form-group has-success">
-									<select id="alg_id" name="alg_id"  value="{record_alg_id}">
-									<option value="">- เลือก ชื่ออาหารที่แพ้ -</option>
-									{food_allergy_alg_id_option_list}
-								</select>									</div>
+										<select id="alg_id" name="alg_id" value="{record_alg_id}">
+											<option value="">- เลือก ชื่ออาหารที่แพ้ -</option>
+											{food_allergy_alg_id_option_list}
+										</select> </div>
 								</div>
 								<div class="form-group col-md-4 ">
 									<label class="control-label" for="food_alg_val">ค่า :</label>
 									<div class="form-group has-success">
-									<input type="number" step='0.01' class="form-control " id="food_alg_val" name="food_alg_val" value="{record_food_alg_val}" />
+										<input type="number" step='0.01' class="form-control " id="food_alg_val" name="food_alg_val" value="{record_food_alg_val}" />
 									</div>
 								</div>
 
@@ -58,22 +81,20 @@
 				</div>
 			-->
 
-						</div>
-						<div class='form-group'>
-							<div class="col-sm-12 text-right">
-								<button type="button" class='btn btn-success' data-toggle='modal' data-target='#editModal'>&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;บันทึก &nbsp;&nbsp;</button>
-
-							</div>
-						</div>
-
-						<input type="hidden" name="encrypt_exam_id" value="{encrypt_exam_id}" />
-
-
-					</form>
 				</div>
-				<!--card-body-->
+				<div class='form-group'>
+					<div class="col-sm-12 text-right">
+						<button type="button" class='btn btn-success' data-toggle='modal' data-target='#editModal'>&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp;บันทึก &nbsp;&nbsp;</button>
+
+					</div>
+				</div>
+
+				<input type="hidden" name="encrypt_exam_id" value="{encrypt_exam_id}" />
+
+
+				</form>
 			</div>
-			<!--card-->
+			<!--card-body-->
 		</div>
 		<!--card-->
 	</div>

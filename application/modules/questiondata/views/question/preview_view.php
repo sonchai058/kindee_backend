@@ -5,6 +5,7 @@
 	.table td.fit {
 		white-space: nowrap;
 		width: 2%;
+		font-weight: bold;
 	}
 </style>
 <div class="container-fluid">
@@ -30,15 +31,19 @@
 
 								<tr>
 									<td class="text-right fit"><b>รหัสไอดีหลัก :</b></td>
-									<td>{record_exam_id}</td>
+									<td>{record_question_id}</td>
 								</tr>
 								<tr>
-									<td class="text-right fit"><b>ชื่อสมาชิก :</b></td>
-									<td>{userIdUserFname}</td>
+									<td class="text-right fit"><b>วันเวลาที่ถาม :</b></td>
+									<td>{record_date_public}</td>
 								</tr>
 								<tr>
-									<td class="text-right fit"><b>ชื่ออาหารที่แพ้ :</b></td>
-									<td>{algIdAlgName}</td>
+									<td class="text-right fit"><b>หัวข้อ :</b></td>
+									<td>{record_question_name}</td>
+								</tr>
+								<tr>
+									<td class="text-right fit"><b>รายละเอียด :</b></td>
+									<td>{record_question_detail}</td>
 								</tr>
 								<tr>
 									<td class="text-right fit"><b>ผู้เพิ่ม :</b></td>
@@ -58,17 +63,12 @@
 								</tr>
 								<tr>
 									<td class="text-right fit"><b>สถานะ :</b></td>
-									<td>{preview_fag_allow}</td>
+									<td>{preview_question_status}</td>
 								</tr>
 								<tr>
-									<td class="text-right fit"><b>ประเภท :</b></td>
-									<td>{preview_food_type}</td>
+									<td class="text-right fit"><b>รายละเอียดคำตอบ :</b></td>
+									<td>{record_answer_question}</td>
 								</tr>
-								<tr>
-									<td class="text-right fit"><b>ค่า :</b></td>
-									<td>{record_food_alg_val}</td>
-								</tr>
-
 							</tbody>
 						</table>
 					</div>

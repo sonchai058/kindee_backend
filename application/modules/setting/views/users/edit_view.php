@@ -182,9 +182,10 @@
 											<select id="user_level" name="user_level" value="{record_user_level}">
 												<option value="">- เลือก ระดับผู้ใช้งาน -</option>
 												<option value="admin">ผู้ดูแลระบบ</option>
-												<option value="super_user">สมาชิกพิเศษ</option>
+												<option value="super_user">Super User</option>
 												<option value="user">สมาชิก</option>
 												<option value="shop">ร้านค้า</option>
+												<option value="nutritionist">นักโภชนาการ</option>
 											</select>
 										</div>
 									</div>

@@ -4,6 +4,11 @@ if (!defined('BASEPATH'))  exit('No direct script access allowed');
 /**
  * [ Controller File name : Users.php ]
  */
+
+/**
+ * Debug
+ * *echo "<pre>"; print_r($arr); echo "</pre>"; exit();
+ */
 class Users extends CRUD_Controller
 {
 
@@ -32,28 +37,28 @@ class Users extends CRUD_Controller
 		$this->data['page_title'] = 'จัดการผู้ใช้งาน';
 		$this->upload_store_path = './assets/uploads/users/';
 		$this->file_allow = array(
-						'application/pdf' => 'pdf',
-						'application/msword' => 'doc',
-						'application/vnd.ms-msword' => 'doc',
-						'application/vnd.ms-excel' => 'xls',
-						'application/powerpoint' => 'ppt',
-						'application/vnd.ms-powerpoint' => 'ppt',
-						'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx',
-						'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'xlsx',
-						'application/vnd.openxmlformats-officedocument.presentationml.presentation' => 'pptx',
-						'application/vnd.oasis.opendocument.text' => 'odt',
-						'application/vnd.oasis.opendocument.spreadsheet' => 'ods',
-						'application/vnd.oasis.opendocument.presentation' => 'odp',
-						'image/bmp' => 'bmp',
-						'image/png' => 'png',
-						'image/pjpeg' => 'jpeg',
-						'image/jpeg' => 'jpg'
+			'application/pdf' => 'pdf',
+			'application/msword' => 'doc',
+			'application/vnd.ms-msword' => 'doc',
+			'application/vnd.ms-excel' => 'xls',
+			'application/powerpoint' => 'ppt',
+			'application/vnd.ms-powerpoint' => 'ppt',
+			'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => 'docx',
+			'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'xlsx',
+			'application/vnd.openxmlformats-officedocument.presentationml.presentation' => 'pptx',
+			'application/vnd.oasis.opendocument.text' => 'odt',
+			'application/vnd.oasis.opendocument.spreadsheet' => 'ods',
+			'application/vnd.oasis.opendocument.presentation' => 'odp',
+			'image/bmp' => 'bmp',
+			'image/png' => 'png',
+			'image/pjpeg' => 'jpeg',
+			'image/jpeg' => 'jpg'
 		);
 		$this->file_allow_type = array_values($this->file_allow);
 		$this->file_allow_mime = array_keys($this->file_allow);
 		$this->file_check_name = '';
-		$js_url = 'assets/js_modules/setting/users.js?ft='. filemtime('assets/js_modules/setting/users.js');
-		$this->another_js = '<script src="'. base_url($js_url) .'"></script>';
+		$js_url = 'assets/js_modules/setting/users.js?ft=' . filemtime('assets/js_modules/setting/users.js');
+		$this->another_js = '<script src="' . base_url($js_url) . '"></script>';
 	}
 
 	// ------------------------------------------------------------------------
@@ -90,41 +95,44 @@ class Users extends CRUD_Controller
 	 * @param Integer total record
 	 */
 
-	public function user_infoadd1() {
+	public function user_infoadd1()
+	{
 		$post = $this->input->post(NULL, TRUE);
 		$message = '<strong>ตั้งค่า น้ำหนัก สำเร็จ</strong>';
 		$success = TRUE;
 		//$encrypt_id = '';
 		$encrypt_name = '';
-		$id= '';
+		$id = '';
 
-		if(isset($post['data'])) {
-		    $this->load->model('common_model');
+		if (isset($post['data'])) {
+			$this->load->model('common_model');
 
-		    $tmp = rowArray($this->common_model->custom_query("select * from users_exam_weight where fag_allow='allow' and DATE(date_exam)='".date('Y-m-d')."' and user_id='{$post['user_id']}'"));
+			$tmp = rowArray($this->common_model->custom_query("select * from users_exam_weight where fag_allow='allow' and DATE(date_exam)='" . date('Y-m-d') . "' and user_id='{$post['user_id']}'"));
 
-		    if(isset($tmp['eweight_id'])) {
-			    $id = $this->common_model->update('users_exam_weight',
-			    	array(
-			    		'user_weight'=>$post['data'],
-			    		'date_exam'=>date("Y-m-d H:i:s"),
-			    		'user_update'=>get_session('user_id'),
-			    		'datetime_update'=>date("Y-m-d H:i:s"),
-			    	),
-			    	array('eweight_id'=>$tmp['eweight_id'])
-			    );
-		    }else {
-			    $id = $this->common_model->insert('users_exam_weight',
-			    	array(
-			    		'user_weight'=>$post['data'],
-			    		'date_exam'=>date("Y-m-d H:i:s"),
-			    		'user_add'=>get_session('user_id'),
-			    		'datetime_add'=>date("Y-m-d H:i:s"),
-			    		'user_id'=>$post['user_id']
-			    	)
-			    );
-		    }
-		}else {
+			if (isset($tmp['eweight_id'])) {
+				$id = $this->common_model->update(
+					'users_exam_weight',
+					array(
+						'user_weight' => $post['data'],
+						'date_exam' => date("Y-m-d H:i:s"),
+						'user_update' => get_session('user_id'),
+						'datetime_update' => date("Y-m-d H:i:s"),
+					),
+					array('eweight_id' => $tmp['eweight_id'])
+				);
+			} else {
+				$id = $this->common_model->insert(
+					'users_exam_weight',
+					array(
+						'user_weight' => $post['data'],
+						'date_exam' => date("Y-m-d H:i:s"),
+						'user_add' => get_session('user_id'),
+						'datetime_add' => date("Y-m-d H:i:s"),
+						'user_id' => $post['user_id']
+					)
+				);
+			}
+		} else {
 			$success = FALSE;
 			$message = '<strong>ตั้งค่า น้ำหนัก ล้มเหลว</strong>';
 		}
@@ -132,45 +140,48 @@ class Users extends CRUD_Controller
 			'is_successful' => $success,
 			//'encrypt_id' =>  $encrypt_id,
 			'message' => $message,
-			'id'=>$id,
+			'id' => $id,
 		));
 		echo $json;
 	}
 
-	public function user_infoadd2() {
+	public function user_infoadd2()
+	{
 		$post = $this->input->post(NULL, TRUE);
 		$message = '<strong>ตั้งค่า รอบเอว สำเร็จ</strong>';
 		$success = TRUE;
 		//$encrypt_id = '';
 		$encrypt_name = '';
-		$id= '';
+		$id = '';
 
-		if(isset($post['data'])) {
-		    $this->load->model('common_model');
+		if (isset($post['data'])) {
+			$this->load->model('common_model');
 
-		    $tmp = rowArray($this->common_model->custom_query("select * from users_exam_waistline where fag_allow='allow' and DATE(date_exam)='".date('Y-m-d')."' and user_id='{$post['user_id']}'"));
-		    if(isset($tmp['ewaist_id'])) {
-			    $id = $this->common_model->update('users_exam_waistline',
-			    	array(
-			    		'user_waist'=>$post['data'],
-			    		'date_exam'=>date("Y-m-d H:i:s"),
-			    		'user_update'=>get_session('user_id'),
-			    		'datetime_update'=>date("Y-m-d H:i:s"),
-			    	),
-			    	array('ewaist_id'=>$tmp['ewaist_id'])
-			    );
-		    }else {
-			    $id = $this->common_model->insert('users_exam_waistline',
-			    	array(
-			    		'user_waist'=>$post['data'],
-			    		'date_exam'=>date("Y-m-d H:i:s"),
-			    		'user_add'=>get_session('user_id'),
-			    		'datetime_add'=>date("Y-m-d H:i:s"),
-			    		'user_id'=>$post['user_id']
-			    	)
-			    );
+			$tmp = rowArray($this->common_model->custom_query("select * from users_exam_waistline where fag_allow='allow' and DATE(date_exam)='" . date('Y-m-d') . "' and user_id='{$post['user_id']}'"));
+			if (isset($tmp['ewaist_id'])) {
+				$id = $this->common_model->update(
+					'users_exam_waistline',
+					array(
+						'user_waist' => $post['data'],
+						'date_exam' => date("Y-m-d H:i:s"),
+						'user_update' => get_session('user_id'),
+						'datetime_update' => date("Y-m-d H:i:s"),
+					),
+					array('ewaist_id' => $tmp['ewaist_id'])
+				);
+			} else {
+				$id = $this->common_model->insert(
+					'users_exam_waistline',
+					array(
+						'user_waist' => $post['data'],
+						'date_exam' => date("Y-m-d H:i:s"),
+						'user_add' => get_session('user_id'),
+						'datetime_add' => date("Y-m-d H:i:s"),
+						'user_id' => $post['user_id']
+					)
+				);
 			}
-		}else {
+		} else {
 			$success = FALSE;
 			$message = '<strong>ตั้งค่า รอบเอว ล้มเหลว</strong>';
 		}
@@ -178,45 +189,48 @@ class Users extends CRUD_Controller
 			'is_successful' => $success,
 			//'encrypt_id' =>  $encrypt_id,
 			'message' => $message,
-			'id'=>$id,
+			'id' => $id,
 		));
 		echo $json;
 	}
 
-	public function user_infoadd3() {
+	public function user_infoadd3()
+	{
 		$post = $this->input->post(NULL, TRUE);
 		$message = '<strong>ตั้งค่า สะโพก สำเร็จ</strong>';
 		$success = TRUE;
 		//$encrypt_id = '';
 		$encrypt_name = '';
-		$id= '';
+		$id = '';
 
-		if(isset($post['data'])) {
-		    $this->load->model('common_model');
+		if (isset($post['data'])) {
+			$this->load->model('common_model');
 
-		    $tmp = rowArray($this->common_model->custom_query("select * from users_exam_hip where fag_allow='allow' and DATE(date_exam)='".date('Y-m-d')."' and user_id='{$post['user_id']}'"));
-		    if(isset($tmp['ehib_id'])) {
-			    $id = $this->common_model->update('users_exam_hip',
-			    	array(
-			    		'user_hib'=>$post['data'],
-			    		'date_exam'=>date("Y-m-d H:i:s"),
-			    		'user_update'=>get_session('user_id'),
-			    		'datetime_update'=>date("Y-m-d H:i:s"),
-			    	),
-			    	array('ehib_id'=>$tmp['ehib_id'])
-			    );
-		    }else {
-			    $id = $this->common_model->insert('users_exam_hip',
-			    	array(
-			    		'user_hib'=>$post['data'],
-			    		'date_exam'=>date("Y-m-d H:i:s"),
-			    		'user_add'=>get_session('user_id'),
-			    		'datetime_add'=>date("Y-m-d H:i:s"),
-			    		'user_id'=>$post['user_id']
-			    	)
-			    );
+			$tmp = rowArray($this->common_model->custom_query("select * from users_exam_hip where fag_allow='allow' and DATE(date_exam)='" . date('Y-m-d') . "' and user_id='{$post['user_id']}'"));
+			if (isset($tmp['ehib_id'])) {
+				$id = $this->common_model->update(
+					'users_exam_hip',
+					array(
+						'user_hib' => $post['data'],
+						'date_exam' => date("Y-m-d H:i:s"),
+						'user_update' => get_session('user_id'),
+						'datetime_update' => date("Y-m-d H:i:s"),
+					),
+					array('ehib_id' => $tmp['ehib_id'])
+				);
+			} else {
+				$id = $this->common_model->insert(
+					'users_exam_hip',
+					array(
+						'user_hib' => $post['data'],
+						'date_exam' => date("Y-m-d H:i:s"),
+						'user_add' => get_session('user_id'),
+						'datetime_add' => date("Y-m-d H:i:s"),
+						'user_id' => $post['user_id']
+					)
+				);
 			}
-		}else {
+		} else {
 			$success = FALSE;
 			$message = '<strong>ตั้งค่า สะโพก ล้มเหลว</strong>';
 		}
@@ -224,12 +238,13 @@ class Users extends CRUD_Controller
 			'is_successful' => $success,
 			//'encrypt_id' =>  $encrypt_id,
 			'message' => $message,
-			'id'=>$id,
+			'id' => $id,
 		));
 		echo $json;
 	}
 
-	public function create_pagination($page_url, $total) {
+	public function create_pagination($page_url, $total)
+	{
 		$this->load->library('pagination');
 		$config['base_url'] = $page_url;
 		$config['total_rows'] = $total;
@@ -246,7 +261,8 @@ class Users extends CRUD_Controller
 	/**
 	 * List all record
 	 */
-	public function list_all() {
+	public function list_all()
+	{
 		$this->session->unset_userdata($this->Users->session_name . '_search_field');
 		$this->session->unset_userdata($this->Users->session_name . '_value');
 
@@ -261,20 +277,39 @@ class Users extends CRUD_Controller
 	public function search()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'จัดการข้อมูลส่วนตัว', 'class' => 'active', 'url' => '#'),
+			array('title' => 'จัดการข้อมูลส่วนตัว', 'class' => 'active', 'url' => '#'),
 		);
 		if (isset($_POST['submit'])) {
 			$search_field =  $this->input->post('search_field', TRUE);
 			$value = $this->input->post('txtSearch', TRUE);
-			$arr = array($this->Users->session_name . '_search_field' => $search_field, $this->Users->session_name . '_value' => $value );
+
+			switch ($value) {
+				case 'ผู้ดูแลระบบ':
+					$value = 'admin';
+					break;
+				case 'Super User':
+					$value = 'super_user';
+					break;
+				case 'สมาชิก':
+					$value = 'user';
+					break;
+				case 'ร้านค้า':
+					$value = 'shop';
+					break;
+				case 'นักโภชนาการ':
+					$value = 'nutritionist';
+					break;
+			}
+
+			$arr = array($this->Users->session_name . '_search_field' => $search_field, $this->Users->session_name . '_value' => $value);
 			$this->session->set_userdata($arr);
 		} else {
 			$search_field = $this->session->userdata($this->Users->session_name . '_search_field');
 			$value = $this->session->userdata($this->Users->session_name . '_value');
 		}
 
-		$start_row = $this->uri->segment($this->uri_segment ,'0');
-		if(!is_numeric($start_row)){
+		$start_row = $this->uri->segment($this->uri_segment, '0');
+		if (!is_numeric($start_row)) {
 			$start_row = 0;
 		}
 		$per_page = $this->per_page;
@@ -283,9 +318,13 @@ class Users extends CRUD_Controller
 			$arr = explode('|', $order_by);
 			$field = $arr[0];
 			$sort = $arr[1];
-			switch($sort){
-				case 'asc':$sort = 'ASC';break;
-				case 'desc':$sort = 'DESC';break;
+			switch ($sort) {
+				case 'asc':
+					$sort = 'ASC';
+					break;
+				case 'desc':
+					$sort = 'DESC';
+					break;
 			}
 			$this->Users->order_field = $field;
 			$this->Users->order_sort = $sort;
@@ -297,13 +336,13 @@ class Users extends CRUD_Controller
 
 
 		$page_url = site_url('setting/users');
-		$pagination = $this->create_pagination($page_url.'/search', $search_row);
+		$pagination = $this->create_pagination($page_url . '/search', $search_row);
 		$end_row = $start_row + $per_page;
-		if($search_row < $per_page){
+		if ($search_row < $per_page) {
 			$end_row = $search_row;
 		}
 
-		if($end_row > $search_row){
+		if ($end_row > $search_row) {
 			$end_row = $search_row;
 		}
 
@@ -332,8 +371,8 @@ class Users extends CRUD_Controller
 	public function preview($encrypt_id = "")
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'จัดการข้อมูลส่วนตัว', 'url' => site_url('setting/users')),
-						array('title' => 'แสดงข้อมูลรายละเอียด', 'url' => '#', 'class' => 'active')
+			array('title' => 'จัดการข้อมูลส่วนตัว', 'url' => site_url('setting/users')),
+			array('title' => 'แสดงข้อมูลรายละเอียด', 'url' => '#', 'class' => 'active')
 		);
 		$encrypt_id = urldecode($encrypt_id);
 		$id = decrypt($encrypt_id);
@@ -360,79 +399,75 @@ class Users extends CRUD_Controller
 	public function add()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'จัดการข้อมูลส่วนตัว', 'url' => site_url('setting/users')),
-						array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'active')
+			array('title' => 'จัดการข้อมูลส่วนตัว', 'url' => site_url('setting/users')),
+			array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 
 
 		$this->data['data_id'] = 0;
 
 		$rows = array(
-			'limit_allmeat'=>array('No','เนื้อสัตว์ทุกชนิด'),
-			'limit_pig'=>array('No','หมู'),
-			'limit_meat'=>array('No','เนื้อ'),
-			'limit_animal'=>array('No','ผลิตภัณฑ์จากสัตว์ เช่นไข่และนม'),
-			'limit_seafood'=>array('No','อาหารทะเล'),
-			'limit_additives'=>array('No','สารเติมแต่ง เช่น ผงชูรส'),
+			'limit_allmeat' => array('No', 'เนื้อสัตว์ทุกชนิด'),
+			'limit_pig' => array('No', 'หมู'),
+			'limit_meat' => array('No', 'เนื้อ'),
+			'limit_animal' => array('No', 'ผลิตภัณฑ์จากสัตว์ เช่นไข่และนม'),
+			'limit_seafood' => array('No', 'อาหารทะเล'),
+			'limit_additives' => array('No', 'สารเติมแต่ง เช่น ผงชูรส'),
 		);
 		$tmp_data = '<div class="form-row justify-content-start">';
 		foreach ($rows as $key => $value) {
-			$selected='';
+			$selected = '';
 			//if($value[0]=='Yes')continue;
-			if($value[0]=='Yes') {
+			if ($value[0] == 'Yes') {
 				$selected = 'checked';
 			}
 			// $tmp_data = $tmp_data."<div onclick=\"if($('.{$key}:checked').length==0)".'{'."$('.{$key}').prop('checked',true);".'}'."else ".'{'."$('.{$key}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='col-sm-12 control-label chk' for=''>&nbsp;&nbsp;&nbsp;{$value[1]}</label><input style='margin-top: -40px;' type='checkbox' class='form-control {$key}' name='limit[{$key}]' value='{$value[0]}' {$selected}></div>";
-			$tmp_data = $tmp_data."<div onclick=\"if($('.{$key}:checked').length==0)".'{'."$('.{$key}').prop('checked',true);".'}'."else ".'{'."$('.{$key}').prop('checked',false);".'}'."\" class='form-group col-md-4'><div class='form-check'><label class='form-check-label'><input class='form-check-input {$key}' name='limit[{$key}]' value='{$value[0]}' {$selected} type='checkbox'> {$value[1]} <span class='form-check-sign'><span class='check'></span></span></label></div></div>";
-
+			$tmp_data = $tmp_data . "<div onclick=\"if($('.{$key}:checked').length==0)" . '{' . "$('.{$key}').prop('checked',true);" . '}' . "else " . '{' . "$('.{$key}').prop('checked',false);" . '}' . "\" class='form-group col-md-4'><div class='form-check'><label class='form-check-label'><input class='form-check-input {$key}' name='limit[{$key}]' value='{$value[0]}' {$selected} type='checkbox'> {$value[1]} <span class='form-check-sign'><span class='check'></span></span></label></div></div>";
 		}
-		$this->data['limit'] = $tmp_data.'</div>';
+		$this->data['limit'] = $tmp_data . '</div>';
 
 		$this->data['promotions1'] = "";
 		$this->data['promotions2'] = "";
 		$this->load->model("common_model");
 
-			//$rows1 = $this->common_model->custom_query("select * from users_promotions as b where b.fag_allow='allow' and b.user_id={$this->session->userdata('user_id')}");
-			$setSelect = array();
-			if(isset($rows1)) {
-				foreach ($rows1 as $key => $value) {
-					$setSelect[$value['pro_id']] = 'Yes';
-				}
+		//$rows1 = $this->common_model->custom_query("select * from users_promotions as b where b.fag_allow='allow' and b.user_id={$this->session->userdata('user_id')}");
+		$setSelect = array();
+		if (isset($rows1)) {
+			foreach ($rows1 as $key => $value) {
+				$setSelect[$value['pro_id']] = 'Yes';
 			}
+		}
 
-			$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='credit_cart' order by a.pro_name");
-			$tmp_data = '<div class="form-row justify-content-start">';
-			foreach ($rows as $key => $value) {
-				$selected='';
-				//if($value['b_fag_allow']=='delete')continue;
-				$pro_discount = 0;
-				if(isset($setSelect[$value['pro_id']])) {
-					$selected = 'checked';
-				}
-					// $tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
-					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\"  class='form-group col-md-4'><div class='form-check'><label class='form-check-label'><input class='form-check-input {$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected} type='checkbox'> {$value['pro_name']} <span class='form-check-sign'><span class='check'></span></span></label></div></div>";
-
-
+		$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='credit_cart' order by a.pro_name");
+		$tmp_data = '<div class="form-row justify-content-start">';
+		foreach ($rows as $key => $value) {
+			$selected = '';
+			//if($value['b_fag_allow']=='delete')continue;
+			$pro_discount = 0;
+			if (isset($setSelect[$value['pro_id']])) {
+				$selected = 'checked';
 			}
-			$tmp_data.="</div>";
-			$this->data['promotions1'] = $tmp_data;
+			// $tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+			$tmp_data = $tmp_data . "<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)" . '{' . "$('.pro_id{$value['pro_id']}').prop('checked',true);" . '}' . "else " . '{' . "$('.pro_id{$value['pro_id']}').prop('checked',false);" . '}' . "\"  class='form-group col-md-4'><div class='form-check'><label class='form-check-label'><input class='form-check-input {$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected} type='checkbox'> {$value['pro_name']} <span class='form-check-sign'><span class='check'></span></span></label></div></div>";
+		}
+		$tmp_data .= "</div>";
+		$this->data['promotions1'] = $tmp_data;
 
-			$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='mobile_chanel' order by a.pro_name");
+		$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='mobile_chanel' order by a.pro_name");
 
-			$tmp_data = '<div class="form-row justify-content-start">';
-			foreach ($rows as $key => $value) {
-				$selected='';
-				//if($value['b_fag_allow']=='delete')continue;
-				$pro_discount = 0;
-				if(isset($setSelect[$value['pro_id']])) {
-					$selected = 'checked';
-				}
-					// $tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
-					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\"  class='form-group col-md-4'><div class='form-check'><label class='form-check-label'><input class='form-check-input {$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected} type='checkbox'> {$value['pro_name']} <span class='form-check-sign'><span class='check'></span></span></label></div></div>";
-
+		$tmp_data = '<div class="form-row justify-content-start">';
+		foreach ($rows as $key => $value) {
+			$selected = '';
+			//if($value['b_fag_allow']=='delete')continue;
+			$pro_discount = 0;
+			if (isset($setSelect[$value['pro_id']])) {
+				$selected = 'checked';
 			}
-			$tmp_data.="</div>";
-			$this->data['promotions2'] = $tmp_data;
+			// $tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+			$tmp_data = $tmp_data . "<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)" . '{' . "$('.pro_id{$value['pro_id']}').prop('checked',true);" . '}' . "else " . '{' . "$('.pro_id{$value['pro_id']}').prop('checked',false);" . '}' . "\"  class='form-group col-md-4'><div class='form-check'><label class='form-check-label'><input class='form-check-input {$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected} type='checkbox'> {$value['pro_name']} <span class='form-check-sign'><span class='check'></span></span></label></div></div>";
+		}
+		$tmp_data .= "</div>";
+		$this->data['promotions2'] = $tmp_data;
 
 		$this->data['users_user_delete_option_list'] = $this->Users->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_add_option_list'] = $this->Users->returnOptionList("users", "user_id", "user_fname");
@@ -457,11 +492,11 @@ class Users extends CRUD_Controller
 		$frm->set_rules('title_name', 'คำนำหน้าชื่อ', 'trim|required');
 		//file upload
 		$check_file = FALSE;
-		if($this->input->post('user_photo_label') == ''){
+		if ($this->input->post('user_photo_label') == '') {
 			$check_file = TRUE;
 		}
-		if($check_file == TRUE){
-			if(empty($_FILES['user_photo']['name'])){
+		if ($check_file == TRUE) {
+			if (empty($_FILES['user_photo']['name'])) {
 				$frm->set_rules('user_photo', 'รูป', 'trim|required');
 			}
 		}
@@ -482,10 +517,10 @@ class Users extends CRUD_Controller
 		$frm->set_rules('increase_date_start', 'เป้าหมายในการเพิ่มน้ำหนัก (ภายในวันที่) เริ่มต้น', 'trim');
 		$frm->set_rules('increase_date_end', 'เป้าหมายในการเพิ่มน้ำหนัก (ภายในวันที่) สิ้นสุด', 'trim');
 
-		if($this->session->userdata('user_level')=='admin') {
+		if ($this->session->userdata('user_level') == 'admin') {
 			$frm->set_rules('user_level', 'ระดับผู้ใช้งาน', 'trim|required');
 			$frm->set_rules('org_id', 'รหัสองค์กรที่สังกัด', 'trim|required|is_natural');
-		}else {
+		} else {
 			$frm->set_rules('user_level', 'ระดับผู้ใช้งาน', 'trim');
 			$frm->set_rules('org_id', 'รหัสองค์กรที่สังกัด', 'trim');
 		}
@@ -545,10 +580,10 @@ class Users extends CRUD_Controller
 	 * Default Validation for Update
 	 * see also https://www.codeigniter.com/userguide3/libraries/form_validation.html
 	 */
-    public function float_check($val)
-    {
-    	return TRUE;
-    /*
+	public function float_check($val)
+	{
+		return TRUE;
+		/*
     	die($val);
         if ( !is_int($val) || !is_float($val) ) {
             $this->form_validation->set_message('float_check', '- %s ต้องระบุตัวเลขทศนิยม');
@@ -557,7 +592,7 @@ class Users extends CRUD_Controller
             return TRUE;
         }
         */
-    }
+	}
 
 	public function formValidateUpdate()
 	{
@@ -567,11 +602,11 @@ class Users extends CRUD_Controller
 		$frm->set_rules('title_name', 'คำนำหน้าชื่อ', 'trim|required');
 		//file upload
 		$check_file = FALSE;
-		if($this->input->post('user_photo_label') == ''){
+		if ($this->input->post('user_photo_label') == '') {
 			$check_file = TRUE;
 		}
-		if($check_file == TRUE){
-			if(empty($_FILES['user_photo']['name'])){
+		if ($check_file == TRUE) {
+			if (empty($_FILES['user_photo']['name'])) {
 				$frm->set_rules('user_photo', 'รูป', 'trim|required');
 			}
 		}
@@ -592,10 +627,10 @@ class Users extends CRUD_Controller
 		$frm->set_rules('goal_increase_weight', 'เป้าหมายในการเพิ่มน้ำหนัก (น้ำหนัก)', 'trim|callback_float_check');
 		$frm->set_rules('increase_date_start', 'เป้าหมายในการเพิ่มน้ำหนัก (ภายในวันที่) เริ่มต้น', 'trim');
 		$frm->set_rules('increase_date_end', 'เป้าหมายในการเพิ่มน้ำหนัก (ภายในวันที่) สิ้นสุด', 'trim');
-		if($this->session->userdata('user_level')=='admin') {
+		if ($this->session->userdata('user_level') == 'admin') {
 			$frm->set_rules('user_level', 'ระดับผู้ใช้งาน', 'trim|required');
 			$frm->set_rules('org_id', 'รหัสองค์กรที่สังกัด', 'trim|required|is_natural');
-		}else {
+		} else {
 			$frm->set_rules('user_level', 'ระดับผู้ใช้งาน', 'trim');
 			$frm->set_rules('org_id', 'รหัสองค์กรที่สังกัด', 'trim');
 		}
@@ -655,7 +690,7 @@ class Users extends CRUD_Controller
 		$this->load->library('form_validation');
 		$frm = $this->form_validation;
 		$message = '';
-		if(!empty($_FILES['user_photo']['name'])){
+		if (!empty($_FILES['user_photo']['name'])) {
 			$this->file_check_name = 'user_photo';
 			$frm->set_rules('user_photo', 'รูป', 'callback_file_check');
 			if ($frm->run() == FALSE) {
@@ -668,51 +703,51 @@ class Users extends CRUD_Controller
 	{
 		$allowed_mime_type_arr = $this->file_allow_mime;
 		$mime = get_mime_by_extension($_FILES[$this->file_check_name]['name']);
-		if(isset($_FILES[$this->file_check_name]['name']) && $_FILES[$this->file_check_name]['name']!=''){
-			if(in_array($mime, $allowed_mime_type_arr)){
+		if (isset($_FILES[$this->file_check_name]['name']) && $_FILES[$this->file_check_name]['name'] != '') {
+			if (in_array($mime, $allowed_mime_type_arr)) {
 				return true;
-			}else{
-				$this->form_validation->set_message('file_check', '- กรุณาเลือกประเภทไฟล์  '. implode(" | ", $this->file_allow_type) .' เท่านั้นครับ');
+			} else {
+				$this->form_validation->set_message('file_check', '- กรุณาเลือกประเภทไฟล์  ' . implode(" | ", $this->file_allow_type) . ' เท่านั้นครับ');
 				return false;
 			}
-		}else{
+		} else {
 			$this->form_validation->set_message('file_check', '- กรุณาเลือกไฟล์ %s');
 			return false;
 		}
 	}
-	private function uploadFile($file_name, $dir='')
+	private function uploadFile($file_name, $dir = '')
 	{
-		if($dir != '' && substr($dir, 0, 1) != '/'){
-			$dir = '/'.$dir;
+		if ($dir != '' && substr($dir, 0, 1) != '/') {
+			$dir = '/' . $dir;
 		}
-		$path = $this->upload_store_path.$dir;
+		$path = $this->upload_store_path . $dir;
 		//เปิดคอนฟิก Auto ชื่อไฟล์ใหม่ด้วย
 		$config['upload_path']          = $path;
 		$config['allowed_types']        = $this->file_allow_type;
 		$config['encrypt_name']		= TRUE;
 		$this->load->library('upload', $config);
-		if ($this->upload->do_upload($file_name) ){
+		if ($this->upload->do_upload($file_name)) {
 			$encrypt_name = $this->upload->file_name;
 			$orig_name = $this->upload->orig_name;
 			$this->FileUpload->create($encrypt_name, $orig_name);
-			$file_path = $path . '/' . $encrypt_name;//ไม่ต้องใช้ Path เต็ม
+			$file_path = $path . '/' . $encrypt_name; //ไม่ต้องใช้ Path เต็ม
 			$data = array(
-						'result' => TRUE,
-						'file_path' => $file_path,
-						'error' => ''
+				'result' => TRUE,
+				'file_path' => $file_path,
+				'error' => ''
 			);
-		}else{
+		} else {
 			$data = array(
-						'result' => FALSE,
-						'error' => $this->upload->display_errors()
+				'result' => FALSE,
+				'error' => $this->upload->display_errors()
 			);
 		}
 		return $data;
 	}
 	private function removeFile($file_path)
 	{
-		if($file_path != ''){
-			if(file_exists($file_path)){
+		if ($file_path != '') {
+			if (file_exists($file_path)) {
 				unlink($file_path);
 			}
 		}
@@ -728,8 +763,8 @@ class Users extends CRUD_Controller
 		$message .= $this->formValidate();
 		if ($message != '') {
 			$json = json_encode(array(
-						'is_successful' => FALSE,
-						'message' => $message
+				'is_successful' => FALSE,
+				'message' => $message
 			));
 			echo $json;
 		} else {
@@ -739,28 +774,28 @@ class Users extends CRUD_Controller
 			$upload_error = 0;
 			$upload_error_msg = '';
 			$arr = $this->uploadFile('user_photo');
-			if($arr['result'] == TRUE){
+			if ($arr['result'] == TRUE) {
 				$post['user_photo'] = $arr['file_path'];
-			}else{
+			} else {
 				$upload_error++;
-				$upload_error_msg .= '<br/>'. print_r($arr['error'],TRUE);
+				$upload_error_msg .= '<br/>' . print_r($arr['error'], TRUE);
 			}
 			$encrypt_id = '';
-			if($upload_error == 0){
+			if ($upload_error == 0) {
 				$success = TRUE;
 
 				$rows = array(
-					'limit_allmeat'=>array('No','เนื้อสัตว์ทุกชนิด'),
-					'limit_pig'=>array('No','หมู'),
-					'limit_meat'=>array('No','เนื้อ'),
-					'limit_animal'=>array('No','ผลิตภัณฑ์จากสัตว์ เช่นไข่และนม'),
-					'limit_seafood'=>array('No','อาหารทะเล'),
-					'limit_additives'=>array('No','สารเติมแต่ง เช่น ผงชูรส'),
+					'limit_allmeat' => array('No', 'เนื้อสัตว์ทุกชนิด'),
+					'limit_pig' => array('No', 'หมู'),
+					'limit_meat' => array('No', 'เนื้อ'),
+					'limit_animal' => array('No', 'ผลิตภัณฑ์จากสัตว์ เช่นไข่และนม'),
+					'limit_seafood' => array('No', 'อาหารทะเล'),
+					'limit_additives' => array('No', 'สารเติมแต่ง เช่น ผงชูรส'),
 				);
 				foreach ($rows as $key => $value) {
-					if(isset($post['limit'][$key])) {
+					if (isset($post['limit'][$key])) {
 						$post[$key] = 'Yes';
-					}else {
+					} else {
 						$post[$key] = 'No';
 					}
 				}
@@ -772,27 +807,27 @@ class Users extends CRUD_Controller
 				$id = $this->Users->create($post);
 
 
-			    if(count($post1['pro_id'])) {
-				    $this->load->model("common_model");
-				    //$this->common_model->update("users_promotions",array('fag_allow'=>'delete',"user_delete"=>get_session("user_id"),'datetime_delete'=>date('Y-m-d H:i:s')),array('user_id'=>$this->session->userdata('shop_id')));
-				    foreach($post1['pro_id'] as $key=>$value) {
-				    	$this->common_model->insert('users_promotions',array('user_add'=>$this->session->userdata('user_id'),'datetime_add'=>date('Y-m-d H:i:s'),'pro_id'=>$value,'user_id'=>$id));
-				    }
-				    //$this->common_model->update("shops",array("user_update"=>get_session("user_id"),'datetime_update'=>date('Y-m-d H:i:s')),array('shop_id'=>$this->session->userdata('shop_id')));
+				if (count($post1['pro_id'])) {
+					$this->load->model("common_model");
+					//$this->common_model->update("users_promotions",array('fag_allow'=>'delete',"user_delete"=>get_session("user_id"),'datetime_delete'=>date('Y-m-d H:i:s')),array('user_id'=>$this->session->userdata('shop_id')));
+					foreach ($post1['pro_id'] as $key => $value) {
+						$this->common_model->insert('users_promotions', array('user_add' => $this->session->userdata('user_id'), 'datetime_add' => date('Y-m-d H:i:s'), 'pro_id' => $value, 'user_id' => $id));
+					}
+					//$this->common_model->update("shops",array("user_update"=>get_session("user_id"),'datetime_update'=>date('Y-m-d H:i:s')),array('shop_id'=>$this->session->userdata('shop_id')));
 
 				}
 
 				$encrypt_id = encrypt($id);
 				$message = '<strong>บันทึกข้อมูลเรียบร้อย</strong>';
-			}else{
+			} else {
 				$success = FALSE;
 				$message = $upload_error_msg;
 			}
 
 			$json = json_encode(array(
-						'is_successful' => $success,
-						'encrypt_id' =>  $encrypt_id,
-						'message' => $message
+				'is_successful' => $success,
+				'encrypt_id' =>  $encrypt_id,
+				'message' => $message
 			));
 			echo $json;
 		}
@@ -807,8 +842,8 @@ class Users extends CRUD_Controller
 	public function edit($encrypt_id = '')
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'จัดการข้อมูลส่วนตัว', 'url' => site_url('setting/users')),
-						array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'active')
+			array('title' => 'จัดการข้อมูลส่วนตัว', 'url' => site_url('setting/users')),
+			array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 
 		$encrypt_id = urldecode($encrypt_id);
@@ -820,29 +855,29 @@ class Users extends CRUD_Controller
 
 		$rows1 = $this->common_model->custom_query("select * from users_exam_hip where fag_allow='allow'  and user_id={$id} order by date_exam");
 		$this->data['users_exam_hip'] = "<tr><td>-</td><td>-</td></tr>";
-		if(count($rows1)) {
+		if (count($rows1)) {
 			$this->data['users_exam_hip'] = "";
 		}
 		foreach ($rows1 as $key => $value) {
-			$this->data['users_exam_hip'].= '<tr><td align="center">'.$value['user_hib'].'</td><td align="center">'.substr($value['date_exam'],8,2).'/'.substr($value['date_exam'],5,2).'/'.(substr($value['date_exam'],0,4)+543).'</td></tr>';
+			$this->data['users_exam_hip'] .= '<tr><td align="center">' . $value['user_hib'] . '</td><td align="center">' . substr($value['date_exam'], 8, 2) . '/' . substr($value['date_exam'], 5, 2) . '/' . (substr($value['date_exam'], 0, 4) + 543) . '</td></tr>';
 		}
 
 		$rows1 = $this->common_model->custom_query("select * from users_exam_weight where fag_allow='allow' and user_id={$id} order by date_exam");
 		$this->data['users_exam_weight'] = "<tr><td>-</td><td>-</td></tr>";
-		if(count($rows1)) {
+		if (count($rows1)) {
 			$this->data['users_exam_weight'] = "";
 		}
 		foreach ($rows1 as $key => $value) {
-			$this->data['users_exam_weight'].= '<tr><td align="center">'.$value['user_weight'].'</td><td align="center">'.substr($value['date_exam'],8,2).'/'.substr($value['date_exam'],5,2).'/'.(substr($value['date_exam'],0,4)+543).'</td></tr>';
+			$this->data['users_exam_weight'] .= '<tr><td align="center">' . $value['user_weight'] . '</td><td align="center">' . substr($value['date_exam'], 8, 2) . '/' . substr($value['date_exam'], 5, 2) . '/' . (substr($value['date_exam'], 0, 4) + 543) . '</td></tr>';
 		}
 
 		$rows1 = $this->common_model->custom_query("select * from users_exam_waistline where fag_allow='allow' and user_id={$id} order by date_exam");
 		$this->data['users_exam_waistline'] = "<tr><td>-</td><td>-</td></tr>";
-		if(count($rows1)) {
+		if (count($rows1)) {
 			$this->data['users_exam_waistline'] = "";
 		}
 		foreach ($rows1 as $key => $value) {
-			$this->data['users_exam_waistline'].= '<tr><td align="center">'.$value['user_waist'].'</td><td align="center">'.substr($value['date_exam'],8,2).'/'.substr($value['date_exam'],5,2).'/'.(substr($value['date_exam'],0,4)+543).'</td></tr>';
+			$this->data['users_exam_waistline'] .= '<tr><td align="center">' . $value['user_waist'] . '</td><td align="center">' . substr($value['date_exam'], 8, 2) . '/' . substr($value['date_exam'], 5, 2) . '/' . (substr($value['date_exam'], 0, 4) + 543) . '</td></tr>';
 		}
 
 
@@ -853,75 +888,72 @@ class Users extends CRUD_Controller
 			$results = $this->Users->load($id);
 			//die(print_r($results));
 			if (empty($results)) {
-			$this->data['message'] = "ไม่พบข้อมูลตามรหัสอ้างอิง <b>$id</b>";
+				$this->data['message'] = "ไม่พบข้อมูลตามรหัสอ้างอิง <b>$id</b>";
 				$this->render_view('ci_message/danger');
 			} else {
 				$this->data['csrf_field'] = insert_csrf_field(true);
 
-		$rows = array(
-			'limit_allmeat'=>array($results['limit_allmeat'],'เนื้อสัตว์ทุกชนิด'),
-			'limit_pig'=>array($results['limit_pig'],'หมู'),
-			'limit_meat'=>array($results['limit_meat'],'เนื้อ'),
-			'limit_animal'=>array($results['limit_animal'],'ผลิตภัณฑ์จากสัตว์ เช่นไข่และนม'),
-			'limit_seafood'=>array($results['limit_seafood'],'อาหารทะเล'),
-			'limit_additives'=>array($results['limit_additives'],'สารเติมแต่ง เช่น ผงชูรส'),
-		);
-		$tmp_data = '<div class="form-row justify-content-start">';
-		foreach ($rows as $key => $value) {
-			$selected='';
-			//if($value[0]=='Yes')continue;
-			if($value[0]=='Yes') {
-				$selected = 'checked';
-			}
-			// $tmp_data = $tmp_data."<div onclick=\"if($('.{$key}:checked').length==0)".'{'."$('.{$key}').prop('checked',true);".'}'."else ".'{'."$('.{$key}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value[1]}</label><input style='margin-top: -40px;' type='checkbox' class='form-control {$key}' name='limit[{$key}]' value='{$value[0]}' {$selected}></div>";
-			$tmp_data = $tmp_data."<div onclick=\"if($('.{$key}:checked').length==0)".'{'."$('.{$key}').prop('checked',true);".'}'."else ".'{'."$('.{$key}').prop('checked',false);".'}'."\" class='form-group col-md-4'><div class='form-check'><label class='form-check-label'><input class='form-check-input {$key}' name='limit[{$key}]' value='{$value[0]}' {$selected} type='checkbox'> {$value[1]} <span class='form-check-sign'><span class='check'></span></span></label></div></div>";
-
-		}
-		$this->data['limit'] = $tmp_data.'</div>';
-
-		$this->data['promotions1'] = "";
-		$this->data['promotions2'] = "";
-
-			$rows1 = $this->common_model->custom_query("select * from users_promotions as b where b.fag_allow='allow' and b.user_id={$id}");
-			$setSelect = array();
-			if(isset($rows1)) {
-				foreach ($rows1 as $key => $value) {
-					$setSelect[$value['pro_id']] = 'Yes';
+				$rows = array(
+					'limit_allmeat' => array($results['limit_allmeat'], 'เนื้อสัตว์ทุกชนิด'),
+					'limit_pig' => array($results['limit_pig'], 'หมู'),
+					'limit_meat' => array($results['limit_meat'], 'เนื้อ'),
+					'limit_animal' => array($results['limit_animal'], 'ผลิตภัณฑ์จากสัตว์ เช่นไข่และนม'),
+					'limit_seafood' => array($results['limit_seafood'], 'อาหารทะเล'),
+					'limit_additives' => array($results['limit_additives'], 'สารเติมแต่ง เช่น ผงชูรส'),
+				);
+				$tmp_data = '<div class="form-row justify-content-start">';
+				foreach ($rows as $key => $value) {
+					$selected = '';
+					//if($value[0]=='Yes')continue;
+					if ($value[0] == 'Yes') {
+						$selected = 'checked';
+					}
+					// $tmp_data = $tmp_data."<div onclick=\"if($('.{$key}:checked').length==0)".'{'."$('.{$key}').prop('checked',true);".'}'."else ".'{'."$('.{$key}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value[1]}</label><input style='margin-top: -40px;' type='checkbox' class='form-control {$key}' name='limit[{$key}]' value='{$value[0]}' {$selected}></div>";
+					$tmp_data = $tmp_data . "<div onclick=\"if($('.{$key}:checked').length==0)" . '{' . "$('.{$key}').prop('checked',true);" . '}' . "else " . '{' . "$('.{$key}').prop('checked',false);" . '}' . "\" class='form-group col-md-4'><div class='form-check'><label class='form-check-label'><input class='form-check-input {$key}' name='limit[{$key}]' value='{$value[0]}' {$selected} type='checkbox'> {$value[1]} <span class='form-check-sign'><span class='check'></span></span></label></div></div>";
 				}
-			}
+				$this->data['limit'] = $tmp_data . '</div>';
 
-			$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='credit_cart' order by a.pro_name");
-			$tmp_data = '<div class="form-row justify-content-start">';
-			foreach ($rows as $key => $value) {
-				$selected='';
-				//if($value['b_fag_allow']=='delete')continue;
-				$pro_discount = 0;
-				if(isset($setSelect[$value['pro_id']])) {
-					$selected = 'checked';
+				$this->data['promotions1'] = "";
+				$this->data['promotions2'] = "";
+
+				$rows1 = $this->common_model->custom_query("select * from users_promotions as b where b.fag_allow='allow' and b.user_id={$id}");
+				$setSelect = array();
+				if (isset($rows1)) {
+					foreach ($rows1 as $key => $value) {
+						$setSelect[$value['pro_id']] = 'Yes';
+					}
 				}
+
+				$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='credit_cart' order by a.pro_name");
+				$tmp_data = '<div class="form-row justify-content-start">';
+				foreach ($rows as $key => $value) {
+					$selected = '';
+					//if($value['b_fag_allow']=='delete')continue;
+					$pro_discount = 0;
+					if (isset($setSelect[$value['pro_id']])) {
+						$selected = 'checked';
+					}
 					// $tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
-					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\"  class='form-group col-md-4'><div class='form-check'><label class='form-check-label'><input class='form-check-input {$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected} type='checkbox'> {$value['pro_name']} <span class='form-check-sign'><span class='check'></span></span></label></div></div>";
-
-			}
-			$tmp_data.="</div>";
-			$this->data['promotions1'] = $tmp_data;
-
-			$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='mobile_chanel' order by a.pro_name");
-
-			$tmp_data = '<div class="form-row justify-content-start">';
-			foreach ($rows as $key => $value) {
-				$selected='';
-				//if($value['b_fag_allow']=='delete')continue;
-				$pro_discount = 0;
-				if(isset($setSelect[$value['pro_id']])) {
-					$selected = 'checked';
+					$tmp_data = $tmp_data . "<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)" . '{' . "$('.pro_id{$value['pro_id']}').prop('checked',true);" . '}' . "else " . '{' . "$('.pro_id{$value['pro_id']}').prop('checked',false);" . '}' . "\"  class='form-group col-md-4'><div class='form-check'><label class='form-check-label'><input class='form-check-input {$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected} type='checkbox'> {$value['pro_name']} <span class='form-check-sign'><span class='check'></span></span></label></div></div>";
 				}
-					// $tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
-					$tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\"  class='form-group col-md-4'><div class='form-check'><label class='form-check-label'><input class='form-check-input {$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected} type='checkbox'> {$value['pro_name']} <span class='form-check-sign'><span class='check'></span></span></label></div></div>";
+				$tmp_data .= "</div>";
+				$this->data['promotions1'] = $tmp_data;
 
-			}
-			$tmp_data.="</div>";
-			$this->data['promotions2'] = $tmp_data;
+				$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='mobile_chanel' order by a.pro_name");
+
+				$tmp_data = '<div class="form-row justify-content-start">';
+				foreach ($rows as $key => $value) {
+					$selected = '';
+					//if($value['b_fag_allow']=='delete')continue;
+					$pro_discount = 0;
+					if (isset($setSelect[$value['pro_id']])) {
+						$selected = 'checked';
+					}
+					// $tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+					$tmp_data = $tmp_data . "<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)" . '{' . "$('.pro_id{$value['pro_id']}').prop('checked',true);" . '}' . "else " . '{' . "$('.pro_id{$value['pro_id']}').prop('checked',false);" . '}' . "\"  class='form-group col-md-4'><div class='form-check'><label class='form-check-label'><input class='form-check-input {$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected} type='checkbox'> {$value['pro_name']} <span class='form-check-sign'><span class='check'></span></span></label></div></div>";
+				}
+				$tmp_data .= "</div>";
+				$this->data['promotions2'] = $tmp_data;
 
 
 				$this->setPreviewFormat($results);
@@ -939,7 +971,7 @@ class Users extends CRUD_Controller
 	{
 		$error = '';
 		$user_id = ci_decrypt($data['encrypt_user_id']);
-		if($user_id==''){
+		if ($user_id == '') {
 			$error .= '- รหัส user_id';
 		}
 		return $error;
@@ -971,75 +1003,75 @@ class Users extends CRUD_Controller
 		}
 		if ($message != '') {
 			$json = json_encode(array(
-						'is_successful' => FALSE,
-						'message' => $message
+				'is_successful' => FALSE,
+				'message' => $message
 			));
-			 echo $json;
+			echo $json;
 		} else {
 
 			$upload_error = 0;
 			$upload_error_msg = '';
-			if(!empty($_FILES['user_photo']['name'])){
+			if (!empty($_FILES['user_photo']['name'])) {
 				$arr = $this->uploadFile('user_photo');
-				if($arr['result'] == TRUE){
+				if ($arr['result'] == TRUE) {
 					$post['user_photo'] = $arr['file_path'];
 					$this->removeFile($post['user_photo_old_path']);
 					$arr = explode('/', $post['user_photo_old_path']);
 					$encrypt_name = end($arr);
 					$this->FileUpload->delete($encrypt_name);
-				}else{
+				} else {
 					$upload_error++;
-					$upload_error_msg .= '<br/>'. print_r($arr['error'],TRUE);
+					$upload_error_msg .= '<br/>' . print_r($arr['error'], TRUE);
 				}
 			}
 
-			if($upload_error == 0){
+			if ($upload_error == 0) {
 
 				$rows = array(
-					'limit_allmeat'=>array('No','เนื้อสัตว์ทุกชนิด'),
-					'limit_pig'=>array('No','หมู'),
-					'limit_meat'=>array('No','เนื้อ'),
-					'limit_animal'=>array('No','ผลิตภัณฑ์จากสัตว์ เช่นไข่และนม'),
-					'limit_seafood'=>array('No','อาหารทะเล'),
-					'limit_additives'=>array('No','สารเติมแต่ง เช่น ผงชูรส'),
+					'limit_allmeat' => array('No', 'เนื้อสัตว์ทุกชนิด'),
+					'limit_pig' => array('No', 'หมู'),
+					'limit_meat' => array('No', 'เนื้อ'),
+					'limit_animal' => array('No', 'ผลิตภัณฑ์จากสัตว์ เช่นไข่และนม'),
+					'limit_seafood' => array('No', 'อาหารทะเล'),
+					'limit_additives' => array('No', 'สารเติมแต่ง เช่น ผงชูรส'),
 				);
 				foreach ($rows as $key => $value) {
-					if(isset($post['limit'][$key])) {
+					if (isset($post['limit'][$key])) {
 						$post[$key] = 'Yes';
-					}else {
+					} else {
 						$post[$key] = 'No';
 					}
 				}
 				unset($post['limit']);
 
-			    if(count(@$post['pro_id'])) {
-				    $this->load->model("common_model");
+				if (count(@$post['pro_id'])) {
+					$this->load->model("common_model");
 
-				    $this->common_model->update("users_promotions",array('fag_allow'=>'delete',"user_delete"=>get_session("user_id"),'datetime_delete'=>date('Y-m-d H:i:s')),array('user_id'=>$id));
-				    foreach($post['pro_id'] as $key=>$value) {
-				    	$this->common_model->insert('users_promotions',array('user_add'=>$this->session->userdata('user_id'),'datetime_add'=>date('Y-m-d H:i:s'),'pro_id'=>$value,'user_id'=>$id));
-				    }
+					$this->common_model->update("users_promotions", array('fag_allow' => 'delete', "user_delete" => get_session("user_id"), 'datetime_delete' => date('Y-m-d H:i:s')), array('user_id' => $id));
+					foreach ($post['pro_id'] as $key => $value) {
+						$this->common_model->insert('users_promotions', array('user_add' => $this->session->userdata('user_id'), 'datetime_add' => date('Y-m-d H:i:s'), 'pro_id' => $value, 'user_id' => $id));
+					}
 
-				    //$this->common_model->update("users",array("user_update"=>get_session("user_id"),'datetime_update'=>date('Y-m-d H:i:s')),array('user_id'=>$id));
+					//$this->common_model->update("users",array("user_update"=>get_session("user_id"),'datetime_update'=>date('Y-m-d H:i:s')),array('user_id'=>$id));
 
 				}
 				unset($post['pro_id']);
 
 				$result = $this->Users->update($post);
-				if($result == false){
+				if ($result == false) {
 					$message = $this->Users->error_message;
 					$ok = FALSE;
-				}else{
+				} else {
 					$message = '<strong>บันทึกข้อมูลเรียบร้อย</strong>' . $this->Users->error_message;
 					$ok = TRUE;
 				}
-			}else{
+			} else {
 				$ok = FALSE;
 				$message = $upload_error_msg;
 			}
 			$json = json_encode(array(
-						'is_successful' => $ok,
-						'message' => $message
+				'is_successful' => $ok,
+				'message' => $message
 			));
 
 			echo $json;
@@ -1052,7 +1084,7 @@ class Users extends CRUD_Controller
 	public function del()
 	{
 		//$delete_remark = $this->input->post('delete_remark', TRUE);
-			$message = '';
+		$message = '';
 		/*
 		if ($delete_remark == '') {
 			$message .= 'ระบุเหตุผล';
@@ -1066,22 +1098,22 @@ class Users extends CRUD_Controller
 		}
 		if ($message != '') {
 			$json = json_encode(array(
-						'is_successful' => FALSE,
-						'message' => $message
+				'is_successful' => FALSE,
+				'message' => $message
 			));
 			echo $json;
-		}else{
+		} else {
 			$result = $this->Users->delete($post);
-			if($result == false){
+			if ($result == false) {
 				$message = $this->Users->error_message;
 				$ok = FALSE;
-			}else{
+			} else {
 				$message = '<strong>ลบข้อมูลเรียบร้อย</strong>';
 				$ok = TRUE;
 			}
 			$json = json_encode(array(
-						'is_successful' => $ok,
-						'message' => $message
+				'is_successful' => $ok,
+				'message' => $message
 			));
 			echo $json;
 		}
@@ -1091,17 +1123,17 @@ class Users extends CRUD_Controller
 	/**
 	 * SET array data list
 	 */
-	private function setDataListFormat($lists_data, $start_row=0)
+	private function setDataListFormat($lists_data, $start_row = 0)
 	{
 		$data = $lists_data;
 		$count = count($lists_data);
-		for($i=0;$i<$count;$i++){
+		for ($i = 0; $i < $count; $i++) {
 			$start_row++;
 			$data[$i]['record_number'] = $start_row;
 			$pk1 = $data[$i]['user_id'];
 			$data[$i]['url_encrypt_id'] = urlencode(encrypt($pk1));
 
-			if($pk1 != ''){
+			if ($pk1 != '') {
 				$pk1 = encrypt($pk1);
 			}
 			$data[$i]['encrypt_user_id'] = $pk1;
@@ -1119,11 +1151,11 @@ class Users extends CRUD_Controller
 			$data[$i]['datetime_delete'] = setThaiDate($data[$i]['datetime_delete']);
 			$data[$i]['datetime_add'] = setThaiDate($data[$i]['datetime_add']);
 			$data[$i]['datetime_update'] = setThaiDate($data[$i]['datetime_update']);
-			$data[$i]['user_height'] = number_format($data[$i]['user_height'],2);
-			$data[$i]['goal_reduce_weight'] = number_format($data[$i]['goal_reduce_weight'],2);
+			$data[$i]['user_height'] = number_format($data[$i]['user_height'], 2);
+			$data[$i]['goal_reduce_weight'] = number_format($data[$i]['goal_reduce_weight'], 2);
 			$data[$i]['reduce_date_start'] = setThaiDate($data[$i]['reduce_date_start']);
 			$data[$i]['reduce_date_end'] = setThaiDate($data[$i]['reduce_date_end']);
-			$data[$i]['goal_increase_weight'] = number_format($data[$i]['goal_increase_weight'],2);
+			$data[$i]['goal_increase_weight'] = number_format($data[$i]['goal_increase_weight'], 2);
 			$data[$i]['increase_date_start'] = setThaiDate($data[$i]['increase_date_start']);
 			$data[$i]['increase_date_end'] = setThaiDate($data[$i]['increase_date_end']);
 			$arr = explode('/', $data[$i]['user_photo']);
@@ -1140,7 +1172,7 @@ class Users extends CRUD_Controller
 	private function setFagAllowSubject($value)
 	{
 		$subject = '';
-		switch($value){
+		switch ($value) {
 			case 'allow':
 				$subject = 'เผยแพร่';
 				break;
@@ -1160,7 +1192,7 @@ class Users extends CRUD_Controller
 	private function setUserSexSubject($value)
 	{
 		$subject = '';
-		switch($value){
+		switch ($value) {
 			case 'ชาย':
 				$subject = 'ชาย';
 				break;
@@ -1180,18 +1212,21 @@ class Users extends CRUD_Controller
 	private function setUserLevelSubject($value)
 	{
 		$subject = '';
-		switch($value){
+		switch ($value) {
 			case 'admin':
 				$subject = 'ผู้ดูแลระบบ';
 				break;
 			case 'super_user':
-				$subject = 'สมาชิกพิเศษ';
+				$subject = 'Super User';
 				break;
 			case 'user':
 				$subject = 'สมาชิก';
 				break;
 			case 'shop':
 				$subject = 'ร้านค้า';
+				break;
+			case 'nutritionist':
+				$subject = 'นักโภชนาการ';
 				break;
 		}
 		return $subject;
@@ -1203,7 +1238,7 @@ class Users extends CRUD_Controller
 	private function setFoodIntolExamSubject($value)
 	{
 		$subject = '';
-		switch($value){
+		switch ($value) {
 			case 'Yes':
 				$subject = 'ใช่';
 				break;
@@ -1220,7 +1255,7 @@ class Users extends CRUD_Controller
 	private function setLimitAllmeatSubject($value)
 	{
 		$subject = '';
-		switch($value){
+		switch ($value) {
 			case 'Yes':
 				$subject = 'ใช่';
 				break;
@@ -1237,7 +1272,7 @@ class Users extends CRUD_Controller
 	private function setLimitPigSubject($value)
 	{
 		$subject = '';
-		switch($value){
+		switch ($value) {
 			case 'Yes':
 				$subject = 'ใช่';
 				break;
@@ -1254,7 +1289,7 @@ class Users extends CRUD_Controller
 	private function setLimitMeatSubject($value)
 	{
 		$subject = '';
-		switch($value){
+		switch ($value) {
 			case 'Yes':
 				$subject = 'ใช่';
 				break;
@@ -1271,7 +1306,7 @@ class Users extends CRUD_Controller
 	private function setLimitAnimalSubject($value)
 	{
 		$subject = '';
-		switch($value){
+		switch ($value) {
 			case 'Yes':
 				$subject = 'ใช่';
 				break;
@@ -1288,7 +1323,7 @@ class Users extends CRUD_Controller
 	private function setLimitSeafoodSubject($value)
 	{
 		$subject = '';
-		switch($value){
+		switch ($value) {
 			case 'Yes':
 				$subject = 'ใช่';
 				break;
@@ -1305,7 +1340,7 @@ class Users extends CRUD_Controller
 	private function setLimitAdditivesSubject($value)
 	{
 		$subject = '';
-		switch($value){
+		switch ($value) {
 			case 'Yes':
 				$subject = 'ใช่';
 				break;
@@ -1326,7 +1361,7 @@ class Users extends CRUD_Controller
 		$pk1 = $data['user_id'];
 		$this->data['recode_url_encrypt_id'] = urlencode(encrypt($pk1));
 
-		if($pk1 != ''){
+		if ($pk1 != '') {
 			$pk1 = encrypt($pk1);
 		}
 		$this->data['encrypt_user_id'] = $pk1;
@@ -1403,14 +1438,13 @@ class Users extends CRUD_Controller
 		$this->data['record_datetime_delete'] = setThaiDate($data['datetime_delete']);
 		$this->data['record_datetime_add'] = setThaiDate($data['datetime_add']);
 		$this->data['record_datetime_update'] = setThaiDate($data['datetime_update']);
-		$this->data['record_user_height'] = number_format($data['user_height'],2);
-		$this->data['record_goal_reduce_weight'] = number_format($data['goal_reduce_weight'],2);
+		$this->data['record_user_height'] = number_format($data['user_height'], 2);
+		$this->data['record_goal_reduce_weight'] = number_format($data['goal_reduce_weight'], 2);
 		$this->data['record_reduce_date_start'] = setThaiDate($data['reduce_date_start']);
 		$this->data['record_reduce_date_end'] = setThaiDate($data['reduce_date_end']);
-		$this->data['record_goal_increase_weight'] = number_format($data['goal_increase_weight'],2);
+		$this->data['record_goal_increase_weight'] = number_format($data['goal_increase_weight'], 2);
 		$this->data['record_increase_date_start'] = setThaiDate($data['increase_date_start']);
 		$this->data['record_increase_date_end'] = setThaiDate($data['increase_date_end']);
-
 	}
 }
 /*---------------------------- END Controller Class --------------------------------*/
