@@ -96,7 +96,7 @@ class Question_model extends MY_Model
 			if ($where == '') {
 				$offset = $start_row;
 				$limit = $per_page;
-				$this->set_order_by($order_by);
+				$this->set_order_by($order_by_desc);
 				$this->set_offset($offset);
 				$this->set_limit($limit);
 				$this->db->select("$this->my_table.*, users_1.user_fname AS userDeleteUserFname
