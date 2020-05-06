@@ -126,6 +126,9 @@ var Question = {
 				loading_on_remove(obj);
 
 				if (results.is_successful) {
+					setTimeout(function () {
+						window.location.href = site_url("questiondata/question");
+					}, 1000);
 				}
 			},
 			error: function (jqXHR, exception) {

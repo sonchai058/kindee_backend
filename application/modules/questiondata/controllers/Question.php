@@ -173,33 +173,19 @@ class Question extends CRUD_Controller
 		if ($end_row > $search_row) {
 			$end_row = $search_row;
 		}
-		// print_r($this->db->last_query());
-		// die();
-
-		//die(print_r($list_data));
-		// print_r($this->db->last_query());
-		// die();
-
-
-
-		##echo '<pre>';
-		#print_r($list_data);
-		#echo '</pre>';
+				// echo '<pre>';
+				// print_r($where);
+				// echo '</pre>';
+				// die();
 		$data = array();
 		foreach ($list_data as $key => $v) {
 			$data[$key] = array();
-			foreach ($v as $column => $value) {
-				$data[$key][$column] = $value;
+			foreach ($v as $column => $value_status) {
+				$data[$key][$column] = $value_status;
 			}
 			$data[$key]['status'] =  ($data[$key]['preview_question_status'] == 'ตอบแล้ว') ? 'disabled' : '';
 		}
 
-		#endregion#	echo '<pre>';
-		#print_r($data);
-		#echo '</pre>';
-
-
-		#exit;
 		$this->data['data_list']	= $data;
 
 		$this->data['search_field']	= $search_field;

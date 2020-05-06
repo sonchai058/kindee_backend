@@ -64,17 +64,17 @@
 									<div class="form-group has-success">
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										<span class="">
-											<input type="radio" name="user_sex" id="user_sexชาย" value="ชาย" class="form-check-input" autocomplete="off" data-record-value="{record_user_sex}" />
+											<input type="radio" name="user_sex" id="user_sexชาย" value="ชาย" class="form-check-input" autocomplete="off" {user_sexชาย} data-record-value="{record_user_sex}" />
 											ชาย &nbsp;&nbsp;
 										</span>
 										&nbsp;&nbsp;&nbsp;&nbsp;
 										<span class="">
-											<input type="radio" name="user_sex" id="user_sexหญิง" value="หญิง" class="form-check-input" autocomplete="off" data-record-value="{record_user_sex}" />
+											<input type="radio" name="user_sex" id="user_sexหญิง" value="หญิง" class="form-check-input" autocomplete="off" {user_sexหญิง} data-record-value="{record_user_sex}" />
 											หญิง &nbsp;&nbsp;
 										</span>
 										&nbsp;&nbsp;&nbsp;&nbsp;
 										<span class="">
-											<input type="radio" name="user_sex" id="user_sexไม่ระบุ" value="ไม่ระบุ" class="form-check-input" autocomplete="off" data-record-value="{record_user_sex}" />
+											<input type="radio" name="user_sex" id="user_sexไม่ระบุ" value="ไม่ระบุ" class="form-check-input" autocomplete="off" {user_sexไม่ระบุ} data-record-value="{record_user_sex}" />
 											ไม่ระบุ &nbsp;&nbsp;
 										</span>
 									</div>

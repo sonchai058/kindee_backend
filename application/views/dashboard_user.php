@@ -6,6 +6,10 @@
 	.nav-tabs-flex-wrap .nav-tabs-title-right {
 		float: right !important;
 	}
+
+	.col-md-2 {
+		padding-left: 0;
+	}
 </style>
 <script>
 	var chart_labels = {
@@ -25,64 +29,69 @@
 	var chart_calo = JSON.parse('{chart_calo}');
 </script>
 <div class="container-fluid">
+	<br>
 	<div class="row">
-		<div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
-			<div class="card card-stats">
-				<div class="col-sm-4" style="padding-top: 10px;">
-					<img style="border-radius:50%" src="{user_photo}" height="100" width="100">
+		<div class="col-md-4">
+			<div class="card card-profile">
+				<div class="card-avatar">
+					<img class="img" src="{user_photo}">
 				</div>
-				<div class="mr-5" style="position:absolute; top:20px; left: 120px;float: right">
-					<h4 style="font-weight:bold; font-size: 15px;">&nbsp;&nbsp{user_flname}</h4>
-					<span class="float-left" style="color:#333; font-size: 13px;">&nbsp;&nbsp;วันเดือนปีเกิด: {date_of_birth}<br />&nbsp;&nbsp;อายุ {age} ปี</span>
-				</div>
-				<div class="card-footer">
-					<div class="stats">
-					</div>
+				<div class="card-body" style="margin-top:0;">
+					<h4 class=" card-title">{user_flname}</h4>
+					<p class="card-description">
+						วันเดือนปีเกิด: {date_of_birth}
+						<br>
+						อายุ {age} ปี
+					</p>
 				</div>
 			</div>
 		</div>
-		<div class="col-xl-2 col-lg-3 col-md-6 col-sm-12">
+		<div class="col-md-2">
 			<div class="card card-stats">
 				<div class="card-header card-header-drak card-header-icon">
 					<h2 class="card-title text-drak">{user_height}</h2>
 				</div>
 				<div class="card-footer">
+					<br><br>
 					<div class="stats">
 						<p class="card-category text-drak">ส่วนสูง (ซ.ม.)</p>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-xl-2 col-lg-3 col-md-6 col-sm-12">
+		<div class="col-md-2">
 			<div class="card card-stats">
 				<div class="card-header card-header-drak card-header-icon">
 					<h2 class="card-title text-drak">{users_exam_weight}</h2>
 				</div>
 				<div class="card-footer">
+					<br><br>
 					<div class="stats">
 						<p class="card-category text-drak">น้ำหนัก (ก.ก.)</p>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-xl-2 col-lg-3 col-md-6 col-sm-12">
+		<div class="col-md-2">
 			<div class="card card-stats">
 				<div class="card-header card-header-drak card-header-icon">
 					<h2 class="card-title text-drak">{users_exam_waistline}</h2>
 				</div>
 				<div class="card-footer">
+					<br><br>
 					<div class="stats">
 						<p class="card-category text-drak">รอบเอว (ซ.ม.)</p>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="col-xl-2 col-lg-3 col-md-6 col-sm-12">
+		<div class="col-md-2">
 			<div class="card card-stats">
 				<div class="card-header card-header-drak card-header-icon">
 					<h2 class="card-title text-drak">{users_exam_hip}</h2>
 				</div>
 				<div class="card-footer">
+					<br><br>
 					<div class="stats">
 						<p class="card-category text-drak">รอบสะโพก (ซ.ม.)</p>
 					</div>
@@ -90,6 +99,7 @@
 			</div>
 		</div>
 	</div>
+
 	<!-- Icon Cards-->
 	<div class="container-fluid">
 
@@ -238,6 +248,7 @@ a.fag_allow='allow' AND a.user_id={$this->session->userdata('user_id')}
 GROUP BY date
 ORDER BY date LIMIT 10
 ";
+// echo $sql;
 
 $chartrows = $this->common_model->custom_query($sql);
 foreach ($chartrows as $key => $value) {

@@ -463,4 +463,3 @@ $(".preview-image img,.file_link img").on("click", function() {
 $(".file_link").click(function(){
 	return false;
 });
-

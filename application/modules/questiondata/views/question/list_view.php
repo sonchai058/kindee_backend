@@ -54,9 +54,20 @@
 									</div>
 									<div class="col-md-2">
 										<div class="form-group bmd-form-group">
-											<a href="{page_url}/add" class="btn btn-success" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่" id="btn-search">
-												<i class="fa fa-plus-square"></i></span>&nbsp;&nbsp;เพิ่มรายการใหม่
-											</a>
+											<?php if ($this->session->userdata('user_level') == 'nutritionist') { ?>
+												<a href="{page_url}/add" class="btn btn-success disabled" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่" id="btn-search">
+													<i class="fa fa-plus-square"></i></span>&nbsp;&nbsp;เพิ่มรายการใหม่
+												</a>
+											<?php
+											}
+											?>
+											<?php if ($this->session->userdata('user_level') == 'user') { ?>
+												<a href="{page_url}/add" class="btn btn-success" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่" id="btn-search">
+													<i class="fa fa-plus-square"></i></span>&nbsp;&nbsp;เพิ่มรายการใหม่
+												</a>
+											<?php
+											}
+											?>
 										</div>
 									</div>
 								</div>

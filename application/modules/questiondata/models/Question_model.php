@@ -60,7 +60,7 @@ class Question_model extends MY_Model
 			$search_field 	= $this->session->userdata($this->session_name . '_search_field');
 			$value 	= $this->session->userdata($this->session_name . '_value');
 			$value 	= trim($value);
-
+			$order_by_desc = 'date_public DESC';
 			$where	= '';
 			$order_by	= '';
 			if ($this->order_field != '') {
@@ -112,7 +112,7 @@ class Question_model extends MY_Model
 
 				$data = array(
 					'total_row'	=> $total_row,
-					'search_row'	=> $total_row,
+					'search_row'	=> $search_row,
 					'list_data'	=> $list_record
 				);
 				return $data;
@@ -127,6 +127,8 @@ class Question_model extends MY_Model
 				$this->db->join('users AS users_2', "$this->my_table.user_add = users_2.user_id", 'left');
 				$this->db->join('users AS users_3', "$this->my_table.user_update = users_3.user_id", 'left');
 
+
+				$this->set_where($where);
 				$search_row = $this->count_record();
 
 				$list_record = $this->list_record();
@@ -136,10 +138,12 @@ class Question_model extends MY_Model
 					'search_row'	=> $search_row,
 					'list_data'	=> $list_record
 				);
+				// print_r($this->db->last_query());
+				// die();
+
 				return $data;
 			}
-
-		} else {
+		} else if ($this->session->userdata('user_level') == 'user') {
 			$search_field 	= $this->session->userdata($this->session_name . '_search_field');
 			$value 	= $this->session->userdata($this->session_name . '_value');
 			$value 	= trim($value);
@@ -201,6 +205,9 @@ class Question_model extends MY_Model
 					'search_row'	=> $total_row,
 					'list_data'	=> $list_record
 				);
+				// print_r($this->db->last_query());
+				// die();
+
 				return $data;
 			} else if ($where != '') {
 				$offset = $start_row;
@@ -223,6 +230,7 @@ class Question_model extends MY_Model
 					'search_row'	=> $search_row,
 					'list_data'	=> $list_record
 				);
+
 				return $data;
 			}
 		}
