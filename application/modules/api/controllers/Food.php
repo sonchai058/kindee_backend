@@ -99,7 +99,7 @@ class Food extends REST_Controller
       $arr_data['eat_time'] = $request->eat_time;
       $arr_data['food_source'] = $request->food_source;
       $arr_data['food_id'] = $request->food_id;
-      $arr_data['food_energy'] = $request->food_energy;
+      $arr_data['food_energy'] = str_replace(',','',$request->food_energy);
       $arr_data['fag_allow'] = 'allow';
       $res = $this->food->save($arr_data);
 

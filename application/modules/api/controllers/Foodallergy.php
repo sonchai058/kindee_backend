@@ -105,6 +105,7 @@ class Foodallergy extends REST_Controller
       $arr_data['alg_id'] = $request->alg_id;
       $arr_data['food_alg_val'] = $request->food_alg_val;
       $arr_data['fag_allow'] = 'allow';
+      $arr_data['datetime_add'] = date('Y-m-d H:i:s');
       $res = $this->foodallergy->save($arr_data);
 
       $output = array();
@@ -127,10 +128,37 @@ class Foodallergy extends REST_Controller
       $user_id = $jwt_token['user_id'];
       $arr_data = array();
       $arr_data['user_id'] = $user_id;
-      $arr_data['user_add'] = $user_id;
+      $arr_data['user_update'] = $user_id;
       $arr_data['alg_id'] = $request->alg_id;
       $arr_data['food_alg_val'] = $request->food_alg_val;
       $arr_data['fag_allow'] = 'allow';
+      $arr_data['datetime_update'] = date('Y-m-d H:i:s');
+      $arr_where['exam_id'] = $request->exam_id;
+      $res = $this->foodallergy->save($arr_data,$arr_where);
+
+      $output = array();
+      if ($res) {
+          $output['status'] = true;
+          $output['data'] = $res;
+          return $this->response($output, REST_Controller::HTTP_OK);
+      }
+
+      $output['status'] = false;
+      return $this->set_response($output, REST_Controller::HTTP_UNAUTHORIZED);
+    }
+
+    public function data_delete()
+    {
+      $stream_clean = $this->security->xss_clean($this->input->raw_input_stream);
+      $request = json_decode($stream_clean);
+
+      $jwt_token = $this->jwt_decode($this->jwt_token());
+      $user_id = $jwt_token['user_id'];
+      $arr_data = array();
+      $arr_data['user_id'] = $user_id;
+      $arr_data['user_update'] = $user_id;
+      $arr_data['fag_allow'] = 'delete';
+      $arr_data['datetime_update'] = date('Y-m-d H:i:s');
       $arr_where['exam_id'] = $request->exam_id;
       $res = $this->foodallergy->save($arr_data,$arr_where);
 

@@ -60,5 +60,115 @@ class Drug extends REST_Controller
 
     }
 
+    public function drugdetail_get($id='')
+    {
+      $res = $this->drug->getDrugDetail($id);
+
+      $output = array();
+      if ($res) {
+          $output['status'] = true;
+          $output['data'] = $res;
+          $output['token'] = $this->jwt_token();
+          return $this->response($output, REST_Controller::HTTP_OK);
+      }
+
+      $output['status'] = false;
+      return $this->set_response($output, REST_Controller::HTTP_UNAUTHORIZED);
+    }
+
+    public function data_post()
+    {
+      $stream_clean = $this->security->xss_clean($this->input->raw_input_stream);
+      $request = json_decode($stream_clean);
+
+      $jwt_token = $this->jwt_decode($this->jwt_token());
+      $user_id = $jwt_token['user_id'];
+
+      if($request->eat_time=="1"){
+        $eat_time =  'ก่อนอาหาร';
+      }else if($request->eat_time=="2"){
+        $eat_time =  'หลังอาหาร';
+      }
+      $arr_data = array();
+      $arr_data['user_id'] = $user_id;
+      $arr_data['user_add'] = $user_id;
+      $arr_data['drug_name'] = $request->drug_name;
+      $arr_data['eat_time'] = $eat_time;
+      $arr_data['date_eat'] = "0000-00-00 ".$request->date_eat.":00";
+      $arr_data['fag_allow'] = 'allow';
+      $arr_data['datetime_add'] = date('Y-m-d H:i:s');
+      $res = $this->drug->save($arr_data);
+
+      $output = array();
+      if ($res) {
+          $output['status'] = true;
+          $output['data'] = $res;
+          return $this->response($output, REST_Controller::HTTP_OK);
+      }
+
+      $output['status'] = false;
+      return $this->set_response($output, REST_Controller::HTTP_UNAUTHORIZED);
+    }
+
+    public function data_put()
+    {
+      $stream_clean = $this->security->xss_clean($this->input->raw_input_stream);
+      $request = json_decode($stream_clean);
+
+      $jwt_token = $this->jwt_decode($this->jwt_token());
+      $user_id = $jwt_token['user_id'];
+
+      if($request->eat_time=="1"){
+        $eat_time =  'ก่อนอาหาร';
+      }else if($request->eat_time=="2"){
+        $eat_time =  'หลังอาหาร';
+      }
+      $arr_data = array();
+      $arr_data['user_id'] = $user_id;
+      $arr_data['user_update'] = $user_id;
+      $arr_data['drug_name'] = $request->drug_name;
+      $arr_data['eat_time'] = $eat_time;
+      $arr_data['date_eat'] = "0000-00-00 ".$request->date_eat.":00";
+      $arr_data['fag_allow'] = 'allow';
+      $arr_data['datetime_update'] = date('Y-m-d H:i:s');
+      $arr_where['drug_id'] = $request->drug_id;
+      $res = $this->drug->save($arr_data,$arr_where);
+
+      $output = array();
+      if ($res) {
+          $output['status'] = true;
+          $output['data'] = $res;
+          return $this->response($output, REST_Controller::HTTP_OK);
+      }
+
+      $output['status'] = false;
+      return $this->set_response($output, REST_Controller::HTTP_UNAUTHORIZED);
+    }
+
+    public function data_delete()
+    {
+      $stream_clean = $this->security->xss_clean($this->input->raw_input_stream);
+      $request = json_decode($stream_clean);
+
+      $jwt_token = $this->jwt_decode($this->jwt_token());
+      $user_id = $jwt_token['user_id'];
+      $arr_data = array();
+      $arr_data['user_id'] = $user_id;
+      $arr_data['user_update'] = $user_id;
+      $arr_data['fag_allow'] = 'delete';
+      $arr_data['datetime_update'] = date('Y-m-d H:i:s');
+      $arr_where['drug_id'] = $request->drug_id;
+      $res = $this->drug->save($arr_data,$arr_where);
+
+      $output = array();
+      if ($res) {
+          $output['status'] = true;
+          $output['data'] = $res;
+          return $this->response($output, REST_Controller::HTTP_OK);
+      }
+
+      $output['status'] = false;
+      return $this->set_response($output, REST_Controller::HTTP_UNAUTHORIZED);
+    }
 
 }
