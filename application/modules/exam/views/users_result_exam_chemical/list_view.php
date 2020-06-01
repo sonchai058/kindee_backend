@@ -18,9 +18,12 @@
 						<i class="material-icons">assignment</i>
 					</div>
 					<h4 class="card-title">รายการผลตรวจสุขภาพทางทางชีวเคมี</h4>
+					<a href="{page_url}/generateXls" class="pull-right btn btn-info btn-large">
+						<i class="fa fa-file-excel-o"></i></span>&nbsp;&nbsp;Export to Excel
+					</a>
 				</div>
 				<div class="card-body">
-				<form class="form-horizontal" name="formSearch" method="post" action="{page_url}/search">
+					<form class="form-horizontal" name="formSearch" method="post" action="{page_url}/search">
 						{csrf_protection_field}
 						<div class="row">
 							<div class="col-sm-12">
@@ -33,7 +36,7 @@
 									<div class="col-md-2">
 										<div class="form-group has-warning bmd-form-group" id="search">
 											<select class="select2-search" name="search_field" class="span2">
-											<option value="user_update">ผู้อัปเดต</option>
+												<option value="user_update">ผู้อัปเดต</option>
 											</select>
 										</div>
 									</div>
@@ -53,9 +56,9 @@
 									<div class="col-md-2">
 										<div class="form-group bmd-form-group">
 											<select class="select2-search" id="set_order_by" class="span2" value="{order_by}">
-											<option value="">- จัดเรียงตาม -</option>
-										<option value="user_update|asc">ผู้อัปเดต น้อย - มาก</option>
-										<option value="user_update|desc">ผู้อัปเดต มาก - น้อย</option>
+												<option value="">- จัดเรียงตาม -</option>
+												<option value="user_update|asc">ผู้อัปเดต น้อย - มาก</option>
+												<option value="user_update|desc">ผู้อัปเดต มาก - น้อย</option>
 											</select>
 										</div>
 									</div>
@@ -93,14 +96,14 @@
 								<tr parser-repeat="[data_list]" id="row_{record_number}">
 									<td style="text-align:center;">{record_number}</td>
 									<td style="text-align:center;">{exam_date}</td>
-									<td style="text-align:center;">{fasting_glu}</td>
-									<td style="text-align:center;">{hemo_glo}</td>
-									<td style="text-align:center;">{kidney_blood}</td>
-									<td style="text-align:center;">{uric_arid}</td>
-									<td style="text-align:center;">{total_chol}</td>
-									<td style="text-align:center;">{hdl_chol}</td>
-									<td style="text-align:center;">{ldl_chol}</td>
-									<td style="text-align:center;">{trig_cer}</td>
+									<td style="text-align:center;">{status_fasting_glu}</td>
+									<td style="text-align:center;">{status_hemo_glo}</td>
+									<td style="text-align:center;">{status_kidney_blood}</td>
+									<td style="text-align:center;">{status_uric_arid}</td>
+									<td style="text-align:center;">{status_total_chol}</td>
+									<td style="text-align:center;">{status_hdl_chol}</td>
+									<td style="text-align:center;">{status_ldl_chol}</td>
+									<td style="text-align:center;">{status_trig_cer}</td>
 									<td class="td-actions text-center">
 										<a href="{page_url}/preview/{url_encrypt_id}" class="my-tooltip btn btn-warning btn-md" data-toggle="tooltip" title="แสดงข้อมูลรายละเอียด">
 											<i class="material-icons">list</i>
