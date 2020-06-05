@@ -9,10 +9,10 @@
 					<div class="card-icon">
 						<i class="material-icons">assignment</i>
 					</div>
-					<h4 class="card-title">รายการข้อมูลยาที่ทานประจำ</h4>
+					<h4 class="card-title">รายการข้อมูลการรับประทานอาหาร</h4>
 				</div>
 				<div class="card-body">
-				<form class="form-horizontal" name="formSearch" method="post" action="{page_url}/search">
+					<form class="form-horizontal" name="formSearch" method="post" action="{page_url}/search">
 						{csrf_protection_field}
 						<div class="row">
 							<div class="col-sm-12">
@@ -25,10 +25,10 @@
 									<div class="col-md-2">
 										<div class="form-group has-warning bmd-form-group" id="search">
 											<select class="select2-search" name="search_field" class="span2">
-											<option value="user_id">รหัสสมาชิก</option>
-										<option value="food_source">แหล่งอาหาร</option>
-										<option value="eat_time">มื้ออาหาร</option>
-										<option value="food_id">เมนูอาหาร</option>
+												<option value="user_id">รหัสสมาชิก</option>
+												<option value="food_source">แหล่งอาหาร</option>
+												<option value="eat_time">มื้ออาหาร</option>
+												<option value="food_id">เมนูอาหาร</option>
 											</select>
 										</div>
 									</div>
@@ -84,8 +84,8 @@
 								<tr parser-repeat="[data_list]" id="row_{record_number}">
 									<td style="text-align:center;">{record_number}</td>
 									<td style="text-align:center;">{date_eat}</td>
-									<td >{preview_eat_time}</td>
-									<td >{foodIdSelfFoodName}</td>
+									<td>{preview_eat_time}</td>
+									<td>{foodIdSelfFoodName}</td>
 									<td style="text-align:center;">{food_energy}</td>
 									<td class="td-actions text-center">
 										<a href="{page_url}/preview/{url_encrypt_id}" class="my-tooltip btn btn-warning btn-md" data-toggle="tooltip" title="แสดงข้อมูลรายละเอียด">

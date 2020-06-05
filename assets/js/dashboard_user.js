@@ -1,4 +1,13 @@
-  // Chart.js scripts
+	$(document).ready(function () {
+		setDatePickerChart(".datepicker");
+	});
+	// 	$(function() {
+	// 	$(".datepicker").datepicker({
+	// 		dateFormat: 'yy-mm-dd',
+	// 		maxDate: new Date()
+	// 	});
+	// });
+// Chart.js scripts
 // -- Set new default font family and font color to mimic Bootstrap's default styling
 /*
 Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';

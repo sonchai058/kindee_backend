@@ -298,6 +298,138 @@ function setDatePicker(obj, options){//datepicker
 
 };
 
+function setDatePickerChart(obj, options) {
+	//datepicker between day chart
+	$(obj).each(function (i) {
+		var defaultDate = $(this).val().split("/");
+		var defaultYear = defaultDate[2] - 543;
+		var dateBefore = defaultDate[0] + "-" + defaultDate[1] + "-" + defaultYear;
+
+		$(this).datepicker({
+			dateFormat: "dd-mm-yy",
+			maxDate: new Date(),
+			dayNamesMin: ["อา", "จ", "อ", "พ", "พฤ", "ศ", "ส"],
+			monthNamesShort: [
+				"มกราคม",
+				"กุมภาพันธ์",
+				"มีนาคม",
+				"เมษายน",
+				"พฤษภาคม",
+				"มิถุนายน",
+				"กรกฎาคม",
+				"สิงหาคม",
+				"กันยายน",
+				"ตุลาคม",
+				"พฤศจิกายน",
+				"ธันวาคม",
+			],
+			changeMonth: true,
+			changeYear: true,
+			beforeShow: function () {
+				$(this).keydown(function (e) {
+					// if(helper.zGetKey(e) !=
+					// "9")$(this).datepicker(
+					// "hide" );
+				}); // ไม่ให้พิมพ์เอง
+				if ($(this).val() != "" && $(this).val().length > 6) {
+					var arrayDate = $(this).val().split("/");
+					arrayDate[2] = parseInt(arrayDate[2]) - 543;
+					$(this).val(arrayDate[0] + "-" + arrayDate[1] + "-" + arrayDate[2]);
+				}
+				setTimeout(function () {
+					$.each($(".ui-datepicker-year option"), function (j, k) {
+						var textYear =
+							parseInt($(".ui-datepicker-year option").eq(j).val()) + 543;
+						$(".ui-datepicker-year option").eq(j).text(textYear);
+					});
+				}, 50);
+			},
+			onChangeMonthYear: function (year, month) {
+				var day, thisMonth;
+
+				var date = new Date();
+				thisMonth = date.getMonth();
+
+				if ($(this).val() != "") {
+					var arrayDate = $(this).val().split("-");
+					day = arrayDate[0];
+				} else {
+					day = date.getDate();
+				}
+				$(this).val(day + "-" + month + "-" + year);
+				dateBefore = $(this).val();
+
+				setTimeout(function () {
+					//Not this month
+					if (month - 1 != thisMonth) {
+						var tdDay =
+							'div#ui-datepicker-div td[data-month="' +
+							(month - 1) +
+							'"][data-year="' +
+							year +
+							'"] a.ui-state-default:contains(' +
+							day +
+							")";
+						$(tdDay)
+							.filter(function () {
+								return $(this).text() == day;
+							})
+							.addClass("ui-state-active");
+					}
+
+					$.each($(".ui-datepicker-year option"), function (j, k) {
+						var textYear =
+							parseInt($(".ui-datepicker-year option").eq(j).val()) + 543;
+						$(".ui-datepicker-year option").eq(j).text(textYear);
+					});
+				}, 50);
+			},
+			onClose: function () {
+				if ($(this).val() != "" && $(this).val() == dateBefore) {
+					var arrayDate = dateBefore.split("-");
+					if (
+						isValidDate(
+							arrayDate[0] + "/" + arrayDate[1] + "/" + arrayDate[2]
+						) == false
+					) {
+						dateBefore = new Date(arrayDate[2], arrayDate[1] + 1, 0);
+						alert(dateBefore);
+					}
+					arrayDate[2] = parseInt(arrayDate[2]) + 543;
+					$(this).val(arrayDate[0] + "/" + arrayDate[1] + "/" + arrayDate[2]);
+				}
+				if (options != undefined) {
+					if (options.onClose) options.onClose();
+				}
+			},
+			onSelect: function (dateText, inst) {
+				dateBefore = $(this).val();
+				var arrayDate = dateText.split("-");
+				if (
+					isValidDate(arrayDate[0] + "/" + arrayDate[1] + "/" + arrayDate[2]) ==
+					false
+				) {
+					dateBefore = new Date(arrayDate[2], arrayDate[1] + 1, 0);
+					alert(dateBefore);
+				}
+				arrayDate[2] = parseInt(arrayDate[2]) + 543;
+				$(this).val(arrayDate[0] + "/" + arrayDate[1] + "/" + arrayDate[2]);
+				if (options != undefined) {
+					if (options.onSelect) options.onSelect();
+				}
+			},
+		});
+	});
+
+	$(obj).on("keydown", function (e) {
+		var keycode = getKeyCode(e);
+		if (keycode != "9") {
+			$(obj).focus();
+			return false;
+		}
+	}); //ไม่ให้พิมพ์เอง
+};
+
 function getKeyCode(ev){
 	return (ev.keyCode ? ev.keyCode : ev.which);
 }

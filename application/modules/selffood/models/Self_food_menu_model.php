@@ -66,36 +66,36 @@ class Self_food_menu_model extends MY_Model
 		$search_field 	= $this->session->userdata($this->session_name . '_search_field');
 		$value 	= $this->session->userdata($this->session_name . '_value');
 		$value 	= trim($value);
-		
+
 		$where	= '';
-		$order_by	= '';
+		$order_by	= 'datetime_update DESC';
 		if($this->order_field != ''){
 			$order_field = $this->order_field;
 			$order_sort = $this->order_sort;
 			$order_by	= " $this->my_table.$order_field $order_sort";
 		}
-		
+
 		if($search_field != '' && $value != ''){
 			$search_method_field = "$this->my_table.$search_field";
 			$search_method_value = '';
 			if($search_field == 'self_food_name'){
-				$search_method_value = "LIKE '%$value%'";				
+				$search_method_value = "LIKE '%$value%'";
 			}
 			if($search_field == 'cate_id'){
 				$search_method_field = "category_1.cate_name";
-				$search_method_value = "LIKE '%$value%'";				
+				$search_method_value = "LIKE '%$value%'";
 			}
 			if($search_field == 'user_update'){
 				if(!is_numeric($value)){
 					$value = 0;
 				}
 				$value = $value + 0;
-				$search_method_value = "LIKE '%$value%'";				
+				$search_method_value = "LIKE '%$value%'";
 			}
 			if($search_field == 'fag_allow'){
-				$search_method_value = "LIKE '%$value%'";				
+				$search_method_value = "LIKE '%$value%'";
 			}
-			$where	.= ($where != '' ? ' AND ' : '') . " $search_method_field $search_method_value "; 
+			$where	.= ($where != '' ? ' AND ' : '') . " $search_method_field $search_method_value ";
 			if($order_by == ''){
 				$order_by	= " $this->my_table.$search_field";
 			}
@@ -125,7 +125,7 @@ class Self_food_menu_model extends MY_Model
 
 		$list_record = $this->list_record();
 		$data = array(
-				'total_row'	=> $total_row, 
+				'total_row'	=> $total_row,
 				'search_row'	=> $search_row,
 				'list_data'	=> $list_record
 		);

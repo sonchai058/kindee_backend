@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Kindee | Inno Story</title>
+	<title>Kindee | Story</title>
 
 	<link rel="shortcut icon" href="{base_url}assets/images/K-dot-5.png" />
 	<link rel="icon" href="{base_url}assets/images/K-dot-5.png" type="image/png" sizes="16x16">
@@ -113,8 +113,9 @@
 
 		@media only screen and (min-width: 500px) {
 			#search {
-			width: 100%;
+				width: 100%;
 			}
+
 			#btn-search {
 				width: 100%;
 			}
