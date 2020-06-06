@@ -92,19 +92,30 @@ if ($this->input->post('bmr_strdate')) {
 $bmi = '';
 $bmr = '';
 
+function displayDates($date1, $date2, $format = 'Y-m-d')
+{
+	$dates = array();
+	$current = strtotime($date1);
+	$date2 = strtotime($date2);
+	$stepVal = '+1 day';
+	while ($current <= $date2) {
+		$dates[] = date($format, $current);
+		$current = strtotime($stepVal, $current);
+	}
+	return $dates;
+}
 
 $bmr_date_array = array();
 
-$period = new DatePeriod(
-	new DateTime($strdate),
-	new DateInterval('P1D'),
-	new DateTime($enddate)
-);
+
+$period = displayDates($strdate, $enddate);
 foreach ($period as $key => $value) {
-	$date_array[$value->format('Y-m-d')] = 0;
-	$bmi_date_array[$value->format('Y-m-d')] = 0;
-	$bmr_date_array[$value->format('Y-m-d')] = 0;
+	$date_array[$value] = 0;
+
+	$bmr_date_array[$value] = 0;
 }
+
+
 
 $user = rowArray($this->common_model->custom_query("select * from users where user_id={$this->session->userdata('user_id')} limit 1"));
 
@@ -171,17 +182,15 @@ if ($this->input->post('bmi_strdate')) {
 	$bmi_strdate = date('Y-m-d', strtotime($bmi_enddate . "-5 days"));
 }
 
-$bmi_period = new DatePeriod(
-	new DateTime($bmi_strdate),
-	new DateInterval('P1D'),
-	new DateTime($bmi_enddate)
-);
 
 $bmi_date_array = array();
-foreach ($bmi_period as $keyb => $valueb) {
-	$bmi_date_array[$valueb->format('Y-m-d')] = 0;
-	// echo $valueb->format('Y-m-d') . '<br>';
+$bmi_period = displayDates($bmi_strdate, $bmi_enddate);
+foreach ($bmi_period as $key => $value) {
+	$date_array[$value] = 0;
+	$bmi_date_array[$value] = 0;
 }
+
+
 $sql = "
 
 SELECT
@@ -207,9 +216,9 @@ ORDER BY
 $bmi_data = $this->common_model->custom_query($sql);
 $year = date("Y") + 543;
 $bmicate = '';
-$bmi_last = '';
+$bmi_last = '0';
 foreach ($bmi_data as $key => $value) {
-	$bmi_date_array[$value['date']] = $value['energy'];
+	$bmi_date_array[$value['date']] =   number_format($value['energy'], 2);
 }
 
 
@@ -217,11 +226,13 @@ foreach ($bmi_date_array as $key => $value) {
 	if ($value == 0) {
 		$value = $bmi_last;
 	}
+
 	$set = date("d/m", strtotime($key)) . '/' . $year;
 	$bmicate .= ",'" . $set . "'";
-	$bmi .= ',' . $value;
+	$bmi .= ',' . str_replace(',', '', $value);
 	$bmi_last = $value;
 }
+
 
 
 ?>
@@ -393,9 +404,9 @@ foreach ($bmi_date_array as $key => $value) {
 										{csrf_protection_field}
 
 										เรียกดูข้อมูล
-										<input type="text" name="bmi_strdate" class="text-center form-control datepicker" style="width: 150px; display:inline-block;" required value="<?php echo date('d/m', strtotime($strdate)) . '/' . $year; ?>">
+										<input type="text" name="bmi_strdate" class="text-center form-control datepicker" style="width: 150px; display:inline-block;" required value="<?php echo date('d/m', strtotime($bmi_strdate)) . '/' . $year; ?>">
 										ถึง
-										<input type="text=" name="bmi_enddate" class="text-center form-control datepicker" style="width: 150px; display:inline-block;" required value="<?php echo date('d/m', strtotime($enddate)) . '/' . $year; ?>">
+										<input type="text=" name="bmi_enddate" class="text-center form-control datepicker" style="width: 150px; display:inline-block;" required value="<?php echo date('d/m', strtotime($bmi_enddate)) . '/' . $year; ?>">
 
 										<button class="btn btn-success btn-sm">เรียกดู</button>
 									</form>
