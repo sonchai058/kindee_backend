@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Kindee | Story</title>
+	<title>Kindee | Inno Story</title>
 
 	<link rel="shortcut icon" href="{base_url}assets/images/K-dot-5.png" />
 	<link rel="icon" href="{base_url}assets/images/K-dot-5.png" type="image/png" sizes="16x16">
@@ -152,7 +152,10 @@
 			<footer class="footer">
 				<div class="container-fluid">
 					<div class="copyright float-right">
-						Copyright © 2019 <a href="https://www.urbanui.com/" target="_blank">Jigsaw Innovation</a>. All rights reserved.
+						Copyright © <script>
+							document.write(new Date().getFullYear());
+						</script>
+						<a href="http://jigsawinnovation.com/" target="_blank">Jigsaw Innovation</a>. All rights reserved.
 						Power by Jigsaw Innovation
 					</div>
 				</div>
