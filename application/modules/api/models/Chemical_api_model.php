@@ -65,7 +65,7 @@ class Chemical_api_model extends CI_Model
       if($val){
         $show_val = number_format($val,2);
       }else{
-        $show_val = '-';
+        $show_val = '';
       }
       return $show_val;
     }

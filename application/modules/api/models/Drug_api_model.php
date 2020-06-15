@@ -23,6 +23,7 @@ class Drug_api_model extends CI_Model
         $this->db->select('*');
         $this->db->from('users_drug');
         $this->db->where($whereDrug);
+        $this->db->order_by("date_eat", "asc");
         $queryDrug = $this->db->get();
         $dataDrug = $queryDrug->row();
 
@@ -34,7 +35,7 @@ class Drug_api_model extends CI_Model
             foreach ($queryDrug->result() as $row)
             {
               $arr_date = explode(" ",$row->date_eat);
-              $show_date_eat = $arr_date[1];
+              $show_date_eat = substr($arr_date[1],0,5);
               $data_drug[]  = array(
                                       'drug_id'=>$row->drug_id,
                                       'date_eat'=>$show_date_eat,
@@ -67,7 +68,7 @@ class Drug_api_model extends CI_Model
       $numRow = $queryDrug->num_rows();
       if ($numRow > 0 ) {
           $arr_date = explode(" ",$dataDrug->date_eat);
-          $show_date_eat = $arr_date[1];
+          $show_date_eat = substr($arr_date[1],0,5);
           if($dataDrug->eat_time=="ก่อนอาหาร"){
             $eat_time =  1;
           }else if($dataDrug->eat_time=="หลังอาหาร"){

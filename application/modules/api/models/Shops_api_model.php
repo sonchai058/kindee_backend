@@ -44,4 +44,33 @@ class Shops_api_model extends CI_Model
 
     }
 
+    public function getShopDetail($shop_id='')
+    {
+
+      $whereShop = "shops.shop_id = '".$drug_id."' ";
+      $where = " fag_allow = 'allow' ";
+      $this->db->select('*');
+      $this->db->from('shops');
+      $this->db->where($where);
+      $queryShops = $this->db->get();
+      $data = $queryShops->row();
+      $numRow = $queryShops->num_rows();
+      if ($numRow > 0 ) {
+          $res = array();
+          $res['shop_id'] = $data->shop_id;
+          $res['shop_name_th'] = $data->shop_name_th;
+          $res['shop_photo'] = $data->shop_photo;
+          $res['mobile_no'] = $data->mobile_no;
+          $res['email_addr'] = $data->email_addr;
+          $res['addr'] = $data->addr;
+          $res['point_lat'] = $data->point_lat;
+          $res['point_lat'] = $data->point_lat;
+          $res['point_long'] = $data->point_long;
+          return $res;
+      } else {
+          return false;
+      }
+
+    }
+
 }

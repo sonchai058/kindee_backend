@@ -53,5 +53,27 @@ class Shops extends REST_Controller
 
     }
 
+    public function detail_get($shop_id='')
+    {
+
+        $jwt_token = $this->jwt_decode($this->jwt_token());
+        //$pid = 'user@gmail.com';
+        $pid = $jwt_token['username'];
+
+        $res = $this->shops->getShopDetail($shop_id);
+
+        $output = array();
+        if ($res) {
+            $output['status'] = true;
+            $output['data'] = $res;
+            $output['token'] = $this->jwt_token();
+            return $this->response($output, REST_Controller::HTTP_OK);
+        }
+
+        $output['status'] = false;
+        return $this->set_response($output, REST_Controller::HTTP_UNAUTHORIZED);
+
+    }
+
 
 }

@@ -60,5 +60,49 @@ class Body extends REST_Controller
 
     }
 
+    public function data_post()
+    {
+      $stream_clean = $this->security->xss_clean($this->input->raw_input_stream);
+      $request = json_decode($stream_clean);
+
+
+      $jwt_token = $this->jwt_decode($this->jwt_token());
+      $user_id = $jwt_token['user_id'];
+
+      $arr_data_weight = array();
+      $arr_data_weight['user_id'] = $user_id;
+      $arr_data_weight['user_add'] = $user_id;
+      $arr_data_weight['date_exam'] = $request->date_exam.' '.date('H:i:s');
+      $arr_data_weight['user_weight'] = $request->user_weight;
+      $arr_data_weight['fag_allow'] = 'allow';
+      $res = $this->user->saveWeight($arr_data_weight);
+
+      $arr_data_waist = array();
+      $arr_data_waist['user_id'] = $user_id;
+      $arr_data_waist['user_add'] = $user_id;
+      $arr_data_waist['date_exam'] = $request->date_exam.' '.date('H:i:s');
+      $arr_data_waist['user_waist'] = $request->user_waist;
+      $arr_data_waist['fag_allow'] = 'allow';
+      $res = $this->user->saveWaistline($arr_data_waist);
+
+      $arr_data_hip = array();
+      $arr_data_hip['user_id'] = $user_id;
+      $arr_data_hip['user_add'] = $user_id;
+      $arr_data_hip['date_exam'] = $request->date_exam.' '.date('H:i:s');
+      $arr_data_hip['user_hib'] = $request->user_hip;
+      $arr_data_hip['fag_allow'] = 'allow';
+      $res = $this->user->saveHip($arr_data_hip);
+
+      $output = array();
+      if ($res) {
+          $output['status'] = true;
+          $output['data'] = $res;
+          return $this->response($output, REST_Controller::HTTP_OK);
+      }
+
+      $output['status'] = false;
+      return $this->set_response($output, REST_Controller::HTTP_UNAUTHORIZED);
+    }
+
 
 }

@@ -46,7 +46,6 @@ class Food extends REST_Controller
           $date = date('Y-m-d');
         }
         $res = $this->food->getFood($pid, $date);
-
         $output = array();
         if ($res) {
             $output['status'] = true;
@@ -58,6 +57,22 @@ class Food extends REST_Controller
         $output['status'] = false;
         return $this->set_response($output, REST_Controller::HTTP_UNAUTHORIZED);
 
+    }
+
+    public function fooddetail_get($id='')
+    {
+      $res = $this->food->getFoodDetail($id);
+
+      $output = array();
+      if ($res) {
+          $output['status'] = true;
+          $output['data'] = $res;
+          $output['token'] = $this->jwt_token();
+          return $this->response($output, REST_Controller::HTTP_OK);
+      }
+
+      $output['status'] = false;
+      return $this->set_response($output, REST_Controller::HTTP_UNAUTHORIZED);
     }
 
     public function food_menu_get($food_source='')
@@ -102,6 +117,61 @@ class Food extends REST_Controller
       $arr_data['food_energy'] = str_replace(',','',$request->food_energy);
       $arr_data['fag_allow'] = 'allow';
       $res = $this->food->save($arr_data);
+
+      $output = array();
+      if ($res) {
+          $output['status'] = true;
+          $output['data'] = $res;
+          return $this->response($output, REST_Controller::HTTP_OK);
+      }
+
+      $output['status'] = false;
+      return $this->set_response($output, REST_Controller::HTTP_UNAUTHORIZED);
+    }
+
+    public function data_put()
+    {
+      $stream_clean = $this->security->xss_clean($this->input->raw_input_stream);
+      $request = json_decode($stream_clean);
+
+      $jwt_token = $this->jwt_decode($this->jwt_token());
+      $user_id = $jwt_token['user_id'];
+      $arr_data = array();
+      $arr_data['user_id'] = $user_id;
+      $arr_data['user_update'] = $user_id;
+      $arr_data['date_eat'] = $request->date_eat;
+      $arr_data['eat_time'] = $request->eat_time;
+      $arr_data['food_source'] = $request->food_source;
+      $arr_data['food_id'] = $request->food_id;
+      $arr_data['food_energy'] = str_replace(',','',$request->food_energy);
+      $arr_where['foodt_id'] = $request->foodt_id;
+      $res = $this->food->save($arr_data,$arr_where);
+
+      $output = array();
+      if ($res) {
+          $output['status'] = true;
+          $output['data'] = $res;
+          return $this->response($output, REST_Controller::HTTP_OK);
+      }
+
+      $output['status'] = false;
+      return $this->set_response($output, REST_Controller::HTTP_UNAUTHORIZED);
+    }
+
+    public function data_delete()
+    {
+      $stream_clean = $this->security->xss_clean($this->input->raw_input_stream);
+      $request = json_decode($stream_clean);
+
+      $jwt_token = $this->jwt_decode($this->jwt_token());
+      $user_id = $jwt_token['user_id'];
+      $arr_data = array();
+      $arr_data['user_id'] = $user_id;
+      $arr_data['user_update'] = $user_id;
+      $arr_data['fag_allow'] = 'delete';
+      $arr_data['datetime_update'] = date('Y-m-d H:i:s');
+      $arr_where['foodt_id'] = $request->foodt_id;
+      $res = $this->food->save($arr_data,$arr_where);
 
       $output = array();
       if ($res) {
