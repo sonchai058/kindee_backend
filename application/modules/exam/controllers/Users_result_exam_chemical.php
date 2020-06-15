@@ -4,6 +4,11 @@ if (!defined('BASEPATH'))  exit('No direct script access allowed');
 /**
  * [ Controller File name : Users_result_exam_chemical.php ]
  */
+require 'vendor/autoload.php';
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 class Users_result_exam_chemical extends CRUD_Controller
 {
 
@@ -24,8 +29,8 @@ class Users_result_exam_chemical extends CRUD_Controller
 		$this->data['page_url'] = site_url('exam/users_result_exam_chemical');
 
 		$this->data['page_title'] = 'ผลตรวจสุขภาพทางทางชีวเคมี';
-		$js_url = 'assets/js_modules/exam/users_result_exam_chemical.js?ft='. filemtime('assets/js_modules/exam/users_result_exam_chemical.js');
-		$this->another_js = '<script src="'. base_url($js_url) .'"></script>';
+		$js_url = 'assets/js_modules/exam/users_result_exam_chemical.js?ft=' . filemtime('assets/js_modules/exam/users_result_exam_chemical.js');
+		$this->another_js = '<script src="' . base_url($js_url) . '"></script>';
 	}
 
 	// ------------------------------------------------------------------------
@@ -33,6 +38,72 @@ class Users_result_exam_chemical extends CRUD_Controller
 	/**
 	 * Index of controller
 	 */
+	public function generateXls()
+	{
+
+		$start_row = $this->uri->segment($this->uri_segment, '0');
+		if (!is_numeric($start_row)) {
+			$start_row = 0;
+		}
+		$per_page = $this->per_page;
+		$results = $this->Users_result_exam_chemical->read($start_row, $per_page);
+		$employeeData = $this->setDataListFormat($results['list_data'], $start_row);
+		$data = array();
+		foreach ($employeeData as $key => $v) {
+			$data[$key] = array();
+			foreach ($v as $column => $value_status) {
+				$data[$key][$column] = $value_status;
+			}
+			$data[$key]['status_fasting_glu'] =  ($data[$key]['fasting_glu'] == '0.00') ? '' : $data[$key]['fasting_glu'];
+			$data[$key]['status_hemo_glo'] =  ($data[$key]['hemo_glo'] == '0.00') ? '' : $data[$key]['hemo_glo'];
+			$data[$key]['status_kidney_blood'] =  ($data[$key]['kidney_blood'] == '0.00') ? '' : $data[$key]['kidney_blood'];
+			$data[$key]['status_uric_arid'] =  ($data[$key]['uric_arid'] == '0.00') ? '' : $data[$key]['uric_arid'];
+			$data[$key]['status_total_chol'] =  ($data[$key]['total_chol'] == '0.00') ? '' : $data[$key]['total_chol'];
+			$data[$key]['status_hdl_chol'] =  ($data[$key]['hdl_chol'] == '0.00') ? '' : $data[$key]['hdl_chol'];
+			$data[$key]['status_ldl_chol'] =  ($data[$key]['ldl_chol'] == '0.00') ? '' : $data[$key]['ldl_chol'];
+			$data[$key]['status_trig_cer'] =  ($data[$key]['trig_cer'] == '0.00') ? '' : $data[$key]['trig_cer'];
+		}
+		$this->data['data_list']	= $data;
+
+		$spreadsheet = new Spreadsheet();
+		$sheet = $spreadsheet->getActiveSheet();
+		$sheet->setCellValue('A1', '#');
+		$sheet->setCellValue('B1', 'วันที่ตรวจ');
+		$sheet->setCellValue('C1', 'Fasting glucose');
+		$sheet->setCellValue('D1', 'Hemoglobin A1C%');
+		$sheet->setCellValue('E1', 'Kidney : Blood Urea Nitrogen');
+		$sheet->setCellValue('F1', 'Uric Acid (Gout)');
+		$sheet->setCellValue('G1', 'Total Cholesterol');
+		$sheet->setCellValue('H1', 'HDL Cholesterol');
+		$sheet->setCellValue('I1', 'LDL Cholesterol');
+		$sheet->setCellValue('J1', 'Triglycerides');
+
+		$rows = 2;
+		foreach ($data as $val) {
+			$sheet->setCellValue('A' . $rows, $val['record_number']);
+			$sheet->setCellValue('B' . $rows, $val['exam_date']);
+			$sheet->setCellValue('C' . $rows, $val['status_fasting_glu']);
+			$sheet->setCellValue('D' . $rows, $val['status_hemo_glo']);
+			$sheet->setCellValue('E' . $rows, $val['status_kidney_blood']);
+			$sheet->setCellValue('F' . $rows, $val['status_uric_arid']);
+			$sheet->setCellValue('G' . $rows, $val['status_total_chol']);
+			$sheet->setCellValue('H' . $rows, $val['status_hdl_chol']);
+			$sheet->setCellValue('I' . $rows, $val['status_ldl_chol']);
+			$sheet->setCellValue('J' . $rows, $val['status_trig_cer']);
+
+			$rows++;
+		}
+
+		$writer = new Xlsx($spreadsheet); // instantiate Xlsx
+
+		$filename = 'report'; // set filename for excel file to be exported
+
+		header('Content-Type: application/vnd.ms-excel'); // generate excel file
+		header('Content-Disposition: attachment;filename="' . $filename . '.xlsx"');
+		header('Cache-Control: max-age=0');
+		$writer->save('php://output');	// download file
+
+	}
 	public function index()
 	{
 		$this->list_all();
@@ -61,7 +132,8 @@ class Users_result_exam_chemical extends CRUD_Controller
 	 * @param String path of controller
 	 * @param Integer total record
 	 */
-	public function create_pagination($page_url, $total) {
+	public function create_pagination($page_url, $total)
+	{
 		$this->load->library('pagination');
 		$config['base_url'] = $page_url;
 		$config['total_rows'] = $total;
@@ -78,7 +150,8 @@ class Users_result_exam_chemical extends CRUD_Controller
 	/**
 	 * List all record
 	 */
-	public function list_all() {
+	public function list_all()
+	{
 		$this->session->unset_userdata($this->Users_result_exam_chemical->session_name . '_search_field');
 		$this->session->unset_userdata($this->Users_result_exam_chemical->session_name . '_value');
 
@@ -93,20 +166,20 @@ class Users_result_exam_chemical extends CRUD_Controller
 	public function search()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'รายการผลตรวจสุขภาพทางทางชีวเคมี', 'class' => 'majestic', 'url' => '#'),
+			array('title' => 'รายการผลตรวจสุขภาพทางทางชีวเคมี', 'class' => 'majestic', 'url' => '#'),
 		);
 		if (isset($_POST['submit'])) {
 			$search_field =  $this->input->post('search_field', TRUE);
 			$value = $this->input->post('txtSearch', TRUE);
-			$arr = array($this->Users_result_exam_chemical->session_name . '_search_field' => $search_field, $this->Users_result_exam_chemical->session_name . '_value' => $value );
+			$arr = array($this->Users_result_exam_chemical->session_name . '_search_field' => $search_field, $this->Users_result_exam_chemical->session_name . '_value' => $value);
 			$this->session->set_userdata($arr);
 		} else {
 			$search_field = $this->session->userdata($this->Users_result_exam_chemical->session_name . '_search_field');
 			$value = $this->session->userdata($this->Users_result_exam_chemical->session_name . '_value');
 		}
 
-		$start_row = $this->uri->segment($this->uri_segment ,'0');
-		if(!is_numeric($start_row)){
+		$start_row = $this->uri->segment($this->uri_segment, '0');
+		if (!is_numeric($start_row)) {
 			$start_row = 0;
 		}
 		$per_page = $this->per_page;
@@ -115,9 +188,13 @@ class Users_result_exam_chemical extends CRUD_Controller
 			$arr = explode('|', $order_by);
 			$field = $arr[0];
 			$sort = $arr[1];
-			switch($sort){
-				case 'asc':$sort = 'ASC';break;
-				case 'desc':$sort = 'DESC';break;
+			switch ($sort) {
+				case 'asc':
+					$sort = 'ASC';
+					break;
+				case 'desc':
+					$sort = 'DESC';
+					break;
 			}
 			$this->Users_result_exam_chemical->order_field = $field;
 			$this->Users_result_exam_chemical->order_sort = $sort;
@@ -129,17 +206,35 @@ class Users_result_exam_chemical extends CRUD_Controller
 
 
 		$page_url = site_url('exam/users_result_exam_chemical');
-		$pagination = $this->create_pagination($page_url.'/search', $search_row);
+		$pagination = $this->create_pagination($page_url . '/search', $search_row);
 		$end_row = $start_row + $per_page;
-		if($search_row < $per_page){
+		if ($search_row < $per_page) {
 			$end_row = $search_row;
 		}
 
-		if($end_row > $search_row){
+		if ($end_row > $search_row) {
 			$end_row = $search_row;
 		}
 
-		$this->data['data_list']	= $list_data;
+		$data = array();
+		foreach ($list_data as $key => $v) {
+			$data[$key] = array();
+			foreach ($v as $column => $value_status) {
+				$data[$key][$column] = $value_status;
+			}
+			$data[$key]['status_fasting_glu'] =  ($data[$key]['fasting_glu'] == '0.00') ? '' : $data[$key]['fasting_glu'];
+			$data[$key]['status_hemo_glo'] =  ($data[$key]['hemo_glo'] == '0.00') ? '' : $data[$key]['hemo_glo'];
+			$data[$key]['status_kidney_blood'] =  ($data[$key]['kidney_blood'] == '0.00') ? '' : $data[$key]['kidney_blood'];
+			$data[$key]['status_uric_arid'] =  ($data[$key]['uric_arid'] == '0.00') ? '' : $data[$key]['uric_arid'];
+			$data[$key]['status_total_chol'] =  ($data[$key]['total_chol'] == '0.00') ? '' : $data[$key]['total_chol'];
+			$data[$key]['status_hdl_chol'] =  ($data[$key]['hdl_chol'] == '0.00') ? '' : $data[$key]['hdl_chol'];
+			$data[$key]['status_ldl_chol'] =  ($data[$key]['ldl_chol'] == '0.00') ? '' : $data[$key]['ldl_chol'];
+			$data[$key]['status_trig_cer'] =  ($data[$key]['trig_cer'] == '0.00') ? '' : $data[$key]['trig_cer'];
+		}
+
+
+		$this->data['data_list']	= $data;
+
 		$this->data['search_field']	= $search_field;
 		$this->data['txt_search']	= $value;
 		$this->data['current_page_offset'] = $start_row;
@@ -151,6 +246,8 @@ class Users_result_exam_chemical extends CRUD_Controller
 		$this->data['page_url']	= $page_url;
 		$this->data['pagination_link']	= $pagination;
 		$this->data['csrf_protection_field']	= insert_csrf_field(true);
+		// print_r($this->db->last_query());
+		// die();
 
 		$this->render_view('exam/users_result_exam_chemical/list_view');
 	}
@@ -164,8 +261,8 @@ class Users_result_exam_chemical extends CRUD_Controller
 	public function preview($encrypt_id = "")
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'รายการผลตรวจสุขภาพทางทางชีวเคมี', 'url' => site_url('exam/users_result_exam_chemical')),
-						array('title' => 'แสดงข้อมูลรายละเอียด', 'url' => '#', 'class' => 'majestic')
+			array('title' => 'รายการผลตรวจสุขภาพทางทางชีวเคมี', 'url' => site_url('exam/users_result_exam_chemical')),
+			array('title' => 'แสดงข้อมูลรายละเอียด', 'url' => '#', 'class' => 'majestic')
 		);
 		$encrypt_id = urldecode($encrypt_id);
 		$id = decrypt($encrypt_id);
@@ -192,8 +289,8 @@ class Users_result_exam_chemical extends CRUD_Controller
 	public function add()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'รายการผลตรวจสุขภาพทางทางชีวเคมี', 'url' => site_url('exam/users_result_exam_chemical')),
-						array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'majestic')
+			array('title' => 'รายการผลตรวจสุขภาพทางทางชีวเคมี', 'url' => site_url('exam/users_result_exam_chemical')),
+			array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'majestic')
 		);
 		$this->data['users_user_delete_option_list'] = $this->Users_result_exam_chemical->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_add_option_list'] = $this->Users_result_exam_chemical->returnOptionList("users", "user_id", "user_fname");
@@ -208,10 +305,10 @@ class Users_result_exam_chemical extends CRUD_Controller
 	 * Default Validation
 	 * see also https://www.codeigniter.com/userguide3/libraries/form_validation.html
 	 */
-    public function float_check($val)
-    {
-    	return TRUE;
-    /*
+	public function float_check($val)
+	{
+		return TRUE;
+		/*
     	die($val);
         if ( !is_int($val) || !is_float($val) ) {
             $this->form_validation->set_message('float_check', '- %s ต้องระบุตัวเลขทศนิยม');
@@ -220,7 +317,7 @@ class Users_result_exam_chemical extends CRUD_Controller
             return TRUE;
         }
         */
-    }
+	}
 	public function formValidate()
 	{
 		$this->load->library('form_validation');
@@ -315,8 +412,8 @@ class Users_result_exam_chemical extends CRUD_Controller
 		$message .= $this->formValidate();
 		if ($message != '') {
 			$json = json_encode(array(
-						'is_successful' => FALSE,
-						'message' => $message
+				'is_successful' => FALSE,
+				'message' => $message
 			));
 			echo $json;
 		} else {
@@ -326,19 +423,19 @@ class Users_result_exam_chemical extends CRUD_Controller
 			$encrypt_id = '';
 			$post['user_id'] = get_session('user_id');
 			$id = $this->Users_result_exam_chemical->create($post);
-			if($id != ''){
+			if ($id != '') {
 				$success = TRUE;
 				$encrypt_id = encrypt($id);
 				$message = '<strong>บันทึกข้อมูลเรียบร้อย</strong>';
-			}else{
+			} else {
 				$success = FALSE;
 				$message = 'Error : ' . $this->Users_result_exam_chemical->error_message;
 			}
 
 			$json = json_encode(array(
-						'is_successful' => $success,
-						'encrypt_id' =>  $encrypt_id,
-						'message' => $message
+				'is_successful' => $success,
+				'encrypt_id' =>  $encrypt_id,
+				'message' => $message
 			));
 			echo $json;
 		}
@@ -353,8 +450,8 @@ class Users_result_exam_chemical extends CRUD_Controller
 	public function edit($encrypt_id = '')
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'รายการผลตรวจสุขภาพทางทางชีวเคมี', 'url' => site_url('exam/users_result_exam_chemical')),
-						array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'majestic')
+			array('title' => 'รายการผลตรวจสุขภาพทางทางชีวเคมี', 'url' => site_url('exam/users_result_exam_chemical')),
+			array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'majestic')
 		);
 
 		$encrypt_id = urldecode($encrypt_id);
@@ -365,7 +462,7 @@ class Users_result_exam_chemical extends CRUD_Controller
 		} else {
 			$results = $this->Users_result_exam_chemical->load($id);
 			if (empty($results)) {
-			$this->data['message'] = "ไม่พบข้อมูลตามรหัสอ้างอิง <b>$id</b>";
+				$this->data['message'] = "ไม่พบข้อมูลตามรหัสอ้างอิง <b>$id</b>";
 				$this->render_view('ci_message/danger');
 			} else {
 				$this->data['csrf_field'] = insert_csrf_field(true);
@@ -386,7 +483,7 @@ class Users_result_exam_chemical extends CRUD_Controller
 	{
 		$error = '';
 		$exam_id = ci_decrypt($data['encrypt_exam_id']);
-		if($exam_id==''){
+		if ($exam_id == '') {
 			$error .= '- รหัส exam_id';
 		}
 		return $error;
@@ -413,25 +510,25 @@ class Users_result_exam_chemical extends CRUD_Controller
 		}
 		if ($message != '') {
 			$json = json_encode(array(
-						'is_successful' => FALSE,
-						'message' => $message
+				'is_successful' => FALSE,
+				'message' => $message
 			));
-			 echo $json;
+			echo $json;
 		} else {
 			//if(isset($post['user_id'])) {
-				//unset($post['user_id']);
+			//unset($post['user_id']);
 			//}
 			$result = $this->Users_result_exam_chemical->update($post);
-			if($result == false){
+			if ($result == false) {
 				$message = $this->Users_result_exam_chemical->error_message;
 				$ok = FALSE;
-			}else{
+			} else {
 				$message = '<strong>บันทึกข้อมูลเรียบร้อย</strong>' . $this->Users_result_exam_chemical->error_message;
 				$ok = TRUE;
 			}
 			$json = json_encode(array(
-						'is_successful' => $ok,
-						'message' => $message
+				'is_successful' => $ok,
+				'message' => $message
 			));
 
 			echo $json;
@@ -444,7 +541,7 @@ class Users_result_exam_chemical extends CRUD_Controller
 	public function del()
 	{
 		//$delete_remark = $this->input->post('delete_remark', TRUE);
-			$message = '';
+		$message = '';
 		/*
 		if ($delete_remark == '') {
 			$message .= 'ระบุเหตุผล';
@@ -458,22 +555,22 @@ class Users_result_exam_chemical extends CRUD_Controller
 		}
 		if ($message != '') {
 			$json = json_encode(array(
-						'is_successful' => FALSE,
-						'message' => $message
+				'is_successful' => FALSE,
+				'message' => $message
 			));
 			echo $json;
-		}else{
+		} else {
 			$result = $this->Users_result_exam_chemical->delete($post);
-			if($result == false){
+			if ($result == false) {
 				$message = $this->Users_result_exam_chemical->error_message;
 				$ok = FALSE;
-			}else{
+			} else {
 				$message = '<strong>ลบข้อมูลเรียบร้อย</strong>';
 				$ok = TRUE;
 			}
 			$json = json_encode(array(
-						'is_successful' => $ok,
-						'message' => $message
+				'is_successful' => $ok,
+				'message' => $message
 			));
 			echo $json;
 		}
@@ -483,30 +580,30 @@ class Users_result_exam_chemical extends CRUD_Controller
 	/**
 	 * SET array data list
 	 */
-	private function setDataListFormat($lists_data, $start_row=0)
+	private function setDataListFormat($lists_data, $start_row = 0)
 	{
 		$data = $lists_data;
 		$count = count($lists_data);
-		for($i=0;$i<$count;$i++){
+		for ($i = 0; $i < $count; $i++) {
 			$start_row++;
 			$data[$i]['record_number'] = $start_row;
 			$pk1 = $data[$i]['exam_id'];
 			$data[$i]['url_encrypt_id'] = urlencode(encrypt($pk1));
 
-			if($pk1 != ''){
+			if ($pk1 != '') {
 				$pk1 = encrypt($pk1);
 			}
 			$data[$i]['encrypt_exam_id'] = $pk1;
 			$data[$i]['preview_fag_allow'] = $this->setFagAllowSubject($data[$i]['fag_allow']);
 			$data[$i]['exam_date'] = setThaiDate($data[$i]['exam_date']);
-			$data[$i]['total_chol'] = number_format($data[$i]['total_chol'],2);
-			$data[$i]['fasting_glu'] = number_format($data[$i]['fasting_glu'],2);
-			$data[$i]['hemo_glo'] = number_format($data[$i]['hemo_glo'],2);
-			$data[$i]['kidney_blood'] = number_format($data[$i]['kidney_blood'],2);
-			$data[$i]['uric_arid'] = number_format($data[$i]['uric_arid'],2);
-			$data[$i]['hdl_chol'] = number_format($data[$i]['hdl_chol'],2);
-			$data[$i]['ldl_chol'] = number_format($data[$i]['ldl_chol'],2);
-			$data[$i]['trig_cer'] = number_format($data[$i]['trig_cer'],2);
+			$data[$i]['total_chol'] = number_format($data[$i]['total_chol'], 2);
+			$data[$i]['fasting_glu'] = number_format($data[$i]['fasting_glu'], 2);
+			$data[$i]['hemo_glo'] = number_format($data[$i]['hemo_glo'], 2);
+			$data[$i]['kidney_blood'] = number_format($data[$i]['kidney_blood'], 2);
+			$data[$i]['uric_arid'] = number_format($data[$i]['uric_arid'], 2);
+			$data[$i]['hdl_chol'] = number_format($data[$i]['hdl_chol'], 2);
+			$data[$i]['ldl_chol'] = number_format($data[$i]['ldl_chol'], 2);
+			$data[$i]['trig_cer'] = number_format($data[$i]['trig_cer'], 2);
 			$data[$i]['datetime_delete'] = setThaiDate($data[$i]['datetime_delete']);
 			$data[$i]['datetime_add'] = setThaiDate($data[$i]['datetime_add']);
 			$data[$i]['datetime_update'] = setThaiDate($data[$i]['datetime_update']);
@@ -520,7 +617,7 @@ class Users_result_exam_chemical extends CRUD_Controller
 	private function setFagAllowSubject($value)
 	{
 		$subject = '';
-		switch($value){
+		switch ($value) {
 			case 'allow':
 				$subject = 'ปกติ';
 				break;
@@ -544,7 +641,7 @@ class Users_result_exam_chemical extends CRUD_Controller
 		$pk1 = $data['exam_id'];
 		$this->data['recode_url_encrypt_id'] = urlencode(encrypt($pk1));
 
-		if($pk1 != ''){
+		if ($pk1 != '') {
 			$pk1 = encrypt($pk1);
 		}
 		$this->data['encrypt_exam_id'] = $pk1;
@@ -586,18 +683,17 @@ class Users_result_exam_chemical extends CRUD_Controller
 		$this->data['record_user_id'] = $data['user_id'];
 
 		$this->data['record_exam_date'] = setThaiDate($data['exam_date']);
-		$this->data['record_total_chol'] = number_format($data['total_chol'],2);
-		$this->data['record_fasting_glu'] = number_format($data['fasting_glu'],2);
-		$this->data['record_hemo_glo'] = number_format($data['hemo_glo'],2);
-		$this->data['record_kidney_blood'] = number_format($data['kidney_blood'],2);
-		$this->data['record_uric_arid'] = number_format($data['uric_arid'],2);
-		$this->data['record_hdl_chol'] = number_format($data['hdl_chol'],2);
-		$this->data['record_ldl_chol'] = number_format($data['ldl_chol'],2);
-		$this->data['record_trig_cer'] = number_format($data['trig_cer'],2);
+		$this->data['record_total_chol'] = number_format($data['total_chol'], 2);
+		$this->data['record_fasting_glu'] = number_format($data['fasting_glu'], 2);
+		$this->data['record_hemo_glo'] = number_format($data['hemo_glo'], 2);
+		$this->data['record_kidney_blood'] = number_format($data['kidney_blood'], 2);
+		$this->data['record_uric_arid'] = number_format($data['uric_arid'], 2);
+		$this->data['record_hdl_chol'] = number_format($data['hdl_chol'], 2);
+		$this->data['record_ldl_chol'] = number_format($data['ldl_chol'], 2);
+		$this->data['record_trig_cer'] = number_format($data['trig_cer'], 2);
 		$this->data['record_datetime_delete'] = setThaiDate($data['datetime_delete']);
 		$this->data['record_datetime_add'] = setThaiDate($data['datetime_add']);
 		$this->data['record_datetime_update'] = setThaiDate($data['datetime_update']);
-
 	}
 }
 /*---------------------------- END Controller Class --------------------------------*/

@@ -67,7 +67,7 @@ class Outfood_model extends MY_Model
 		// echo "</pre>";
 		// die();
 		$where	= '';
-		$order_by	= '';
+		$order_by	= 'datetime_update DESC';
 		if ($this->order_field != '') {
 			$order_field = $this->order_field;
 			$order_sort = $this->order_sort;

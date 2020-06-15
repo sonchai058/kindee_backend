@@ -113,8 +113,9 @@
 
 		@media only screen and (min-width: 500px) {
 			#search {
-			width: 100%;
+				width: 100%;
 			}
+
 			#btn-search {
 				width: 100%;
 			}
@@ -151,7 +152,10 @@
 			<footer class="footer">
 				<div class="container-fluid">
 					<div class="copyright float-right">
-						Copyright © 2019 <a href="https://www.urbanui.com/" target="_blank">Jigsaw Innovation</a>. All rights reserved.
+						Copyright © <script>
+							document.write(new Date().getFullYear());
+						</script>
+						<a href="http://jigsawinnovation.com/" target="_blank">Jigsaw Innovation</a>. All rights reserved.
 						Power by Jigsaw Innovation
 					</div>
 				</div>

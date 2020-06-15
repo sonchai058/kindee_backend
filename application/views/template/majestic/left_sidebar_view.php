@@ -19,7 +19,7 @@ if ($this->session->userdata('user_level') == 'super_user') {
 	<div class="logo">
 		<a href="{site_url}" class="simple-text logo-normal">
 			<img src="{base_url}assets/images/info.kindee.kindee.png" alt="logo" style="width:40px">&emsp;
-			<span>Inno | Story</span>
+			<span>Kindee | Story</span>
 		</a>
 	</div>
 	<div class="sidebar-wrapper">
@@ -120,7 +120,7 @@ if ($this->session->userdata('user_level') == 'super_user') {
 						<p>ข้อมูลเมนูปรุงเอง</p>
 					</a>
 				</li>
-				
+
 				<li class="nav-item <?php if ($this->uri->segment(1) == 'questiondata' && $this->uri->segment(2) == 'question') { ?>active<?php } ?>">
 					<a class="nav-link" href="{site_url}questiondata/question">
 						<i class="material-icons">question_answer</i>

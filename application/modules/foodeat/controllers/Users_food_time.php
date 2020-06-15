@@ -24,8 +24,8 @@ class Users_food_time extends CRUD_Controller
 		$this->data['page_url'] = site_url('foodeat/users_food_time');
 
 		$this->data['page_title'] = 'ข้อมูลการรับประทานอาหาร';
-		$js_url = 'assets/js_modules/foodeat/users_food_time.js?ft='. filemtime('assets/js_modules/foodeat/users_food_time.js');
-		$this->another_js = '<script src="'. base_url($js_url) .'"></script>';
+		$js_url = 'assets/js_modules/foodeat/users_food_time.js?ft=' . filemtime('assets/js_modules/foodeat/users_food_time.js');
+		$this->another_js = '<script src="' . base_url($js_url) . '"></script>';
 	}
 
 	// ------------------------------------------------------------------------
@@ -61,7 +61,8 @@ class Users_food_time extends CRUD_Controller
 	 * @param String path of controller
 	 * @param Integer total record
 	 */
-	public function create_pagination($page_url, $total) {
+	public function create_pagination($page_url, $total)
+	{
 		$this->load->library('pagination');
 		$config['base_url'] = $page_url;
 		$config['total_rows'] = $total;
@@ -78,7 +79,8 @@ class Users_food_time extends CRUD_Controller
 	/**
 	 * List all record
 	 */
-	public function list_all() {
+	public function list_all()
+	{
 		$this->session->unset_userdata($this->Users_food_time->session_name . '_search_field');
 		$this->session->unset_userdata($this->Users_food_time->session_name . '_value');
 
@@ -93,20 +95,20 @@ class Users_food_time extends CRUD_Controller
 	public function search()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'ข้อมูลยาที่ทานประจำ', 'class' => 'active', 'url' => '#'),
+			array('title' => 'ข้อมูลการรับประทานอาหาร', 'class' => 'active', 'url' => '#'),
 		);
 		if (isset($_POST['submit'])) {
 			$search_field =  $this->input->post('search_field', TRUE);
 			$value = $this->input->post('txtSearch', TRUE);
-			$arr = array($this->Users_food_time->session_name . '_search_field' => $search_field, $this->Users_food_time->session_name . '_value' => $value );
+			$arr = array($this->Users_food_time->session_name . '_search_field' => $search_field, $this->Users_food_time->session_name . '_value' => $value);
 			$this->session->set_userdata($arr);
 		} else {
 			$search_field = $this->session->userdata($this->Users_food_time->session_name . '_search_field');
 			$value = $this->session->userdata($this->Users_food_time->session_name . '_value');
 		}
 
-		$start_row = $this->uri->segment($this->uri_segment ,'0');
-		if(!is_numeric($start_row)){
+		$start_row = $this->uri->segment($this->uri_segment, '0');
+		if (!is_numeric($start_row)) {
 			$start_row = 0;
 		}
 		$per_page = $this->per_page;
@@ -115,9 +117,13 @@ class Users_food_time extends CRUD_Controller
 			$arr = explode('|', $order_by);
 			$field = $arr[0];
 			$sort = $arr[1];
-			switch($sort){
-				case 'asc':$sort = 'ASC';break;
-				case 'desc':$sort = 'DESC';break;
+			switch ($sort) {
+				case 'asc':
+					$sort = 'ASC';
+					break;
+				case 'desc':
+					$sort = 'DESC';
+					break;
 			}
 			$this->Users_food_time->order_field = $field;
 			$this->Users_food_time->order_sort = $sort;
@@ -129,13 +135,13 @@ class Users_food_time extends CRUD_Controller
 
 
 		$page_url = site_url('foodeat/users_food_time');
-		$pagination = $this->create_pagination($page_url.'/search', $search_row);
+		$pagination = $this->create_pagination($page_url . '/search', $search_row);
 		$end_row = $start_row + $per_page;
-		if($search_row < $per_page){
+		if ($search_row < $per_page) {
 			$end_row = $search_row;
 		}
 
-		if($end_row > $search_row){
+		if ($end_row > $search_row) {
 			$end_row = $search_row;
 		}
 
@@ -164,8 +170,8 @@ class Users_food_time extends CRUD_Controller
 	public function preview($encrypt_id = "")
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'ข้อมูลยาที่ทานประจำ', 'url' => site_url('foodeat/users_food_time')),
-						array('title' => 'แสดงข้อมูลรายละเอียด', 'url' => '#', 'class' => 'active')
+			array('title' => 'ข้อมูลการรับประทานอาหาร', 'url' => site_url('foodeat/users_food_time')),
+			array('title' => 'แสดงข้อมูลรายละเอียด', 'url' => '#', 'class' => 'active')
 		);
 		$encrypt_id = urldecode($encrypt_id);
 		$id = decrypt($encrypt_id);
@@ -192,11 +198,11 @@ class Users_food_time extends CRUD_Controller
 	public function add()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'ข้อมูลยาที่ทานประจำ', 'url' => site_url('foodeat/users_food_time')),
-						array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'active')
+			array('title' => 'ข้อมูลการรับประทานอาหาร', 'url' => site_url('foodeat/users_food_time')),
+			array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 		$this->data['users_user_id_option_list'] = $this->Users_food_time->returnOptionList("users", "user_id", "user_fname");
-		$this->data['self_food_menu_food_id_option_list'] = $this->Users_food_time->returnOptionList("self_food_menu", "self_food_id", "CONCAT_WS(' - พลังงาน ', self_food_name,TRUNCATE(energy_amt/1000,2))");
+		$this->data['self_food_menu_food_id_option_list'] = $this->Users_food_time->returnOptionList("self_food_menu", "self_food_id", "CONCAT_WS(' - พลังงาน ', self_food_name,TRUNCATE(energy_amt,2))");
 		$this->render_view('foodeat/users_food_time/add_view');
 	}
 
@@ -284,8 +290,8 @@ class Users_food_time extends CRUD_Controller
 		$message .= $this->formValidate();
 		if ($message != '') {
 			$json = json_encode(array(
-						'is_successful' => FALSE,
-						'message' => $message
+				'is_successful' => FALSE,
+				'message' => $message
 			));
 			echo $json;
 		} else {
@@ -295,19 +301,19 @@ class Users_food_time extends CRUD_Controller
 			$encrypt_id = '';
 			$post['user_id'] = get_session('user_id');
 			$id = $this->Users_food_time->create($post);
-			if($id != ''){
+			if ($id != '') {
 				$success = TRUE;
 				$encrypt_id = encrypt($id);
 				$message = '<strong>บันทึกข้อมูลเรียบร้อย</strong>';
-			}else{
+			} else {
 				$success = FALSE;
 				$message = 'Error : ' . $this->Users_food_time->error_message;
 			}
 
 			$json = json_encode(array(
-						'is_successful' => $success,
-						'encrypt_id' =>  $encrypt_id,
-						'message' => $message
+				'is_successful' => $success,
+				'encrypt_id' =>  $encrypt_id,
+				'message' => $message
 			));
 			echo $json;
 		}
@@ -322,8 +328,8 @@ class Users_food_time extends CRUD_Controller
 	public function edit($encrypt_id = '')
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-						array('title' => 'ข้อมูลยาที่ทานประจำ', 'url' => site_url('foodeat/users_food_time')),
-						array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'active')
+			array('title' => 'ข้อมูลการรับประทานอาหาร', 'url' => site_url('foodeat/users_food_time')),
+			array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 
 		$encrypt_id = urldecode($encrypt_id);
@@ -334,7 +340,7 @@ class Users_food_time extends CRUD_Controller
 		} else {
 			$results = $this->Users_food_time->load($id);
 			if (empty($results)) {
-			$this->data['message'] = "ไม่พบข้อมูลตามรหัสอ้างอิง <b>$id</b>";
+				$this->data['message'] = "ไม่พบข้อมูลตามรหัสอ้างอิง <b>$id</b>";
 				$this->render_view('ci_message/danger');
 			} else {
 				$this->data['csrf_field'] = insert_csrf_field(true);
@@ -342,7 +348,7 @@ class Users_food_time extends CRUD_Controller
 
 				$this->setPreviewFormat($results);
 				$this->data['users_user_id_option_list'] = $this->Users_food_time->returnOptionList("users", "user_id", "user_fname");
-				$this->data['self_food_menu_food_id_option_list'] = $this->Users_food_time->returnOptionList("self_food_menu", "self_food_id", "CONCAT_WS(' - พลังงาน ', self_food_name,TRUNCATE(energy_amt/1000,2))");
+				$this->data['self_food_menu_food_id_option_list'] = $this->Users_food_time->returnOptionList("self_food_menu", "self_food_id", "CONCAT_WS(' - พลังงาน ', self_food_name,TRUNCATE(energy_amt,2))");
 				$this->render_view('foodeat/users_food_time/edit_view');
 			}
 		}
@@ -353,7 +359,7 @@ class Users_food_time extends CRUD_Controller
 	{
 		$error = '';
 		$foodt_id = ci_decrypt($data['encrypt_foodt_id']);
-		if($foodt_id==''){
+		if ($foodt_id == '') {
 			$error .= '- รหัส foodt_id';
 		}
 		return $error;
@@ -380,23 +386,23 @@ class Users_food_time extends CRUD_Controller
 		}
 		if ($message != '') {
 			$json = json_encode(array(
-						'is_successful' => FALSE,
-						'message' => $message
+				'is_successful' => FALSE,
+				'message' => $message
 			));
-			 echo $json;
+			echo $json;
 		} else {
 
 			$result = $this->Users_food_time->update($post);
-			if($result == false){
+			if ($result == false) {
 				$message = $this->Users_food_time->error_message;
 				$ok = FALSE;
-			}else{
+			} else {
 				$message = '<strong>บันทึกข้อมูลเรียบร้อย</strong>' . $this->Users_food_time->error_message;
 				$ok = TRUE;
 			}
 			$json = json_encode(array(
-						'is_successful' => $ok,
-						'message' => $message
+				'is_successful' => $ok,
+				'message' => $message
 			));
 
 			echo $json;
@@ -409,7 +415,7 @@ class Users_food_time extends CRUD_Controller
 	public function del()
 	{
 		//$delete_remark = $this->input->post('delete_remark', TRUE);
-			$message = '';
+		$message = '';
 		//if ($delete_remark == '') {
 		//	$message .= 'ระบุเหตุผล';
 		//}
@@ -421,22 +427,22 @@ class Users_food_time extends CRUD_Controller
 		}
 		if ($message != '') {
 			$json = json_encode(array(
-						'is_successful' => FALSE,
-						'message' => $message
+				'is_successful' => FALSE,
+				'message' => $message
 			));
 			echo $json;
-		}else{
+		} else {
 			$result = $this->Users_food_time->delete($post);
-			if($result == false){
+			if ($result == false) {
 				$message = $this->Users_food_time->error_message;
 				$ok = FALSE;
-			}else{
+			} else {
 				$message = '<strong>ลบข้อมูลเรียบร้อย</strong>';
 				$ok = TRUE;
 			}
 			$json = json_encode(array(
-						'is_successful' => $ok,
-						'message' => $message
+				'is_successful' => $ok,
+				'message' => $message
 			));
 			echo $json;
 		}
@@ -446,17 +452,17 @@ class Users_food_time extends CRUD_Controller
 	/**
 	 * SET array data list
 	 */
-	private function setDataListFormat($lists_data, $start_row=0)
+	private function setDataListFormat($lists_data, $start_row = 0)
 	{
 		$data = $lists_data;
 		$count = count($lists_data);
-		for($i=0;$i<$count;$i++){
+		for ($i = 0; $i < $count; $i++) {
 			$start_row++;
 			$data[$i]['record_number'] = $start_row;
 			$pk1 = $data[$i]['foodt_id'];
 			$data[$i]['url_encrypt_id'] = urlencode(encrypt($pk1));
 
-			if($pk1 != ''){
+			if ($pk1 != '') {
 				$pk1 = encrypt($pk1);
 			}
 			$data[$i]['encrypt_foodt_id'] = $pk1;
@@ -464,7 +470,7 @@ class Users_food_time extends CRUD_Controller
 			$data[$i]['preview_eat_time'] = $this->setEatTimeSubject($data[$i]['eat_time']);
 			$data[$i]['preview_fag_allow'] = $this->setFagAllowSubject($data[$i]['fag_allow']);
 			$data[$i]['date_eat'] = setThaiDate($data[$i]['date_eat']);
-			$data[$i]['food_energy'] = number_format(($data[$i]['food_energy']/1000),2);
+			$data[$i]['food_energy'] = number_format(($data[$i]['food_energy'] / 1000), 2);
 			$data[$i]['datetime_delete'] = setThaiDate($data[$i]['datetime_delete']);
 			$data[$i]['datetime_add'] = setThaiDate($data[$i]['datetime_add']);
 			$data[$i]['datetime_update'] = setThaiDate($data[$i]['datetime_update']);
@@ -478,7 +484,7 @@ class Users_food_time extends CRUD_Controller
 	private function setFoodSourceSubject($value)
 	{
 		$subject = '';
-		switch($value){
+		switch ($value) {
 			case 'เมนูจากระบบ':
 				$subject = 'เมนูจากระบบ';
 				break;
@@ -495,7 +501,7 @@ class Users_food_time extends CRUD_Controller
 	private function setEatTimeSubject($value)
 	{
 		$subject = '';
-		switch($value){
+		switch ($value) {
 			case 'เช้า':
 				$subject = 'เช้า';
 				break;
@@ -515,7 +521,7 @@ class Users_food_time extends CRUD_Controller
 	private function setFagAllowSubject($value)
 	{
 		$subject = '';
-		switch($value){
+		switch ($value) {
 			case 'allow':
 				$subject = 'ปกติ';
 				break;
@@ -539,7 +545,7 @@ class Users_food_time extends CRUD_Controller
 		$pk1 = $data['foodt_id'];
 		$this->data['recode_url_encrypt_id'] = urlencode(encrypt($pk1));
 
-		if($pk1 != ''){
+		if ($pk1 != '') {
 			$pk1 = encrypt($pk1);
 		}
 		$this->data['encrypt_foodt_id'] = $pk1;
@@ -563,7 +569,7 @@ class Users_food_time extends CRUD_Controller
 		$this->data['record_eat_time'] = $data['eat_time'];
 		$this->data['record_date_eat'] = $data['date_eat'];
 		$this->data['record_food_id'] = $data['food_id'];
-		$this->data['record_food_energy'] = ($data['food_energy']/1000);
+		$this->data['record_food_energy'] = ($data['food_energy'] / 1000);
 		$this->data['record_user_delete'] = $data['user_delete'];
 		$this->data['record_datetime_delete'] = $data['datetime_delete'];
 		$this->data['record_user_add'] = $data['user_add'];
@@ -574,11 +580,10 @@ class Users_food_time extends CRUD_Controller
 		$this->data['record_fag_allow'] = $data['fag_allow'];
 
 		$this->data['record_date_eat'] = setThaiDate($data['date_eat']);
-		$this->data['record_food_energy'] = number_format(($data['food_energy']/1000),2);
+		$this->data['record_food_energy'] = number_format(($data['food_energy'] / 1000), 2);
 		$this->data['record_datetime_delete'] = setThaiDate($data['datetime_delete']);
 		$this->data['record_datetime_add'] = setThaiDate($data['datetime_add']);
 		$this->data['record_datetime_update'] = setThaiDate($data['datetime_update']);
-
 	}
 }
 /*---------------------------- END Controller Class --------------------------------*/

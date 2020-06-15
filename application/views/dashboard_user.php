@@ -12,6 +12,32 @@
 	}
 </style>
 <script>
+	$(function() {
+		$(".datepicker").datepicker({
+			dateFormat: 'yy-mm-dd',
+			maxDate: new Date(),
+
+			dayNamesMin: ["อา", "จ", "อ", "พ", "พฤ", "ศ", "ส"],
+			monthNamesShort: [
+				"มกราคม",
+				"กุมภาพันธ์",
+				"มีนาคม",
+				"เมษายน",
+				"พฤษภาคม",
+				"มิถุนายน",
+				"กรกฎาคม",
+				"สิงหาคม",
+				"กันยายน",
+				"ตุลาคม",
+				"พฤศจิกายน",
+				"ธันวาคม",
+			],
+			changeMonth: true,
+			changeYear: true,
+		});
+
+	});
+
 	var chart_labels = {
 		chart_labels
 	};
@@ -28,6 +54,188 @@
 	};
 	var chart_calo = JSON.parse('{chart_calo}');
 </script>
+<?php
+function getAge($date)
+{ // Y-m-d format
+	$now = explode("-", date('Y-m-d'));
+	$dob = explode("-", $date);
+	$dif = $now[0] - $dob[0];
+	if ($dob[1] > $now[1]) { // birthday month has not hit this year
+		$dif -= 1;
+	} elseif ($dob[1] == $now[1]) { // birthday month is this month, check day
+		if ($dob[2] > $now[2]) {
+			$dif -= 1;
+		} elseif ($dob[2] == $now[2]) { // Happy Birthday!
+			$dif = $dif . " Happy Birthday!";
+		};
+	};
+	return $dif;
+}
+function getDateC($value)
+{
+	$data = explode('/', $value);
+	$year  = $data[2] -  543;
+	return $year . '-' . $data[1] . '-' . $data[0];
+}
+
+if ($this->input->post('bmr_strdate')) {
+	$year = date("Y") + 543; #E
+	$strdate = getDateC($this->input->post('bmr_strdate'));
+	$enddate =  getDateC($this->input->post('bmr_enddate'));
+} else {
+	$year = date("Y") + 543;
+	$enddate = date("Y-m-d");
+	$strdate = date('Y-m-d', strtotime($enddate . "-5 days"));
+}
+
+
+$bmi = '';
+$bmr = '';
+
+function displayDates($date1, $date2, $format = 'Y-m-d')
+{
+	$dates = array();
+	$current = strtotime($date1);
+	$date2 = strtotime($date2);
+	$stepVal = '+1 day';
+	while ($current <= $date2) {
+		$dates[] = date($format, $current);
+		$current = strtotime($stepVal, $current);
+	}
+	return $dates;
+}
+
+$bmr_date_array = array();
+
+
+$period = displayDates($strdate, $enddate);
+foreach ($period as $key => $value) {
+	$date_array[$value] = 0;
+
+	$bmr_date_array[$value] = 0;
+}
+
+
+
+$user = rowArray($this->common_model->custom_query("select * from users where user_id={$this->session->userdata('user_id')} limit 1"));
+
+$user_flname = $user['user_fname'] . ' ' . $user['user_lname'];
+$user_height = $user['user_height'];
+$user_sex = $user['user_sex'];
+$age = getAge($user['date_of_birth']);
+$sql = "
+SELECT
+a.*
+,DATE(a.date_exam) as date
+FROM users_exam_weight as a
+WHERE
+(date_exam BETWEEN '$strdate 00:00:00' AND '$enddate 23:59:59') AND
+a.fag_allow='allow' AND a.user_id={$this->session->userdata('user_id')}
+GROUP BY date
+ORDER BY date ASC
+";
+
+
+
+$chartrows = $this->common_model->custom_query($sql);
+$bmr_last = 0;
+foreach ($chartrows as $key => $value) {
+
+	$bmi_val = $value['user_weight'] / ((floatval($user_height) / 100) * (floatval($user_height) / 100));
+	$bmr_val = 0;
+	$calo_val = 0;
+	if ($user_sex == 'ชาย') {
+		$bmr_val = 66 + (13.7 * $value['user_weight']) + (5 * $user_height) - (6.8 * $age);
+	} else if ($user_sex == 'หญิง') {
+		$bmr_val = 665 + (9.6 * $value['user_weight']) + (1.8 * $user_height) - (4.7 * $age);
+	}
+
+	#$bmi_date_array[$value['date']] = round($bmi_val);
+	$sum = $bmr_val;
+	$bmr_date_array[$value['date']] = $sum;
+	// echo '<pre>';
+	// print_r($chartrows);
+	// echo '</pre>';
+	// die();
+}
+
+$bmrcate = '';
+foreach ($bmr_date_array as $key => $value) {
+	if ($value == 0) {
+		$value = $bmr_last;
+	}
+	$set = date("d/m", strtotime($key)) . '/' . $year;
+	$bmrcate .= ",'" . $set . "'";
+	$bmr .= ',' . $value;
+	$bmr_last = $value;
+}
+
+/* ------------------------------------------------------------------------------------ */
+
+if ($this->input->post('bmi_strdate')) {
+	$year = date("Y") + 543;
+	$bmi_strdate = getDateC($this->input->post('bmi_strdate'));
+	$bmi_enddate =  getDateC($this->input->post('bmi_enddate'));
+} else {
+	$year = date("Y") + 543;
+	$bmi_enddate = date("Y-m-d");
+	$bmi_strdate = date('Y-m-d', strtotime($bmi_enddate . "-5 days"));
+}
+
+
+$bmi_date_array = array();
+$bmi_period = displayDates($bmi_strdate, $bmi_enddate);
+foreach ($bmi_period as $key => $value) {
+	$date_array[$value] = 0;
+	$bmi_date_array[$value] = 0;
+}
+
+
+$sql = "
+
+SELECT
+
+	DATE( a.date_eat ) AS date
+	,SUM(a.food_energy)/1000 as energy
+	,a.*
+FROM
+	users_food_time AS a
+WHERE
+	( date_eat BETWEEN '$bmi_strdate 00:00:00' AND '$bmi_enddate 23:59:59' )
+	AND a.fag_allow = 'allow'
+	AND a.user_id = {$this->session->userdata('user_id')}
+GROUP BY
+	date
+ORDER BY
+	date
+ ASC
+";
+// echo $sql;
+
+
+$bmi_data = $this->common_model->custom_query($sql);
+$year = date("Y") + 543;
+$bmicate = '';
+$bmi_last = '0';
+foreach ($bmi_data as $key => $value) {
+	$bmi_date_array[$value['date']] =   number_format($value['energy'], 2);
+}
+
+
+foreach ($bmi_date_array as $key => $value) {
+	if ($value == 0) {
+		$value = $bmi_last;
+	}
+
+	$set = date("d/m", strtotime($key)) . '/' . $year;
+	$bmicate .= ",'" . $set . "'";
+	$bmi .= ',' . str_replace(',', '', $value);
+	$bmi_last = $value;
+}
+
+
+
+?>
 <div class="container-fluid">
 	<br>
 	<div class="row">
@@ -144,8 +352,27 @@
 				<div class="card-body">
 					<div class="tab-content">
 						<div class="tab-pane active">
+
+
+							<div class="row">
+
+								<div class="col-12 text-center">
+									<form class="form-horizontal" method="post" action="dashboard_user">
+										{csrf_protection_field}
+
+										เรียกดูข้อมูล
+										<input type="text" name="bmr_strdate" class="text-center form-control datepicker" style="width: 150px; display:inline-block;" required value="<?php echo date('d/m', strtotime($strdate)) . '/' . $year; ?>">
+										ถึง
+										<input type="text=" name="bmr_enddate" class="text-center form-control datepicker" style="width: 150px; display:inline-block;" required value="<?php echo date('d/m', strtotime($enddate)) . '/' . $year; ?>">
+
+										<button class="btn btn-success btn-sm">เรียกดู</button>
+									</form>
+								</div>
+
+							</div>
+
 							<figure class="highcharts-figure">
-								<div style="height: 270px;" id="chartContainer1"></div>
+								<div style="height: 270px;" id="chartContainer2"></div>
 							</figure>
 						</div>
 					</div>
@@ -170,8 +397,24 @@
 				<div class="card-body">
 					<div class="tab-content">
 						<div class="tab-pane active">
+							<div class="row">
+
+								<div class="col-12 text-center">
+									<form class="form-horizontal" method="post" action="dashboard_user">
+										{csrf_protection_field}
+
+										เรียกดูข้อมูล
+										<input type="text" name="bmi_strdate" class="text-center form-control datepicker" style="width: 150px; display:inline-block;" required value="<?php echo date('d/m', strtotime($bmi_strdate)) . '/' . $year; ?>">
+										ถึง
+										<input type="text=" name="bmi_enddate" class="text-center form-control datepicker" style="width: 150px; display:inline-block;" required value="<?php echo date('d/m', strtotime($bmi_enddate)) . '/' . $year; ?>">
+
+										<button class="btn btn-success btn-sm">เรียกดู</button>
+									</form>
+								</div>
+
+							</div>
 							<figure class="highcharts-figure">
-								<div style="height: 270px;" id="chartContainer2"></div>
+								<div style="height: 270px;" id="chartContainer1"></div>
 							</figure>
 						</div>
 					</div>
@@ -187,106 +430,10 @@
 </div>
 
 
+
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
-<!-- <script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script> -->
 
-<?php
-function getAge($date)
-{ // Y-m-d format
-	$now = explode("-", date('Y-m-d'));
-	$dob = explode("-", $date);
-	$dif = $now[0] - $dob[0];
-	if ($dob[1] > $now[1]) { // birthday month has not hit this year
-		$dif -= 1;
-	} elseif ($dob[1] == $now[1]) { // birthday month is this month, check day
-		if ($dob[2] > $now[2]) {
-			$dif -= 1;
-		} elseif ($dob[2] == $now[2]) { // Happy Birthday!
-			$dif = $dif . " Happy Birthday!";
-		};
-	};
-	return $dif;
-}
-
-$enddate = date("Y-m-d");
-$strdate = date('Y-m-d', strtotime($enddate . "-5 days"));
-$bmi = '';
-$bmr = '';
-
-$bmi_date_array = array();
-$bmr_date_array = array();
-
-$period = new DatePeriod(
-	new DateTime($strdate),
-	new DateInterval('P1D'),
-	new DateTime($enddate)
-);
-foreach ($period as $key => $value) {
-	$date_array[$value->format('Y-m-d')] = 0;
-	$bmi_date_array[$value->format('Y-m-d')] = 0;
-	$bmr_date_array[$value->format('Y-m-d')] = 0;
-}
-
-
-$user = rowArray($this->common_model->custom_query("select * from users where user_id={$this->session->userdata('user_id')} limit 1"));
-
-$user_flname = $user['user_fname'] . ' ' . $user['user_lname'];
-$user_height = $user['user_height'];
-$user_sex = $user['user_sex'];
-$age = getAge($user['date_of_birth']);
-$sql = "
-SELECT
-a.*
-,DATE(a.date_exam) as date
-FROM users_exam_weight as a
-WHERE
-(date_exam BETWEEN '$strdate 00:00:00' AND '$enddate 23:59:59') AND
-a.fag_allow='allow' AND a.user_id={$this->session->userdata('user_id')}
-GROUP BY date
-ORDER BY date LIMIT 10
-";
-// echo $sql;
-
-$chartrows = $this->common_model->custom_query($sql);
-foreach ($chartrows as $key => $value) {
-
-	$bmi_val = $value['user_weight'] / ((floatval($user_height) / 100) * (floatval($user_height) / 100));
-	$bmr_val = 0;
-	$calo_val = 0;
-	if ($user_sex == 'ชาย') {
-		$bmr_val = 66 + (13.7 * $value['user_weight']) + (5 * $user_height) - (6.8 * $age);
-		//$calo_val = floatval($value['user_weight'])*31;
-	} else if ($user_sex == 'หญิง') {
-		$bmr_val = 665 + (9.6 * $value['user_weight']) + (1.8 * $user_height) - (4.7 * $age);
-		//$calo_val = floatval($value['user_weight'])*27;
-	}
-
-
-	$bmi_date_array[$value['date']] = round($bmi_val);
-
-	$sum = round($bmr_val / 1000);
-	$bmr_date_array[$value['date']] = $sum;
-	#echo $value['date'] . ' ' . $sum . '<br>';
-}
-$year = date("Y") + 543;
-$bmicate = '';
-foreach ($bmi_date_array as $key => $value) {
-	$set = date("d/m", strtotime($key)) . '/' . $year;
-	$bmicate .= ",'" . $set . "'";
-	$bmi .= ',' . $value;
-}
-
-$bmrcate = '';
-foreach ($bmr_date_array as $key => $value) {
-	$set = date("d/m", strtotime($key)) . '/' . $year;
-	$bmrcate .= ",'" . $set . "'";
-	$bmr .= ',' . $value;
-}
-
-?>
 <script>
 	Highcharts.chart('chartContainer1', {
 
@@ -379,7 +526,7 @@ foreach ($bmr_date_array as $key => $value) {
 
 		series: [{
 			name: 'User',
-			data: [<?php echo substr($bmr, 1); ?>]
+			data: [<?php echo substr($bmr, 1); ?>],
 		}],
 
 		responsive: {
@@ -394,6 +541,5 @@ foreach ($bmr_date_array as $key => $value) {
 				}
 			}]
 		}
-
 	});
 </script>

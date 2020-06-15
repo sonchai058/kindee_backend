@@ -210,7 +210,8 @@ class Self_food_menu extends CRUD_Controller
 		// die();
 		foreach ($rows as $key => $value) {
 			$rmat_name = mb_substr($value['rmat_name'], 0, 40, 'UTF-8');
-			$this->data['category_rmat_id_option_list'] = $this->data['category_rmat_id_option_list'] . "<option data-energy_val='{$value['energy_val']}' value='{$value['rmat_id']}'>{$rmat_name} - {$value['energy_val']}/กรัม</option>";
+			$cal_value = $value['energy_val']/100;
+			$this->data['category_rmat_id_option_list'] = $this->data['category_rmat_id_option_list'] . "<option data-energy_val='{$value['energy_val']}' value='{$value['rmat_id']}'>{$rmat_name} - {$cal_value}/กรัม</option>";
 		}
 
 		$this->data['count_record'] = 1;
@@ -349,7 +350,8 @@ class Self_food_menu extends CRUD_Controller
 					} else {
 						$tmp = rowArray($this->common_model->custom_query("select energy_val from raw_material where fag_allow!='delete' and rmat_id='{$post['rmat_id'][$key]}' order by rmat_id desc limit 1"));
 						$energy_amt_tmp = isset($tmp['energy_val']) ? $tmp['energy_val'] : 0;
-						$energy_amt += ($energy_amt_tmp * floatval($post['amount'][$key]));
+						$energy_amt_tmp_val = ($energy_amt_tmp / 100);
+						$energy_amt += ($energy_amt_tmp_val * floatval($post['amount'][$key]));
 						$id_new = $this->common_model->insert(
 							"self_food_menu_composition",
 							array(
@@ -419,7 +421,8 @@ class Self_food_menu extends CRUD_Controller
 				$rows = $this->common_model->custom_query("select * from raw_material where not exists ( SELECT * FROM outfood WHERE raw_material.rmat_id = outfood.rmat_id ) and fag_allow='allow' and energy_val!=0.00 and rmat_name!=''");
 				foreach ($rows as $key => $value) {
 					$rmat_name = mb_substr($value['rmat_name'], 0, 40, 'UTF-8');
-					$this->data['category_rmat_id_option_list'] = $this->data['category_rmat_id_option_list'] . "<option data-energy_val='{$value['energy_val']}' value='{$value['rmat_id']}'>{$rmat_name} - {$value['energy_val']}/กรัม</option>";
+					$cal_value = $value['energy_val'] / 100;
+					$this->data['category_rmat_id_option_list'] = $this->data['category_rmat_id_option_list'] . "<option data-energy_val='{$value['energy_val']}' value='{$value['rmat_id']}'>{$rmat_name} - {$cal_value}/กรัม</option>";
 				}
 
 				$this->data['category_cate_id_option_list'] = $this->Self_food_menu->returnOptionList("category", "cate_id", "cate_name");
@@ -500,7 +503,9 @@ class Self_food_menu extends CRUD_Controller
 					} else {
 						$tmp = rowArray($this->common_model->custom_query("select energy_val from raw_material where fag_allow!='delete' and rmat_id='{$post['rmat_id'][$key]}' order by rmat_id desc limit 1"));
 						$energy_amt_tmp = isset($tmp['energy_val']) ? $tmp['energy_val'] : 0;
-						$energy_amt += ($energy_amt_tmp * floatval($post['amount'][$key]));
+						$energy_amt_tmp_val = ($energy_amt_tmp / 100);
+						$energy_amt += ($energy_amt_tmp_val * floatval($post['amount'][$key]));
+
 						$id_new = $this->common_model->insert(
 							"self_food_menu_composition",
 							array(
@@ -597,7 +602,7 @@ class Self_food_menu extends CRUD_Controller
 			}
 			$data[$i]['encrypt_self_food_id'] = $pk1;
 			$data[$i]['preview_fag_allow'] = $this->setFagAllowSubject($data[$i]['fag_allow']);
-			$data[$i]['energy_amt'] = number_format(($data[$i]['energy_amt'] / 1000), 2);
+			$data[$i]['energy_amt'] = number_format(($data[$i]['energy_amt'] ), 2);
 			$data[$i]['datetime_delete'] = setThaiDate($data[$i]['datetime_delete']);
 			$data[$i]['datetime_add'] = setThaiDate($data[$i]['datetime_add']);
 			$data[$i]['datetime_update'] = setThaiDate($data[$i]['datetime_update']);
@@ -665,7 +670,7 @@ class Self_food_menu extends CRUD_Controller
 		$this->data['record_self_food_id'] = $data['self_food_id'];
 		$this->data['record_self_food_name'] = $data['self_food_name'];
 		$this->data['record_cate_id'] = $data['cate_id'];
-		$this->data['record_energy_amt'] = ($data['energy_amt'] / 1000);
+		$this->data['record_energy_amt'] = ($data['energy_amt'] );
 		$this->data['record_user_delete'] = $data['user_delete'];
 		$this->data['record_datetime_delete'] = $data['datetime_delete'];
 		$this->data['record_user_add'] = $data['user_add'];
@@ -693,7 +698,7 @@ class Self_food_menu extends CRUD_Controller
 		}
 		$this->data['count_record'] = count($rows);
 
-		$this->data['record_energy_amt'] = number_format(($data['energy_amt'] / 1000), 2);
+		$this->data['record_energy_amt'] = number_format(($data['energy_amt'] ), 2);
 		$this->data['record_datetime_delete'] = setThaiDate($data['datetime_delete']);
 		$this->data['record_datetime_add'] = setThaiDate($data['datetime_add']);
 		$this->data['record_datetime_update'] = setThaiDate($data['datetime_update']);
