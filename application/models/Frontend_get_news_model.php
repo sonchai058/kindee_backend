@@ -42,6 +42,7 @@ class Frontend_get_news_model extends MY_Model
 		$this->db->join('users AS users_1', "$this->my_table.user_delete = users_1.user_id", 'left');
 		$this->db->join('users AS users_2', "$this->my_table.user_add = users_2.user_id", 'left');
 		$this->db->join('users AS users_3', "$this->my_table.user_update = users_3.user_id", 'left');
+		$this->db->group_by($this->my_table.".blog_id");
 		$list_record = $this->list_record();
 		$data = array(
 			'list_data'	=> $list_record

@@ -9,19 +9,19 @@
 		<div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
 			<ul class="navbar-nav w-100 justify-content-center">
 				<li class="nav-item">
-					<a class="nav-link active" href="{base_url}frontend_page">Home</a>
+					<a class="nav-link active" href="{base_url}frontend_page">หน้าหลัก</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">News</a>
+					<a class="nav-link" href="#">ข่าวสาร</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Shops
+					<a class="nav-link" href="#shops">ร้านค้า
 					</a>
 				</li>
 				<?php if ($this->session->userdata('user_level') == 'admin') { ?>
 					<li class="nav-item <?php if ($this->uri->segment(1) == '' || $this->uri->segment(1) == 'dashboard') { ?>active<?php } ?>">
 						<a class="nav-link" href="{site_url}">
-							members
+							สมาชิก
 						</a>
 					</li>
 				<?php
@@ -30,7 +30,7 @@
 				<?php if ($this->session->userdata('user_level') == 'user' || $this->session->userdata('user_level') == 'super_user') { ?>
 					<li class="nav-item<?php if ($this->uri->segment(1) == 'dashboard_user') { ?>active<?php } ?>">
 						<a class="nav-link" href="{site_url}dashboard_user">
-							members
+							สมาชิก
 						</a>
 					</li>
 				<?php
@@ -39,7 +39,7 @@
 				<?php if ($this->session->userdata('user_level') == 'shop') { ?>
 					<li class="nav-item <?php if ($this->uri->segment(1) == 'dashboard_res') { ?>active<?php } ?>">
 						<a class="nav-link" href="{site_url}dashboard_res">
-							members
+							สมาชิก
 						</a>
 					</li>
 				<?php
@@ -48,7 +48,7 @@
 				<?php if ($this->session->userdata('user_level') == 'nutritionist') { ?>
 					<li class="nav-item <?php if ($this->uri->segment(1) == '' || $this->uri->segment(1) == 'dashboard') { ?>active<?php } ?>">
 						<a class="nav-link" href="{site_url}">
-							members
+							สมาชิก
 						</a>
 					</li>
 				<?php
@@ -56,7 +56,7 @@
 				?>
 				<?php if ($this->session->userdata('user_level') == '') { ?>
 				<li class="nav-item">
-					<a class="nav-link" href="{base_url}user_login">members</a>
+					<a class="nav-link" href="{base_url}user_login">สมาชิก</a>
 				</li>
 				<?php
 				}

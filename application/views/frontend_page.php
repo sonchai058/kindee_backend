@@ -80,14 +80,14 @@
 					<div class="col-md-6">
 						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url({base_url}/assets/images/frontend/news_food.jpg);">
 							<div class="text px-3 py-1">
-								<h2 class="mb-0"><a href="#">News</a></h2>
+								<h2 class="mb-0"><a href="#">ข่าวสาร</a></h2>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url({base_url}/assets/images/frontend/shop_foog.jpg);">
 							<div class="text px-3 py-1">
-								<h2 class="mb-0"><a href="#">Shop</a></h2>
+								<h2 class="mb-0"><a href="#">ร้านค้า</a></h2>
 							</div>
 						</div>
 					</div>
@@ -172,7 +172,7 @@
 	<div class="container">
 		<div class="row justify-content-center mb-3 pb-3">
 			<div class="col-md-12 heading-section text-left ftco-animate">
-				<h2 class="mb-4">News</h2>
+				<h2 class="mb-4">ข่าวสาร</h2>
 			</div>
 		</div>
 	</div>
@@ -188,7 +188,7 @@
 							<span class="price-sale">{blog_name_title}</span>
 						</p>
 						<h3><a href="#">Bell Pepper</a></h3>
-						<p>รายละเอียด: ................</p>
+						<p class="blog_detail">รายละเอียด: {blog_detail}</p>
 					</div>
 				</div>
 			</div>
@@ -196,11 +196,11 @@
 	</div>
 </section>
 
-<section class="ftco-section">
+<section class="ftco-section" id="shops">
 	<div class="container">
 		<div class="row justify-content-center mb-3 pb-3">
 			<div class="col-md-12 heading-section text-left ftco-animate">
-				<h2 class="mb-4">Shops</h2>
+				<h2 class="mb-4">ร้านค้า</h2>
 			</div>
 		</div>
 	</div>
@@ -216,10 +216,20 @@
 							<span class="price-sale">{shop_name_th}</span>
 						</p>
 						<h3 style="color: #000;">{shop_name_en}</h3>
+						<p>ที่อยู่ : {addr}</p>
 						<p>Tel : {mobile_no}</p>
+
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
+<style>
+.blog_detail{
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+}
+</style>
