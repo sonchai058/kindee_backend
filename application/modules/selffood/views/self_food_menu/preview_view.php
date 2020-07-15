@@ -12,7 +12,7 @@
 		<div class="col-md-12">
 
 			<div class="card">
-			<div class="card-header card-header-success card-header-text">
+				<div class="card-header card-header-success card-header-text">
 					<div class="card-icon">
 						<i class="material-icons">list</i>
 					</div>
@@ -44,6 +44,10 @@
 								<tr>
 									<td class="text-right fit"><b>ส่วนประกอบ :</b></td>
 									<td>{record_seft_comp}</td>
+								</tr>
+								<tr>
+									<td class="text-right fit"><b>เกลือ :</b></td>
+									<td>{record_sodium_val}</td>
 								</tr>
 								<tr>
 									<td class="text-right fit"><b>พลังงาน (K) :</b></td>
