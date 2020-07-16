@@ -471,10 +471,12 @@ class Users_food_time extends CRUD_Controller
 			$data[$i]['preview_fag_allow'] = $this->setFagAllowSubject($data[$i]['fag_allow']);
 			$data[$i]['date_eat'] = setThaiDate($data[$i]['date_eat']);
 			$data[$i]['food_energy'] = number_format(($data[$i]['food_energy'] / 1000), 2);
+			$data[$i]['sodium_val'] = number_format(($data[$i]['sodium_val']), 2);
 			$data[$i]['datetime_delete'] = setThaiDate($data[$i]['datetime_delete']);
 			$data[$i]['datetime_add'] = setThaiDate($data[$i]['datetime_add']);
 			$data[$i]['datetime_update'] = setThaiDate($data[$i]['datetime_update']);
 		}
+
 		return $data;
 	}
 
@@ -556,10 +558,15 @@ class Users_food_time extends CRUD_Controller
 
 
 		$titleRow = $this->Users_food_time->getRowOf('self_food_menu', 'self_food_name, energy_amt', "self_food_id = '$data[food_id]'", $this->db);
+		$sodium_val = $this->Users_food_time->getRowOf('self_food_menu  as a LEFT JOIN self_food_menu_composition AS b ON a.self_food_id = b.self_food_id LEFT JOIN raw_material AS c ON b.rmat_id = c.rmat_id', 'a.energy_amt As energy_amt,b.self_food_id AS self_food_id,c.sodium_val AS sodium_val', "a.self_food_id = '$data[food_id]'", $this->db);
 		$foodIdSelfFoodName = $titleRow['self_food_name'];
 		$foodIdEnergyAmt = $titleRow['energy_amt'];
+		$foodSodium = $sodium_val['sodium_val'];
+
 		$this->data['foodIdSelfFoodName'] = $foodIdSelfFoodName;
 		$this->data['foodIdEnergyAmt'] = $foodIdEnergyAmt;
+
+		$this->data['record_sodium_val'] = $foodSodium;
 
 		$this->data['record_foodt_id'] = $data['foodt_id'];
 		$this->data['record_user_id'] = $data['user_id'];

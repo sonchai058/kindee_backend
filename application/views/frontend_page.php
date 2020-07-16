@@ -6,7 +6,7 @@
 				<div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
 					<div class="col-md-12 ftco-animate text-center">
 						<h1 class="mb-2">{blog_name}</h1>
-						<p><a href="#" class="btn btn-primary">View Details</a></p>
+						<!-- <p><a href="#" class="btn btn-primary">View Details</a></p> -->
 					</div>
 
 				</div>
@@ -226,10 +226,10 @@
 	</div>
 </section>
 <style>
-.blog_detail{
-	overflow: hidden;
-	display: -webkit-box;
-	-webkit-line-clamp: 3;
-	-webkit-box-orient: vertical;
-}
+	.blog_detail {
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+	}
 </style>

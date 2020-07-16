@@ -9,13 +9,13 @@
 		<div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
 			<ul class="navbar-nav w-100 justify-content-center">
 				<li class="nav-item">
-					<a class="nav-link active" href="{base_url}frontend_page">หน้าหลัก</a>
+					<a class="nav-link <?php if ($this->uri->segment(1) == 'frontend_page' && $this->uri->segment(2) == '') { ?>active<?php } ?>" href="{base_url}frontend_page">หน้าหลัก</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">ข่าวสาร</a>
+					<a class="nav-link <?php if ($this->uri->segment(2) == 'news_page') { ?>active<?php } ?>" href="{base_url}frontend_page/news_page">ข่าวสาร</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#shops">ร้านค้า
+					<a class="nav-link <?php if ($this->uri->segment(2) == 'shops_page') { ?>active<?php } ?>" href="{base_url}frontend_page/shops_page">ร้านค้า
 					</a>
 				</li>
 				<?php if ($this->session->userdata('user_level') == 'admin') { ?>
@@ -55,9 +55,9 @@
 				}
 				?>
 				<?php if ($this->session->userdata('user_level') == '') { ?>
-				<li class="nav-item">
-					<a class="nav-link" href="{base_url}user_login">สมาชิก</a>
-				</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{base_url}user_login">สมาชิก</a>
+					</li>
 				<?php
 				}
 				?>

@@ -65,7 +65,7 @@ class Users_food_time_model extends MY_Model
 		$search_field 	= $this->session->userdata($this->session_name . '_search_field');
 		$value 	= $this->session->userdata($this->session_name . '_value');
 		$value 	= trim($value);
-		
+
 		$where	= '';
 		$order_by	= '';
 		if($this->order_field != ''){
@@ -73,31 +73,31 @@ class Users_food_time_model extends MY_Model
 			$order_sort = $this->order_sort;
 			$order_by	= " $this->my_table.$order_field $order_sort";
 		}
-		
+
 		if($search_field != '' && $value != ''){
 			$search_method_field = "$this->my_table.$search_field";
 			$search_method_value = '';
 			if($search_field == 'user_id'){
 				$search_method_field = "users_1.user_fname";
-				$search_method_value = "LIKE '%$value%'";				
+				$search_method_value = "LIKE '%$value%'";
 			}
 			if($search_field == 'food_source'){
-				$search_method_value = "LIKE '%$value%'";				
+				$search_method_value = "LIKE '%$value%'";
 			}
 			if($search_field == 'eat_time'){
-				$search_method_value = "LIKE '%$value%'";				
+				$search_method_value = "LIKE '%$value%'";
 			}
 			if($search_field == 'food_id'){
 				$search_method_field = "CONCAT_WS(' ', self_food_menu_2.self_food_name, self_food_menu_2.energy_amt)";
-				$search_method_value = "LIKE '%$value%'";				
+				$search_method_value = "LIKE '%$value%'";
 			}
 			if($search_field == 'datetime_update'){
-				$search_method_value = "LIKE '%$value%'";				
+				$search_method_value = "LIKE '%$value%'";
 			}
 			if($search_field == 'fag_allow'){
-				$search_method_value = "LIKE '%$value%'";				
+				$search_method_value = "LIKE '%$value%'";
 			}
-			$where	.= ($where != '' ? ' AND ' : '') . " $search_method_field $search_method_value "; 
+			$where	.= ($where != '' ? ' AND ' : '') . " $search_method_field $search_method_value ";
 			if($order_by == ''){
 				$order_by	= " $this->my_table.$search_field";
 			}
@@ -118,13 +118,15 @@ class Users_food_time_model extends MY_Model
 		$this->set_limit($limit);
 		$this->db->select("$this->my_table.*, users_1.user_fname AS userIdUserFname
 				, self_food_menu_2.self_food_name AS foodIdSelfFoodName, self_food_menu_2.energy_amt AS foodIdEnergyAmt
+				, c.sodium_val AS sodium_val
 				");
 		$this->db->join('users AS users_1', "$this->my_table.user_id = users_1.user_id", 'left');
 		$this->db->join('self_food_menu AS self_food_menu_2', "$this->my_table.food_id = self_food_menu_2.self_food_id", 'left');
+		$this->db->join('raw_material AS c', "$this->my_table.food_id = c.rmat_id", 'left');
 
 		$list_record = $this->list_record();
 		$data = array(
-				'total_row'	=> $total_row, 
+				'total_row'	=> $total_row,
 				'search_row'	=> $search_row,
 				'list_data'	=> $list_record
 		);

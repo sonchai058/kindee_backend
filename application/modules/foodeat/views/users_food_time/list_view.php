@@ -76,6 +76,7 @@
 									<th class="text-center">มื้ออาหาร</th>
 									<th class="text-center">เมนูอาหาร</th>
 									<th class="text-center">พลังงาน (K)</th>
+									<th class="text-center">เกลือ</th>
 									<th class="text-center" style="width:200px">เครื่องมือ</th>
 								</tr>
 							</thead>
@@ -87,6 +88,7 @@
 									<td>{preview_eat_time}</td>
 									<td>{foodIdSelfFoodName}</td>
 									<td style="text-align:center;">{food_energy}</td>
+									<td style="text-align:center;">{sodium_val}</td>
 									<td class="td-actions text-center">
 										<a href="{page_url}/preview/{url_encrypt_id}" class="my-tooltip btn btn-warning btn-md" data-toggle="tooltip" title="แสดงข้อมูลรายละเอียด">
 											<i class="material-icons">list</i>

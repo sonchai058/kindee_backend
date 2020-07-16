@@ -73,6 +73,43 @@ class Frontend_page extends CI_Controller
 		// die();
 	}
 
+	public function news_page()
+	{
+		$start_row = 0;
+		$results_news = $this->Frontend_news->read($start_row);
+		$list_data_news = $this->setDataListFormat($results_news['list_data'], $start_row);
+		$this->data['data_list_get_news'] = $list_data_news;
+		$this->data['data_news_list'] = $list_data_news;
+
+		// $results_shops = $this->Frontend_shops->read($start_row);
+		// $list_data_shops = $results_shops['list_data'];
+		// $this->data['data_list_shops'] = $list_data_shops;
+
+		$this->render_view('news_page');
+		// die(print_r($this->data['data_list_shops']));
+		// print_r($this->db->last_query());
+		// die();
+	}
+
+	public function shops_page()
+	{
+		$start_row = 0;
+		$results_news = $this->Frontend_news->read($start_row);
+		$list_data_news = $this->setDataListFormat($results_news['list_data'], $start_row);
+		$this->data['data_list_get_news'] = $list_data_news;
+		$this->data['data_news_list'] = $list_data_news;
+
+		$results_shops = $this->Frontend_shops->read($start_row);
+		$list_data_shops = $results_shops['list_data'];
+		$this->data['data_list_shops'] = $list_data_shops;
+
+		$this->render_view('shops_page');
+		// die(print_r($this->data['data_list_shops']));
+		// print_r($this->db->last_query());
+		// die();
+	}
+
+
 	private function setDataListFormat($lists_data, $start_row = 0)
 	{
 		$data = $lists_data;
