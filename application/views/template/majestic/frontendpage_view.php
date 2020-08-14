@@ -77,82 +77,25 @@
 						<h2 class="ftco-heading-2">CONTACTS</h2>
 						<ul class="list-unstyled">
 							<li>
-								<h2 class="ftco-heading-2"><i class="fa fa-globe" aria-hidden="true"></i> 13/5 Moo.9 tumbon saimoon amphur saimoon chiang mai 50130 </h2>
+								<h2 class="ftco-heading-2">
+									<i class="fa fa-globe" aria-hidden="true"></i> บริษัท อินโน สตอรี่ย์ส์ จำกัด
+									85/113 หมู่ที่ 6 ต.ศาลายา อ.พุทธมณฑล จ.นครปฐม 73170
 							</li>
 							<br>
 							<li>
-								<h2 class="ftco-heading-2"><i class="ion-ios-mail"></i> abc@gmail.com</h2>
+								<h2 class="ftco-heading-2"><i class="ion-ios-mail"></i> salsinnostories@gmail.com</h2>
 							</li>
 							<br>
 							<li>
-								<h2 class="ftco-heading-2"><i class="icon-phone-square"></i> 1(234) 567-9842</h2>
+								<h2 class="ftco-heading-2"><i class="icon-phone-square"></i>Tel : +66 2496 8667, <br/>Tax ID : 0735560001175</h2>
 							</li>
 							<br>
 						</ul>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="ftco-footer-widget mb-4 ml-md-5">
-						<h2 class="ftco-heading-2">FACEBOOK BOX</h2>
-						<div class="fb-page" data-href="https://www.facebook.com/facebook" data-width="340" data-hide-cover="false" data-show-facepile="true"></div>
 					</div>
 				</div>
 				<div class="col-md-4" style="margin-top: 7px;">
 					<div class="ftco-footer-widget mb-4">
 						<div id="map" style="width:100%;height:300px;"></div>
-					</div>
-				</div>
-			</div>
-			<div class="row mb-5">
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">EXTRAS</h2>
-						<hr class="hr-color">
-						<ul class="list-unstyled">
-							<li><a href="#" class="py-2 d-block">BRANDS</a></li>
-							<li><a href="#" class="py-2 d-block">GIFT VOUCHERS</a></li>
-							<li><a href="#" class="py-2 d-block">ATTENTIONS</a></li>
-							<li><a href="#" class="py-2 d-block">SPECIALS</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4 ml-md-5">
-						<h2 class="ftco-heading-2">INFORMATION</h2>
-						<hr class="hr-color">
-						<ul class="list-unstyled">
-							<li><a href="#" class="py-2 d-block">ABOUT</a></li>
-							<li><a href="#" class="py-2 d-block">DELIVERY</a></li>
-							<li><a href="#" class="py-2 d-block">PRIVACY POLICY</a></li>
-							<li><a href="#" class="py-2 d-block">TERMS & CONDITIONS</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">MY ACCOUNT</h2>
-						<hr class="hr-color">
-						<div class="d-flex">
-							<ul class="list-unstyled mr-l-5 pr-l-3 mr-4">
-								<li><a href="#" class="py-2 d-block">MY ACCOUNTS</a></li>
-								<li><a href="#" class="py-2 d-block">ORDER HISTORY</a></li>
-								<li><a href="#" class="py-2 d-block">WISH LIST</a></li>
-								<li><a href="#" class="py-2 d-block">NEWSLETTER</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="col-md">
-					<div class="ftco-footer-widget mb-4">
-						<h2 class="ftco-heading-2">CUSTOMER SERVICE</h2>
-						<hr class="hr-color">
-						<div class="block-23 mb-3">
-							<ul class="list-unstyled">
-								<li><a href="#" class="py-2 d-block">CONTACT US</a></li>
-								<li><a href="#" class="py-2 d-block">ATRACTIONS</a></li>
-								<li><a href="#" class="py-2 d-block">SITE MAP</a></li>
-							</ul>
-						</div>
 					</div>
 				</div>
 			</div>

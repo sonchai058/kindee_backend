@@ -29,14 +29,12 @@
 	</div>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6 col-lg-3" parser-repeat="[data_news_list]">
+			<div class="col-md-12 col-lg-12">
 				<div class="product">
-					<a href="{base_url}frontend_page/news_detail_page/{blog_id}" class="img-prod"><img class="img-fluid" src="{base_url}{encrypt_name}" alt="Colorlib Template">
-						<div class="overlay"></div>
-					</a>
+					<div align="center" ><img  src="{base_url}{encrypt_name}" width="500" alt="Colorlib Template"></div>
 					<div class="text py-3 pb-4 px-3 text-left">
 						<p class="price">
-							<a href="{base_url}frontend_page/news_detail_page/{blog_id}">
+							<a href="{base_url}news_detail_page/{blog_id}">
 							<span class="price-sale">{blog_name_title}</span>
 							</a>
 						</p>
@@ -80,9 +78,5 @@
 </section> -->
 <style>
 	.blog_detail {
-		overflow: hidden;
-		display: -webkit-box;
-		-webkit-line-clamp: 3;
-		-webkit-box-orient: vertical;
 	}
 </style>
