@@ -1,22 +1,23 @@
 <script>
-	var num = {
-		count_image
-	};
 	var data_id = {
 		data_id
 	};
 	var state = 'add';
+	var date_set = "<?php echo date('d/m') . '/' . (date("Y") + 543); ?>";
 </script>
+
 
 <!-- [ View File name : add_view.php ] -->
 <div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12">
+	<div class="row" style="justify-content: center;">
+		<div class="col-md-10">
 			<div class="card">
-				<div class="card-header card-header-success card-header-text">
-					<div class="card-icon">
-						<i class="material-icons">note_add</i>
+				<div class="card-header" style="color: black; padding: 3%;">
+					<div class="brand-logo" style="padding-bottom: 10px;">
+						<img src="{base_url}/assets/images/info.kindee.kindee.png" alt="logo" style="width: 100px;">
 					</div>
+					<h4 style="font-weight: bold;">ลงทะเบียนร้านค้า</h4>
+					<h6 class="font-weight-light">(สำหรับผู้ใช้งานใหม่)</h6>
 				</div>
 				<div class="card-body">
 					<form class="form-horizontal" id="formAdd" accept-charset="utf-8">
@@ -51,7 +52,7 @@
 										<div class="hold input-group">
 											<span class="btn-file"> คลิกเพื่อแนบไฟล์
 												<input type="file" id="shop_photo" name="shop_photo" data-elem-preview="shop_photo_preview" data-elem-label="shop_photo_label" />
-											</span><input class="form-control" id="shop_photo_label" name="shop_photo_label" placeholder="กรุณาเลือกไฟล์ที่ต้องการอัพโหลด" readonly="readonly" value="{record_shop_photo_label}" />
+											</span><input class="form-control" id="shop_photo_label" name="shop_photo_label" placeholder=" กรุณาเลือกไฟล์ที่ต้องการอัพโหลด" readonly="readonly" value="{record_shop_photo_label}" />
 										</div>
 									</div>
 									{preview_shop_photo}
@@ -64,7 +65,7 @@
 										<div class="hold input-group">
 											<span class="btn-file"> คลิกเพื่อแนบไฟล์
 												<input type="file" id="shop_cover" name="shop_cover" data-elem-preview="shop_cover_preview" data-elem-label="shop_cover_label" />
-											</span><input class="form-control" id="shop_cover_label" name="shop_cover_label" placeholder="กรุณาเลือกไฟล์ที่ต้องการอัพโหลด" readonly="readonly" value="{record_shop_cover_label}" />
+											</span><input class="form-control" id="shop_cover_label" name="shop_cover_label" placeholder=" กรุณาเลือกไฟล์ที่ต้องการอัพโหลด" readonly="readonly" value="{record_shop_cover_label}" />
 										</div>
 									</div>
 									{preview_shop_cover}
@@ -82,7 +83,7 @@
 								<div class="form-group col-md-4 ">
 									<label class="control-label" for="email_addr">อีเมล :</label>
 									<div class="form-group has-success">
-										<input type="text" class="form-control" id="email_addr" name="email_addr" value=""  />
+										<input type="text" class="form-control" id="email_addr" name="email_addr" value="" />
 									</div>
 								</div>
 								<div class="form-group col-md-4 ">
@@ -100,7 +101,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="form-row justify-content-between">
+							<div class="form-row justify-content">
 								<div class="form-group col-md-4 ">
 									<label class="control-label" for="point_lat">พิกัด ละติจูด :</label>
 									<div class="form-group has-success">
@@ -113,17 +114,8 @@
 										<input type="number" step="0.01" class="form-control " id="point_long" name="point_long" value="" />
 									</div>
 								</div>
-								<div class="form-group col-md-4 ">
-									<label class="control-label" for="shop_user">ชื่อผู้ดูแล :</label>
-									<div class="form-group has-success">
-										<select id="shop_user" name="shop_user" value="" disabled="true">
-											<option value="">- เลือก ชื่อผู้ดูแล -</option>
-											{users_shop_user_option_list}
-										</select>
-									</div>
-								</div>
 							</div>
-							<h5>พิกัดร้าน :</h5>
+							<label class="control-label" style="color:#868787; font-weight: bold;">พิกัดร้าน :</label>
 							<div class="row">
 								<div class="col-sm-12 col-md-12">
 									<input style="background-color: white;width: 500px !important; margin-top: 10px;" id="searchInput" name="searchInput" class="form-control controls " type="text" placeholder="ค้นหาตำแหน่ง" onclick="$(this).select()">
@@ -134,37 +126,20 @@
 								</div>
 							</div>
 							<br />
-							<div class="form-row ustify-content-between">
-								<div class="form-group col-md-12 ">
-									<label class="control-label" for="blog_name">รูปภาพ :</label>
-									<div class="form-group has-success">
-										<button onclick="$('#pro-image').click()" type="button" id="" class="btn btn-warning btn-md" data-toggle="modal" data-target="">
-											&nbsp;&nbsp;<i class="fa fa-upload"></i> &nbsp;อัปโหลดรูป &nbsp;&nbsp;
-										</button>
-										<input accept="image/*" type="file" id="pro-image" name="pro-image[]" style="display: none;" class="form-control" multiple>
-									</div>
-								</div>
-							</div>
-							<div class="form-row ustify-content-between">
-								<div class="form-group col-md-12 ">
-									<label class="control-label"</label>
-									<div class="form-group has-success">
-										<div class="preview-images-zone" id="uploadContent">
-
-										</div>
-									</div>
-								</div>
-							</div>
-
 						</div>
+
 						<div class="form-group">
-								<div class="col-sm-12 text-right">
-									<input type="hidden" id="add_encrypt_id" />
-									<button type="button" id="btnConfirmSave" class="btn btn-success" data-toggle="modal" data-target="#addModal">
+							<div class="col-sm-12 text-right">
+								<input type="hidden" id="add_encrypt_id" />
+								<button onclick="window.location.href='{base_url}user_login'" type="button" class="btn btn-warning">
+									&nbsp;&nbsp;<i class="fa fa-times"></i> &nbsp;ยกเลิก &nbsp;&nbsp;
+								</button>
+
+								<button type="button" id="btnConfirmSave" class="btn btn-success" data-toggle="modal" data-target="#addModal">
 									&nbsp;&nbsp;<i class="fa fa-save"></i> &nbsp;บันทึก &nbsp;&nbsp;
-									</button>
-								</div>
+								</button>
 							</div>
+						</div>
 					</form>
 				</div>
 				<!--panel-body-->
@@ -173,43 +148,24 @@
 		</div>
 		<!--contrainer-->
 	</div>
+	<!--contrainer-->
 </div>
-
 <!-- Modal Confirm Save -->
-
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="addModalLabel">บันทึกข้อมูล</h4>
+				<h4 class="modal-title" id="addModalLabel">ลงทะเบียนผู้ใช้งาน</h4>
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<p class="alert alert-warning">ยืนยันการบันทึกข้อมูล ?</p>
+				<p class="alert alert-warning">ยืนยันการลงทะเบียน ?</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-warning"  data-dismiss="modal">&nbsp;ปิด&nbsp;</button>&emsp;
-				<button type="button" class="btn btn-success" id="btnSave">&nbsp;บันทึก&nbsp;</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal">&nbsp;&nbsp;<i class="fa fa-times"></i> &nbsp;ยกเลิก &nbsp;&nbsp;
+				</button>&emsp;
+				<button type="button" class="btn btn-success" id="btnSave">&nbsp;&nbsp;<i class="fa fa-save"></i> &nbsp;ยืนยัน &nbsp;&nbsp;</button>
 			</div>
-		</div>
-	</div>
-</div>
-
-<!-- Creates the bootstrap modal where the image will appear -->
-<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<!-- <h4 class="modal-title" id="myModalLabel">Image preview</h4>-->
-			</div>
-			<div class="modal-body text-center">
-				<img src="" id="imagepreview" style="max-height: 400px;">
-			</div>
-			<!--
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>-->
 		</div>
 	</div>
 </div>
@@ -304,7 +260,7 @@
 			marker.setVisible(false);
 			var place = autocomplete.getPlace();
 			if (!place.geometry) {
-				window.alert("Autocomplete's returned place contains no geometry");
+				window.alert("กรุณาระบุ ตำแหน่งในถูกต้อง");
 				return;
 			}
 

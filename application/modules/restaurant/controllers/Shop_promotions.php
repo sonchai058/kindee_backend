@@ -155,7 +155,7 @@ class Shop_promotions extends CRUD_Controller
 
 			$this->data['rows'] = json_encode($rows);
 			$this->data['results'] = $tmp_data . "</div></div>";
-			$this->data['other'] = $other_data;
+			@$this->data['other'] = $other_data;
 			$this->data['csrf_field'] = insert_csrf_field(true);
 			$this->render_view('restaurant/shop_promotions/promotions');
 		}

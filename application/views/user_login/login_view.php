@@ -40,7 +40,7 @@
 									<br />
 								</div>
 								<div class="col-md-6">
-									<button type="button" onclick="window.location.href='{base_url}register/shop_page'" class="btn btn-block btn-secondary btn-sm font-weight-medium auth-form-btn" id="btn_sign_up_shop">SIGN UP SHOP</button>
+									<button type="button" onclick="window.location.href='{base_url}register/registershops/shop_add'" class="btn btn-block btn-secondary btn-sm font-weight-medium auth-form-btn" id="btn_sign_up_shop">SIGN UP SHOP</button>
 								</div>
 							</div>
 						</form>
