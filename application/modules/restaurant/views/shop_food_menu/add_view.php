@@ -37,6 +37,15 @@
 									</div>
 								</div>
 								<div class="form-group col-md-4 ">
+									<label class="control-label" for="cate_id">หมวดหมู่ :</label><br/>
+									<div class="form-group has-success">
+									<select  id="type_id" name="type_id" value="{record_type_id}" >
+										<option value="">- เลือก หมวดหมู่อาหาร -</option>
+										{category_type_id_option_list}
+									</select>
+									</div>
+								</div>
+								<div class="form-group col-md-4 ">
 									<label class="control-label" for="fag_allow">ราคา  :</label>
 									<div class="form-group has-success">
 									<input type="number" step="0.01" class="form-control " id="price_amt" name="price_amt" value="0"  />

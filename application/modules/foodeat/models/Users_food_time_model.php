@@ -133,6 +133,54 @@ class Users_food_time_model extends MY_Model
 		return $data;
 	}
 
+	public function allergy($food_id){
+			$user_id = $this->session->userdata('user_id');
+
+			$this->db->select('food_allergy.alg_name');
+			$this->db->from('users_result_exam_food_allergy');
+			$this->db->join('food_allergy', "food_allergy.alg_id = users_result_exam_food_allergy.alg_id", 'left');
+			$this->db->where("users_result_exam_food_allergy.user_id='".$user_id."' ");
+			$query = $this->db->get();
+			//$last_query = $this->db->last_query();
+			$food_allergy = '';
+			$where_food_allergy = '';
+			$where_food_allergy .= "self_food_menu.self_food_id='".$food_id."'";
+			$where_food_allergy .= " and (";
+			$intRow = 0;
+			foreach ($query->result() as $allergy) {
+				//$food_allergy .= $allergy->alg_name.'%';
+				$intRow++;
+				if($intRow>1){
+					$where_food_allergy .= " or ";
+				}else{
+					$where_food_allergy .= " ";
+				}
+				$where_food_allergy .= " raw_material.rmat_name like('".$allergy->alg_name."%') ";
+			}
+			$where_food_allergy .= ")";
+
+			$this->db->select('raw_material.rmat_name');
+			$this->db->from('self_food_menu');
+			$this->db->join('self_food_menu_composition', "self_food_menu_composition.self_food_id = self_food_menu.self_food_id", 'left');
+			$this->db->join('raw_material', "raw_material.rmat_id = self_food_menu_composition.rmat_id", 'left');
+			$this->db->where($where_food_allergy);
+			$this->db->group_by('raw_material.rmat_id');
+			$query_rmat = $this->db->get();
+			$last_query = $this->db->last_query();
+			$material_name = '';
+			$intNum = 0;
+			foreach ($query_rmat->result() as $allergy_rmat) {
+				//$row = $query->row();
+				$intNum++;
+				$material_name .= $intNum.'. '.$allergy_rmat->rmat_name.'<br/>';
+			}
+			$data = array(
+					'food_name'	=> $material_name
+					//'food_name'	=> $row->self_food_name
+			);
+			return $data;
+	}
+
 	public function update($post)
 	{
 		$data = array(

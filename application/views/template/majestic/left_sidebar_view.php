@@ -78,13 +78,14 @@ if ($this->session->userdata('user_level') == 'super_user') {
 						<p>จัดการข้อมูลส่วนตัว</p>
 					</a>
 				</li>
-
+				<?php if($this->session->userdata('user_status') == 1){ ?>
 				<li class="nav-item <?php if ($this->uri->segment(2) == 'users_result_exam_chemical') { ?>active<?php } ?>">
 					<a class="nav-link" href="{site_url}exam/users_result_exam_chemical">
 						<i class="material-icons">content_paste</i>
 						<p>ผลตรวจสุขภาพทางทางชีวเคมี</p>
 					</a>
 				</li>
+
 
 				<li class="nav-item <?php if ($this->uri->segment(2) == 'users_result_exam_food_allergy') { ?>active<?php } ?>">
 					<a class="nav-link" href="{site_url}exam/users_result_exam_food_allergy">
@@ -106,6 +107,7 @@ if ($this->session->userdata('user_level') == 'super_user') {
 						<p>ข้อมูลยาที่ทานประจำ</p>
 					</a>
 				</li>
+				<?php } ?>
 
 				<li class="nav-item <?php if ($this->uri->segment(1) == 'foodeat' && $this->uri->segment(2) == 'users_food_time') { ?>active<?php } ?>">
 					<a class="nav-link" href="{site_url}foodeat/users_food_time">

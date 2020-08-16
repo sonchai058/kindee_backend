@@ -189,6 +189,15 @@
 											</select>
 										</div>
 									</div>
+									<div class="form-group col-md-4 ">
+										<label class="control-label" for="user_level">ระดับผู้ใช้งาน :</label>
+										<div class="form-group has-success">
+											<select id="user_status" name="user_status" value="{record_user_status}">
+												<option value="0">Free Version</option>
+												<option value="1">On Version</option>
+											</select>
+										</div>
+									</div>
 								</div>
 								<br />
 							<?php

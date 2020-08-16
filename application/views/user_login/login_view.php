@@ -15,7 +15,7 @@
               <div class="brand-logo">
                 <img src="{base_url}/assets/images/info.kindee.kindee.png" alt="logo">
               </div>
-              <h4>Hello! let's inno story</h4>
+              <h4>kindee | inno story</h4>
               <h6 class="font-weight-light">Sign in to continue.</h6>
               <form class="form-signin pt-3" class="form-signin" role="form" method="post" id="frm_login"
     onsubmit="return LogIn();return false;">

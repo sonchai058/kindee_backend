@@ -1,6 +1,11 @@
 	$(document).ready(function () {
 		setDatePickerChart(".datepicker");
 	});
+	$(window).on('load',function(){
+			if($('#update_data').val() == 'true'){
+	        $('#warningModal').modal('show');
+			}
+	});
 	// 	$(function() {
 	// 	$(".datepicker").datepicker({
 	// 		dateFormat: 'yy-mm-dd',

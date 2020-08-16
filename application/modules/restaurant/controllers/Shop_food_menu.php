@@ -237,9 +237,11 @@ class Shop_food_menu extends CRUD_Controller
 		$this->data['data_id'] = 0;
 
 		$this->data['category_cate_id_option_list'] = $this->Shop_food_menu->returnOptionList("category", "cate_id", "cate_name");
+		$this->data['category_type_id_option_list'] = $this->Shop_food_menu->returnOptionList("food_type", "type_id", "type_name");
 		$this->data['users_user_delete_option_list'] = $this->Shop_food_menu->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_add_option_list'] = $this->Shop_food_menu->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_update_option_list'] = $this->Shop_food_menu->returnOptionList("users", "user_id", "user_fname");
+
 		$this->render_view('restaurant/shop_food_menu/add_view');
 	}
 
@@ -441,6 +443,7 @@ class Shop_food_menu extends CRUD_Controller
 
 
 				$this->data['category_cate_id_option_list'] = $this->Shop_food_menu->returnOptionList("category", "cate_id", "cate_name");
+				$this->data['category_type_id_option_list'] = $this->Shop_food_menu->returnOptionList("food_type", "type_id", "type_name");
 				$this->data['users_user_delete_option_list'] = $this->Shop_food_menu->returnOptionList("users", "user_id", "user_fname");
 				$this->data['users_user_add_option_list'] = $this->Shop_food_menu->returnOptionList("users", "user_id", "user_fname");
 				$this->data['users_user_update_option_list'] = $this->Shop_food_menu->returnOptionList("users", "user_id", "user_fname");
@@ -842,6 +845,7 @@ class Shop_food_menu extends CRUD_Controller
 		$this->data['record_self_food_id'] = $data['self_food_id'];
 		$this->data['record_self_food_name'] = $data['self_food_name'];
 		$this->data['record_cate_id'] = $data['cate_id'];
+		$this->data['record_type_id'] = $data['type_id'];
 		$this->data['record_price_amt'] = $data['price_amt'];
 		$this->data['record_energy_amt'] = ($data['energy_amt']/1000);
 		$this->data['record_user_delete'] = $data['user_delete'];

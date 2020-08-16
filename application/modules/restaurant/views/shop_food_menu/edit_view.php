@@ -16,7 +16,7 @@
 					</div>
 				</div>
 				<div class="card-body ">
-					<form class="form-horizontal" id="formAdd" accept-charset="utf-8" method="post" enctype="multipart/form-data">
+					<form class="form-horizontal" id="formEdit" accept-charset="utf-8" method="post" enctype="multipart/form-data">
 						{csrf_protection_field}
 						<br>
 						<div class="container">
@@ -33,6 +33,15 @@
 									<select  id="cate_id" name="cate_id" value="{record_cate_id}" >
 										<option value="">- เลือก ประเภทอาหาร -</option>
 										{category_cate_id_option_list}
+									</select>
+									</div>
+								</div>
+								<div class="form-group col-md-4 ">
+									<label class="control-label" for="cate_id">หมวดหมู่ :</label><br/>
+									<div class="form-group has-success">
+									<select  id="type_id" name="type_id" value="{record_type_id}" >
+										<option value="">- เลือก หมวดหมู่อาหาร -</option>
+										{category_type_id_option_list}
 									</select>
 									</div>
 								</div>
@@ -113,6 +122,7 @@
 
 						</div>
 				</div>
+				{encrypt_self_food_id}
 
 				<input type="hidden" name="encrypt_self_food_id" value="{encrypt_self_food_id}" />
 
