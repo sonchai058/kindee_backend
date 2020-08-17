@@ -82,6 +82,7 @@ class Register extends CRUD_Controller
 	{
 		$this->data['data_id'] = 0;
 		$this->data['promotions1'] = "";
+		$this->data['promotions2'] = "";
 		$this->load->model("common_model");
 
 		$setSelect = array();
@@ -103,6 +104,23 @@ class Register extends CRUD_Controller
 		}
 		$tmp_data .= "</div>";
 		$this->data['promotions1'] = $tmp_data;
+
+		$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='mobile_chanel' order by a.pro_name");
+
+		$tmp_data = '<div class="form-row justify-content-start">';
+		foreach ($rows as $key => $value) {
+			$selected = '';
+			//if($value['b_fag_allow']=='delete')continue;
+			$pro_discount = 0;
+			if (isset($setSelect[$value['pro_id']])) {
+				$selected = 'checked';
+			}
+			// $tmp_data = $tmp_data."<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)".'{'."$('.pro_id{$value['pro_id']}').prop('checked',true);".'}'."else ".'{'."$('.pro_id{$value['pro_id']}').prop('checked',false);".'}'."\" class='col-sm-12 col-md-4'><label class='chk col-sm-12 control-label' for=''>&nbsp;&nbsp;&nbsp;{$value['pro_name']}</label><input style='margin-top: -40px;'  type='checkbox' class='form-control pro_id{$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected}></div>";
+			$tmp_data = $tmp_data . "<div onclick=\"if($('.pro_id{$value['pro_id']}:checked').length==0)" . '{' . "$('.pro_id{$value['pro_id']}').prop('checked',true);" . '}' . "else " . '{' . "$('.pro_id{$value['pro_id']}').prop('checked',false);" . '}' . "\"  class='form-group col-md-4'><div class='form-check'><label class='form-check-label'><input class='form-check-input {$value['pro_id']}' name='pro_id[{$value['pro_id']}]' value='{$value['pro_id']}' {$selected} type='checkbox'> {$value['pro_name']} <span class='form-check-sign'><span class='check'></span></span></label></div></div>";
+		}
+		$tmp_data .= "</div>";
+		$this->data['promotions2'] = $tmp_data;
+
 
 		$tmp_data = "<div class='form-group has-success'>";
 		$tmp_data = $tmp_data . "<input type='number' class='form-control ' id='user_weight' name='user_weight' value='' />";

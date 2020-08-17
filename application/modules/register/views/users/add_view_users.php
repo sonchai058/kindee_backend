@@ -143,6 +143,8 @@
 							<label class="control-label">บัตรเครดิต :</label>
 							{promotions1}
 							<br />
+							<label class="control-label">เครือข่ายมือถือ :</label>
+							{promotions2}
 						</div>
 
 
