@@ -132,7 +132,7 @@ class Shop_promotions extends CRUD_Controller
 
 			}
 
-			$tmp_data .= "</div><div class='col-sm-12 col-md-6' style='padding: 0px 15px 0px 15px'><div class='row'><div  class='col-6' style='color:#868787'>เครือข่ายมือถือ</div><div  class='col-6' style='color:#868787'>ส่วนลด</div></div></br>";
+			$tmp_data .= "</div><div class='col-sm-12 col-md-6' style='padding: 0px 15px 0px 15px'><div class='row'><div  class='col-6' style='color:#868787'>เครือข่ายโทรศัพท์</div><div  class='col-6' style='color:#868787'>ส่วนลด</div></div></br>";
 
 			$rows = $this->common_model->custom_query("select * from promotions as a where a.fag_allow='allow' and pro_type='mobile_chanel' order by a.pro_name");
 

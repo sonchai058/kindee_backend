@@ -143,7 +143,7 @@
 							<label class="control-label">บัตรเครดิต :</label>
 							{promotions1}
 							<br />
-							<label class="control-label">เครือข่ายมือถือ :</label>
+							<label class="control-label">เครือข่ายโทรศัพท์ :</label>
 							{promotions2}
 						</div>
 
