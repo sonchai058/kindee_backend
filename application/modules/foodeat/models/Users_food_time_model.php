@@ -106,7 +106,6 @@ class Users_food_time_model extends MY_Model
 		$search_row = $total_row;
 		if ($where != '') {
 			$this->db->join('users AS users_1', "$this->my_table.user_id = users_1.user_id", 'left');
-		$this->db->join('self_food_menu AS self_food_menu_2', "$this->my_table.food_id = self_food_menu_2.self_food_id", 'left');
 
 			$this->set_where($where);
 			$search_row = $this->count_record();
@@ -125,8 +124,6 @@ class Users_food_time_model extends MY_Model
 		$this->db->join('self_food_menu_composition AS composition', "$this->my_table.food_id = composition.self_food_id", 'left');
 		$this->db->join('raw_material AS raw', "composition.rmat_id = raw.rmat_id", 'left');
 		$this->db->group_by($this->my_table.'.foodt_id');
-
-
 		$list_record = $this->list_record();
 		$data = array(
 				'total_row'	=> $total_row,

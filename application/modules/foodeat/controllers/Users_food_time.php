@@ -600,10 +600,15 @@ class Users_food_time extends CRUD_Controller
 
 
 		$titleRow = $this->Users_food_time->getRowOf('self_food_menu', 'self_food_name, energy_amt', "self_food_id = '$data[food_id]'", $this->db);
-		$sodium_val = $this->Users_food_time->getRowOf('self_food_menu  as a LEFT JOIN self_food_menu_composition AS b ON a.self_food_id = b.self_food_id LEFT JOIN raw_material AS c ON b.rmat_id = c.rmat_id', 'a.energy_amt As energy_amt,b.self_food_id AS self_food_id,c.sodium_val AS sodium_val', "a.self_food_id = '$data[food_id]'", $this->db);
+		$sodium_val = $this->Users_food_time->getRowOf(
+			'self_food_menu  as a LEFT JOIN self_food_menu_composition AS b ON a.self_food_id = b.self_food_id
+			LEFT JOIN raw_material AS c ON b.rmat_id = c.rmat_id',
+			'a.energy_amt As energy_amt,b.self_food_id AS self_food_id,SUM(c.sodium_val) AS sodium_val',
+			"a.self_food_id = '$data[food_id]'", $this->db
+		);
 		$foodIdSelfFoodName = $titleRow['self_food_name'];
 		$foodIdEnergyAmt = $titleRow['energy_amt'];
-		$foodSodium = $sodium_val['sodium_val'];
+		$foodSodium = number_format($sodium_val['sodium_val'],2);
 
 		$this->data['foodIdSelfFoodName'] = $foodIdSelfFoodName;
 		$this->data['foodIdEnergyAmt'] = $foodIdEnergyAmt;
