@@ -328,7 +328,7 @@ class Register extends CRUD_Controller
 
 				if (count($post2['user_weight'])) {
 					$this->load->model("common_model");
-					$this->common_model->insert('users_exam_weight', array('user_add' => '0', 'datetime_add' => date('Y-m-d H:i:s'), 'user_weight' => str_replace(",", "", $post2['user_weight']), 'user_id' => $id));
+					$this->common_model->insert('users_exam_weight', array('user_add' => '0', 'date_exam' => date('Y-m-d H:i:s'), 'datetime_add' => date('Y-m-d H:i:s'), 'user_weight' => str_replace(",", "", $post2['user_weight']), 'user_id' => $id));
 				}
 				if (count($post1['pro_id'])) {
 					$this->load->model("common_model");
@@ -338,11 +338,11 @@ class Register extends CRUD_Controller
 				}
 				if (count($post3['user_waist'])) {
 					$this->load->model("common_model");
-					$this->common_model->insert('users_exam_waistline', array('user_add' => '0', 'datetime_add' => date('Y-m-d H:i:s'), 'user_waist' => str_replace(",", "", $post3['user_waist']), 'user_id' => $id));
+					$this->common_model->insert('users_exam_waistline', array('user_add' => '0', 'date_exam' => date('Y-m-d H:i:s'), 'datetime_add' => date('Y-m-d H:i:s'), 'user_waist' => str_replace(",", "", $post3['user_waist']), 'user_id' => $id));
 				}
 				if (count($post4['user_hib'])) {
 					$this->load->model("common_model");
-					$this->common_model->insert('users_exam_hip', array('user_add' => '0', 'datetime_add' => date('Y-m-d H:i:s'), 'user_hib' => str_replace(",", "", $post4['user_hib']), 'user_id' => $id));
+					$this->common_model->insert('users_exam_hip', array('user_add' => '0', 'date_exam' => date('Y-m-d H:i:s'), 'datetime_add' => date('Y-m-d H:i:s'), 'user_hib' => str_replace(",", "", $post4['user_hib']), 'user_id' => $id));
 				}
 				$encrypt_id = encrypt($id);
 				$message = '<strong>บันทึกข้อมูลเรียบร้อย</strong>';
