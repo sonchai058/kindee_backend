@@ -363,7 +363,7 @@ class Shop_food_menu extends CRUD_Controller
 					} else {
 						$tmp = rowArray($this->common_model->custom_query("select * from raw_material where fag_allow!='delete' and rmat_id='{$post['rmat_id'][$key]}' order by rmat_id desc limit 1"));
 						$energy_amt_tmp = isset($tmp['energy_val']) ? $tmp['energy_val'] : 0;
-						
+
 						$protein_val = $tmp['protein_val'] * $energy_default;
 						$fat_val = $tmp['fat_val'] * $energy_default;
 						$carboh_val = $tmp['carboh_val'] * $energy_default;
@@ -797,8 +797,9 @@ class Shop_food_menu extends CRUD_Controller
 			}
 			$data[$i]['encrypt_self_food_id'] = $pk1;
 			$data[$i]['preview_fag_allow'] = $this->setFagAllowSubject($data[$i]['fag_allow']);
-			$data[$i]['price_amt'] = number_format($data[$i]['price_amt'], 2);
-			$data[$i]['energy_amt'] = number_format(($data[$i]['energy_amt']), 2);
+			$data[$i]['price_amt'] = number_format($data[$i]['price_amt'],2);
+			$data[$i]['energy_amt'] = number_format(($data[$i]['energy_amt']/1000),2);
+			$data[$i]['sodium_val'] = number_format(($data[$i]['sodium_val']), 2);
 			$data[$i]['datetime_delete'] = setThaiDate($data[$i]['datetime_delete']);
 			$data[$i]['datetime_add'] = setThaiDate($data[$i]['datetime_add']);
 			$data[$i]['datetime_update'] = setThaiDate($data[$i]['datetime_update']);

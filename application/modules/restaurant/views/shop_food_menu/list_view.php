@@ -71,6 +71,7 @@
 									<th class="text-center">ชื่ออาหาร</th>
 									<th class="text-center">ประเภทอาหาร</th>
 									<th class="text-center">พลังงาน(K)</th>
+                  <th class="text-center">โซเดียม</th>
 									<th class="text-center">ราคา</th>
 									<th class="text-center" style="width:200px">เครื่องมือ</th>
 								</tr>
@@ -81,6 +82,7 @@
 						<td>{self_food_name}</td>
 						<td>{cateIdCateName}</td>
 						<td style="text-align:center;">{energy_amt}</td>
+            <td style="text-align:center;">{sodium_val}</td>
 						<td style="text-align:center;">{price_amt}</td>
 						<td class="td-actions text-center">
 										<a href="{page_url}/preview/{url_encrypt_id}" class="my-tooltip btn btn-warning btn-md" data-toggle="tooltip" title="แสดงข้อมูลรายละเอียด">

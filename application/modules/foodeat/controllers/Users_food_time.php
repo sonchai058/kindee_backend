@@ -21,6 +21,8 @@ class Users_food_time extends CRUD_Controller
 		$this->num_links = 6;
 		$this->uri_segment = 4;
 		$this->load->model('foodeat/Users_food_time_model', 'Users_food_time');
+		$this->load->model('api/User_api_model', 'user');
+		$this->load->model('api/Food_api_model', 'food');
 		$this->data['page_url'] = site_url('foodeat/users_food_time');
 
 		$this->data['page_title'] = 'ข้อมูลการรับประทานอาหาร';
@@ -145,6 +147,37 @@ class Users_food_time extends CRUD_Controller
 			$end_row = $search_row;
 		}
 
+		$date = '';
+		if($date != ''){
+			$sub_month = substr($date, 4, 2);
+			$sub_day = substr($date, 6, 2);
+			$sub_year = substr($date, 0, 4);
+			$date = $sub_year."-".$sub_month."-".$sub_day;
+		}else{
+			$date = date('Y-m-d');
+		}
+		$res = $this->user->getBMI('user@gmail.com', $date);
+		$res_food = $this->food->getFood('user@gmail.com', $date);
+		$this->data['sum_food_energy']	= $res['sum_food_energy'];
+		$this->data['sum_carboh_val']	= $res['sum_carboh_val'];
+		$this->data['sum_protein_val']	= $res['sum_protein_val'];
+		$this->data['sum_fat_val']	= $res['sum_fat_val'];
+		$this->data['sum_sodium_val']	= $res['sum_sodium_val'];
+		$this->data['user_bmr']	= $res_food['user_bmi'];
+		@$user_bmi	= str_replace(',','',$res_food['user_bmi']);
+		@$user_bmr_carboh	= (str_replace(',','',$res_food['user_bmi'])*0.6);
+		@$user_bmr_protein	= (str_replace(',','',$res_food['user_bmi'])*0.25);
+		@$user_bmr_fat	= (str_replace(',','',$res_food['user_bmi'])*0.15);
+		@$user_bmr_sodium	= 2300;
+		$this->data['user_bmr_carboh']	= number_format($user_bmr_carboh,2);
+		$this->data['user_bmr_protein']	= number_format($user_bmr_protein,2);
+		$this->data['user_bmr_fat']	= number_format($user_bmr_fat,2);
+		$this->data['user_bmr_sodium']	= number_format($user_bmr_sodium,2);
+		$this->data['balance_energy']	= number_format(($user_bmi-str_replace(',','',$res['sum_food_energy'])),2);
+		$this->data['balance_carboh']	= number_format(($user_bmr_carboh-str_replace(',','',$res['sum_carboh_val'])),2);
+		$this->data['balance_protein'] =	number_format(($user_bmr_protein-str_replace(',','',$res['sum_protein_val'])),2);
+		$this->data['balance_fat'] = number_format(($user_bmr_fat-str_replace(',','',$res['sum_fat_val'])),2);
+		$this->data['balance_sodium'] = number_format(($user_bmr_sodium-str_replace(',','',$res['sum_sodium_val'])),2);
 		$this->data['data_list']	= $list_data;
 		$this->data['search_field']	= $search_field;
 		$this->data['txt_search']	= $value;

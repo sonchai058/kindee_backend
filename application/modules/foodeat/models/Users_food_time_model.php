@@ -67,7 +67,7 @@ class Users_food_time_model extends MY_Model
 		$value 	= trim($value);
 
 		$where	= '';
-		$order_by	= '';
+		$order_by	= $this->my_table.'.date_eat DESC';
 		if($this->order_field != ''){
 			$order_field = $this->order_field;
 			$order_sort = $this->order_sort;
@@ -118,11 +118,14 @@ class Users_food_time_model extends MY_Model
 		$this->set_limit($limit);
 		$this->db->select("$this->my_table.*, users_1.user_fname AS userIdUserFname
 				, self_food_menu_2.self_food_name AS foodIdSelfFoodName, self_food_menu_2.energy_amt AS foodIdEnergyAmt
-				, c.sodium_val AS sodium_val
+				, sum(raw.sodium_val) AS sodium_val
 				");
 		$this->db->join('users AS users_1', "$this->my_table.user_id = users_1.user_id", 'left');
 		$this->db->join('self_food_menu AS self_food_menu_2', "$this->my_table.food_id = self_food_menu_2.self_food_id", 'left');
-		$this->db->join('raw_material AS c', "$this->my_table.food_id = c.rmat_id", 'left');
+		$this->db->join('self_food_menu_composition AS composition', "$this->my_table.food_id = composition.self_food_id", 'left');
+		$this->db->join('raw_material AS raw', "composition.rmat_id = raw.rmat_id", 'left');
+		$this->db->group_by($this->my_table.'.foodt_id');
+
 
 		$list_record = $this->list_record();
 		$data = array(

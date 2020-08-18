@@ -12,6 +12,54 @@
 					<h4 class="card-title">รายการข้อมูลการรับประทานอาหาร</h4>
 				</div>
 				<div class="card-body">
+					<?php if($this->session->userdata('user_status') == 1){ ?>
+					<div class="row text-center" >
+						<div class="col-sm-12 text-center">
+							<table class="table table-striped text-center">
+								<thead>
+									<tr>
+										<th class="text-center"></th>
+										<th width="28%" class="text-center">พลังงานวันนี้ (K)</th>
+										<th width="28%" class="text-center">พลังงานที่ควรรับประทานต่อวัน (BMR)</th>
+										<th width="28%" class="text-center">ปริมาณคงเหลือในแต่ละวัน (K)</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr >
+										<td style="text-align:left;">พลังงานทั้งหมด</td>
+										<td style="text-align:right;">{sum_food_energy}</td>
+										<td style="text-align:right;">{user_bmr}</td>
+										<td style="text-align:right;">{balance_energy}</td>
+									</tr>
+									<tr >
+										<td style="text-align:left;">คาร์โบไฮเดรต</td>
+										<td style="text-align:right;">{sum_carboh_val}</td>
+										<td style="text-align:right;">{user_bmr_carboh}</td>
+										<td style="text-align:right;">{balance_carboh}</td>
+									</tr>
+									<tr >
+										<td style="text-align:left;">โปรตีน</td>
+										<td style="text-align:right;">{sum_protein_val}</td>
+										<td style="text-align:right;">{user_bmr_protein}</td>
+										<td style="text-align:right;">{balance_protein}</td>
+									</tr>
+									<tr >
+										<td style="text-align:left;">ไขมัน</td>
+										<td style="text-align:right;">{sum_fat_val}</td>
+										<td style="text-align:right;">{user_bmr_fat}</td>
+										<td style="text-align:right;">{balance_fat}</td>
+									</tr>
+									<tr >
+										<td style="text-align:left;">โซเดียม</td>
+										<td style="text-align:right;">{sum_sodium_val}</td>
+										<td style="text-align:right;">{user_bmr_sodium}</td>
+										<td style="text-align:right;">{balance_sodium}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					<?php } ?>
+					</div>
 					<form class="form-horizontal" name="formSearch" method="post" action="{page_url}/search">
 						{csrf_protection_field}
 						<div class="row">
@@ -76,7 +124,7 @@
 									<th class="text-center">มื้ออาหาร</th>
 									<th class="text-center">เมนูอาหาร</th>
 									<th class="text-center">พลังงาน (K)</th>
-									<th class="text-center">เกลือ</th>
+									<th class="text-center">โซเดียม</th>
 									<th class="text-center" style="width:200px">เครื่องมือ</th>
 								</tr>
 							</thead>
