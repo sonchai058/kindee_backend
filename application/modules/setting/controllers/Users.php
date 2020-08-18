@@ -1422,6 +1422,7 @@ class Users extends CRUD_Controller
 		$this->data['record_increase_date_end'] = $data['increase_date_end'];
 		$this->data['preview_user_level'] = $this->setUserLevelSubject($data['user_level']);
 		$this->data['record_user_level'] = $data['user_level'];
+		$this->data['record_user_status'] = $data['user_status'];
 		$this->data['preview_food_intol_exam'] = $this->setFoodIntolExamSubject($data['food_intol_exam']);
 		$this->data['record_food_intol_exam'] = $data['food_intol_exam'];
 		$this->data['preview_limit_allmeat'] = $this->setLimitAllmeatSubject($data['limit_allmeat']);

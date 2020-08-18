@@ -45,6 +45,7 @@ class Shop_food_menu_model extends MY_Model
 		$data = array(
 				'self_food_name' => $post['self_food_name']
 				,'cate_id' => $post['cate_id']
+				,'type_id' => $post['type_id']
 				,'price_amt' => str_replace(",", "", $post['price_amt'])
 				//,'energy_amt' => str_replace(",", "", $post['energy_amt'])
 				,'fag_allow' => 'allow'
@@ -144,6 +145,7 @@ class Shop_food_menu_model extends MY_Model
 		$data = array(
 				'self_food_name' => $post['self_food_name']
 				,'cate_id' => $post['cate_id']
+				,'type_id' => $post['type_id']
 				,'price_amt' => str_replace(",", "",$post['price_amt'])
 				//,'energy_amt' => str_replace(",", "",$post['energy_amt'])
 				//,'fag_allow' => $post['fag_allow']

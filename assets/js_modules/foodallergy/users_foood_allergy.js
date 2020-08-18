@@ -217,7 +217,7 @@ $(document).ready(function() {
 	//Set default value
 	var order_by = $('#set_order_by').attr('value');
 	$('#set_order_by option[value="'+order_by+'"]').prop('selected', true);
-	
+
 	//Set default selected
 	setDatePicker('.datepicker');
 
@@ -258,6 +258,7 @@ $("#btnAlgSave").click(function(){
 		var fdata = $("#formAdd").serialize();
 		fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
 		//if($(this).val()!='') {
+		console.log(fdata);
 			$.ajax({
 				method: 'POST',
 				url: site_url('foodallergy/users_foood_allergy/novisit_save'),

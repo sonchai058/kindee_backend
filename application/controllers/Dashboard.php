@@ -109,7 +109,7 @@ class Dashboard extends CRUD_Controller
 			$chart_labels[] = "new Date('{$value['date']} 00:00:00').toLocaleString()";
 			$chart_data[] = array('t' => $value['date'] . " 00:00:00", 'y' => $value['num']);
 
-			$chart_data1[] = '{ x: new Date(' . substr($value['date'], 0, 4) . ',' . (substr($value['date'], 5, 4) - 1) . ',' . substr($value['date'], 8, 2) . '), y: ' . $value['num'] . ' }';
+			@$chart_data1[] = '{ x: new Date(' . substr($value['date'], 0, 4) . ',' . (substr($value['date'], 5, 4) - 1) . ',' . substr($value['date'], 8, 2) . '), y: ' . $value['num'] . ' }';
 		}
 		$chart_labels = '[' . implode(',', $chart_labels) . ']';
 		$this->data['chart_labels'] = $chart_labels;

@@ -124,7 +124,7 @@ var ShopFoodMenu = {
 		var fdata = $('#formEdit').serialize();
 		//fdata += '&edit_remark=' + $('#edit_remark').val();
 		fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
-
+		console.log(fdata);
 		var obj = $('#btnSaveEdit');
 		loading_on(obj);
 		$.ajax({
@@ -133,7 +133,7 @@ var ShopFoodMenu = {
 			dataType: 'json',
 			data : fdata,
 			success: function (results) {
-
+					//console.log(results);
 					//var price_amt = formatNumber($('#price_amt').val(), 2);
 					//$('#price_amt').val(price_amt);
 
@@ -253,6 +253,7 @@ $(document).ready(function() {
 		ShopFoodMenu.deleteRecord();
 	});
 	setDropdownList('#cate_id');
+	setDropdownList('#type_id');
 	setDropdownList('#user_delete');
 	setDropdownList('#user_add');
 	setDropdownList('#user_update');

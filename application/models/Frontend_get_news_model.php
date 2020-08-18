@@ -49,5 +49,36 @@ class Frontend_get_news_model extends MY_Model
 		);
 		return $data;
 	}
+
+	public function detail_read($blog_id)
+	{
+		$order_by	= 'date_public DESC';
+
+		$this->set_order_by($order_by);
+		$this->db->select("$this->my_table.*
+				, encrypt_name
+				, users_1.user_fname AS userDeleteUserFname
+				, users_2.user_fname AS userAddUserFname
+				, users_3.user_fname AS userUpdateUserFname
+				");
+		$this->db->from($this->my_table);
+		$this->db->join('blog_images', "$this->my_table.blog_id = blog_images.blog_id", 'left');
+		$this->db->join('users AS users_1', "$this->my_table.user_delete = users_1.user_id", 'left');
+		$this->db->join('users AS users_2', "$this->my_table.user_add = users_2.user_id", 'left');
+		$this->db->join('users AS users_3', "$this->my_table.user_update = users_3.user_id", 'left');
+		$this->db->where($this->my_table.".blog_id='".$blog_id."'");
+		$this->db->group_by($this->my_table.".blog_id");
+		$queryBlog = $this->db->get();
+		$row = $queryBlog->row();
+		$res = array();
+		$res['blog_id'] = $row->blog_id;
+		$res['blog_name_title'] = $row->blog_name;
+		$res['blog_detail'] = $row->blog_detail;
+		$res['encrypt_name'] = $row->encrypt_name;
+		$res['userAddUserFname'] = $row->userAddUserFname;
+
+		$data = $res;
+		return $data;
+	}
 }
 /*---------------------------- END Model Class --------------------------------*/

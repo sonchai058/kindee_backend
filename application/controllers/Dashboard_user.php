@@ -135,7 +135,7 @@ class Dashboard_user extends CRUD_Controller
 			$chart_bmi[] = array('t' => $value['date'] . " 00:00:00", 'y' => $bmi_val);
 			$chart_bmr[] = array('t' => $value['date'] . " 00:00:00", 'y' => ($bmr_val));
 
-			$chart_bmr1[] = '{ x: new Date(' . substr($value['date'], 0, 4) . ',' . (substr($value['date'], 5, 4) - 1) . ',' . substr($value['date'], 8, 2) . '), y: ' . ($bmr_val) . ' }';
+			@$chart_bmr1[] = '{ x: new Date(' . substr($value['date'], 0, 4) . ',' . (substr($value['date'], 5, 4) - 1) . ',' . substr($value['date'], 8, 2) . '), y: ' . ($bmr_val) . ' }';
 		}
 		$this->data['chart_bmr1'] = '[' . implode(',', $chart_bmr1) . ']';
 
@@ -143,7 +143,7 @@ class Dashboard_user extends CRUD_Controller
 			$chart_labels_calo[] = "new Date('{$value['date']} 00:00:00').toLocaleString()";
 			$chart_calo[] = array('t' => $value['date'] . " 00:00:00", 'y' => ($value['num'] / 1000));
 
-			$chart_calo1[] = '{ x: new Date(' . substr($value['date'], 0, 4) . ',' . (substr($value['date'], 5, 4) - 1) . ',' . substr($value['date'], 8, 2) . '), y: ' . ($value['num'] / 1000) . ' }';
+			@$chart_calo1[] = '{ x: new Date(' . substr($value['date'], 0, 4) . ',' . (substr($value['date'], 5, 4) - 1) . ',' . substr($value['date'], 8, 2) . '), y: ' . ($value['num'] / 1000) . ' }';
 		}
 		$this->data['chart_calo1'] = '[' . implode(',', $chart_calo1) . ']';
 

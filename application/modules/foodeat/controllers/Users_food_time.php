@@ -278,6 +278,15 @@ class Users_food_time extends CRUD_Controller
 		}
 	}
 
+	public function allergy($food_id){
+			$data = $this->Users_food_time->allergy($food_id);
+			$json = json_encode(array(
+				'is_successful' => FALSE,
+				'message' => $data
+			));
+			echo $json;
+	}
+
 	// ------------------------------------------------------------------------
 
 	/**

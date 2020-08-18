@@ -105,14 +105,11 @@ class Users_foood_allergy extends CRUD_Controller
 			}
 			$this->data['rows'] = json_encode($rows);
 			$this->data['results'] = $tmp_data . '</div>';
-			//$results = $this->Users_foood_allergy->load($id);
-			//if (empty($results)) {
-			//$this->data['message'] = "ไม่พบข้อมูลตามรหัสอ้างอิง <b>$id</b>";
-			//	$this->render_view('ci_message/danger');
-			//} else {
+			$results = $this->Users_foood_allergy->load($id);
+
 			$this->data['csrf_field'] = insert_csrf_field(true);
 			$this->render_view('foodallergy/users_foood_allergy/novisit');
-			//}
+		
 		}
 	}
 

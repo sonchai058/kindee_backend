@@ -313,6 +313,7 @@ $(document).ready(function() {
 	setDropdownList('#fag_allow');
 	setDropdownList('#org_id');
 	setDropdownList('#user_level');
+	setDropdownList('#user_status');
 	setDropdownList('#goal_reduce_weight_select');
 
 	//Set default value

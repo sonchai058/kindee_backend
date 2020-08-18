@@ -91,6 +91,28 @@ class Frontend_page extends CI_Controller
 		// die();
 	}
 
+	public function news_detail_page($blog_id)
+	{
+		$start_row = 0;
+		$results_news = $this->Frontend_news->detail_read($blog_id);
+		//$list_data_news = $this->setDataListFormat($results_news['list_data'], $start_row);
+		//$this->data['data_list_get_news'] = $list_data_news;
+		$this->data['data_news'] = $results_news;
+		$this->data['blog_name_title'] = $results_news['blog_name_title'];
+		$this->data['blog_detail'] = $results_news['blog_detail'];
+		$this->data['encrypt_name'] = $results_news['encrypt_name'];
+		$this->data['userAddUserFname'] = $results_news['userAddUserFname'];
+
+		// $results_shops = $this->Frontend_shops->read($start_row);
+		// $list_data_shops = $results_shops['list_data'];
+		// $this->data['data_list_shops'] = $list_data_shops;
+
+		$this->render_view('news_detail_page');
+		// die(print_r($this->data['data_list_shops']));
+		// print_r($this->db->last_query());
+		// die();
+	}
+
 	public function shops_page()
 	{
 		$start_row = 0;
@@ -107,6 +129,26 @@ class Frontend_page extends CI_Controller
 		// die(print_r($this->data['data_list_shops']));
 		// print_r($this->db->last_query());
 		// die();
+	}
+
+	public function shop_detail_page($shop_id)
+	{
+		$start_row = 0;
+		$results_shop = $this->Frontend_shops->detail_read($shop_id);
+		$this->data['shop_id'] = $results_shop['shop_id'];
+		$this->data['shop_cover'] = $results_shop['shop_cover'];
+		$this->data['shop_name_th'] = $results_shop['shop_name_th'];
+		$this->data['shop_name_en'] = $results_shop['shop_name_en'];
+		$this->data['addr'] = $results_shop['addr'];
+		$this->data['mobile_no'] = $results_shop['mobile_no'];
+
+		$results_promotions = $this->Frontend_shops->promotions_read($shop_id);
+		$this->data['data_list_promotions'] = $results_promotions['list_data'];
+
+		$results_food = $this->Frontend_shops->food_read($shop_id);
+		$this->data['data_list_menu'] = $results_food['list_data'];
+
+		$this->render_view('shops_detail_page');
 	}
 
 

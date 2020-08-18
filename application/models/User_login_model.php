@@ -5,20 +5,20 @@
 class User_login_model extends CI_Model
 {
 	private $tb_member_login;
-	
+
     function __construct(){
         parent::__construct();
-		
+
 		$this->tb_member_login = 'users';
     }
-	
+
 	public function encrypt_md5_salt($pass)
 	{
 		// admin
 		// 123456 ($2y$11$7E1Dw5fgB1FifW0apMj8meNHQG9janZMxtnaWPC4niyulskCov5sa)
         $key1 = 'RTy4$58/*tdr#t';	//default = RTy4$58/*tdr#t
         $key2 = 'ci@gen#$_sdf';		//default = ci@gen#$_sdf
-		
+
         $key_md5 = md5($key1 . $pass . $key2);
         $key_md5 = md5($key2 . $key_md5 . $key1);
         $sub1 = substr($key_md5, 0, 7);
@@ -27,14 +27,14 @@ class User_login_model extends CI_Model
         $sub4 = substr($key_md5, 29, 3);
         return md5($sub3 . $sub1 . $sub4 . $sub2);
 	}
-	
+
     public function secure_pass($pass)
     {
 		$key_encrypt = $this->encrypt_md5_salt($pass);
 		$options = array('cost' => 11);
         return password_hash($key_encrypt, PASSWORD_BCRYPT, $options);
     }
-	
+
 	public function db_validate($username, $password)
 	{
 		//$key_encrypt = $this->encrypt_md5_salt($password);
@@ -48,7 +48,7 @@ class User_login_model extends CI_Model
 			{
 
 				//echo $this->secure_pass($password);
-				//if (password_verify($key_encrypt, $row->password)) 
+				//if (password_verify($key_encrypt, $row->password))
 				if ($password==$row->cus_passwd)
 				{
 					return $row;
@@ -60,12 +60,12 @@ class User_login_model extends CI_Model
         // then return false.
         return array();
 	}
-    
+
     public function validate()
 	{
         $username = $this->security->xss_clean($this->input->post('input_username'));
         $password = $this->security->xss_clean($this->input->post('input_password'));
-        
+
 		$row = $this->db_validate($username, $password);
         if(!empty($row)){
 			$data = array(
@@ -76,6 +76,7 @@ class User_login_model extends CI_Model
 					'user_lname' => $row->user_lname,
 					'email_addr' => $row->email_addr,
 					'user_level' => $row->user_level,
+					'user_status' => $row->user_status,
 					'shop_id'=> $row->shop_id,
 					'org_id' => $row->org_id,
 					'login_validated' => TRUE,
@@ -99,7 +100,7 @@ class User_login_model extends CI_Model
 			$this->session->set_userdata($data);
 			return TRUE;
 		}
-		
+
 		// If the previous process did not validate
         // then return false.
 		return FALSE;

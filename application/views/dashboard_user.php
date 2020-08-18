@@ -12,7 +12,10 @@
 	}
 </style>
 <script>
+$(document).ready(function() {
+
 	$(function() {
+
 		$(".datepicker").datepicker({
 			dateFormat: 'yy-mm-dd',
 			maxDate: new Date(),
@@ -53,6 +56,7 @@
 		chart_calo1
 	};
 	var chart_calo = JSON.parse('{chart_calo}');
+	});
 </script>
 <?php
 function getAge($date)
@@ -430,11 +434,11 @@ foreach ($bmi_date_array as $key => $value) {
 </div>
 
 
-
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
 
 <script>
+
 	Highcharts.chart('chartContainer1', {
 
 		title: {
@@ -543,3 +547,21 @@ foreach ($bmi_date_array as $key => $value) {
 		}
 	});
 </script>
+<input type="hidden" id="update_data" name="update_data" value="<?php echo $_GET['update_data']?>"/>
+<!-- Modal -->
+<div class="modal fade" id="warningModal" tabindex="1" role="dialog" aria-labelledby="warningModalLabel" aria-hidden="false">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="warningModalLabel"></h4>
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body">
+				<p class="alert alert-warning" >กรุณาอัพเดทข้อมูล น้ำหนัก และผลการตรวจเลือด</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-warning" data-dismiss="modal">&nbsp;Skip&nbsp;</button>&emsp;
+			</div>
+		</div>
+	</div>
+</div>

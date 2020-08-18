@@ -100,3 +100,21 @@
 		</div>
 	</div>
 </div>
+
+<!-- Modal แจ้งแพ้อาหาร-->
+<div class="modal fade" id="addAllergyModal" tabindex="-1" role="dialog" aria-labelledby="addAllergyModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="addAllergyModalLabel">รายการนี้มีส่วนผสมที่คุณแพ้ ดังต่อไปนี้</h4>
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body">
+				<p class="alert alert-warning" id="food_name_allergy"></p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-warning" data-dismiss="modal">&nbsp;ปิด&nbsp;</button>&emsp;
+			</div>
+		</div>
+	</div>
+</div>

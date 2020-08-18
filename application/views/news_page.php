@@ -31,14 +31,16 @@
 		<div class="row">
 			<div class="col-md-6 col-lg-3" parser-repeat="[data_news_list]">
 				<div class="product">
-					<a href="#" class="img-prod"><img class="img-fluid" src="{base_url}{encrypt_name}" alt="Colorlib Template">
+					<a href="{base_url}frontend_page/news_detail_page/{blog_id}" class="img-prod"><img class="img-fluid" src="{base_url}{encrypt_name}" alt="Colorlib Template">
 						<div class="overlay"></div>
 					</a>
 					<div class="text py-3 pb-4 px-3 text-left">
 						<p class="price">
+							<a href="{base_url}frontend_page/news_detail_page/{blog_id}">
 							<span class="price-sale">{blog_name_title}</span>
+							</a>
 						</p>
-						<h3><a href="#">Bell Pepper</a></h3>
+						<h3><a href="#">โดย: {userAddUserFname}</a></h3>
 						<p class="blog_detail">รายละเอียด: {blog_detail}</p>
 					</div>
 				</div>

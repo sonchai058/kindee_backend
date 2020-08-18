@@ -177,6 +177,33 @@ $(document).ready(function() {
 		$('button[name="submit"]').click();
 	});
 
+	$(document).on('change','#food_id',function(){
+		if($('#food_id').val() != ''){
+
+			var frm_action = site_url('foodeat/users_food_time/allergy/'+$('#food_id').val());
+			var fdata = '';
+			//fdata += '&edit_remark=' + $('#edit_remark').val();
+			fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
+			$.ajax({
+				method: 'GET',
+				url: frm_action,
+				dataType: 'json',
+				success: function (results) {
+						//console.log(results.message.food_name);
+						if(results.message.food_name!=''){
+							$('#food_name_allergy').html(results.message.food_name);
+							$('#addAllergyModal').modal('show');
+						}
+				},
+				error : function(jqXHR, exception){
+					ajaxErrorMessage(jqXHR, exception);
+				}
+			});
+
+		}
+
+	});
+
 	$('#btnSave').click(function() {
 		$('#addModal').modal('hide');
 		UsersFoodTime.saveFormData();
@@ -218,7 +245,7 @@ $(document).ready(function() {
 	//Set default value
 	var order_by = $('#set_order_by').attr('value');
 	$('#set_order_by option[value="'+order_by+'"]').prop('selected', true);
-	
+
 	//Set default selected
 	setDatePicker('.datepicker');
 
