@@ -59,6 +59,12 @@ if ($this->session->userdata('user_level') == 'super_user') {
 						<p>จัดการผู้ใช้งาน</p>
 					</a>
 				</li>
+				<li class="nav-item <?php if ($this->uri->segment(1) == 'prodata' && $this->uri->segment(2) == 'pro') { ?>active<?php } ?>">
+					<a class="nav-link" href="{site_url}prodata/pro">
+						<i class="material-icons">credit_card</i>
+						<p>จัดการข้อมูลบัตรเครดิต</p>
+					</a>
+				</li>
 			<?php
 			}
 			?>

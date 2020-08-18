@@ -806,7 +806,6 @@ class Users extends CRUD_Controller
 
 				$id = $this->Users->create($post);
 
-
 				if (count($post1['pro_id'])) {
 					$this->load->model("common_model");
 					//$this->common_model->update("users_promotions",array('fag_allow'=>'delete',"user_delete"=>get_session("user_id"),'datetime_delete'=>date('Y-m-d H:i:s')),array('user_id'=>$this->session->userdata('shop_id')));
