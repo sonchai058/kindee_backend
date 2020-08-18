@@ -547,7 +547,7 @@ foreach ($bmi_date_array as $key => $value) {
 		}
 	});
 </script>
-<input type="hidden" id="update_data" name="update_data" value="<?php echo $_GET['update_data']?>"/>
+<input type="hidden" id="update_data" name="update_data" value="<?php echo @$_GET['update_data']?>"/>
 <!-- Modal -->
 <div class="modal fade" id="warningModal" tabindex="1" role="dialog" aria-labelledby="warningModalLabel" aria-hidden="false">
 	<div class="modal-dialog">

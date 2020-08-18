@@ -26,6 +26,10 @@ class Food_api_model extends CI_Model
         $queryWeight = $this->db->get();
         $dataWeight = $queryWeight->row();
 
+        $whereFoodType1 = '';
+        $whereFoodType2 = '';
+        $whereFoodType3 = '';
+        $whereFoodType4 = '';
         $whereFood = "users_food.user_id = '".$dataUser->user_id."' ";
         $whereFood .= " and users_food.date_eat = '".$date."' ";
         $whereFoodType1 .= " and users_food.eat_time = 'เช้า' and users_food.fag_allow = 'allow' ";

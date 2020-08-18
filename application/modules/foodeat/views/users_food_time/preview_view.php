@@ -53,12 +53,12 @@
 									<td>{foodIdSelfFoodName} {foodIdEnergyAmt}</td>
 								</tr>
 								<tr>
-									<td class="text-right fit"><b>เกลือ :</b></td>
-									<td>{record_sodium_val}</td>
-								</tr>
-								<tr>
 									<td class="text-right fit"><b>พลังงาน (K) :</b></td>
 									<td>{record_food_energy}</td>
+								</tr>
+								<tr>
+									<td class="text-right fit"><b>โซเดียม :</b></td>
+									<td>{record_sodium_val}</td>
 								</tr>
 								<tr>
 									<td class="text-right fit"><b>ผู้เพิ่ม :</b></td>

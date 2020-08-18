@@ -76,7 +76,7 @@ class User_api_model extends CI_Model
         $queryWeight = $this->db->get();
         $dataWeight = $queryWeight->row();
         //echo $this->db->last_query();
-
+        $whereFoodType = '';
         $whereFood = "users_food.user_id = '".$dataUser->user_id."' ";
         $whereFood .= " and users_food.date_eat = '".$date."' ";
         $whereFoodType .= "  and users_food.fag_allow = 'allow' and `composition`.`fag_allow` = 'allow' ";
@@ -86,7 +86,8 @@ class User_api_model extends CI_Model
                           SUM(material.energy_val*composition.amount),
                           SUM(material.protein_val*composition.amount)/100 as protein_val,
                           SUM(material.fat_val*composition.amount)/100 as fat_val,
-                          SUM(material.carboh_val*composition.amount)/100 as carboh_val '
+                          SUM(material.carboh_val*composition.amount)/100 as carboh_val,
+                          SUM(material.sodium_val*composition.amount)/100 as sodium_val  '
                         );
         $this->db->from('users_food_time as users_food');
         $this->db->join('self_food_menu as menu', "users_food.food_id = menu.self_food_id", 'left');
@@ -117,6 +118,7 @@ class User_api_model extends CI_Model
             $res['sum_protein_val'] = number_format($dataFoodType->protein_val,2);
             $res['sum_fat_val'] = number_format($dataFoodType->fat_val,2);
             $res['sum_carboh_val'] = number_format($dataFoodType->carboh_val,2);
+            $res['sum_sodium_val'] = number_format($dataFoodType->sodium_val,2);
             return $res;
         } else {
             return false;
