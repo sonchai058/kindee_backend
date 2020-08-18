@@ -157,7 +157,8 @@ class Dashboard_user extends CRUD_Controller
 		$labels_bmr_credit = @$chart_bmr[count($chart_bmr) - 1]['y'];
 		$this->data['chart_bmr_credit'] = number_format($labels_bmr_credit, 2) . ' kcal/day';
 		$this->data['chart_calo'] = json_encode($chart_calo);
-		$this->data['chart_calo_credit'] = @$chart_calo[count($chart_calo) - 1]['y'] . ' kcal/day';
+		$labels_calo_credit = @$chart_calo[count($chart_calo) - 1]['y'];
+		$this->data['chart_calo_credit'] = number_format($labels_calo_credit, 2) . ' kcal/day';
 		$this->dashboard();
 	}
 
