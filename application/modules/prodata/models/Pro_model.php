@@ -120,8 +120,7 @@ class Pro_model extends MY_Model
 	public function update($post)
 	{
 		$data = array(
-			'date_public' => setDateToStandard($post['date_public']), 'blog_name' => $post['blog_name'], 'blog_detail' => $post['blog_detail']
-			//,'fag_allow' => $post['fag_allow']
+			'pro_name' => $post['pro_name'], 'pro_type' => $post['pro_type'], 'fag_allow' => 'allow'
 		);
 
 		$pro_id = checkEncryptData($post['encrypt_pro_id']);

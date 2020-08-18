@@ -31,19 +31,15 @@
 
 								<tr>
 									<td class="text-right fit"><b>รหัสไอดีหลัก :</b></td>
-									<td>{record_blog_id}</td>
+									<td>{record_pro_id}</td>
 								</tr>
 								<tr>
-									<td class="text-right fit"><b>วันที่ประกาศ :</b></td>
-									<td>{record_date_public}</td>
+									<td class="text-right fit"><b>ชื่อบัตรเครดิต :</b></td>
+									<td>{record_pro_name}</td>
 								</tr>
 								<tr>
-									<td class="text-right fit"><b>หัวข้อ :</b></td>
-									<td>{record_blog_name}</td>
-								</tr>
-								<tr>
-									<td class="text-right fit"><b>รายละเอียด :</b></td>
-									<td>{record_blog_detail}</td>
+									<td class="text-right fit"><b>ประเภท :</b></td>
+									<td>{preview_pro_type}</td>
 								</tr>
 								<tr>
 									<td class="text-right fit"><b>ผู้เพิ่ม :</b></td>

@@ -255,9 +255,8 @@ class Pro extends CRUD_Controller
 		$this->load->library('form_validation');
 		$frm = $this->form_validation;
 
-		$frm->set_rules('date_public', 'วันที่ประกาศ', 'trim|required');
-		$frm->set_rules('blog_name', 'หัวข้อ', 'trim|required');
-		$frm->set_rules('blog_detail', 'รายละเอียด', 'trim|required');
+		$frm->set_rules('pro_name', 'ชื่อบัตรเครดิต', 'trim|required');
+		$frm->set_rules('pro_type', 'ประเภทบัตรเครดิต', 'trim|required');
 		$frm->set_rules('fag_allow', 'สถานะ', 'trim');
 
 		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
@@ -265,9 +264,8 @@ class Pro extends CRUD_Controller
 
 		if ($frm->run() == FALSE) {
 			$message  = '';
-			$message .= form_error('date_public');
-			$message .= form_error('blog_name');
-			$message .= form_error('blog_detail');
+			$message .= form_error('pro_name');
+			$message .= form_error('pro_type');
 			$message .= form_error('fag_allow');
 			return $message;
 		}
@@ -323,7 +321,7 @@ class Pro extends CRUD_Controller
 	public function edit($encrypt_id = '')
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-			array('title' => 'ข่าว/บทความ', 'url' => site_url('prodata/pro')),
+			array('title' => 'จัดการข้อมูลบัตรเครดิต', 'url' => site_url('prodata/pro')),
 			array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 
@@ -339,29 +337,11 @@ class Pro extends CRUD_Controller
 				$this->render_view('ci_message/danger');
 			} else {
 				$this->data['csrf_field'] = insert_csrf_field(true);
-
-
 				$this->setPreviewFormat($results);
-
 				$this->data['data_id'] = $id;
 				$this->data['users_user_delete_option_list'] = $this->Pro->returnOptionList("users", "user_id", "user_fname");
 				$this->data['users_user_add_option_list'] = $this->Pro->returnOptionList("users", "user_id", "user_fname");
 				$this->data['users_user_update_option_list'] = $this->Pro->returnOptionList("users", "user_id", "user_fname");
-
-
-				$this->load->model('common_model');
-				$rows = $this->common_model->custom_query("select * from blog_images where pro_id=" . $id . " and fag_allow!='delete'");
-				$this->data['count_image'] = count($rows);
-				$blog_images = "";
-				foreach ($rows as $key => $value) {
-					//$year = (substr($value['datetime_add'],0,4)+543);
-					$blog_images =  $blog_images . '<div class="preview-image preview-show-' . ($key + 1) . '">' .
-						'<div data-image_id="' . $value['image_id'] . '" class="image-cancel" data-no="' . ($key + 1) . '">x</div>' . '<div class="image-zone"><img style="width:320px; height: 320px;" id="pro-img-' . ($key + 1) . '" src="' . base_url() . $value['encrypt_name'] . '"></div>' .
-						'</div>';
-				}
-				$this->data['blog_images'] = $blog_images;
-
-
 				$this->render_view('prodata/pro/edit_view');
 			}
 		}
@@ -390,10 +370,6 @@ class Pro extends CRUD_Controller
 	{
 		$message = '';
 		$message .= $this->formValidateUpdate();
-		//$edit_remark = $this->input->post('edit_remark', TRUE);
-		//if ($edit_remark == '') {
-		//	$message .= 'ระบุเหตุผล';
-		//}
 
 		$post = $this->input->post(NULL, TRUE);
 		$error_pk_id = $this->checkRecordKey($post);
@@ -457,19 +433,6 @@ class Pro extends CRUD_Controller
 			} else {
 				$message = '<strong>ลบข้อมูลเรียบร้อย</strong>';
 				$ok = TRUE;
-
-				$this->load->model('common_model');
-				$this->common_model->update(
-					"blog_images",
-					array('user_delete' => get_session('user_id'), 'datetime_delete' => date("Y-m-d H:i:s"), 'fag_allow' => 'delete'),
-					array('pro_id' => checkEncryptData($post['encrypt_pro_id']))
-				);
-				$rows = $this->common_model->custom_query("select * from blog_images where pro_id=" . checkEncryptData($post['encrypt_pro_id']));
-
-				foreach ($rows as $key => $value) {
-					//$year = (substr($value['datetime_add'],0,4)+543);
-					$this->removeFile($value['encrypt_name']);
-				}
 			}
 			$json = json_encode(array(
 				'is_successful' => $ok,
@@ -567,19 +530,20 @@ class Pro extends CRUD_Controller
 		$this->data['userUpdateUserFname'] = $userUpdateUserFname;
 
 		$this->data['record_pro_id'] = $data['pro_id'];
-		$this->data['record_date_public'] = $data['date_public'];
-		$this->data['record_blog_name'] = $data['blog_name'];
-		$this->data['record_blog_detail'] = $data['blog_detail'];
+		$this->data['record_pro_name'] = $data['pro_name'];
 		$this->data['record_user_delete'] = $data['user_delete'];
 		$this->data['record_datetime_delete'] = $data['datetime_delete'];
 		$this->data['record_user_add'] = $data['user_add'];
 		$this->data['record_datetime_add'] = $data['datetime_add'];
 		$this->data['record_user_update'] = $data['user_update'];
 		$this->data['record_datetime_update'] = $data['datetime_update'];
+
+		$this->data['preview_pro_type'] = $this->setProTypeSubject($data['pro_type']);
+		$this->data['record_pro_type'] = $data['pro_type'];
+
 		$this->data['preview_fag_allow'] = $this->setFagAllowSubject($data['fag_allow']);
 		$this->data['record_fag_allow'] = $data['fag_allow'];
 
-		$this->data['record_date_public'] = setThaiDate($data['date_public']);
 		$this->data['record_datetime_delete'] = setThaiDate($data['datetime_delete']);
 		$this->data['record_datetime_add'] = setThaiDate($data['datetime_add']);
 		$this->data['record_datetime_update'] = setThaiDate($data['datetime_update']);
