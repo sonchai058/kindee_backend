@@ -125,11 +125,13 @@ class Shop_food_menu_model extends MY_Model
 				, users_2.user_fname AS userDeleteUserFname
 				, users_3.user_fname AS userAddUserFname
 				, users_4.user_fname AS userUpdateUserFname
+				, c.sodium_val AS sodium_val
 				");
 		$this->db->join('category AS category_1', "$this->my_table.cate_id = category_1.cate_id", 'left');
 		$this->db->join('users AS users_2', "$this->my_table.user_delete = users_2.user_id", 'left');
 		$this->db->join('users AS users_3', "$this->my_table.user_add = users_3.user_id", 'left');
 		$this->db->join('users AS users_4', "$this->my_table.user_update = users_4.user_id", 'left');
+		$this->db->join('raw_material AS c', "$this->my_table.self_food_id = c.rmat_id", 'left');
 
 		$list_record = $this->list_record();
 		$data = array(

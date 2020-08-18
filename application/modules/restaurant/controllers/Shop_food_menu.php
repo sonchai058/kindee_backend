@@ -773,6 +773,7 @@ class Shop_food_menu extends CRUD_Controller
 			$data[$i]['preview_fag_allow'] = $this->setFagAllowSubject($data[$i]['fag_allow']);
 			$data[$i]['price_amt'] = number_format($data[$i]['price_amt'],2);
 			$data[$i]['energy_amt'] = number_format(($data[$i]['energy_amt']/1000),2);
+			$data[$i]['sodium_val'] = number_format(($data[$i]['sodium_val']), 2);
 			$data[$i]['datetime_delete'] = setThaiDate($data[$i]['datetime_delete']);
 			$data[$i]['datetime_add'] = setThaiDate($data[$i]['datetime_add']);
 			$data[$i]['datetime_update'] = setThaiDate($data[$i]['datetime_update']);
