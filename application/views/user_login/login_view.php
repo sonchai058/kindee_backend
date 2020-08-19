@@ -36,11 +36,11 @@
 							<br />
 							<div class="form-group row">
 								<div class="col-md-6">
-									<button type="button" onclick="window.location.href='{base_url}register/user_add'" class="btn btn-block btn-primary btn-sm font-weight-medium auth-form-btn" id="btn_sign_up_user">SIGN UP USER</button>
+									<button type="button" onclick="window.location.href='{base_url}register/user_add'" class="btn btn-block btn-primary btn-sm font-weight-medium auth-form-btn" id="btn_sign_up_user">&nbsp;&nbsp;<i class="fas fa-user"></i> &nbsp;SIGN UP USER&nbsp;&nbsp;</button>
 									<br />
 								</div>
 								<div class="col-md-6">
-									<button type="button" onclick="window.location.href='{base_url}register/registershops/shop_add'" class="btn btn-block btn-secondary btn-sm font-weight-medium auth-form-btn" id="btn_sign_up_shop">SIGN UP SHOP</button>
+									<button type="button" onclick="window.location.href='{base_url}register/registershops/shop_add'" class="btn btn-block btn-secondary btn-sm font-weight-medium auth-form-btn" id="btn_sign_up_shop">&nbsp;&nbsp;<i class="fas fa-store"></i> &nbsp;SIGN UP SHOP&nbsp;&nbsp;</button>
 								</div>
 							</div>
 						</form>

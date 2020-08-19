@@ -162,9 +162,9 @@
 				<p class="alert alert-warning">ยืนยันการลงทะเบียน ?</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-warning" data-dismiss="modal">&nbsp;&nbsp;<i class="fa fa-times"></i> &nbsp;ยกเลิก &nbsp;&nbsp;
+				<button type="button" class="btn btn-warning" data-dismiss="modal">&nbsp;&nbsp;ยกเลิก &nbsp;&nbsp;
 				</button>&emsp;
-				<button type="button" class="btn btn-success" id="btnSave">&nbsp;&nbsp;<i class="fa fa-save"></i> &nbsp;ยืนยัน &nbsp;&nbsp;</button>
+				<button type="button" class="btn btn-success" id="btnSave">&nbsp;&nbsp;ยืนยัน &nbsp;&nbsp;</button>
 			</div>
 		</div>
 	</div>
