@@ -1,10 +1,6 @@
 <script>
-	var num = {
-		count_image
-	};
-	var data_id = {
-		data_id
-	};
+	var num = {count_image};
+	var data_id = {data_id};
 	var state = 'edit';
 </script>
 <!--  [ View File name : edit_view.php ] -->
@@ -40,7 +36,7 @@
 								<div class="form-group col-md-12 ">
 									<label class="control-label" for="blog_detail">รายละเอียด :</label>
 									<div class="form-group has-success">
-									<textarea class="form-control" id="blog_detail" name="blog_detail" rows="5">{record_blog_detail}</textarea>
+										<textarea class="form-control" id="blog_detail" name="blog_detail" rows="5">{record_blog_detail}</textarea>
 									</div>
 								</div>
 							</div>
@@ -48,45 +44,44 @@
 								<div class="form-group col-md-12 ">
 									<label class="control-label" for="blog_name">รูปภาพ :</label>
 									<div class="form-group has-success">
-									<button onclick="$('#pro-image').click()" type="button" id="" class="btn btn-warning btn-md" data-toggle="modal" data-target="">
-										&nbsp;&nbsp;<i class="fa fa-upload"></i>&nbsp; อัปโหลดรูป &nbsp;&nbsp;
-									</button>
-									<input accept="image/*" type="file" id="pro-image" name="pro-image[]" style="display: none;" class="form-control" multiple>
+										<button onclick="$('#pro-image').click()" type="button" id="" class="btn btn-warning btn-md" data-toggle="modal" data-target="">
+											&nbsp;&nbsp;<i class="fa fa-upload"></i>&nbsp; อัปโหลดรูป &nbsp;&nbsp;
+										</button>
+										<input accept="image/*" type="file" id="pro-image" name="pro-image[]" style="display: none;" class="form-control" multiple>
 									</div>
 								</div>
 							</div>
 							<div class="form-row ustify-content-between">
 								<div class="form-group col-md-12 ">
-									<label class="control-label"</label>
-									<div class="form-group has-success">
+									<label class="control-label" </label> <div class="form-group has-success">
 										<div class="preview-images-zone" id="uploadContent">
 											{blog_images}
 										</div>
-									</div>
 								</div>
 							</div>
 						</div>
-
-
-
-
-						<div class="form-group">
-							<div class="col-sm-12 text-right">
-								<button type="button" class='btn btn-success' data-toggle='modal' data-target='#editModal'>&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp; บันทึก &nbsp;&nbsp;</button>
-							</div>
-						</div>
-
-						<input type="hidden" name="encrypt_blog_id" value="{encrypt_blog_id}" />
-
-
-
-					</form>
 				</div>
-				<!--card-body-->
+
+
+
+
+				<div class="form-group">
+					<div class="col-sm-12 text-right">
+						<button type="button" class='btn btn-success' data-toggle='modal' data-target='#editModal'>&nbsp;&nbsp;<i class="fa fa-save"></i>&nbsp; บันทึก &nbsp;&nbsp;</button>
+					</div>
+				</div>
+
+				<input type="hidden" name="encrypt_blog_id" value="{encrypt_blog_id}" />
+
+
+
+				</form>
 			</div>
-			<!--card-->
+			<!--card-body-->
 		</div>
+		<!--card-->
 	</div>
+</div>
 </div>
 
 <!-- Modal -->
