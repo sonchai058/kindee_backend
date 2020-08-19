@@ -17,7 +17,7 @@ if ($this->session->userdata('user_level') == 'super_user') {
 
 <div class="sidebar" data-color="orange" data-background-color="black" data-image="{base_url}assets/themes/material/assets/img/sidebar-3.jpg">
 	<div class="logo">
-		<a href="{site_url}" class="simple-text logo-normal">
+		<a href="{site_url}frontend_page" class="simple-text logo-normal">
 			<img src="{base_url}assets/images/info.kindee.kindee.png" alt="logo" style="width:40px">&emsp;
 			<span>Kindee | Story</span>
 		</a>

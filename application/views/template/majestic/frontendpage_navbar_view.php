@@ -20,7 +20,7 @@
 				</li>
 				<?php if ($this->session->userdata('user_level') == 'admin') { ?>
 					<li class="nav-item <?php if ($this->uri->segment(1) == '' || $this->uri->segment(1) == 'dashboard') { ?>active<?php } ?>">
-						<a class="nav-link" href="{site_url}">
+						<a class="nav-link" href="{site_url}dashboard">
 							สมาชิก
 						</a>
 					</li>
@@ -47,7 +47,7 @@
 				?>
 				<?php if ($this->session->userdata('user_level') == 'nutritionist') { ?>
 					<li class="nav-item <?php if ($this->uri->segment(1) == '' || $this->uri->segment(1) == 'dashboard') { ?>active<?php } ?>">
-						<a class="nav-link" href="{site_url}">
+						<a class="nav-link" href="{site_url}dashboard">
 							สมาชิก
 						</a>
 					</li>
@@ -63,15 +63,6 @@
 				?>
 			</ul>
 			<ul class="nav navbar-nav ml-auto w-100 justify-content-end">
-				<!-- <li class="nav-item">
-					<a class="nav-link" href="#">Right</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Right</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">Right</a>
-				</li> -->
 			</ul>
 		</div>
 	</nav>
