@@ -367,7 +367,7 @@ function setAttachPreview($input_name, $file_path, $title='เปิดไฟล
 	$icon = getFileIcon($file_path);
 	if($icon == 'picture.png'){
 		$link = '<a class="file_link" target="_blank" title="'.$title.'" href="'. site_url('file/preview/') . ci_encrypt($file_path) .'">';
-		$link .= '<img id="'.$input_name.'_preview" height="200" width="100%" src="'.base_url().''.$file_path.'" />';
+		$link .= '<img id="'.$input_name.'_preview" height="300" width="100%" src="'.base_url().''.$file_path.'" />';
 		$link .= '</a>';
 	}else{
 		$link = setAttachLink($input_name, $file_path, $title, $show_text);
@@ -401,4 +401,3 @@ function setAttachLink($input_name, $file_path, $title='เปิดไฟล์
 function setAttachLinkText($input_name, $file_path, $title='เปิดไฟล์แนบ'){
 	return setAttachLink($input_name, $file_path, $title, TRUE);
 }
-?>
