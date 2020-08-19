@@ -18,7 +18,9 @@
 				<div class="col-lg-4 mx-auto">
 					<div class="auth-form-light text-left py-5 px-4 px-sm-5">
 						<div class="brand-logo">
-							<img src="{base_url}/assets/images/info.kindee.kindee.png" alt="logo">
+							<a href="{site_url}frontend_page" class="simple-text logo-normal">
+								<img src="{base_url}/assets/images/info.kindee.kindee.png" alt="logo">
+							</a>
 						</div>
 						<h4>kindee | inno story</h4>
 						<h6 class="font-weight-light">Sign in to continue.</h6>
