@@ -369,7 +369,7 @@ class Shop_food_menu extends CRUD_Controller
 						$carboh_val = $tmp['carboh_val'] * $energy_default;
 						$sum_energy = $protein_val + $fat_val + $carboh_val;
 
-						$energy_amt += ($energy_amt_tmp * floatval($post['amount'][$key]/100));
+						$energy_amt += ($energy_amt_tmp * floatval($post['amount'][$key] / 100));
 						$id_new = $this->common_model->insert(
 							"self_food_menu_composition",
 							array(
@@ -440,7 +440,7 @@ class Shop_food_menu extends CRUD_Controller
 				$rows = $this->common_model->custom_query("select * from raw_material where fag_allow='allow' and energy_val!=0.00 and rmat_name!=''");
 				foreach ($rows as $key => $value) {
 					$rmat_name = mb_substr($value['rmat_name'], 0, 40, 'UTF-8');
-					$this->data['category_rmat_id_option_list'] = $this->data['category_rmat_id_option_list'] . "<option data-energy_val='{$value['energy_val']}' value='{$value['rmat_id']}'>{$rmat_name} - {$value['energy_val']}/กรัม</option>";
+					$this->data['category_rmat_id_option_list'] = $this->data['category_rmat_id_option_list'] . "<option data-energy_val='{$value['energy_val']}' value='{$value['rmat_id']}'>{$rmat_name} - {$value['energy_val']}/100 กรัม</option>";
 				}
 
 				$this->data['data_id'] = $id;
@@ -687,7 +687,7 @@ class Shop_food_menu extends CRUD_Controller
 					} else {
 						$tmp = rowArray($this->common_model->custom_query("select energy_val from raw_material where fag_allow!='delete' and rmat_id='{$post['rmat_id'][$key]}' order by rmat_id desc limit 1"));
 						$energy_amt_tmp = isset($tmp['energy_val']) ? $tmp['energy_val'] : 0;
-						$energy_amt += ($energy_amt_tmp * floatval($post['amount'][$key]/100));
+						$energy_amt += ($energy_amt_tmp * floatval($post['amount'][$key] / 100));
 						$id_new = $this->common_model->insert(
 							"self_food_menu_composition",
 							array(
@@ -797,8 +797,8 @@ class Shop_food_menu extends CRUD_Controller
 			}
 			$data[$i]['encrypt_self_food_id'] = $pk1;
 			$data[$i]['preview_fag_allow'] = $this->setFagAllowSubject($data[$i]['fag_allow']);
-			$data[$i]['price_amt'] = number_format($data[$i]['price_amt'],2);
-			$data[$i]['energy_amt'] = number_format(($data[$i]['energy_amt']),2);
+			$data[$i]['price_amt'] = number_format($data[$i]['price_amt'], 2);
+			$data[$i]['energy_amt'] = number_format(($data[$i]['energy_amt']), 2);
 			$data[$i]['sodium_val'] = number_format(($data[$i]['sodium_val']), 2);
 			$data[$i]['datetime_delete'] = setThaiDate($data[$i]['datetime_delete']);
 			$data[$i]['datetime_add'] = setThaiDate($data[$i]['datetime_add']);
