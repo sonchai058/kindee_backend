@@ -49,6 +49,18 @@
 										<td style="text-align:right;">{user_bmr_fat}</td>
 										<td style="text-align:right;">{balance_fat}</td>
 									</tr>
+								</tbody>
+							</table>
+							<table class="table table-striped text-center">
+								<thead>
+									<tr>
+										<th class="text-center"></th>
+										<th width="28%" class="text-center">โซเดียมงานวันนี้ (mg)</th>
+										<th width="28%" class="text-center">โซเดียมที่ควรรับประทานต่อวัน (mg)</th>
+										<th width="28%" class="text-center">ปริมาณคงเหลือในแต่ละวัน (mg)</th>
+									</tr>
+								</thead>
+								<tbody>
 									<tr >
 										<td style="text-align:left;">โซเดียม</td>
 										<td style="text-align:right;">{sum_sodium_val}</td>
@@ -124,7 +136,7 @@
 									<th class="text-center">มื้ออาหาร</th>
 									<th class="text-center">เมนูอาหาร</th>
 									<th class="text-center">พลังงาน (K)</th>
-									<th class="text-center">โซเดียม</th>
+									<th class="text-center">โซเดียม (mg)</th>
 									<th class="text-center" style="width:200px">เครื่องมือ</th>
 								</tr>
 							</thead>

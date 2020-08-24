@@ -81,13 +81,14 @@ class User_api_model extends CI_Model
         $whereFood .= " and users_food.date_eat = '".$date."' ";
         $whereFoodType .= "  and users_food.fag_allow = 'allow' and `composition`.`fag_allow` = 'allow' ";
 
-        $this->db->select('users_food.food_energy,
-                          composition.amount,
-                          SUM(material.energy_val*composition.amount),
-                          SUM(material.protein_val*composition.amount)/100 as protein_val,
-                          SUM(material.fat_val*composition.amount)/100 as fat_val,
-                          SUM(material.carboh_val*composition.amount)/100 as carboh_val,
-                          SUM(material.sodium_val*composition.amount)/100 as sodium_val  '
+        $this->db->select(' material.rmat_name,
+                            users_food.food_energy,
+                            composition.amount,
+                            material.energy_val,
+                            material.carboh_val,
+                            material.protein_val,
+                            material.fat_val,
+                            material.sodium_val  '
                         );
         $this->db->from('users_food_time as users_food');
         $this->db->join('self_food_menu as menu', "users_food.food_id = menu.self_food_id", 'left');
@@ -96,7 +97,63 @@ class User_api_model extends CI_Model
 
         $this->db->where($whereFood.$whereFoodType);
         $queryFoodType = $this->db->get();
-        $dataFoodType = $queryFoodType->row();
+        //echo $this->db->last_query();
+        //$dataFoodType = $queryFoodType->row();
+        //$dataFoodType = array();
+        $carboh_val = 0;
+        $protein_val = 0;
+        $fat_val = 0;
+        $sodium_val = 0;
+        foreach ($queryFoodType->result() as $row)
+        {
+          $sum_cpf = 0;
+          $percent_carboh = 0;
+          $percent_protein = 0;
+          $percent_fat = 0;
+          $ratio_carboh = 0;
+          $ratio_protein = 0;
+          $ratio_fat = 0;
+          $kcal_gram_carboh = 0;
+          $kcal_gram_protein = 0;
+          $kcal_gram_fat = 0;
+
+          $sum_cpf = $row->carboh_val+$row->protein_val+$row->fat_val;
+          if($sum_cpf>0){
+            $percent_carboh = $row->carboh_val/$sum_cpf;
+            $percent_protein = $row->protein_val/$sum_cpf;
+            $percent_fat = $row->fat_val/$sum_cpf;
+            $ratio_carboh = $percent_carboh*$row->energy_val;
+            $ratio_protein = $percent_protein*$row->energy_val;
+            $ratio_fat = $percent_fat*$row->energy_val;
+            if($row->carboh_val>0){
+              $kcal_gram_carboh = $ratio_carboh/$row->carboh_val;
+            }else{
+              $kcal_gram_carboh = 0;
+            }
+            if($row->protein_val>0){
+              $kcal_gram_protein = $ratio_protein/$row->protein_val;
+            }else{
+              $kcal_gram_protein = 0;
+            }
+            if($row->fat_val>0){
+              $kcal_gram_fat = $ratio_fat/$row->fat_val;
+            }else{
+              $kcal_gram_fat = 0;
+            }
+
+          }else{
+            $kcal_gram_carboh = 0;
+            $kcal_gram_protein = 0;
+            $kcal_gram_fat = 0;
+          }
+
+          $carboh_val += ($kcal_gram_carboh*$row->carboh_val)*round(($row->amount/100),1);
+          $protein_val += round($kcal_gram_protein*$row->protein_val,5)*round(($row->amount/100),5);
+          //echo "(".$kcal_gram_protein."*".$row->protein_val.")*".($row->amount/100)."<br/>";
+          $fat_val += ($kcal_gram_fat*$row->fat_val)*round(($row->amount/100),1);
+          $sodium_val += $row->sodium_val*($row->amount/100);
+          //echo $row->rmat_name.":".round(($kcal_gram_protein*$row->protein_val)*($row->amount/100),2).'<br/>';
+        }
         //echo $this->db->last_query();
 
         $whereFood = "user_id = '".$dataUser->user_id."' ";
@@ -114,11 +171,11 @@ class User_api_model extends CI_Model
             $res['user_height'] = $dataUser->user_height;
             $res['user_weight'] = $dataWeight->user_weight;
             $res['user_bmi'] = number_format($dataWeight->user_weight/pow(($dataUser->user_height/100),2),2);
-            $res['sum_food_energy'] = number_format($dataFood->sum_food_energy/100,2);
-            $res['sum_protein_val'] = number_format($dataFoodType->protein_val,2);
-            $res['sum_fat_val'] = number_format($dataFoodType->fat_val,2);
-            $res['sum_carboh_val'] = number_format($dataFoodType->carboh_val,2);
-            $res['sum_sodium_val'] = number_format($dataFoodType->sodium_val,2);
+            $res['sum_food_energy'] = number_format($dataFood->sum_food_energy,2);
+            $res['sum_protein_val'] = number_format($protein_val,2);
+            $res['sum_fat_val'] = number_format($fat_val,2);
+            $res['sum_carboh_val'] = number_format($carboh_val,2);
+            $res['sum_sodium_val'] = number_format($sodium_val,2);
             return $res;
         } else {
             return false;

@@ -119,7 +119,7 @@ class Food_api_model extends CI_Model
               $data_food1[]  = array(
                                       'foodt_id' => intval($row->foodt_id),
                                       'food_name' => $row->self_food_name,
-                                      'food_energy' => $row->food_energy/100
+                                      'food_energy' => $row->food_energy
                                     );
             }
             foreach ($queryFoodType2->result() as $row)
@@ -127,7 +127,7 @@ class Food_api_model extends CI_Model
               $data_food2[]  = array(
                                       'foodt_id' => intval($row->foodt_id),
                                       'food_name'=>$row->self_food_name,
-                                      'food_energy'=>$row->food_energy/100
+                                      'food_energy'=>$row->food_energy
                                     );
             }
             foreach ($queryFoodType3->result() as $row)
@@ -135,7 +135,7 @@ class Food_api_model extends CI_Model
               $data_food3[]  = array(
                                       'foodt_id' => intval($row->foodt_id),
                                       'food_name'=>$row->self_food_name,
-                                      'food_energy'=>$row->food_energy/100
+                                      'food_energy'=>$row->food_energy
                                     );
             }
             foreach ($queryFoodType4->result() as $row)
@@ -143,19 +143,19 @@ class Food_api_model extends CI_Model
               $data_food4[]  = array(
                                       'foodt_id' => intval($row->foodt_id),
                                       'food_name'=>$row->self_food_name,
-                                      'food_energy'=>number_format($row->food_energy/100,2)
+                                      'food_energy'=>number_format($row->food_energy,2)
                                     );
             }
             $res['data_food1'] = $data_food1;
-            $res['data_sum_energy1'] = number_format($dataSumEnergy1->sum/100,2);
+            $res['data_sum_energy1'] = number_format($dataSumEnergy1->sum,2);
             $res['data_food2'] = $data_food2;
-            $res['data_sum_energy2'] = number_format($dataSumEnergy2->sum/100,2);
+            $res['data_sum_energy2'] = number_format($dataSumEnergy2->sum,2);
             $res['data_food3'] = $data_food3;
-            $res['data_sum_energy3'] = number_format($dataSumEnergy3->sum/100,2);
+            $res['data_sum_energy3'] = number_format($dataSumEnergy3->sum,2);
             $res['data_food4'] = $data_food4;
-            $res['data_sum_energy4'] = number_format($dataSumEnergy4->sum/100,2);
+            $res['data_sum_energy4'] = number_format($dataSumEnergy4->sum,2);
             $data_sum_energyall = $dataSumEnergy1->sum+$dataSumEnergy2->sum+$dataSumEnergy3->sum+$dataSumEnergy4->sum;
-            $res['data_sum_energyall'] = number_format($data_sum_energyall/100,2);
+            $res['data_sum_energyall'] = number_format($data_sum_energyall,2);
             return $res;
         } else {
             return false;
@@ -205,7 +205,7 @@ class Food_api_model extends CI_Model
           $res['eat_time'] = $dataFood->eat_time;
           $res['eat_time_id'] = intval($eat_time_id);
           $res['date_eat'] = $dataFood->date_eat;
-          $res['food_energy'] = $dataFood->food_energy/1000;
+          $res['food_energy'] = $dataFood->food_energy;
 
           return $res;
       } else {
@@ -250,5 +250,7 @@ class Food_api_model extends CI_Model
         }
         return $res;
     }
+
+
 
 }

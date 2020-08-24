@@ -57,7 +57,7 @@
 									<td>{record_food_energy}</td>
 								</tr>
 								<tr>
-									<td class="text-right fit"><b>โซเดียม :</b></td>
+									<td class="text-right fit"><b>โซเดียม (mg) :</b></td>
 									<td>{record_sodium_val}</td>
 								</tr>
 								<tr>

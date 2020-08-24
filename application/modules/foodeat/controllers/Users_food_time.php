@@ -156,8 +156,8 @@ class Users_food_time extends CRUD_Controller
 		}else{
 			$date = date('Y-m-d');
 		}
-		$res = $this->user->getBMI('user@gmail.com', $date);
-		$res_food = $this->food->getFood('user@gmail.com', $date);
+		$res = $this->user->getBMI($_SESSION['email_addr'], $date);
+		$res_food = $this->food->getFood($_SESSION['email_addr'], $date);
 		$this->data['sum_food_energy']	= $res['sum_food_energy'];
 		$this->data['sum_carboh_val']	= $res['sum_carboh_val'];
 		$this->data['sum_protein_val']	= $res['sum_protein_val'];
@@ -512,7 +512,7 @@ class Users_food_time extends CRUD_Controller
 			$data[$i]['preview_eat_time'] = $this->setEatTimeSubject($data[$i]['eat_time']);
 			$data[$i]['preview_fag_allow'] = $this->setFagAllowSubject($data[$i]['fag_allow']);
 			$data[$i]['date_eat'] = setThaiDate($data[$i]['date_eat']);
-			$data[$i]['food_energy'] = number_format(($data[$i]['food_energy'] / 1000), 2);
+			$data[$i]['food_energy'] = number_format(($data[$i]['food_energy']), 2);
 			$data[$i]['sodium_val'] = number_format(($data[$i]['sodium_val']), 2);
 			$data[$i]['datetime_delete'] = setThaiDate($data[$i]['datetime_delete']);
 			$data[$i]['datetime_add'] = setThaiDate($data[$i]['datetime_add']);
@@ -603,9 +603,10 @@ class Users_food_time extends CRUD_Controller
 		$sodium_val = $this->Users_food_time->getRowOf(
 			'self_food_menu  as a LEFT JOIN self_food_menu_composition AS b ON a.self_food_id = b.self_food_id
 			LEFT JOIN raw_material AS c ON b.rmat_id = c.rmat_id',
-			'a.energy_amt As energy_amt,b.self_food_id AS self_food_id,SUM(c.sodium_val) AS sodium_val',
-			"a.self_food_id = '$data[food_id]'", $this->db
+			'a.energy_amt As energy_amt,b.self_food_id AS self_food_id,sum(c.sodium_val*b.amount)/100 AS sodium_val',
+			"a.self_food_id = '$data[food_id]' and b.fag_allow='allow'", $this->db
 		);
+
 		$foodIdSelfFoodName = $titleRow['self_food_name'];
 		$foodIdEnergyAmt = $titleRow['energy_amt'];
 		$foodSodium = number_format($sodium_val['sodium_val'],2);
@@ -623,7 +624,7 @@ class Users_food_time extends CRUD_Controller
 		$this->data['record_eat_time'] = $data['eat_time'];
 		$this->data['record_date_eat'] = $data['date_eat'];
 		$this->data['record_food_id'] = $data['food_id'];
-		$this->data['record_food_energy'] = ($data['food_energy'] / 1000);
+		$this->data['record_food_energy'] = ($data['food_energy']);
 		$this->data['record_user_delete'] = $data['user_delete'];
 		$this->data['record_datetime_delete'] = $data['datetime_delete'];
 		$this->data['record_user_add'] = $data['user_add'];
@@ -634,7 +635,7 @@ class Users_food_time extends CRUD_Controller
 		$this->data['record_fag_allow'] = $data['fag_allow'];
 
 		$this->data['record_date_eat'] = setThaiDate($data['date_eat']);
-		$this->data['record_food_energy'] = number_format(($data['food_energy'] / 1000), 2);
+		$this->data['record_food_energy'] = number_format(($data['food_energy']), 2);
 		$this->data['record_datetime_delete'] = setThaiDate($data['datetime_delete']);
 		$this->data['record_datetime_add'] = setThaiDate($data['datetime_add']);
 		$this->data['record_datetime_update'] = setThaiDate($data['datetime_update']);
