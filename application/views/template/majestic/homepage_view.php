@@ -120,6 +120,10 @@
 				width: 100%;
 			}
 		}
+
+		.modal-title {
+			font-weight: bold;
+		}
 	</style>
 
 	<script>
