@@ -120,7 +120,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title" id="confirmDelModalLabel">ยืนยันการลบข้อมูล!</h4>
+				<h4 class="modal-title" id="confirmDelModalLabel">ยืนยันการลบข้อมูล !</h4>
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 			</div>
 			<div class="modal-body">
@@ -143,7 +143,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-warning" data-dismiss="modal">&nbsp;ยกเลิก&nbsp;</button>&emsp;
-				<button type="button" class="btn btn-warning" id="btn_confirm_delete">&nbsp;ยืนยัน&nbsp;</button>
+				<button type="button" class="btn btn-danger" id="btn_confirm_delete">&nbsp;ยืนยัน&nbsp;</button>
 			</div>
 		</div>
 	</div>
