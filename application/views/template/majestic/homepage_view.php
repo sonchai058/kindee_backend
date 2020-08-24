@@ -159,7 +159,7 @@
 						Copyright © <script>
 							document.write(new Date().getFullYear());
 						</script>
-						<a href="http://jigsawinnovation.com/" target="_blank">Jigsaw Innovation</a>. All rights reserved.
+						<a style="color: #4caf50;" href="http://jigsawinnovation.com/" target="_blank">Jigsaw Innovation</a>. All rights reserved.
 						Power by Jigsaw Innovation
 					</div>
 				</div>

@@ -4684,7 +4684,7 @@ tbody.collapse.show {
 .page-link:focus {
 	z-index: 2;
 	outline: 0;
-	box-shadow: 0 0 0 .2rem rgba(156, 39, 176, .25)
+	box-shadow: 0 0 0 .2rem#4caf5029
 }
 
 .page-link:not(:disabled):not(.disabled) {

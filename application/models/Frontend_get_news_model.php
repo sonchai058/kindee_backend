@@ -25,12 +25,18 @@ class Frontend_get_news_model extends MY_Model
 
 	public function read($start_row)
 	{
+		$total_row = $this->count_record();
+		$search_row = $total_row;
+
 		$order_by	= 'date_public DESC';
 		$offset = $start_row;
-
+		// if ($pages == 'index') {
+		// 	$this->set_limit(8);
+		// } elseif ($pages == 'news_page') {
+		// 	$this->set_limit(0);
+		// }
 		$this->set_order_by($order_by);
 		$this->set_offset($offset);
-		$this->set_limit(4);
 		$this->db->select("$this->my_table.*
 				, encrypt_name
 				, users_1.user_fname AS userDeleteUserFname
@@ -46,6 +52,8 @@ class Frontend_get_news_model extends MY_Model
 		$this->db->group_by($this->my_table . ".blog_id");
 		$list_record = $this->list_record();
 		$data = array(
+			'search_row'	=> $search_row,
+			'total_row'	=> $total_row,
 			'list_data'	=> $list_record
 		);
 		return $data;
