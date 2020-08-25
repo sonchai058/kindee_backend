@@ -122,7 +122,6 @@
 
 						</div>
 				</div>
-				{encrypt_self_food_id}
 
 				<input type="hidden" name="encrypt_self_food_id" value="{encrypt_self_food_id}" />
 
