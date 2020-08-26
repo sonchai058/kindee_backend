@@ -6,7 +6,6 @@
 				<div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
 					<div class="col-md-12 ftco-animate text-center">
 						<h1 class="mb-2">{blog_name}</h1>
-						<!-- <p><a href="#" class="btn btn-primary">View Details</a></p> -->
 					</div>
 
 				</div>
@@ -24,14 +23,14 @@
 					<div class="col-md-6">
 						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url({base_url}/assets/images/frontend/news_food.jpg);">
 							<div class="text px-3 py-1">
-								<h2 class="mb-0"><a href="#">ข่าวสาร</a></h2>
+								<h2 class="mb-0"><a href="{base_url}frontend_page/news_page">ข่าวสาร</a></h2>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url({base_url}/assets/images/frontend/shop_foog.jpg);">
 							<div class="text px-3 py-1">
-								<h2 class="mb-0"><a href="#">ร้านค้า</a></h2>
+								<h2 class="mb-0"><a href="{base_url}frontend_page/shops_page">ร้านค้า</a></h2>
 							</div>
 						</div>
 					</div>
@@ -59,7 +58,7 @@
 					<div class="text py-3 pb-4 px-3 text-left">
 						<p class="price">
 							<a href="{base_url}frontend_page/news_detail_page/{blog_id}">
-								<span class="price-sale">{blog_name_title}</span>
+								<span class="blog_title price-sale">{blog_name_title}</span>
 							</a>
 						</p>
 						<h3><a href="#">โดย: {userAddUserFname}</a></h3>
@@ -89,11 +88,11 @@
 					<div class="text py-3 pb-4 px-3 text-left">
 						<p class="price">
 							<a href="{base_url}frontend_page/shop_detail_page/{shop_id}">
-								<span class="price-sale">{shop_name_th}</span>
+								<span class="shops_title price-sale">{shop_name_th}</span>
 							</a>
 						</p>
-						<h3 style="color: #000;">{shop_name_en}</h3>
-						<p>ที่อยู่ : {addr}</p>
+						<h3 class="shops_title" style="color: #000;">{shop_name_en}</h3>
+						<p class="shops_detail">ที่อยู่ : {addr}</p>
 						<p>Tel : {mobile_no}</p>
 
 					</div>
@@ -103,7 +102,28 @@
 	</div>
 </section>
 <style>
+	.blog_title {
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+	}
+
 	.blog_detail {
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
+	}
+
+	.shops_title {
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+	}
+
+	.shops_detail {
 		overflow: hidden;
 		display: -webkit-box;
 		-webkit-line-clamp: 3;

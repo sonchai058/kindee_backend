@@ -9,7 +9,7 @@
 					<div class="col-md-12">
 						<div class="category-wrap ftco-animate img mb-4 d-flex align-items-end" style="background-image: url({base_url}/assets/images/frontend/news_food.jpg);">
 							<div class="text px-3 py-1">
-								<h2 class="mb-0"><a href="#">ข่าวสาร</a></h2>
+								<h2 class="mb-0">ข่าวสาร</h2>
 							</div>
 						</div>
 					</div>
@@ -37,7 +37,7 @@
 					<div class="text py-3 pb-4 px-3 text-left">
 						<p class="price">
 							<a href="{base_url}frontend_page/news_detail_page/{blog_id}">
-								<span class="price-sale">{blog_name_title}</span>
+								<span class="blog_title price-sale">{blog_name_title}</span>
 							</a>
 						</p>
 						<h3><a href="#">โดย: {userAddUserFname}</a></h3>
@@ -55,6 +55,13 @@
 </section>
 <br />
 <style>
+	.blog_title {
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
+	}
+
 	.blog_detail {
 		overflow: hidden;
 		display: -webkit-box;
