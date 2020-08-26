@@ -32,7 +32,7 @@
 			<div class="col-md-12 col-lg-12">
 				<div class="product">
 					<br />
-					<div align="center"><img src="{base_url}{encrypt_name}" width="500" alt="Colorlib Template"></div>
+					<div align="center"><img style="width:70%; height: 500px;" src="{base_url}{encrypt_name}" alt="Colorlib Template"></div>
 					<div class="text py-3 pb-4 px-3 text-left">
 						<p class="price">
 							<a href="{base_url}news_detail_page/{blog_id}">

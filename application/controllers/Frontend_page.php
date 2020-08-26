@@ -227,6 +227,16 @@ class Frontend_page extends CI_Controller
 		$results_food = $this->Frontend_shops->food_read($shop_id);
 		$this->data['data_list_menu'] = $results_food['list_data'];
 
+		$this->load->model('common_model');
+		$rows = $this->common_model->custom_query("select * from shop_images where shop_id=" . $shop_id . " and fag_allow!='delete' order by image_id ASC");
+		$this->data['count_image'] = count($rows);
+		$shops_images = "";
+		foreach ($rows as $key => $value) {
+			$shops_images =  $shops_images . '<div class="preview-image preview-show-' . ($key + 1) . '">' .
+				'<div data-image_id="' . $value['image_id'] . '" class="image-cancel" data-no="' . ($key + 1) . '"></div>' . '<div class="image-zone"><img style="width:70%; height: 500px;" id="pro-img-' . ($key + 1) . '" src="' . base_url() . $value['encrypt_name'] . '"></div>' .
+				'</div><br/><br/>';
+		}
+		$this->data['shops_images'] = $shops_images;
 		$this->render_view('shops_detail_page');
 	}
 

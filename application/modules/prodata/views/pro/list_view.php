@@ -80,6 +80,7 @@
 									<th class="text-center">#</th>
 									<th class="text-center">บัตรเครดิต</th>
 									<th class="text-center">ประเภท</th>
+									<th class="text-center">สถานะ</th>
 									<th class="text-center" style="width:200px">เครื่องมือ</th>
 								</tr>
 							</thead>
@@ -88,6 +89,7 @@
 									<td style="text-align:center;">{record_number}</td>
 									<td style="text-align:left;">{pro_name}</td>
 									<td style="text-align:left;">{preview_pro_type}</td>
+									<td style="text-align:left;">{preview_fag_allow}</td>
 									<td class="td-actions text-center">
 										<a href="{page_url}/preview/{url_encrypt_id}" class="my-tooltip btn btn-warning btn-md" data-toggle="tooltip" title="แสดงข้อมูลรายละเอียด">
 											<i class="material-icons">list</i>
@@ -138,7 +140,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-warning" data-dismiss="modal">&nbsp;ยกเลิก&nbsp;</button>&emsp;
-				<button type="button" class="btn btn-warning" id="btn_confirm_delete">&nbsp;ยืนยัน&nbsp;</button>
+				<button type="button" class="btn btn-danger" id="btn_confirm_delete">&nbsp;ยืนยัน&nbsp;</button>
 			</div>
 		</div>
 	</div>

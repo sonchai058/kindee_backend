@@ -153,6 +153,7 @@
 									</div>
 								</div>
 							</div>
+						</div>
 							<div class="form-group">
 								<div class="col-sm-12 text-right">
 									<input type="hidden" id="add_encrypt_id" />
@@ -161,8 +162,6 @@
 									</button>
 								</div>
 							</div>
-						</div>
-
 				<input type="hidden" name="encrypt_shop_id" value="{encrypt_shop_id}" />
 
 
@@ -181,7 +180,7 @@
 				<button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>
 			</div>
 			<div class='modal-body'>
-				<h4>ยืนยันการเปลี่ยนแปลงแก้ไขข้อมูล ?</h4>
+				<p class="alert alert-warning">ยืนยันการเปลี่ยนแปลงแก้ไขข้อมูล ?</p>
 				<form class="form-horizontal" onsubmit="return false;" >
 					<div class="form-group">
 						<!--

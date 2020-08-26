@@ -1,10 +1,6 @@
 <script>
-	var num = {
-		count_image
-	};
-	var data_id = {
-		data_id
-	};
+	var num = {count_image};
+	var data_id = {data_id};
 	var state = 'add';
 </script>
 <!-- [ View File name : add_view.php ] -->
@@ -42,16 +38,15 @@
 								</div>
 							</div>
 						</div>
+						<div class="form-group">
+							<div class="col-sm-12 text-right">
+								<input type="hidden" id="add_encrypt_id" />
+								<button type="button" id="btnConfirmSave" class="btn btn-success btn-md" data-toggle="modal" data-target="#addModal">
+									&nbsp;&nbsp;<i class="fa fa-save"></i> &nbsp;บันทึก &nbsp;&nbsp;
+								</button>
+							</div>
+						</div>
 				</div>
-				<div class="form-group">
-					<div class="col-sm-12 text-right">
-						<input type="hidden" id="add_encrypt_id" />
-						<button type="button" id="btnConfirmSave" class="btn btn-success btn-md" data-toggle="modal" data-target="#addModal">
-							&nbsp;&nbsp;<i class="fa fa-save"></i> &nbsp;บันทึก &nbsp;&nbsp;
-						</button>
-					</div>
-				</div>
-
 				</form>
 
 			</div>
