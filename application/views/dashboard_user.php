@@ -12,50 +12,50 @@
 	}
 </style>
 <script>
-$(document).ready(function() {
+	$(document).ready(function() {
 
-	$(function() {
+		$(function() {
 
-		$(".datepicker").datepicker({
-			dateFormat: 'yy-mm-dd',
-			maxDate: new Date(),
+			$(".datepicker").datepicker({
+				dateFormat: 'yy-mm-dd',
+				maxDate: new Date(),
 
-			dayNamesMin: ["อา", "จ", "อ", "พ", "พฤ", "ศ", "ส"],
-			monthNamesShort: [
-				"มกราคม",
-				"กุมภาพันธ์",
-				"มีนาคม",
-				"เมษายน",
-				"พฤษภาคม",
-				"มิถุนายน",
-				"กรกฎาคม",
-				"สิงหาคม",
-				"กันยายน",
-				"ตุลาคม",
-				"พฤศจิกายน",
-				"ธันวาคม",
-			],
-			changeMonth: true,
-			changeYear: true,
+				dayNamesMin: ["อา", "จ", "อ", "พ", "พฤ", "ศ", "ส"],
+				monthNamesShort: [
+					"มกราคม",
+					"กุมภาพันธ์",
+					"มีนาคม",
+					"เมษายน",
+					"พฤษภาคม",
+					"มิถุนายน",
+					"กรกฎาคม",
+					"สิงหาคม",
+					"กันยายน",
+					"ตุลาคม",
+					"พฤศจิกายน",
+					"ธันวาคม",
+				],
+				changeMonth: true,
+				changeYear: true,
+			});
+
 		});
 
-	});
-
-	var chart_labels = {
-		chart_labels
-	};
-	var chart_labels_calo = {
-		chart_labels_calo
-	};
-	var chart_bmi = JSON.parse('{chart_bmi}');
-	var chart_bmr = JSON.parse('{chart_bmr}');
-	var chart_bmr1 = {
-		chart_bmr1
-	};
-	var chart_calo1 = {
-		chart_calo1
-	};
-	var chart_calo = JSON.parse('{chart_calo}');
+		var chart_labels = {
+			chart_labels
+		};
+		var chart_labels_calo = {
+			chart_labels_calo
+		};
+		var chart_bmi = JSON.parse('{chart_bmi}');
+		var chart_bmr = JSON.parse('{chart_bmr}');
+		var chart_bmr1 = {
+			chart_bmr1
+		};
+		var chart_calo1 = {
+			chart_calo1
+		};
+		var chart_calo = JSON.parse('{chart_calo}');
 	});
 </script>
 <?php
@@ -436,9 +436,9 @@ foreach ($bmi_date_array as $key => $value) {
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
 
 <script>
-
 	Highcharts.chart('chartContainer1', {
 
 		title: {
@@ -547,7 +547,7 @@ foreach ($bmi_date_array as $key => $value) {
 		}
 	});
 </script>
-<input type="hidden" id="update_data" name="update_data" value="<?php echo @$_GET['update_data']?>"/>
+<input type="hidden" id="update_data" name="update_data" value="<?php echo @$_GET['update_data'] ?>" />
 <!-- Modal -->
 <div class="modal fade" id="warningModal" tabindex="1" role="dialog" aria-labelledby="warningModalLabel" aria-hidden="false">
 	<div class="modal-dialog">
@@ -557,7 +557,7 @@ foreach ($bmi_date_array as $key => $value) {
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
 			</div>
 			<div class="modal-body">
-				<p class="alert alert-warning" >กรุณาอัพเดทข้อมูล น้ำหนัก และผลการตรวจเลือด</p>
+				<p class="alert alert-warning">กรุณาอัพเดทข้อมูล น้ำหนัก และผลการตรวจเลือด</p>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-warning" data-dismiss="modal">&nbsp;Skip&nbsp;</button>&emsp;
