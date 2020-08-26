@@ -46,6 +46,10 @@
 									<td>{record_blog_detail}</td>
 								</tr>
 								<tr>
+									<td class="text-right fit"><b>รูปภาพ :</b></td>
+									<td>{blog_images}</td>
+								</tr>
+								<tr>
 									<td class="text-right fit"><b>ผู้เพิ่ม :</b></td>
 									<td>{userAddUserFname}</td>
 								</tr>

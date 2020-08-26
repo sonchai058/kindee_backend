@@ -188,7 +188,6 @@ class Blog extends CRUD_Controller
 		$this->data['csrf_protection_field']	= insert_csrf_field(true);
 
 		$this->render_view('blogdata/blog/list_view');
-
 	}
 
 	// ------------------------------------------------------------------------
@@ -214,6 +213,17 @@ class Blog extends CRUD_Controller
 				$this->data['message'] = "ไม่พบข้อมูลตามรหัสอ้างอิง <b>$id</b>";
 				$this->render_view('ci_message/danger');
 			} else {
+				$this->load->model('common_model');
+				$rows = $this->common_model->custom_query("select * from blog_images where blog_id=" . $id . " and fag_allow!='delete'");
+				$this->data['count_image'] = count($rows);
+				$blog_images = "";
+				foreach ($rows as $key => $value) {
+					//$year = (substr($value['datetime_add'],0,4)+543);
+					$blog_images =  $blog_images . '<div class="preview-image preview-show-' . ($key + 1) . '">' .
+						'<div data-image_id="' . $value['image_id'] . '" class="image-cancel" data-no="' . ($key + 1) . '"></div>' . '<div class="image-zone"><img style="width:320px; height: 320px;" id="pro-img-' . ($key + 1) . '" src="' . base_url() . $value['encrypt_name'] . '"></div>' .
+						'</div>';
+				}
+				$this->data['blog_images'] = $blog_images;
 				$this->setPreviewFormat($results);
 				$this->render_view('blogdata/blog/preview_view');
 			}
@@ -702,7 +712,10 @@ class Blog extends CRUD_Controller
 	private function setPreviewFormat($row_data)
 	{
 		$data = $row_data;
-
+		// echo '<pre>';
+		// print_r($data);
+		// echo  '</pre>';
+		// die();
 		$pk1 = $data['blog_id'];
 		$this->data['recode_url_encrypt_id'] = urlencode(encrypt($pk1));
 
@@ -718,11 +731,8 @@ class Blog extends CRUD_Controller
 
 		$userAddUserFname = $this->Blog->getValueOf('users', 'user_fname', "user_id = '$data[user_add]'");
 		$this->data['userAddUserFname'] = $userAddUserFname;
-
-
 		$userUpdateUserFname = $this->Blog->getValueOf('users', 'user_fname', "user_id = '$data[user_update]'");
 		$this->data['userUpdateUserFname'] = $userUpdateUserFname;
-
 		$this->data['record_blog_id'] = $data['blog_id'];
 		$this->data['record_date_public'] = $data['date_public'];
 		$this->data['record_blog_name'] = $data['blog_name'];

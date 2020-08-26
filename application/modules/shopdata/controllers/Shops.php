@@ -936,7 +936,6 @@ class Shops extends CRUD_Controller
 	private function setPreviewFormat($row_data)
 	{
 		$data = $row_data;
-
 		$pk1 = $data['shop_id'];
 		$this->data['recode_url_encrypt_id'] = urlencode(encrypt($pk1));
 
