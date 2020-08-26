@@ -23,13 +23,15 @@ class Frontend_get_news_model extends MY_Model
 		$this->order_sort = '';
 	}
 
-	public function read($start_row)
+	public function read($start_row, $per_page)
 	{
 		$total_row = $this->count_record();
 		$search_row = $total_row;
 
 		$order_by	= 'date_public DESC';
 		$offset = $start_row;
+		$limit = $per_page;
+
 		// if ($pages == 'index') {
 		// 	$this->set_limit(8);
 		// } elseif ($pages == 'news_page') {
@@ -37,6 +39,7 @@ class Frontend_get_news_model extends MY_Model
 		// }
 		$this->set_order_by($order_by);
 		$this->set_offset($offset);
+		$this->set_limit($limit);
 		$this->db->select("$this->my_table.*
 				, encrypt_name
 				, users_1.user_fname AS userDeleteUserFname
@@ -89,6 +92,34 @@ class Frontend_get_news_model extends MY_Model
 		$res['userAddUserFname'] = $row->userAddUserFname;
 
 		$data = $res;
+		return $data;
+	}
+
+	public function read_index($start_row)
+	{
+
+		$order_by	= 'date_public DESC';
+		$offset = $start_row;
+		$this->set_order_by($order_by);
+		$this->set_offset($offset);
+		$this->set_limit(8);
+		$this->db->select("$this->my_table.*
+				, encrypt_name
+				, users_1.user_fname AS userDeleteUserFname
+				, users_2.user_fname AS userAddUserFname
+				, users_3.user_fname AS userUpdateUserFname
+				");
+
+		$this->db->join('blog_images', "$this->my_table.blog_id = blog_images.blog_id", 'left');
+		$this->db->join('users AS users_1', "$this->my_table.user_delete = users_1.user_id", 'left');
+		$this->db->join('users AS users_2', "$this->my_table.user_add = users_2.user_id", 'left');
+		$this->db->join('users AS users_3', "$this->my_table.user_update = users_3.user_id", 'left');
+		$this->db->where('blog_images.fag_allow!=', 'delete');
+		$this->db->group_by($this->my_table . ".blog_id");
+		$list_record = $this->list_record();
+		$data = array(
+			'list_data'	=> $list_record
+		);
 		return $data;
 	}
 }

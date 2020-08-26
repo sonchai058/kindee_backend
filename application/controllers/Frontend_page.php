@@ -24,6 +24,10 @@ class Frontend_page extends CI_Controller
 		$data['csrf_token_name'] = $this->security->get_csrf_token_name();
 		$data['csrf_cookie_name'] = $this->config->item('csrf_cookie_name');
 		$data['csrf_protection_field'] = insert_csrf_field(true);
+
+		$this->per_page = 12;
+		$this->num_links = 6;
+		$this->uri_segment = 3;
 		$this->load->model('Frontend_get_news_model', 'Frontend_news');
 		$this->load->model('Frontend_get_shops_model', 'Frontend_shops');
 
@@ -50,20 +54,28 @@ class Frontend_page extends CI_Controller
 		$this->data['another_js'] = $this->another_js;
 		$this->parser->parse('template/majestic/frontendpage_view', $this->data);
 	}
-
-	/**
-	 * Index of controller
-	 */
+	public function create_pagination($page_url, $total)
+	{
+		$this->load->library('pagination');
+		$config['base_url'] = $page_url;
+		$config['total_rows'] = $total;
+		$config['per_page'] = $this->per_page;
+		$config['num_links'] = $this->num_links;
+		$config['uri_segment'] = $this->uri_segment;
+		$config['attributes'] = array('class' => 'page-link');
+		$this->pagination->initialize($config);
+		return $this->pagination->create_links();
+	}
 
 	public function index()
 	{
 		$start_row = 0;
-		$results_news = $this->Frontend_news->read($start_row);
+		$results_news = $this->Frontend_news->read_index($start_row);
 		$list_data_news = $this->setDataListFormat($results_news['list_data'], $start_row);
 		$this->data['data_list_get_news'] = $list_data_news;
 		$this->data['data_news_list'] = $list_data_news;
 
-		$results_shops = $this->Frontend_shops->read($start_row);
+		$results_shops = $this->Frontend_shops->read_index($start_row);
 		$list_data_shops = $results_shops['list_data'];
 		$this->data['data_list_shops'] = $list_data_shops;
 
@@ -75,17 +87,47 @@ class Frontend_page extends CI_Controller
 
 	public function news_page()
 	{
-		$start_row = 0;
-		$results_news = $this->Frontend_news->read($start_row);
+		$start_row = $this->uri->segment($this->uri_segment, '0');
+		if (!is_numeric($start_row)) {
+			$start_row = 0;
+		}
+		$per_page = $this->per_page;
+		$results_news = $this->Frontend_news->read($start_row, $per_page);
+		$total_row = $results_news['total_row'];
+		$search_row = $results_news['search_row'];
 		$list_data_news = $this->setDataListFormat($results_news['list_data'], $start_row);
-		$this->data['data_list_get_news'] = $list_data_news;
-		$this->data['data_news_list'] = $list_data_news;
 
-		// $results_shops = $this->Frontend_shops->read($start_row);
-		// $list_data_shops = $results_shops['list_data'];
-		// $this->data['data_list_shops'] = $list_data_shops;
+
+		$page_url = site_url('frontend_page');
+		$pagination = $this->create_pagination($page_url . '/news_page', $search_row);
+		$end_row = $start_row + $per_page;
+		if ($search_row < $per_page) {
+			$end_row = $search_row;
+		}
+
+		if ($end_row > $search_row) {
+			$end_row = $search_row;
+		}
+
+		$this->data['data_news_list'] = $list_data_news;
+		$this->data['current_page_offset'] = $start_row;
+		$this->data['start_row']	= $start_row + 1;
+		$this->data['end_row']	= $end_row;
+		$this->data['total_row']	= $total_row;
+		$this->data['search_row']	= $search_row;
+		$this->data['page_url']	= $page_url;
+		$this->data['pagination_link']	= $pagination;
+		$this->data['csrf_protection_field']	= insert_csrf_field(true);
 
 		$this->render_view('news_page');
+		// $start_row = 0;
+		// $results_news = $this->Frontend_news->read($start_row);
+		// $list_data_news = $this->setDataListFormat($results_news['list_data'], $start_row);
+
+		// $this->data['data_list_get_news'] = $list_data_news;
+		// $this->data['data_news_list'] = $list_data_news;
+
+		// $this->render_view('news_page');
 		// die(print_r($this->data['data_list_shops']));
 		// print_r($this->db->last_query());
 		// die();
@@ -115,17 +157,54 @@ class Frontend_page extends CI_Controller
 
 	public function shops_page()
 	{
-		$start_row = 0;
-		$results_news = $this->Frontend_news->read($start_row);
-		$list_data_news = $this->setDataListFormat($results_news['list_data'], $start_row);
-		$this->data['data_list_get_news'] = $list_data_news;
-		$this->data['data_news_list'] = $list_data_news;
-
-		$results_shops = $this->Frontend_shops->read($start_row);
+		$start_row = $this->uri->segment($this->uri_segment, '0');
+		if (!is_numeric($start_row)) {
+			$start_row = 0;
+		}
+		$per_page = $this->per_page;
+		$results_shops = $this->Frontend_shops->read($start_row, $per_page);
+		$total_row = $results_shops['total_row'];
+		$search_row = $results_shops['search_row'];
 		$list_data_shops = $results_shops['list_data'];
-		$this->data['data_list_shops'] = $list_data_shops;
+		// $list_data_shops = $this->setDataListFormat($results_shops['list_data'], $start_row);
 
+
+		$page_url = site_url('frontend_page');
+		$pagination = $this->create_pagination($page_url . '/shops_page', $search_row);
+		$end_row = $start_row + $per_page;
+		if ($search_row < $per_page) {
+			$end_row = $search_row;
+		}
+
+		if ($end_row > $search_row) {
+			$end_row = $search_row;
+		}
+
+		$this->data['data_list_shops'] = $list_data_shops;
+		$this->data['current_page_offset'] = $start_row;
+		$this->data['start_row']	= $start_row + 1;
+		$this->data['end_row']	= $end_row;
+		$this->data['total_row']	= $total_row;
+		$this->data['search_row']	= $search_row;
+		$this->data['page_url']	= $page_url;
+		$this->data['pagination_link']	= $pagination;
+		$this->data['csrf_protection_field']	= insert_csrf_field(true);
+		// die(print_r($this->data['data_list_shops']));
+		// print_r($this->db->last_query());
+		// die();
 		$this->render_view('shops_page');
+
+		// $start_row = 0;
+		// $results_news = $this->Frontend_news->read($start_row);
+		// $list_data_news = $this->setDataListFormat($results_news['list_data'], $start_row);
+		// $this->data['data_list_get_news'] = $list_data_news;
+		// $this->data['data_news_list'] = $list_data_news;
+
+		// $results_shops = $this->Frontend_shops->read($start_row);
+		// $list_data_shops = $results_shops['list_data'];
+		// $this->data['data_list_shops'] = $list_data_shops;
+
+		// $this->render_view('shops_page');
 		// die(print_r($this->data['data_list_shops']));
 		// print_r($this->db->last_query());
 		// die();

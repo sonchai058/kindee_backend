@@ -37,7 +37,7 @@
 					<div class="text py-3 pb-4 px-3 text-left">
 						<p class="price">
 							<a href="{base_url}frontend_page/shop_detail_page/{shop_id}">
-							<span class="price-sale">{shop_name_th}</span>
+								<span class="price-sale">{shop_name_th}</span>
 							</a>
 						</p>
 						<h3 style="color: #000;">{shop_name_en}</h3>
@@ -48,6 +48,11 @@
 				</div>
 			</div>
 		</div>
+		<div class="col-sm-12 col-md-12">
+			<div class="row justify-content-md-end">
+				{pagination_link}
+			</div>
+		</div>
 	</div>
 </section>
 <style>
@@ -56,5 +61,16 @@
 		display: -webkit-box;
 		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
+	}
+
+	.page-item.active .page-link {
+		z-index: 1;
+		color: #fff;
+		background-color: #28a745;
+		border-color: #28a745;
+	}
+
+	.page-item .page-link {
+		color: #6c757d;
 	}
 </style>
