@@ -73,4 +73,11 @@
 	.page-item .page-link {
 		color: #6c757d;
 	}
+
+	img {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		width: 100%;
+	}
 </style>
