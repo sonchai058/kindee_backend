@@ -31,11 +31,12 @@
 		<div class="row">
 			<div class="col-md-12 col-lg-12">
 				<div class="product">
-					<div align="center" ><img  src="{base_url}{encrypt_name}" width="500" alt="Colorlib Template"></div>
+					<br />
+					<div align="center"><img src="{base_url}{encrypt_name}" width="500" alt="Colorlib Template"></div>
 					<div class="text py-3 pb-4 px-3 text-left">
 						<p class="price">
 							<a href="{base_url}news_detail_page/{blog_id}">
-							<span class="price-sale">{blog_name_title}</span>
+								<span class="price-sale">{blog_name_title}</span>
 							</a>
 						</p>
 						<h3><a href="#">โดย: {userAddUserFname}</a></h3>
@@ -77,6 +78,5 @@
 	</div>
 </section> -->
 <style>
-	.blog_detail {
-	}
+	.blog_detail {}
 </style>
