@@ -1,7 +1,5 @@
 <script>
-	var data_id = {
-		data_id
-	};
+	var data_id = {data_id};
 	var state = 'edit';
 </script>
 <!--  [ View File name : edit_view.php ] -->
@@ -74,7 +72,7 @@
 				<button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>
 			</div>
 			<div class='modal-body'>
-				<h4>ยืนยันการเปลี่ยนแปลงแก้ไขข้อมูล ?</h4>
+				<p class="alert alert-warning">ยืนยันการตอบคำถาม ?</p>
 				<form class="form-horizontal" onsubmit="return false;">
 					<!--
 					<div class="form-group">
