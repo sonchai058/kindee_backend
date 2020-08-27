@@ -30,7 +30,7 @@
         var map = null;
         var userMarker = null;
 
-        
+
             map = new google.maps.Map(document.getElementById('map'),
                                           mapOptions);
             userMarker = new google.maps.Marker({
@@ -38,8 +38,8 @@
                 map: map,
                 icon: im,
                 /*//draggable:true*/
-            });     
-     
+            });
+
 
 
 
@@ -47,7 +47,7 @@
         //setTimeout(function(){
         //  $("#searchInput").val(document.getElementById('location').innerHTML);
         //},500);
-        
+
         //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
         /*
         var autocomplete = new google.maps.places.Autocomplete(input);
@@ -60,13 +60,13 @@
             map: map,
             anchorPoint: new google.maps.Point(0, -29),
             /*draggable:true*/
-          
+
           /*
         });
         */
         //dragger
         /*
-        google.maps.event.addListener(marker, 'dragend', function() 
+        google.maps.event.addListener(marker, 'dragend', function()
         {
             geocodePosition(marker.getPosition());
         });
@@ -74,7 +74,7 @@
             console.log('Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3));
             document.getElementById('lat').innerHTML = evt.latLng.lat().toFixed(3);
             document.getElementById('lon').innerHTML = evt.latLng.lng().toFixed(3);
-      $("#point_lat").val(evt.latLng.lat().toFixed(3)); 
+      $("#point_lat").val(evt.latLng.lat().toFixed(3));
       $("#point_long").val(evt.latLng.lng().toFixed(3));
         });
         */
@@ -87,7 +87,7 @@
                 window.alert("Autocomplete's returned place contains no geometry");
                 return;
             }
-      
+
             // If the place has a geometry, then present it on a map.
             if (place.geometry.viewport) {
                 map.fitBounds(place.geometry.viewport);
@@ -104,7 +104,7 @@
             }));
             marker.setPosition(place.geometry.location);
             marker.setVisible(true);
-        
+
             var address = '';
             if (place.address_components) {
                 address = [
@@ -113,10 +113,10 @@
                   (place.address_components[2] && place.address_components[2].short_name || '')
                 ].join(' ');
             }
-        
+
             infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
             infowindow.open(map, marker);
-          
+
             //Location details
             for (var i = 0; i < place.address_components.length; i++) {
                 if(place.address_components[i].types[0] == 'postal_code'){
@@ -129,7 +129,7 @@
             document.getElementById('location').innerHTML = place.formatted_address;
             document.getElementById('lat').innerHTML = place.geometry.location.lat();
             document.getElementById('lon').innerHTML = place.geometry.location.lng();
-      $("#point_lat").val(place.geometry.location.lat()); 
+      $("#point_lat").val(place.geometry.location.lat());
       $("#point_long").val(place.geometry.location.lng());
         });
         */
@@ -137,22 +137,22 @@
 
     }
       /*
-        function geocodePosition(pos) 
+        function geocodePosition(pos)
         {
            geocoder = new google.maps.Geocoder();
            geocoder.geocode
             ({
                 latLng: pos
-            }, 
-                function(results, status) 
+            },
+                function(results, status)
                 {
-                    if (status == google.maps.GeocoderStatus.OK) 
+                    if (status == google.maps.GeocoderStatus.OK)
                     {
                         document.getElementById('location').innerHTML = results[0].formatted_address;
                         document.getElementById('addr').innerHTML = results[0].formatted_address;
                         console.log(results[0].formatted_address);
-                    } 
-                    else 
+                    }
+                    else
                     {
                         console.log('Cannot determine address at this location.'+status);
                     }
@@ -169,4 +169,3 @@ $(document).ready(function(){
 
   initMap(null);
 });
-
