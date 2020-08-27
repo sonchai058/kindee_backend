@@ -230,7 +230,7 @@ class Shop_food_menu extends CRUD_Controller
 
 		$this->load->model("common_model");
 		$this->data['category_rmat_id_option_list'] = "";
-		$rows = $this->common_model->custom_query("select * from raw_material where fag_allow='allow' and energy_val!=0.00 and rmat_name!=''");
+		$rows = $this->common_model->custom_query("select * from raw_material where fag_allow='allow' and rmat_name!=''");
 		foreach ($rows as $key => $value) {
 			$rmat_name = mb_substr($value['rmat_name'], 0, 40, 'UTF-8');
 			$this->data['category_rmat_id_option_list'] = $this->data['category_rmat_id_option_list'] . "<option data-energy_val='{$value['energy_val']}' value='{$value['rmat_id']}'>{$rmat_name} - {$value['energy_val']}/100 กรัม</option>";

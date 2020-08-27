@@ -162,7 +162,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-warning" data-dismiss="modal">&nbsp;ยกเลิก&nbsp;</button>&emsp;
-				<button type="button" class="btn btn-warning" id="btn_confirm_delete">&nbsp;ยืนยัน&nbsp;</button>
+				<button type="button" class="btn btn-danger" id="btn_confirm_delete">&nbsp;ยืนยัน&nbsp;</button>
 			</div>
 		</div>
 	</div>

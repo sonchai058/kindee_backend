@@ -1,8 +1,7 @@
 <script>
-	var data_id = {
-		data_id
-	};
+	var data_id = {data_id};
 	var state = 'edit';
+	var date_set = "<?php echo date('d/m') . '/' . (date("Y") + 543); ?>";
 </script>
 <!--  [ View File name : edit_view.php ] -->
 <div class="container-fluid">
@@ -87,7 +86,7 @@
 								<div class="form-group col-md-4 ">
 									<label class="control-label" for="date_of_birth">วันเกิด :</label>
 									<div class="form-group has-success">
-										<input type="text" class="form-control  datepicker" id="date_of_birth" name="date_of_birth" value="{record_date_of_birth}" />
+										<input type="text" class="form-control datepicker" id="date_of_birth" name="date_of_birth" value="{record_date_of_birth}" />
 									</div>
 								</div>
 								<div class="form-group col-md-4 ">
@@ -213,17 +212,17 @@
 							<h5 style="color:#868787">เครือข่ายโทรศัพท์ (เพื่อเช็คโปรโมชั่น)</h5>
 							{promotions2}
 							<br />
-							<div class='form-group'>
-								<div class="col-sm-12 text-right">
-									<button type="button" class='btn btn-success' data-toggle='modal' data-target='#editModal'>&nbsp;&nbsp;<i class="fa fa-save"></i> &nbsp;บันทึก &nbsp;&nbsp;</button>
-
-								</div>
-							</div>
 
 							<input type="hidden" name="encrypt_user_id" value="{encrypt_user_id}" />
 
 
 					</form>
+				</div>
+				<div class='form-group'>
+					<div class="col-sm-12 text-right">
+						<button type="button" class='btn btn-success' data-toggle='modal' data-target='#editModal'>&nbsp;&nbsp;<i class="fa fa-save"></i> &nbsp;บันทึก &nbsp;&nbsp;</button>
+
+					</div>
 				</div>
 				<!--card-body-->
 			</div>
@@ -311,7 +310,7 @@
 				<button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button>
 			</div>
 			<div class='modal-body'>
-				<h4>ยืนยันการเปลี่ยนแปลงแก้ไขข้อมูล ?</h4>
+				<p class="alert alert-warning">ยืนยันการเปลี่ยนแปลงแก้ไขข้อมูล ?</p>
 				<form class="form-horizontal" onsubmit="return false;">
 					<div class="form-group">
 						<!--

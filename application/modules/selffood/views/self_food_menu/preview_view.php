@@ -46,12 +46,12 @@
 									<td>{record_seft_comp}</td>
 								</tr>
 								<tr>
-									<td class="text-right fit"><b>เกลือ :</b></td>
-									<td>{record_sodium_val}</td>
-								</tr>
-								<tr>
 									<td class="text-right fit"><b>พลังงาน (K) :</b></td>
 									<td>{record_energy_amt}</td>
+								</tr>
+								<tr>
+									<td class="text-right fit"><b>โซเดียม (mg) :</b></td>
+									<td>{record_sodium_val}</td>
 								</tr>
 								<tr>
 									<td class="text-right fit"><b>ผู้เพิ่ม :</b></td>
