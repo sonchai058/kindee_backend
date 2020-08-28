@@ -111,6 +111,10 @@
 			margin: 0px !important;
 		}
 
+		.modal-title {
+			font-weight: bold;
+		}
+
 		@media only screen and (min-width: 500px) {
 			#search {
 				width: 100%;
