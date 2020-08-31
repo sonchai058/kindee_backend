@@ -71,25 +71,46 @@
 								</div>
 							</div>
 							<br>
-							<div class="form-row justify-content-between">
+							<div class="form-row">
 								<div class="form-group col-md-4 ">
 									<label class="control-label" for="mobile_no">เบอร์โทร :</label>
 									<div class="form-group has-success">
 										<input type="text" class="form-control" id="mobile_no" name="mobile_no" value="{record_mobile_no}" />
 									</div>
 								</div>
-								<div class="form-group col-md-4 ">
-									<label class="control-label" for="email_addr">อีเมล :</label>
-									<div class="form-group has-success">
-										<input type="text" class="form-control" id="email_addr" name="email_addr" value="{record_email_addr}" />
+								<?php if ($this->session->userdata('user_level') == 'admin') { ?>
+									<div class="form-group col-md-4 ">
+										<label class="control-label" for="email_addr">อีเมล :</label>
+										<div class="form-group has-success">
+											<input type="text" class="form-control" id="email_addr" name="email_addr" value="{record_email_addr}" readonly />
+										</div>
 									</div>
-								</div>
-								<div class="form-group col-md-4 ">
-									<label class="control-label" for="cus_passwd">รหัสผ่าน :</label>
-									<div class="form-group has-success">
-										<input type="password" class="form-control " id="cus_passwd" name="cus_passwd" value="{record_cus_passwd}" />
+									<div class="form-group col-md-4" style="display: none;">
+										<label class="control-label" for="cus_passwd">รหัสผ่าน :</label>
+										<div class="form-group has-success">
+											<input type="password" class="form-control " id="cus_passwd" name="cus_passwd" value="{record_cus_passwd}" />
+										</div>
 									</div>
-								</div>
+								<?php
+								}
+								?>
+								<?php if ($this->session->userdata('user_level') != 'admin') { ?>
+									<div class="form-group col-md-4 ">
+										<label class="control-label" for="email_addr">อีเมล :</label>
+										<div class="form-group has-success">
+											<input type="text" class="form-control" id="email_addr" name="email_addr" value="{record_email_addr}" />
+										</div>
+									</div>
+									<div class="form-group col-md-4">
+										<label class="control-label" for="cus_passwd">รหัสผ่าน :</label>
+										<div class="form-group has-success">
+											<input type="password" class="form-control " id="cus_passwd" name="cus_passwd" value="{record_cus_passwd}" />
+										</div>
+									</div>
+								<?php
+								}
+								?>
+
 							</div>
 							<div class="form-row justify-content-between">
 								<div class="form-group col-md-12 ">
