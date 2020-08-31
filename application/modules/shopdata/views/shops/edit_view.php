@@ -18,6 +18,7 @@
 						{csrf_protection_field}
 						<input type="hidden" name="submit_case" value="edit" />
 						<input type="hidden" name="data_id" value="{data_id}" />
+						<input type="hidden" name="shop_user_id" value="{record_shop_user}" />
 						<div class="container">
 							<div class="form-row justify-content-between">
 								<div class="form-group col-md-4 ">
