@@ -19,7 +19,7 @@
 					</div>
 					<h4 class="card-title">รายการผลตรวจสุขภาพทางทางชีวเคมี</h4>
 					<a href="{page_url}/generateXls" class="pull-right btn btn-info btn-large">
-						<i class="fa fa-file-excel-o"></i></span>&nbsp;&nbsp;Export to Excel
+						<i class="fa fa-file-excel-o"></i><span style="font-weight: bold;">&nbsp;&nbsp;Export&nbsp;&nbsp;</span>
 					</a>
 				</div>
 				<div class="card-body">
