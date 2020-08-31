@@ -912,6 +912,8 @@ class Users extends CRUD_Controller
 				}
 				$this->data['limit'] = $tmp_data . '</div>';
 
+				$this->data['display'] = ($results['user_level'] == 'shop' ? 'style="display: none"' : '');
+
 				$this->data['promotions1'] = "";
 				$this->data['promotions2'] = "";
 

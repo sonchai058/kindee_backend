@@ -1,5 +1,7 @@
 <script>
-	var data_id = {data_id};
+	var data_id = {
+		data_id
+	};
 	var state = 'edit';
 	var date_set = "<?php echo date('d/m') . '/' . (date("Y") + 543); ?>";
 </script>
@@ -110,61 +112,63 @@
 									</div>
 								</div>
 							</div>
-							<div class="form-row">
-								<div class="form-group col-md-4 ">
-									<label class="control-label" for="user_height">ส่วนสูง CM :</label>
-									<div class="form-group has-success">
-										<input type="number" step="0.01" class="form-control " id="user_height" name="user_height" value="{record_user_height}" />
+							<div {display}>
+								<div class="form-row">
+									<div class="form-group col-md-4 ">
+										<label class="control-label" for="user_height">ส่วนสูง CM :</label>
+										<div class="form-group has-success">
+											<input type="number" step="0.01" class="form-control " id="user_height" name="user_height" value="{record_user_height}" />
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="form-row">
-								<div class="form-group col-md-4 ">
-									<label class="control-label" for="goal_reduce_weight_select">&nbsp;</label><br />
-									<div class="form-group has-success">
-										<select id="goal_reduce_weight_select" name="" value="เพิ่ม">
-											<option value="เพิ่ม"> เพื่มน้ำหนัก </option>
-											<option value="ลด"> ลดน้ำหนัก </option>
-										</select>
+								<div class="form-row">
+									<div class="form-group col-md-4 ">
+										<label class="control-label" for="goal_reduce_weight_select">&nbsp;</label><br />
+										<div class="form-group has-success">
+											<select id="goal_reduce_weight_select" name="" value="เพิ่ม">
+												<option value="เพิ่ม"> เพื่มน้ำหนัก </option>
+												<option value="ลด"> ลดน้ำหนัก </option>
+											</select>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="row" id="w1">
-								<div class="col-sm-12 col-md-4">
-									<label class="col-sm-12 control-label" for="goal_reduce_weight">เป้าหมายในการลดน้ำหนัก (น้ำหนัก) :</label>
-									<input type="number" step="0.01" class="form-control " id="goal_reduce_weight" name="goal_reduce_weight" value="{record_goal_reduce_weight}" />
-								</div>
+								<div class="row" id="w1">
+									<div class="col-sm-12 col-md-4">
+										<label class="col-sm-12 control-label" for="goal_reduce_weight">เป้าหมายในการลดน้ำหนัก (น้ำหนัก) :</label>
+										<input type="number" step="0.01" class="form-control " id="goal_reduce_weight" name="goal_reduce_weight" value="{record_goal_reduce_weight}" />
+									</div>
 
-								<div class="col-sm-12 col-md-4">
-									<label class="col-sm-12 control-label" for="reduce_date_start">(ภายในวันที่) เริ่มต้น :</label>
-									<input type="text" class="form-control  datepicker" id="reduce_date_start" name="reduce_date_start" value="{record_reduce_date_start}" />
-								</div>
+									<div class="col-sm-12 col-md-4">
+										<label class="col-sm-12 control-label" for="reduce_date_start">(ภายในวันที่) เริ่มต้น :</label>
+										<input type="text" class="form-control  datepicker" id="reduce_date_start" name="reduce_date_start" value="{record_reduce_date_start}" />
+									</div>
 
-								<div class="col-sm-12 col-md-4">
-									<label class="col-sm-12 control-label" for="reduce_date_end">(ภายในวันที่) สิ้นสุด :</label>
-									<input type="text" class="form-control  datepicker" id="reduce_date_end" name="reduce_date_end" value="{record_reduce_date_end}" />
+									<div class="col-sm-12 col-md-4">
+										<label class="col-sm-12 control-label" for="reduce_date_end">(ภายในวันที่) สิ้นสุด :</label>
+										<input type="text" class="form-control  datepicker" id="reduce_date_end" name="reduce_date_end" value="{record_reduce_date_end}" />
+									</div>
 								</div>
-							</div>
-							<div class="row" id="w2">
-								<div class="col-sm-12 col-md-4">
-									<label class="col-sm-12 control-label" for="goal_increase_weight">เป้าหมายในการเพิ่มน้ำหนัก (น้ำหนัก) :</label>
-									<input type="number" step="0.01" class="form-control " id="goal_increase_weight" name="goal_increase_weight" value="{record_goal_increase_weight}" />
-								</div>
-								<div class="col-sm-12 col-md-4">
-									<label class="col-sm-12 control-label" for="increase_date_start">(ภายในวันที่) เริ่มต้น :</label>
-									<input type="text" class="form-control  datepicker" id="increase_date_start" name="increase_date_start" value="{record_increase_date_start}" />
-								</div>
+								<div class="row" id="w2">
+									<div class="col-sm-12 col-md-4">
+										<label class="col-sm-12 control-label" for="goal_increase_weight">เป้าหมายในการเพิ่มน้ำหนัก (น้ำหนัก) :</label>
+										<input type="number" step="0.01" class="form-control " id="goal_increase_weight" name="goal_increase_weight" value="{record_goal_increase_weight}" />
+									</div>
+									<div class="col-sm-12 col-md-4">
+										<label class="col-sm-12 control-label" for="increase_date_start">(ภายในวันที่) เริ่มต้น :</label>
+										<input type="text" class="form-control  datepicker" id="increase_date_start" name="increase_date_start" value="{record_increase_date_start}" />
+									</div>
 
-								<div class="col-sm-12 col-md-4">
-									<label class="col-sm-12 control-label" for="increase_date_end">(ภายในวันที่) สิ้นสุด :</label>
-									<input type="text" class="form-control  datepicker" id="increase_date_end" name="increase_date_end" value="{record_increase_date_end}" />
+									<div class="col-sm-12 col-md-4">
+										<label class="col-sm-12 control-label" for="increase_date_end">(ภายในวันที่) สิ้นสุด :</label>
+										<input type="text" class="form-control  datepicker" id="increase_date_end" name="increase_date_end" value="{record_increase_date_end}" />
+									</div>
 								</div>
 							</div>
 							<br>
 							<?php
 							if ($this->session->userdata('user_level') == 'admin') {
 							?>
-								<div class="form-row">
+								<div class="form-row" {display}>
 									<div class="form-group col-md-4 ">
 										<label class="control-label" for="org_id">ชื่อองค์กรที่สังกัด :</label>
 										<div class="form-group has-success">
@@ -202,16 +206,19 @@
 							<?php
 							}
 							?>
-							<br />
-							<h5 style="color:#868787">ข้อจำกัดเพื่อสุขภาพหรือเป็นข้อจำกัดทางศาสนา / ความชอบ / อื่นๆ ที่ไม่สามารถบริโภคผลิตภัณฑ์อาหาร</h5>
-							{limit}
-							<br />
-							<h5 style="color:#868787">บัตรเครดิต (เพื่อเช็คโปรโมชั่น)</h5>
-							{promotions1}
-							<br />
-							<h5 style="color:#868787">เครือข่ายโทรศัพท์ (เพื่อเช็คโปรโมชั่น)</h5>
-							{promotions2}
-							<br />
+							<div {display}>
+								<br />
+								<h5 style="color:#868787">ข้อจำกัดเพื่อสุขภาพหรือเป็นข้อจำกัดทางศาสนา / ความชอบ / อื่นๆ ที่ไม่สามารถบริโภคผลิตภัณฑ์อาหาร</h5>
+								{limit}
+								<br />
+								<h5 style="color:#868787">บัตรเครดิต (เพื่อเช็คโปรโมชั่น)</h5>
+								{promotions1}
+								<br />
+								<h5 style="color:#868787">เครือข่ายโทรศัพท์ (เพื่อเช็คโปรโมชั่น)</h5>
+								{promotions2}
+								<br />
+							</div>
+
 
 							<input type="hidden" name="encrypt_user_id" value="{encrypt_user_id}" />
 
@@ -234,7 +241,7 @@
 </div>
 <!--card-->
 
-<div class="card">
+<div class="card" {display}>
 	<!--
 		<div class="card-header bg-primary">
 			<h3 class="card-title"><i class="fa fa-edit"></i> แก้ไขข้อมูล <strong>users</strong></h3>
