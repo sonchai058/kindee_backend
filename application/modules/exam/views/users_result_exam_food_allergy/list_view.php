@@ -127,36 +127,26 @@
 			</div>
 		</div>
 	</div>
+</div>
 
-	<!-- Modal Delete -->
-	<div class="modal fade" id="confirmDelModal" tabindex="-1" role="dialog" aria-labelledby="confirmDelModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title" id="confirmDelModalLabel">ยืนยันการลบข้อมูล</h4>
-					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				</div>
-				<div class="modal-body">
-					<h4 class="text-center">*** ท่านต้องการลบข้อมูลแถวที่ <span id="xrow"></span> ??? ***</h4>
-					<div id="div_del_detail"></div>
-					<form id="formDelete">
-						<!--
-					<div class="form-group">
-						<div class="col-sm-8">
-<label class="col-sm-3 text-right badge badge-warning" for="edit_remark">ระบุเหตุผล :</label>
-						</div>
-					<div class="col-sm-12">
-						<input type="text" class="form-control" name="delete_remark">
-					</div>
-				-->
-				</div>
-				<input type="hidden" name="encrypt_exam_id" />
-
+<!-- Modal Delete -->
+<div class="modal fade" id="confirmDelModal" tabindex="-1" role="dialog" aria-labelledby="confirmDelModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="confirmDelModalLabel">ยืนยันการลบข้อมูล</h4>
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			</div>
+			<div class="modal-body">
+				<h4 class="text-center">*** ท่านต้องการลบข้อมูลแถวที่ <span id="xrow"></span> ??? ***</h4>
+				<div id="div_del_detail"></div>
+				<form id="formDelete">
+					<input type="hidden" name="encrypt_exam_id" />
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
-				<button type="button" class="btn btn-warning" id="btn_confirm_delete">ยืนยัน</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal">&nbsp;ยกเลิก&nbsp;</button>&emsp;
+				<button type="button" class="btn btn-danger" id="btn_confirm_delete">&nbsp;ยืนยัน&nbsp;</button>
 			</div>
 		</div>
 	</div>
