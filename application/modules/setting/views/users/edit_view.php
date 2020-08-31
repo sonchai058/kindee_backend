@@ -1,7 +1,5 @@
 <script>
-	var data_id = {
-		data_id
-	};
+	var data_id = {data_id};
 	var state = 'edit';
 	var date_set = "<?php echo date('d/m') . '/' . (date("Y") + 543); ?>";
 </script>
