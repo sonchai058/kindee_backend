@@ -260,12 +260,8 @@
 	function initMap(position) {
 		var myLatLng;
 
-		var latitude = {
-			record_point_lat
-		};
-		var longitude = {
-			record_point_long
-		};
+		var latitude = {record_point_lat};
+		var longitude = {record_point_long};
 
 		setTimeout(function() {
 			//alert($("#point_lat").val());
