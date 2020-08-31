@@ -238,9 +238,9 @@ class Shops extends CRUD_Controller
 		$this->data['users_user_delete_option_list'] = $this->Shops->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_add_option_list'] = $this->Shops->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_update_option_list'] = $this->Shops->returnOptionList("users", "user_id", "user_fname");
-		$this->data['preview_shop_photo'] = '<div id="div_preview_shop_photo" class="py-3 div_file_preview" style="clear:both"><img id="shop_photo_preview" height="300"width="350"/></div>';
+		$this->data['preview_shop_photo'] = '<div id="div_preview_shop_photo" class="py-3 div_file_preview" style="clear:both"><img id="shop_photo_preview" height="300"width="100%"/></div>';
 		$this->data['record_shop_photo_label'] = '';
-		$this->data['preview_shop_cover'] = '<div id="div_preview_shop_cover" class="py-3 div_file_preview" style="clear:both"><img id="shop_cover_preview" height="300"width="350"/></div>';
+		$this->data['preview_shop_cover'] = '<div id="div_preview_shop_cover" class="py-3 div_file_preview" style="clear:both"><img id="shop_cover_preview" height="300"width="100%"/></div>';
 		$this->data['record_shop_cover_label'] = '';
 		$this->render_view('shopdata/shops/add_view');
 	}
@@ -797,7 +797,7 @@ class Shops extends CRUD_Controller
 				}
 			}
 
-			$this->load->model("common_model"); ////****
+			$this->load->model("common_model");
 			$shop_user = $this->common_model->update(
 				'users',
 				array(
@@ -806,9 +806,8 @@ class Shops extends CRUD_Controller
 					'email_addr' => $post['email_addr'],
 					'cus_passwd' => $post['cus_passwd']
 				),
-				array('user_id' => ci_decrypt($post['encrypt_shop_id']))
+				array('user_id' => $post['data_id'])
 			);
-
 			/*
 			$shop_user = $this->common_model->update('shop',array('shop_user'=>ci_decrypt($post['encrypt_shop_id'])),array('shop_id'=>ci_decrypt($post['encrypt_shop_id'])));	*/
 
@@ -968,6 +967,11 @@ class Shops extends CRUD_Controller
 		$this->data['record_cate_id'] = $data['cate_id'];
 		$this->data['record_shop_photo'] = $data['shop_photo'];
 
+		// $this->load->model('common_model');
+		// $rows = $this->common_model->custom_query("select * from users where user_id=" . $data['shop_user'] . " and fag_allow!='delete'");
+		// foreach ($rows as $key => $value) {
+		// 	$this->data['record_cus_passwd'] = $value['cus_passwd'];
+		// }
 		$arr = explode('/', $data['shop_photo']);
 		$encrypt_name = end($arr);
 		$filename = $this->Shops->getValueOf('tb_uploads_filename', 'filename', "encrypt_name = '$encrypt_name'", $this->db);
@@ -980,13 +984,13 @@ class Shops extends CRUD_Controller
 		$encrypt_name = end($arr);
 		$filename = $this->Shops->getValueOf('tb_uploads_filename', 'filename', "encrypt_name = '$encrypt_name'", $this->db);
 		$this->data['record_shop_cover_label'] = $filename;
+		$this->data['record_cus_passwd'] = $data['cus_passwd'];
 
 		$this->data['preview_shop_cover'] = setAttachPreview('shop_cover', $data['shop_cover'], $filename);
 		$this->data['record_shop_name_th'] = $data['shop_name_th'];
 		$this->data['record_shop_name_en'] = $data['shop_name_en'];
 		$this->data['record_mobile_no'] = $data['mobile_no'];
 		$this->data['record_email_addr'] = $data['email_addr'];
-		$this->data['record_cus_passwd'] = $data['cus_passwd'];
 		$this->data['record_shop_user'] = $data['shop_user'];
 		$this->data['record_addr'] = $data['addr'];
 		$this->data['record_user_delete'] = $data['user_delete'];

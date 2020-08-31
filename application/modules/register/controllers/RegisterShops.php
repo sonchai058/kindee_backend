@@ -31,6 +31,8 @@ class RegisterShops extends CRUD_Controller
 		$this->load->model('shopdata/Shops_model', 'Shops');
 		$this->load->model('FileUpload_model', 'FileUpload');
 		$this->data['page_url'] = site_url('shopdata/shops');
+		$this->upload_store_path = './assets/uploads/shops/';
+
 		$this->file_allow = array(
 			'application/pdf' => 'pdf',
 			'application/msword' => 'doc',
@@ -88,9 +90,9 @@ class RegisterShops extends CRUD_Controller
 		$this->data['users_user_add_option_list'] = $this->Shops->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_update_option_list'] = $this->Shops->returnOptionList("users", "user_id", "user_fname");
 		$this->data['organizations_org_id_option_list'] = $this->Shops->returnOptionList("organizations", "org_id", "org_name");
-		$this->data['preview_shop_photo'] = '<div id="div_preview_shop_photo" class="py-3 div_file_preview" style="clear:both"><img id="shop_photo_preview" height="300"width="350"/></div>';
+		$this->data['preview_shop_photo'] = '<div id="div_preview_shop_photo" class="py-3 div_file_preview" style="clear:both"><img id="shop_photo_preview" height="300"width="100%"/></div>';
 		$this->data['record_shop_photo_label'] = '';
-		$this->data['preview_shop_cover'] = '<div id="div_preview_shop_cover" class="py-3 div_file_preview" style="clear:both"><img id="shop_cover_preview" height="300"width="350"/></div>';
+		$this->data['preview_shop_cover'] = '<div id="div_preview_shop_cover" class="py-3 div_file_preview" style="clear:both"><img id="shop_cover_preview" height="300"width="100%"/></div>';
 		$this->data['record_shop_cover_label'] = '';
 		$this->render_view('register/shops/add_view_shops');
 	}

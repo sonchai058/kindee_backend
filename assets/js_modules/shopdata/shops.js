@@ -114,7 +114,6 @@ var Shops = {
 	saveEditForm: function(){
 		$('#editModal').modal('hide');
 		var frm_action = site_url('shopdata/shops/update');
-
 		if(!$('#post_iframe').attr('id')){
 			var iframe = $('<iframe name="post_iframe" id="post_iframe" style="display: none"></iframe>');
 			$("body").append(iframe);
