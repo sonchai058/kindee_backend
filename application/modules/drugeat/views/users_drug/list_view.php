@@ -8,7 +8,7 @@
 	<div class="row">
 
 		<div class="col-md-12">
-		<div class="card">
+			<div class="card">
 				<div class="card-header card-header-success card-header-icon">
 					<div class="card-icon">
 						<i class="material-icons">assignment</i>
@@ -16,7 +16,7 @@
 					<h4 class="card-title">รายการข้อมูลยาที่ทานประจำ</h4>
 				</div>
 				<div class="card-body">
-				<form class="form-horizontal" name="formSearch" method="post" action="{page_url}/search">
+					<form class="form-horizontal" name="formSearch" method="post" action="{page_url}/search">
 						{csrf_protection_field}
 						<div class="row">
 							<div class="col-sm-12">
@@ -29,8 +29,8 @@
 									<div class="col-md-2">
 										<div class="form-group has-warning bmd-form-group" id="search">
 											<select class="select2-search" name="search_field" class="span2">
-											<option value="eat_time">ก่อน/หลังอาหาร</option>
-											<option value="user_update">ผู้อัปเดต</option>
+												<option value="eat_time">ก่อน/หลังอาหาร</option>
+												<option value="user_update">ผู้อัปเดต</option>
 											</select>
 										</div>
 									</div>
@@ -50,7 +50,7 @@
 									<div class="col-md-2">
 										<div class="form-group bmd-form-group">
 											<select class="select2-search" id="set_order_by" class="span2" value="{order_by}">
-											<option value="">- จัดเรียงตาม -</option>
+												<option value="">- จัดเรียงตาม -</option>
 											</select>
 										</div>
 									</div>
@@ -79,44 +79,44 @@
 							</thead>
 							<tbody>
 
-					<tr parser-repeat="[data_list]" id="row_{record_number}">
-						<td style="text-align:center;">{record_number}</td>
-						<td >{drug_name}</td>
-						<td >{preview_eat_time}</td>
-						<td style="text-align:center;">{date_eat}</td>
-						<td class="td-actions text-center">
+								<tr parser-repeat="[data_list]" id="row_{record_number}">
+									<td style="text-align:center;">{record_number}</td>
+									<td>{drug_name}</td>
+									<td>{preview_eat_time}</td>
+									<td style="text-align:center;">{date_eat}</td>
+									<td class="td-actions text-center">
 										<a href="{page_url}/preview/{url_encrypt_id}" class="my-tooltip btn btn-warning btn-md" data-toggle="tooltip" title="แสดงข้อมูลรายละเอียด">
 											<i class="material-icons">list</i>
 										</a>
 										<a href="{page_url}/edit/{url_encrypt_id}" class="my-tooltip btn btn-warning " data-toggle="tooltip" title="แก้ไขข้อมูล">
 											<i class="material-icons">edit</i>
 										</a>
-										<a href="javascript:void(0);" class="btn-delete-row my-tooltip btn btn-danger" data-toggle="tooltip" title="ลบรายการนี้"  data-drug_id = "{encrypt_drug_id}" data-row-number="{record_number}">
+										<a href="javascript:void(0);" class="btn-delete-row my-tooltip btn btn-danger" data-toggle="tooltip" title="ลบรายการนี้" data-drug_id="{encrypt_drug_id}" data-row-number="{record_number}">
 											<i class="material-icons">delete_forever</i>
 										</a>
 									</td>
-					</tr>
-				</tbody>
-			</table>
+								</tr>
+							</tbody>
+						</table>
 
-		</div>
+					</div>
 
-		<div class="row dataTables_wrapper">
-			<div class="col-sm-12 col-md-5">
-				<div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
-					แสดงรายการที่ <b>{start_row}</b> ถึง <b>{end_row}</b> จากทั้งหมด <span class="badge badge-success"> {search_row}</span> รายการ
-				</div>
-			</div>
-			<div class="col-sm-12 col-md-7">
-				<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
-					{pagination_link}
+					<div class="row dataTables_wrapper">
+						<div class="col-sm-12 col-md-5">
+							<div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">
+								แสดงรายการที่ <b>{start_row}</b> ถึง <b>{end_row}</b> จากทั้งหมด <span class="badge badge-success"> {search_row}</span> รายการ
+							</div>
+						</div>
+						<div class="col-sm-12 col-md-7">
+							<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate">
+								{pagination_link}
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-</div>
-</div>
 </div>
 <!-- Modal Delete -->
 <div class="modal fade" id="confirmDelModal" tabindex="-1" role="dialog" aria-labelledby="confirmDelModalLabel" aria-hidden="true">
@@ -127,10 +127,10 @@
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 			</div>
 			<div class="modal-body">
-				<h4 class="text-center">***  ท่านต้องการลบข้อมูลแถวที่ <span id="xrow"></span> ???  ***</h4>
+				<h4 class="text-center">*** ท่านต้องการลบข้อมูลแถวที่ <span id="xrow"></span> ??? ***</h4>
 				<div id="div_del_detail"></div>
 				<form id="formDelete">
-				<!--
+					<!--
 					<div class="form-group">
 						<div class="col-sm-8">
 <label class="col-sm-3 text-right badge badge-warning" for="edit_remark">ระบุเหตุผล :</label>
@@ -145,8 +145,8 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-warning" data-dismiss="modal">ยกเลิก</button>
-				<button type="button" class="btn btn-warning" id="btn_confirm_delete" >ยืนยัน</button>
+				<button type="button" class="btn btn-warning" data-dismiss="modal">&nbsp;ยกเลิก&nbsp;</button>&emsp;
+				<button type="button" class="btn btn-danger" id="btn_confirm_delete">&nbsp;ยืนยัน&nbsp;</button>
 			</div>
 		</div>
 	</div>
