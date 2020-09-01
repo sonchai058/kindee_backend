@@ -73,7 +73,8 @@ function loading_on_remove(obj){
 
 function setDropdownList(elem, box_width){
 	if(!box_width){
-		box_width = 'auto';
+		// box_width = "-webkit-fill-available";
+		box_width = '90%';
 	}
 	$(elem).select2({
 		dropdownAutoWidth : true,

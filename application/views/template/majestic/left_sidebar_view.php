@@ -3,7 +3,7 @@ $tmp_txt = '';
 if ($this->session->userdata('user_level') == 'super_user') {
 	$this->load->model("common_model");
 	$rows = $this->common_model->custom_query("select * from users where fag_allow='allow' and user_level='user'");
-	$tmp_txt = "<center><select id='user_select' style='margin-top:5px;'><option>เลือก User</option>";
+	$tmp_txt = "<center><select value='เลือก User' id='user_select' style='margin-top:5px;'><option disabled selected>เลือก User</option>";
 	foreach ($rows as $key => $value) {
 		$selected = "";
 		if ($this->session->userdata('user_id') == $value['user_id']) {

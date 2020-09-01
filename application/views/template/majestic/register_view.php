@@ -103,7 +103,10 @@
 			font-size: 13px !important;
 		}
 
-		.select2-results__option {
+		.select2 .select2-container .select2-container--default {
+			width: 100%;
+
+		}.select2-results__option {
 			font-size: 14px !important;
 		}
 
