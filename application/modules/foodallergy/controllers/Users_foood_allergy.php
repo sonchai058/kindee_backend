@@ -40,7 +40,7 @@ class Users_foood_allergy extends CRUD_Controller
 
 		$post = $this->input->post(NULL, TRUE);
 
-		//die(print_r($post));
+		// die(print_r($post));
 
 		if (count($post['alg_id'])) {
 			$this->load->model("common_model");
@@ -87,6 +87,7 @@ class Users_foood_allergy extends CRUD_Controller
 			$rows = $this->common_model->custom_query("select * from food_allergy as a where a.fag_allow='allow' order by a.alg_id");
 
 			$rows1 = $this->common_model->custom_query("select * from users_foood_allergy_doubt as b where b.fag_allow='allow' and b.user_id={$this->session->userdata('user_id')}");
+
 			$setSelect = array();
 			foreach ($rows1 as $key => $value) {
 				$setSelect[$value['alg_id']] = "Yes";
@@ -101,15 +102,12 @@ class Users_foood_allergy extends CRUD_Controller
 				}
 				// $tmp_data = $tmp_data . "<div onclick=\"if($('.alg_id{$value['alg_id']}:checked').length==0)" . '{' . "$('.alg_id{$value['alg_id']}').prop('checked',true);" . '}' . "else " . '{' . "$('.alg_id{$value['alg_id']}').prop('checked',false);" . '}' . "\" class='form-check'><label class='form-check-label' for='alg_id'>&nbsp;&nbsp;&nbsp;{$value['alg_name']}<input style='margin-top: -40px;'  type='checkbox' class='form-check-input' name='alg_id[]' value='{$value['alg_id']}' {$selected}><span class='form-check-sign'><span class='check'></span></label></div>";
 				$tmp_data = $tmp_data . "<div onclick=\"if($('.alg_id{$value['alg_id']}:checked').length==0)" . '{' . "$('.alg_id{$value['alg_id']}').prop('checked',true);" . '}' . "else " . '{' . "$('.alg_id{$value['alg_id']}').prop('checked',false);" . '}' . "\" class='form-group col-md-4'><div class='form-check'><label class='form-check-label'><input class='form-check-input' name='alg_id[]'  value='{$value['alg_id']}' {$selected} type='checkbox'> {$value['alg_name']} <span class='form-check-sign'><span class='check'></span></span></label></div></div>";
-
 			}
 			$this->data['rows'] = json_encode($rows);
 			$this->data['results'] = $tmp_data . '</div>';
 			$results = $this->Users_foood_allergy->load($id);
-
 			$this->data['csrf_field'] = insert_csrf_field(true);
 			$this->render_view('foodallergy/users_foood_allergy/novisit');
-		
 		}
 	}
 

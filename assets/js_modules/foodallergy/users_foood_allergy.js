@@ -258,7 +258,7 @@ $("#btnAlgSave").click(function(){
 		var fdata = $("#formAdd").serialize();
 		fdata += '&' + csrf_token_name + '=' + $.cookie(csrf_cookie_name);
 		//if($(this).val()!='') {
-		console.log(fdata);
+		// console.log(fdata);
 			$.ajax({
 				method: 'POST',
 				url: site_url('foodallergy/users_foood_allergy/novisit_save'),
@@ -279,7 +279,8 @@ $("#btnAlgSave").click(function(){
 					}
 				},
 				error : function(jqXHR, exception){
-					ajaxErrorMessage(jqXHR, exception);
+				notify("แจ้งเตือน","ท่านไม่ได้กรอกข้อมูลอาหารที่ท่านแพ้ !","danger","center");
+					// ajaxErrorMessage(jqXHR, exception);
 					//loading_on_remove(obj);
 				}
 			});
