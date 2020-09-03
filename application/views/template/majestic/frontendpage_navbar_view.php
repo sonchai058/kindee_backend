@@ -1,6 +1,6 @@
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light justify-content-center" id="ftco-navbar">
 		<a style="color: white; padding-left: 10px; padding-right: 10px;" class="navbar-brand d-flex w-50 mr-auto">
-			<img src="{base_url}assets/images/info.kindee.kindee.png" alt="logo" style="width:50px">&emsp;
+			<img src="{base_url}assets/images/info.kindee.kindee.png" alt="logo" style="height: 50px;width: 50px;">&emsp;
 			<span style="align-self: center;">Kindee | Story</span>
 		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
