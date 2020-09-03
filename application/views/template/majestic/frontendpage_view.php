@@ -87,7 +87,7 @@
 							</li>
 							<br>
 							<li>
-								<h2 class="ftco-heading-2"><i class="icon-phone-square"></i>Tel : +66 2496 8667, <br/>Tax ID : 0735560001175</h2>
+								<h2 class="ftco-heading-2"><i class="icon-phone-square"></i>Tel : +66 2496 8667, <br />Tax ID : 0735560001175</h2>
 							</li>
 							<br>
 						</ul>
@@ -167,6 +167,52 @@
 			});
 		});
 	</script>
+	<!-- <script>
+		var im = baseURL + "assets/images/marker.png";
+
+		function locate() {
+			navigator.geolocation.getCurrentPosition(initMap, fail);
+		}
+
+		function fail() {
+			//initMap();
+			console.log('navigator.geolocation failed, may not be supported');
+		}
+
+		function initMap(position) {
+			var myLatLng;
+
+			var latitude = 13.7929823;
+			var longitude = 100.3038185;
+
+			//if(position!=undefined) {
+			//  latitude = position.coords.latitude;
+			//  longitude = position.coords.longitude;
+			//}
+			//console.log(position);
+			myLatLng = new google.maps.LatLng(latitude, longitude);
+
+			var mapOptions = {
+				zoom: 13,
+				center: myLatLng,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+
+			var map = null;
+			var userMarker = null;
+
+
+			map = new google.maps.Map(document.getElementById('map'),
+				mapOptions);
+			userMarker = new google.maps.Marker({
+				position: myLatLng,
+				map: map,
+				icon: im,
+				/*//draggable:true*/
+			});
+	</script> -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmtoJRjQwBbRpG89moh1jXZRwoviIsqf0&libraries=places&callback=locate" async defer></script>
+
 
 </body>
 
