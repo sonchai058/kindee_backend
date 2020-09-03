@@ -42,7 +42,7 @@
 									<br />
 								</div>
 								<div class="col-md-6">
-									<button type="button" onclick="window.location.href='{base_url}register/registershops/shop_add'" class="btn btn-block btn-secondary btn-sm font-weight-medium auth-form-btn" id="btn_sign_up_shop">&nbsp;&nbsp;<i class="fas fa-store"></i> &nbsp;SIGN UP SHOP&nbsp;&nbsp;</button>
+									<button type="button" onclick="window.location.href='{base_url}register/shop_add'" class="btn btn-block btn-secondary btn-sm font-weight-medium auth-form-btn" id="btn_sign_up_shop">&nbsp;&nbsp;<i class="fas fa-store"></i> &nbsp;SIGN UP SHOP&nbsp;&nbsp;</button>
 								</div>
 							</div>
 						</form>

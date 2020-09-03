@@ -162,7 +162,7 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-warning" data-dismiss="modal">&nbsp;&nbsp;ยกเลิก &nbsp;&nbsp;
 				</button>&emsp;
-				<button type="button" class="btn btn-success" id="btnSave">&nbsp;&nbsp;ยืนยัน &nbsp;&nbsp;</button>
+				<button type="button" class="btn btn-success" id="btnSaveShops">&nbsp;&nbsp;ยืนยัน &nbsp;&nbsp;</button>
 			</div>
 		</div>
 	</div>
