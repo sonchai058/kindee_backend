@@ -1,10 +1,6 @@
 <script>
-	var num = {
-		count_image
-	};
-	var data_id = {
-		data_id
-	};
+	var num = {count_image};
+	var data_id = {data_id};
 	var state = 'add';
 </script>
 
@@ -134,7 +130,7 @@
 								</div>
 							</div>
 							<br />
-							<div class="form-row ustify-content-between">
+							<!-- <div class="form-row ustify-content-between">
 								<div class="form-group col-md-12 ">
 									<label class="control-label" for="blog_name">รูปภาพ :</label>
 									<div class="form-group has-success">
@@ -147,14 +143,14 @@
 							</div>
 							<div class="form-row ustify-content-between">
 								<div class="form-group col-md-12 ">
-									<label class="control-label"</label>
+									<label class="control-label"></label>
 									<div class="form-group has-success">
 										<div class="preview-images-zone" id="uploadContent">
 
 										</div>
 									</div>
 								</div>
-							</div>
+							</div> -->
 
 						</div>
 						<div class="form-group">
