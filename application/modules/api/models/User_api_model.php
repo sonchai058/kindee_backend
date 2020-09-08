@@ -88,7 +88,14 @@ class User_api_model extends CI_Model
                             material.carboh_val,
                             material.protein_val,
                             material.fat_val,
-                            material.sodium_val  '
+                            material.sodium_val,
+                            material.sugar_val,
+                            material.vita_val,
+                            material.thiamin_val,
+                            material.niacin_val,
+                            material.vitc_val,
+                            material.vite_val
+                              '
                         );
         $this->db->from('users_food_time as users_food');
         $this->db->join('self_food_menu as menu', "users_food.food_id = menu.self_food_id", 'left');
@@ -104,6 +111,12 @@ class User_api_model extends CI_Model
         $protein_val = 0;
         $fat_val = 0;
         $sodium_val = 0;
+        $sugar_val = 0;
+        $vita_val = 0;
+        $thiamin_val = 0;
+        $niacin_val = 0;
+        $vitc_val = 0;
+        $vite_val = 0;
         foreach ($queryFoodType->result() as $row)
         {
           $sum_cpf = 0;
@@ -152,6 +165,12 @@ class User_api_model extends CI_Model
           //echo "(".$kcal_gram_protein."*".$row->protein_val.")*".($row->amount/100)."<br/>";
           $fat_val += ($kcal_gram_fat*$row->fat_val)*round(($row->amount/100),1);
           $sodium_val += $row->sodium_val*($row->amount/100);
+          $sugar_val += $row->sugar_val*($row->amount/100);
+          $vita_val += $row->vita_val*($row->amount/100);
+          $thiamin_val += $row->thiamin_val*($row->amount/100);
+          $niacin_val += $row->niacin_val*($row->amount/100);
+          $vitc_val += $row->vitc_val*($row->amount/100);
+          $vite_val += $row->vite_val*($row->amount/100);
           //echo $row->rmat_name.":".round(($kcal_gram_protein*$row->protein_val)*($row->amount/100),2).'<br/>';
         }
         //echo $this->db->last_query();
@@ -176,6 +195,12 @@ class User_api_model extends CI_Model
             $res['sum_fat_val'] = number_format($fat_val,2);
             $res['sum_carboh_val'] = number_format($carboh_val,2);
             $res['sum_sodium_val'] = number_format($sodium_val,2);
+            $res['sum_sugar_val'] = number_format($sugar_val,2);
+            $res['sum_vita_val'] = number_format($vita_val,2);
+            $res['sum_thiamin_val'] = number_format($thiamin_val,2);
+            $res['sum_niacin_val'] = number_format($niacin_val,2);
+            $res['sum_vitc_val'] = number_format($vitc_val,2);
+            $res['sum_vite_val'] = number_format($vite_val,2);
             return $res;
         } else {
             return false;
