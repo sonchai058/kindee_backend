@@ -163,21 +163,97 @@ class Users_food_time extends CRUD_Controller
 		$this->data['sum_protein_val']	= $res['sum_protein_val'];
 		$this->data['sum_fat_val']	= $res['sum_fat_val'];
 		$this->data['sum_sodium_val']	= $res['sum_sodium_val'];
+		$this->data['sum_sugar_val']	= $res['sum_sugar_val'];
+		$this->data['sum_vita_val']	= $res['sum_vita_val'];
+		$this->data['sum_thiamin_val']	= $res['sum_thiamin_val'];
+		$this->data['sum_niacin_val']	= $res['sum_niacin_val'];
+		$this->data['sum_vitc_val']	= $res['sum_vitc_val'];
+		$this->data['sum_vite_val']	= $res['sum_vite_val'];
 		$this->data['user_bmr']	= $res_food['user_bmi'];
 		@$user_bmi	= str_replace(',','',$res_food['user_bmi']);
-		@$user_bmr_carboh	= (str_replace(',','',$res_food['user_bmi'])*0.6);
-		@$user_bmr_protein	= (str_replace(',','',$res_food['user_bmi'])*0.25);
-		@$user_bmr_fat	= (str_replace(',','',$res_food['user_bmi'])*0.15);
+		@$user_bmr_carboh	= (str_replace(',','',$res_food['user_bmi'])*0.5);
+		@$user_bmr_protein	= (str_replace(',','',$res_food['user_bmi'])*0.2);
+		@$user_bmr_fat	= (str_replace(',','',$res_food['user_bmi'])*0.3);
 		@$user_bmr_sodium	= 2300;
+		@$user_bmr_sugar = 32;
+		@$user_bmr_vita = 800;
+		@$user_bmr_thiamin = 1.5;
+		@$user_bmr_niacin = 20;
+		@$user_bmr_vitc = 60;
+		@$user_bmr_vite = 10;
+
 		$this->data['user_bmr_carboh']	= number_format($user_bmr_carboh,2);
 		$this->data['user_bmr_protein']	= number_format($user_bmr_protein,2);
 		$this->data['user_bmr_fat']	= number_format($user_bmr_fat,2);
 		$this->data['user_bmr_sodium']	= number_format($user_bmr_sodium,2);
+		$this->data['user_bmr_sugar']	= number_format($user_bmr_sugar,2);
+		$this->data['user_bmr_vita']	= number_format($user_bmr_vita,2);
+		$this->data['user_bmr_thiamin']	= number_format($user_bmr_thiamin,2);
+		$this->data['user_bmr_niacin']	= number_format($user_bmr_niacin,2);
+		$this->data['user_bmr_vitc']	= number_format($user_bmr_vitc,2);
+		$this->data['user_bmr_vite']	= number_format($user_bmr_vite,2);
 		$this->data['balance_energy']	= number_format(($user_bmi-str_replace(',','',$res['sum_food_energy'])),2);
 		$this->data['balance_carboh']	= number_format(($user_bmr_carboh-str_replace(',','',$res['sum_carboh_val'])),2);
 		$this->data['balance_protein'] =	number_format(($user_bmr_protein-str_replace(',','',$res['sum_protein_val'])),2);
 		$this->data['balance_fat'] = number_format(($user_bmr_fat-str_replace(',','',$res['sum_fat_val'])),2);
 		$this->data['balance_sodium'] = number_format(($user_bmr_sodium-str_replace(',','',$res['sum_sodium_val'])),2);
+		$this->data['balance_sugar'] = number_format(($user_bmr_sugar-str_replace(',','',$res['sum_sugar_val'])),2);
+		$this->data['balance_vita'] = number_format(($user_bmr_vita-str_replace(',','',$res['sum_vita_val'])),2);
+		$this->data['balance_thiamin'] = number_format(($user_bmr_thiamin-str_replace(',','',$res['sum_thiamin_val'])),2);
+		$this->data['balance_niacin'] = number_format(($user_bmr_niacin-str_replace(',','',$res['sum_niacin_val'])),2);
+		$this->data['balance_vitc'] = number_format(($user_bmr_vitc-str_replace(',','',$res['sum_vitc_val'])),2);
+		$this->data['balance_vite'] = number_format(($user_bmr_vite-str_replace(',','',$res['sum_vite_val'])),2);
+		$data_alert = '';
+		//sodium
+		if($res['sum_sodium_val'] == 0){
+			$data_alert .= ' เกลือแร่ที่ควรรับประทานต่อวันน้อยเกินไป ';
+		}
+		if($res['sum_sodium_val'] > $user_bmr_sodium){
+			$data_alert .= ' เกลือแร่ที่ควรรับประทานต่อวันมากเกินไป ';
+		}
+		//sugar
+		if($res['sum_sugar_val'] == 0){
+			$data_alert .= ' น้ำตาลที่ควรรับประทานต่อวันน้อยเกินไป ';
+		}
+		if($res['sum_sugar_val'] > $user_bmr_sugar){
+			$data_alert .= ' น้ำตาลที่ควรรับประทานต่อวันมากเกินไป ';
+		}
+		//vita
+		if($res['sum_vita_val'] == 0){
+			$data_alert .= ' วิตามินเอที่ควรรับประทานต่อวันน้อยเกินไป ';
+		}
+		if($res['sum_vita_val'] > $user_bmr_vita){
+			$data_alert .= ' วิตามินเอควรรับประทานต่อวันมากเกินไป ';
+		}
+		//thiamin
+		if($res['sum_thiamin_val'] == 0){
+			$data_alert .= ' วิตามินบี 1 ที่ควรรับประทานต่อวันน้อยเกินไป ';
+		}
+		if($res['sum_thiamin_val'] > $user_bmr_thiamin){
+			$data_alert .= ' วิตามินบี 1 ควรรับประทานต่อวันมากเกินไป ';
+		}
+		//niacin
+		if($res['sum_niacin_val'] == 0){
+			$data_alert .= ' ไนอะซินที่ควรรับประทานต่อวันน้อยเกินไป ';
+		}
+		if($res['sum_niacin_val'] > $user_bmr_niacin){
+			$data_alert .= ' ไนอะซินควรรับประทานต่อวันมากเกินไป ';
+		}
+		//vitc
+		if($res['sum_vitc_val'] == 0){
+			$data_alert .= ' วิตามินซีที่ควรรับประทานต่อวันน้อยเกินไป ';
+		}
+		if($res['sum_vitc_val'] > $user_bmr_vitc){
+			$data_alert .= ' วิตามินซี่ควรรับประทานต่อวันมากเกินไป ';
+		}
+		//vite
+		if($res['sum_vite_val'] == 0){
+			$data_alert .= ' วิตามินอีควรรับประทานต่อวันน้อยเกินไป ';
+		}
+		if($res['sum_vite_val'] > $user_bmr_vite){
+			$data_alert .= ' วิตามินอีควรรับประทานต่อวันมากเกินไป ';
+		}
+		$this->data['data_alert'] = $data_alert;
 		$this->data['data_list']	= $list_data;
 		$this->data['search_field']	= $search_field;
 		$this->data['txt_search']	= $value;

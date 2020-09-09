@@ -97,7 +97,9 @@ class Users_food_time_model extends MY_Model
 			if($search_field == 'fag_allow'){
 				$search_method_value = "LIKE '%$value%'";
 			}
+
 			$where	.= ($where != '' ? ' AND ' : '') . " $search_method_field $search_method_value ";
+
 			if($order_by == ''){
 				$order_by	= " $this->my_table.$search_field";
 			}
@@ -109,6 +111,11 @@ class Users_food_time_model extends MY_Model
 
 			$this->set_where($where);
 			$search_row = $this->count_record();
+		}
+		$where_addon = '';
+		if ($this->session->userdata('user_status') == 0) {
+			$date_addon = date('Y-m-d',strtotime('-45 day'));
+			$where_addon = " and ".$this->my_table.".date_eat <= '".$date_addon."'";
 		}
 		$offset = $start_row;
 		$limit = $per_page;
@@ -123,9 +130,11 @@ class Users_food_time_model extends MY_Model
 		$this->db->join('self_food_menu AS self_food_menu_2', "$this->my_table.food_id = self_food_menu_2.self_food_id", 'left');
 		$this->db->join('self_food_menu_composition AS composition', "$this->my_table.food_id = composition.self_food_id", 'left');
 		$this->db->join('raw_material AS raw', "composition.rmat_id = raw.rmat_id", 'left');
-		$this->db->where("composition.fag_allow='allow'");
+		$this->db->where("composition.fag_allow='allow'".$where_addon);
 		$this->db->group_by($this->my_table.'.foodt_id');
 		$list_record = $this->list_record();
+		//echo $this->db->last_query();
+		//exit();
 		$data = array(
 				'total_row'	=> $total_row,
 				'search_row'	=> $search_row,

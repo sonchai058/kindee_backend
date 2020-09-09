@@ -15,6 +15,7 @@
 					<?php if ($this->session->userdata('user_status') == 1) { ?>
 						<div class="row text-center">
 							<div class="col-sm-12 text-center">
+								<div class="btn btn-danger">{data_alert}</div>
 								<table class="table table-striped text-center">
 									<thead>
 										<tr>
@@ -55,8 +56,8 @@
 									<thead>
 										<tr>
 											<th class="text-center"></th>
-											<th width="28%" class="text-center">โซเดียมงานวันนี้ (mg)</th>
-											<th width="28%" class="text-center">โซเดียมที่ควรรับประทานต่อวัน (mg)</th>
+											<th width="28%" class="text-center">เกลือแร่วันนี้ (mg)</th>
+											<th width="28%" class="text-center">เกลือแร่ที่ควรรับประทานต่อวัน (mg)</th>
 											<th width="28%" class="text-center">ปริมาณคงเหลือในแต่ละวัน (mg)</th>
 										</tr>
 									</thead>
@@ -66,6 +67,66 @@
 											<td style="text-align:right;">{sum_sodium_val}</td>
 											<td style="text-align:right;">{user_bmr_sodium}</td>
 											<td style="text-align:right;">{balance_sodium}</td>
+										</tr>
+									</tbody>
+								</table>
+								<table class="table table-striped text-center">
+									<thead>
+										<tr>
+											<th class="text-center"></th>
+											<th width="28%" class="text-center">น้ำตาลวันนี้ (g)</th>
+											<th width="28%" class="text-center">น้ำตาลที่ควรรับประทานต่อวัน (g)</th>
+											<th width="28%" class="text-center">น้ำตาลคงเหลือในแต่ละวัน (g)</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td style="text-align:left;">น้ำตาล</td>
+											<td style="text-align:right;">{sum_sugar_val}</td>
+											<td style="text-align:right;">{user_bmr_sugar}</td>
+											<td style="text-align:right;">{balance_sugar}</td>
+										</tr>
+									</tbody>
+								</table>
+								<table class="table table-striped text-center">
+									<thead>
+										<tr>
+											<th class="text-center"></th>
+											<th width="28%" class="text-center">วิตามินวันนี้</th>
+											<th width="28%" class="text-center">วิตามินที่ควรรับประทานต่อวัน</th>
+											<th width="28%" class="text-center">วิตามินคงเหลือในแต่ละวัน</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td style="text-align:left;">วิตามินเอ (ไมโครกรัม)</td>
+											<td style="text-align:right;">{sum_vita_val}</td>
+											<td style="text-align:right;">{user_bmr_vita}</td>
+											<td style="text-align:right;">{balance_vita}</td>
+										</tr>
+										<tr>
+											<td style="text-align:left;">วิตามินบี 1 (มิลลิกรัม)</td>
+											<td style="text-align:right;">{sum_thiamin_val}</td>
+											<td style="text-align:right;">{user_bmr_thiamin}</td>
+											<td style="text-align:right;">{balance_thiamin}</td>
+										</tr>
+										<tr>
+											<td style="text-align:left;">ไนอะซิน (มิลลิกรัม)</td>
+											<td style="text-align:right;">{sum_niacin_val}</td>
+											<td style="text-align:right;">{user_bmr_niacin}</td>
+											<td style="text-align:right;">{balance_niacin}</td>
+										</tr>
+										<tr>
+											<td style="text-align:left;">วิตามินซี (มิลลิกรัม)</td>
+											<td style="text-align:right;">{sum_vitc_val}</td>
+											<td style="text-align:right;">{user_bmr_vitc}</td>
+											<td style="text-align:right;">{balance_vitc}</td>
+										</tr>
+										<tr>
+											<td style="text-align:left;">วิตามินอี (มิลลิกรัม)</td>
+											<td style="text-align:right;">{sum_vite_val}</td>
+											<td style="text-align:right;">{user_bmr_vite}</td>
+											<td style="text-align:right;">{balance_vite}</td>
 										</tr>
 									</tbody>
 								</table>
