@@ -1,14 +1,8 @@
 <script>
 	var record_self_food_menu_composition = JSON.parse('{record_self_food_menu_composition}');
-	var num0 = {
-		count_record
-	} + 1;
-	var num = {
-		count_image
-	};
-	var data_id = {
-		data_id
-	};
+	var num0 = {count_record} + 1;
+	var num = {count_imag};
+	var data_id = {data_id};
 	var state = 'add';
 </script>
 <!-- [ View File name : add_view.php ] -->
