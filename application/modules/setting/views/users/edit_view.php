@@ -219,6 +219,8 @@
 
 
 							<input type="hidden" name="encrypt_user_id" value="{encrypt_user_id}" />
+							<input type="hidden" name="user_status" value="{record_user_status}" />
+							<input type="hidden" name="user_level" value="{record_user_level}" />
 
 
 					</form>

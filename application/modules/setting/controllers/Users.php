@@ -998,6 +998,7 @@ class Users extends CRUD_Controller
 		*/
 
 		$post = $this->input->post(NULL, TRUE);
+		// echo "<pre>"; print_r($post); echo "</pre>"; exit();
 		$error_pk_id = $this->checkRecordKey($post);
 
 		$encrypt_id = urldecode($post['encrypt_user_id']);
@@ -1395,7 +1396,7 @@ class Users extends CRUD_Controller
 		$encrypt_name = end($arr);
 		$filename = $this->Users->getValueOf('tb_uploads_filename', 'filename', "encrypt_name = '$encrypt_name'", $this->db);
 		$this->data['record_user_photo_label'] = $filename;
-
+		$this->data['record_user_status'] = $data['user_status'];
 		$this->data['preview_user_photo'] = setAttachPreview('user_photo', $data['user_photo'], $filename);
 		$this->data['record_user_fname'] = $data['user_fname'];
 		$this->data['record_user_lname'] = $data['user_lname'];

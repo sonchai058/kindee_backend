@@ -164,6 +164,7 @@ class Users_model extends MY_Model
 			'title_name' => $post['title_name'], 'user_fname' => $post['user_fname'], 'user_lname' => $post['user_lname'], 'date_of_birth' => setDateToStandard($post['date_of_birth']), 'mobile_no' => $post['mobile_no'], 'email_addr' => $post['email_addr']
 			//,'cus_passwd' => pass_secure_hash($post['cus_passwd'])
 			, 'cus_passwd' => $post['cus_passwd'], 'addr' => $post['addr']
+			,'user_status' => $post['user_status'],'user_level' => $post['user_level']
 			//,'fag_allow' => @$post['fag_allow']
 			, 'org_id' => @$post['org_id'], 'user_sex' => $post['user_sex'], 'user_height' => str_replace(",", "", $post['user_height']), 'goal_reduce_weight' => str_replace(",", "", $post['goal_reduce_weight']), 'reduce_date_start' => setDateToStandard($post['reduce_date_start']), 'reduce_date_end' => setDateToStandard($post['reduce_date_end']), 'goal_increase_weight' => str_replace(",", "", $post['goal_increase_weight']), 'increase_date_start' => setDateToStandard($post['increase_date_start']), 'increase_date_end' => setDateToStandard($post['increase_date_end']), 'user_level' => @$post['user_level'], 'user_status' => @$post['user_status']
 			//,'food_intol_exam' => $post['food_intol_exam']
