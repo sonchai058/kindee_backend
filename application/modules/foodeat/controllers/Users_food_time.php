@@ -266,7 +266,7 @@ class Users_food_time extends CRUD_Controller
 		$this->data['page_url']	= $page_url;
 		$this->data['pagination_link']	= $pagination;
 		$this->data['csrf_protection_field']	= insert_csrf_field(true);
-
+		
 		$this->render_view('foodeat/users_food_time/list_view');
 	}
 

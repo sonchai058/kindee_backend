@@ -150,25 +150,69 @@ class Users_food_time_model extends MY_Model
 			$this->db->from('users_result_exam_food_allergy');
 			$this->db->join('food_allergy', "food_allergy.alg_id = users_result_exam_food_allergy.alg_id", 'left');
 			$this->db->where("users_result_exam_food_allergy.user_id='".$user_id."' ");
+			$this->db->where("users_result_exam_food_allergy.fag_allow",'allow');
+			$this->db->group_by('users_result_exam_food_allergy.alg_id');
 			$query = $this->db->get();
-			//$last_query = $this->db->last_query();
-			$food_allergy = '';
+
+			$this->db->select('food_allergy.alg_name');
+			$this->db->from('users_foood_allergy_doubt');
+			$this->db->join('food_allergy', "food_allergy.alg_id = users_foood_allergy_doubt.alg_id", 'left');
+			$this->db->where("users_foood_allergy_doubt.user_id='".$user_id."' ");
+			$this->db->where("users_foood_allergy_doubt.fag_allow",'allow');
+			$this->db->group_by('users_foood_allergy_doubt.alg_id');
+			$querydoubt = $this->db->get();
+
 			$where_food_allergy = '';
 			$where_food_allergy .= "self_food_menu.self_food_id='".$food_id."'";
-			$where_food_allergy .= " and (";
-			$intRow = 0;
-			foreach ($query->result() as $allergy) {
-				//$food_allergy .= $allergy->alg_name.'%';
-				$intRow++;
-				if($intRow>1){
-					$where_food_allergy .= " or ";
-				}else{
-					$where_food_allergy .= " ";
-				}
-				$where_food_allergy .= " raw_material.rmat_name like('".$allergy->alg_name."%') ";
-			}
-			$where_food_allergy .= ")";
+			$food_allergy = '';
 
+			if ($query->result() === [] ) {
+				$where_food_allergy .= " ";
+				$food_allergy = "false";
+
+				if ($querydoubt->result() !== []) {
+					$where_food_allergy .= " and (";
+					$intRow = 0;
+					foreach ($querydoubt->result() as $allergy) {
+						$intRow++;
+						if ($intRow > 1) {
+							$where_food_allergy .= " or ";
+						} else {
+							$where_food_allergy .= " ";
+						}
+						$where_food_allergy .= " raw_material.rmat_name like('" . $allergy->alg_name . "%') ";
+					}
+					$where_food_allergy .= ")";
+				}
+			} 
+			else{
+				$where_food_allergy .= " and (";
+				$intRow = 0;
+				foreach ($query->result() as $allergy) {
+					$intRow++;
+					if ($intRow > 1) {
+						$where_food_allergy .= " or ";
+					} else {
+						$where_food_allergy .= " ";
+					}
+					$where_food_allergy .= " raw_material.rmat_name like('" . $allergy->alg_name . "%') ";
+				}
+
+				if ($querydoubt->result() !== []) {
+					$where_food_allergy .= " or ";
+					$intRow = 0;
+					foreach ($querydoubt->result() as $allergy) {
+						$intRow++;
+						if ($intRow > 1) {
+							$where_food_allergy .= " or ";
+						} else {
+							$where_food_allergy .= " ";
+						}
+						$where_food_allergy .= " raw_material.rmat_name like('" . $allergy->alg_name . "%') ";
+					}
+				}
+				$where_food_allergy .= ")";
+			}
 			$this->db->select('raw_material.rmat_name');
 			$this->db->from('self_food_menu');
 			$this->db->join('self_food_menu_composition', "self_food_menu_composition.self_food_id = self_food_menu.self_food_id", 'left');
@@ -176,13 +220,20 @@ class Users_food_time_model extends MY_Model
 			$this->db->where($where_food_allergy);
 			$this->db->group_by('raw_material.rmat_id');
 			$query_rmat = $this->db->get();
-			$last_query = $this->db->last_query();
+			// $last_query = $this->db->last_query();
+			// echo $last_query;
+			// die();
+			
 			$material_name = '';
-			$intNum = 0;
-			foreach ($query_rmat->result() as $allergy_rmat) {
-				//$row = $query->row();
-				$intNum++;
-				$material_name .= $intNum.'. '.$allergy_rmat->rmat_name.'<br/>';
+			if ($food_allergy == "false") {
+				$material_name .= '';
+			} else {
+				$intNum = 0;
+				foreach ($query_rmat->result() as $allergy_rmat) {
+					//$row = $query->row();
+					$intNum++;
+					$material_name .= $intNum.'. '.$allergy_rmat->rmat_name.'<br/>';
+				}			
 			}
 			$data = array(
 					'food_name'	=> $material_name

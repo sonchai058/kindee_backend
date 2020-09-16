@@ -66,7 +66,6 @@ class Users_foood_allergy extends CRUD_Controller
 
 	public function novisit()
 	{
-
 		$this->load->model("common_model");
 		$tmp = rowArray($this->common_model->custom_query("select food_intol_exam from users where user_id=" . $this->session->userdata('user_id') . '  limit 1')); //****
 		if ($tmp['food_intol_exam'] == 'Yes') {
@@ -87,7 +86,9 @@ class Users_foood_allergy extends CRUD_Controller
 			$rows = $this->common_model->custom_query("select * from food_allergy as a where a.fag_allow='allow' order by a.alg_id");
 
 			$rows1 = $this->common_model->custom_query("select * from users_foood_allergy_doubt as b where b.fag_allow='allow' and b.user_id={$this->session->userdata('user_id')}");
-
+			// $last_query = $this->db->last_query();
+			// echo $last_query;
+			// die();
 			$setSelect = array();
 			foreach ($rows1 as $key => $value) {
 				$setSelect[$value['alg_id']] = "Yes";
@@ -106,6 +107,7 @@ class Users_foood_allergy extends CRUD_Controller
 			$this->data['rows'] = json_encode($rows);
 			$this->data['results'] = $tmp_data . '</div>';
 			$results = $this->Users_foood_allergy->load($id);
+
 			$this->data['csrf_field'] = insert_csrf_field(true);
 			$this->render_view('foodallergy/users_foood_allergy/novisit');
 		}

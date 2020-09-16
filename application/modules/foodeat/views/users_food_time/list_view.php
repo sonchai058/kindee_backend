@@ -131,8 +131,8 @@
 									</tbody>
 								</table>
 							</div>
-						<?php } ?>
 						</div>
+						<?php } ?>
 						<form class="form-horizontal" name="formSearch" method="post" action="{page_url}/search">
 							{csrf_protection_field}
 							<div class="row">
