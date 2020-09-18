@@ -10633,7 +10633,7 @@ h5,
 	}
 }
 .ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
-	/* font-size: 11px ; */
+	font-size: 16.5px ;
 	padding-top: 1.5rem;
 	padding-bottom: 1.5rem;
 	padding-left: 20px;
@@ -11045,7 +11045,7 @@ h5,
 	left: 0;
 	right: 0;
 	background: #000000;
-	opacity: 0.2;
+	opacity: 0.3;
 }
 .owl-carousel.home-slider .slider-item .slider-text {
 	height: 650px;

@@ -181,6 +181,15 @@ class Users_food_time extends CRUD_Controller
 		@$user_bmr_niacin = 20;
 		@$user_bmr_vitc = 60;
 		@$user_bmr_vite = 10;
+		@$gram_carboh	= (str_replace(',','',$res['sum_carboh_val'])/4);
+		@$gram_protein	= (str_replace(',','',$res['sum_protein_val'])/4);
+		@$gram_fat	= (str_replace(',','',$res['sum_fat_val'])/9);
+		@$gram_sum	= ($gram_carboh + $gram_protein + $gram_fat);
+		@$carb_carboh	= (str_replace(',','',$gram_carboh)/15);
+		// @$gram_protein	= (str_replace(',','',$res['sum_protein_val'])/4);
+		// @$gram_fat	= (str_replace(',','',$res['sum_fat_val'])/9);
+		// @$gram_sum	= ($gram_carboh + $gram_protein + $gram_fat);
+
 
 		$this->data['user_bmr_carboh']	= number_format($user_bmr_carboh,2);
 		$this->data['user_bmr_protein']	= number_format($user_bmr_protein,2);
@@ -203,6 +212,14 @@ class Users_food_time extends CRUD_Controller
 		$this->data['balance_niacin'] = number_format(($user_bmr_niacin-str_replace(',','',$res['sum_niacin_val'])),2);
 		$this->data['balance_vitc'] = number_format(($user_bmr_vitc-str_replace(',','',$res['sum_vitc_val'])),2);
 		$this->data['balance_vite'] = number_format(($user_bmr_vite-str_replace(',','',$res['sum_vite_val'])),2);
+		$this->data['user_gram_carboh']	= number_format($gram_carboh,2);
+		$this->data['user_gram_protein']	= number_format($gram_protein,2);
+		$this->data['user_gram_fat']	= number_format($gram_fat,2);
+
+		$this->data['user_carb_carboh']	= number_format($carb_carboh,2);
+
+		$this->data['user_gram_sum']	= number_format($gram_sum,2);
+
 		$data_alert = '';
 		//sodium
 		if($res['sum_sodium_val'] == 0){
