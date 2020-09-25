@@ -7,7 +7,7 @@
 					<div class="card-icon">
 						<i class="material-icons">assignment</i>
 					</div>
-					<h4 class="card-title">รายการ ตอบคำถาม</h4>
+					<h4 class="card-title">รายการปรึกษา</h4>
 				</div>
 				<div class="card-body">
 					<form class="form-horizontal" name="formSearch" method="post" action="{page_url}/search">
@@ -99,6 +99,9 @@
 											<i class="material-icons">list</i>
 										</a>
 										<?php if ($this->session->userdata('user_level') == 'nutritionist') { ?>
+											<a href="{page_url}/message/{url_encrypt_id}" class="my-tooltip btn btn-success {status_message}" data-toggle="tooltip" title="สนทนา">
+												<i class="material-icons">chat</i>
+											</a>
 											<a href="{page_url}/answer/{url_encrypt_id}" class="my-tooltip btn btn-info {status}" data-toggle="tooltip" title="ตอบคำถาม">
 												<i class="material-icons">question_answer</i>
 											</a>
@@ -106,6 +109,20 @@
 										}
 										?>
 										<?php if ($this->session->userdata('user_level') == 'user') { ?>
+											<?php if ($this->session->userdata('user_status') == '1') { ?>
+											<a href="{page_url}/message/{url_encrypt_id}" class="my-tooltip btn btn-info {status_message}" data-toggle="tooltip" title="ปรึกษานักโภชนการรายบุคคล">
+												<i class="material-icons">chat</i>
+											</a>
+										<?php
+										}
+										?>
+										<?php if ($this->session->userdata('user_status') == '0') { ?>
+											<a href="{page_url}/message/{url_encrypt_id}" class="my-tooltip btn btn-info disabled" data-toggle="tooltip" title="ปรึกษานักโภชนการรายบุคคล">
+												<i class="material-icons">chat</i>
+											</a>
+										<?php
+										}
+										?>
 											<a href="{page_url}/edit/{url_encrypt_id}" class="my-tooltip btn btn-warning {status}" data-toggle="tooltip" title="แก้ไขข้อมูล">
 												<i class="material-icons">edit</i>
 											</a>

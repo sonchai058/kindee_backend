@@ -144,6 +144,10 @@ class Users_result_exam_food_allergy extends CRUD_Controller
 		if ($end_row > $search_row) {
 			$end_row = $search_row;
 		}
+		// echo '<pre>';
+		// print_r($list_data);
+		// echo '</pre>';
+		// die();
 
 		$this->data['data_list']	= $list_data;
 		$this->data['search_field']	= $search_field;

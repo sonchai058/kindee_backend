@@ -138,6 +138,39 @@ var Question = {
 		});
 	},
 
+	saveFormDataMessage: function () {
+		var frm_action = site_url("questiondata/question/save_message");
+		var obj = $("#btnConfirmSaveMessage");
+		if (loading_on(obj) == true) {
+			var fdata = $("#formMessage").serialize();
+			fdata += "&" + csrf_token_name + "=" + $.cookie(csrf_cookie_name);
+			// console.log(fdata);
+			$.ajax({
+				method: "POST",
+				url: frm_action,
+				dataType: "json",
+				data: fdata,
+				success: function (results) {
+					if (results.is_successful) {
+						alert_type = "success";
+						setTimeout(function () {
+							location.reload();
+						}, 1000);
+					} else {
+						alert_type = "danger";
+					}
+					notify("เพิ่มข้อมูล", results.message, alert_type, "center");
+					loading_on_remove(obj);
+				},
+				error: function (jqXHR, exception) {
+					ajaxErrorMessage(jqXHR, exception);
+					loading_on_remove(obj);
+				},
+			});
+		}
+		return false;
+	},
+	
 	confirmDelete: function (pQuestionId, irow) {
 		$('[name="encrypt_question_id"]').val(pQuestionId);
 
@@ -221,6 +254,12 @@ $(document).ready(function () {
 
 	$("#btnSaveAnswer").click(function () {
 		return Question.validateFormAnswer();
+	}); //click
+
+	$("#btnSaveMessage").click(function () {
+		$("#addModal").modal("hide");
+		Question.saveFormDataMessage();
+		return false;
 	}); //click
 
 	//List view

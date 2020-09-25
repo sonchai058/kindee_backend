@@ -132,7 +132,8 @@ if ($this->session->userdata('user_level') == 'super_user') {
 				<li class="nav-item <?php if ($this->uri->segment(1) == 'questiondata' && $this->uri->segment(2) == 'question') { ?>active<?php } ?>">
 					<a class="nav-link" href="{site_url}questiondata/question">
 						<i class="material-icons">question_answer</i>
-						<p>ตอบคำถาม</p>
+						<?php $text_title = ($this->session->userdata('user_status') == '1' ? "ปรึกษานักโภชนการ":"ปรึกษานักโภชนการ(เบื้องต้น)")  ?>
+						<p><?php echo $text_title?></p>
 					</a>
 				</li>
 			<?php
@@ -198,7 +199,7 @@ if ($this->session->userdata('user_level') == 'super_user') {
 				<li class="nav-item <?php if ($this->uri->segment(1) == 'questiondata' && $this->uri->segment(2) == 'question') { ?>active<?php } ?>">
 					<a class="nav-link" href="{site_url}questiondata/question">
 						<i class="material-icons">question_answer</i>
-						<p>ตอบคำถาม</p>
+						<p>กระดานถามตอบ</p>
 					</a>
 				</li>
 

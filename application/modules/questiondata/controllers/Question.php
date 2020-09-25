@@ -21,9 +21,11 @@ class Question extends CRUD_Controller
 		$this->num_links = 6;
 		$this->uri_segment = 4;
 		$this->load->model('questiondata/Question_model', 'Question');
+		$this->load->model('questiondata/Question_Message_model', 'Question_Message');
+
 		$this->data['page_url'] = site_url('questiondata/question');
 
-		$this->data['page_title'] = 'ตอบคำถาม';
+		$this->data['page_title'] = 'ปรึกษานักโภชนการ';
 
 
 		$this->upload_store_path = './assets/uploads/question/';
@@ -124,7 +126,7 @@ class Question extends CRUD_Controller
 		$this->load->model("common_model");
 
 		$this->breadcrumb_data['breadcrumb'] = array(
-			array('title' => 'ตอบคำถาม', 'class' => 'active', 'url' => '#'),
+			array('title' => 'ปรึกษานักโภชนการ', 'class' => 'active', 'url' => '#'),
 		);
 		if (isset($_POST['submit'])) {
 			$search_field =  $this->input->post('search_field', TRUE);
@@ -173,10 +175,7 @@ class Question extends CRUD_Controller
 		if ($end_row > $search_row) {
 			$end_row = $search_row;
 		}
-				// echo '<pre>';
-				// print_r($where);
-				// echo '</pre>';
-				// die();
+
 		$data = array();
 		foreach ($list_data as $key => $v) {
 			$data[$key] = array();
@@ -184,8 +183,13 @@ class Question extends CRUD_Controller
 				$data[$key][$column] = $value_status;
 			}
 			$data[$key]['status'] =  ($data[$key]['preview_question_status'] == 'ตอบแล้ว') ? 'disabled' : '';
-		}
+			$data[$key]['status_message'] =  ($data[$key]['preview_question_status'] == 'ตอบแล้ว') ? '' : 'disabled';
 
+		}
+				// echo '<pre>';
+				// print_r($data);
+				// echo '</pre>';
+				// die();
 		$this->data['data_list']	= $data;
 
 		$this->data['search_field']	= $search_field;
@@ -213,7 +217,7 @@ class Question extends CRUD_Controller
 	public function preview($encrypt_id = "")
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-			array('title' => 'ตอบคำถาม', 'url' => site_url('questiondata/question')),
+			array('title' => 'ปรึกษานักโภชนการ', 'url' => site_url('questiondata/question')),
 			array('title' => 'แสดงข้อมูลรายละเอียด', 'url' => '#', 'class' => 'active')
 		);
 		$encrypt_id = urldecode($encrypt_id);
@@ -241,7 +245,7 @@ class Question extends CRUD_Controller
 	public function add()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-			array('title' => 'ตอบคำถาม', 'url' => site_url('questiondata/question')),
+			array('title' => 'ปรึกษานักโภชนการ', 'url' => site_url('questiondata/question')),
 			array('title' => 'เพิ่มข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 		// $this->data['count_image'] = 1;
@@ -250,6 +254,54 @@ class Question extends CRUD_Controller
 		$this->data['users_user_add_option_list'] = $this->Question->returnOptionList("users", "user_id", "user_fname");
 		$this->data['users_user_update_option_list'] = $this->Question->returnOptionList("users", "user_id", "user_fname");
 		$this->render_view('questiondata/question/add_view');
+	}
+
+	public function message($encrypt_id = '')
+	{
+		$this->breadcrumb_data['breadcrumb'] = array(
+			array('title' => 'ปรึกษานักโภชนการ', 'url' => site_url('questiondata/question')),
+			array('title' => 'สนทนา', 'url' => '#', 'class' => 'active')
+		);
+
+		$encrypt_id = urldecode($encrypt_id);
+		$id = decrypt($encrypt_id);
+		if ($id == "") {
+			$this->data['message'] = "กรุณาระบุรหัสอ้างอิงที่ต้องการแก้ไขข้อมูล";
+			$this->render_view('ci_message/warning');
+		} else {
+			$results = $this->Question->load($id);			
+			if (empty($results)) {
+				$this->data['message'] = "ไม่พบข้อมูลตามรหัสอ้างอิง <b>$id</b>";
+				$this->render_view('ci_message/danger');
+			} else {
+				$this->data['csrf_field'] = insert_csrf_field(true);
+				$results_Message = $this->Question_Message->read($id);
+				$list_data = $this->setDataListFormat($results_Message['list_data']);
+				$data = array();
+				foreach ($list_data as $key => $v) {
+					$data[$key] = array();
+					foreach ($v as $column => $value_status) {
+						$data[$key][$column] = $value_status;
+					}
+					$data[$key]['message'] =  ($data[$key]['user_message'] == $this->session->userdata('user_id')) ? 'right' : 'left';
+					$data[$key]['message_color'] =  ($data[$key]['message'] == 'right') ? '#94C2ED' : '#86BB71';
+
+				}
+				$list_data = $data;
+				// echo '<pre>';
+				// print_r($list_data);
+				// echo '</pre>';
+				// die();
+				$this->data['data_list']	= $list_data;
+				$this->setPreviewFormat($results);
+
+				$this->data['data_id'] = $id;
+				$this->data['users_user_delete_option_list'] = $this->Question->returnOptionList("users", "user_id", "user_fname");
+				$this->data['users_user_add_option_list'] = $this->Question->returnOptionList("users", "user_id", "user_fname");
+				$this->data['users_user_update_option_list'] = $this->Question->returnOptionList("users", "user_id", "user_fname");
+				$this->render_view('questiondata/question/message');
+			}
+		}
 	}
 
 	// ------------------------------------------------------------------------
@@ -281,6 +333,24 @@ class Question extends CRUD_Controller
 		}
 	}
 
+	public function formValidateMessage()
+	{
+		$this->load->library('form_validation');
+		$frm = $this->form_validation;
+
+		$frm->set_rules('message_question', 'ข้อความ', 'trim|required');
+		$frm->set_rules('fag_allow', 'สถานะ', 'trim');
+
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
+		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
+
+		if ($frm->run() == FALSE) {
+			$message  = '';
+			$message .= form_error('message_question');
+			$message .= form_error('fag_allow');
+			return $message;
+		}
+	}
 	// ------------------------------------------------------------------------
 
 	/**
@@ -317,7 +387,7 @@ class Question extends CRUD_Controller
 		$this->load->library('form_validation');
 		$frm = $this->form_validation;
 
-		$frm->set_rules('answer_question', 'ตอบคำถาม', 'trim|required');
+		$frm->set_rules('answer_question', 'ปรึกษานักโภชนการ', 'trim|required');
 
 		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
@@ -329,6 +399,22 @@ class Question extends CRUD_Controller
 		}
 	}
 
+	public function formValidateUpdate_Message()
+	{
+		$this->load->library('form_validation');
+		$frm = $this->form_validation;
+
+		$frm->set_rules('message_question', 'ปรึกษานักโภชนการ', 'trim|required');
+
+		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
+		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
+
+		if ($frm->run() == FALSE) {
+			$message  = '';
+			$message .= form_error('message_question');
+			return $message;
+		}
+	}
 	// ------------------------------------------------------------------------
 
 	/**
@@ -379,7 +465,7 @@ class Question extends CRUD_Controller
 	public function edit($encrypt_id = '')
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-			array('title' => 'ตอบคำถาม', 'url' => site_url('questiondata/question')),
+			array('title' => 'ปรึกษานักโภชนการ', 'url' => site_url('questiondata/question')),
 			array('title' => 'แก้ไขข้อมูล', 'url' => '#', 'class' => 'active')
 		);
 
@@ -415,8 +501,8 @@ class Question extends CRUD_Controller
 	public function answer($encrypt_id = '')
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-			array('title' => 'ตอบคำถาม', 'url' => site_url('questiondata/question')),
-			array('title' => 'ตอบคำถาม', 'url' => '#', 'class' => 'active')
+			array('title' => 'ปรึกษานักโภชนการ', 'url' => site_url('questiondata/question')),
+			array('title' => 'ปรึกษานักโภชนการ', 'url' => '#', 'class' => 'active')
 		);
 
 		$encrypt_id = urldecode($encrypt_id);
@@ -543,6 +629,42 @@ class Question extends CRUD_Controller
 		}
 	}
 
+	public function save_message()
+	{
+
+		$message = '';
+		$message .= $this->formValidateMessage();
+		if ($message != '') {
+			$json = json_encode(array(
+				'is_successful' => FALSE,
+				'message' => $message
+			));
+			echo $json;
+		} else {
+
+			$post = $this->input->post(NULL, TRUE);
+
+			$encrypt_id = '';
+			$id = $this->Question_Message->create($post);
+			if ($id != '') {
+				$success = TRUE;
+				$encrypt_id = encrypt($id);
+				$message = '<strong>บันทึกข้อมูลเรียบร้อย</strong>';
+			} else {
+				$success = FALSE;
+				$message = 'Error : ' . $this->Question->error_message;
+			}
+
+			$json = json_encode(array(
+				'is_successful' => $success,
+				'encrypt_id' =>  $encrypt_id,
+				'message' => $message,
+				'id' => $id
+			));
+			echo $json;
+		}
+	}
+
 	/**
 	 * Delete Record
 	 */
@@ -614,9 +736,9 @@ class Question extends CRUD_Controller
 			}
 			$data[$i]['encrypt_question_id'] = $pk1;
 			$data[$i]['preview_fag_allow'] = $this->setFagAllowSubject($data[$i]['fag_allow']);
-			$data[$i]['preview_question_status'] = $this->setFagAllowSubject($data[$i]['question_status']);
-			$data[$i]['date_public'] = setThaiDate($data[$i]['date_public']);
-			$data[$i]['datetime_delete'] = setThaiDate($data[$i]['datetime_delete']);
+			@$data[$i]['preview_question_status'] = $this->setFagAllowSubject($data[$i]['question_status']);
+			@$data[$i]['date_public'] = setThaiDate($data[$i]['date_public']);
+			@$data[$i]['datetime_delete'] = setThaiDate($data[$i]['datetime_delete']);
 			$data[$i]['datetime_add'] = setThaiDate($data[$i]['datetime_add']);
 			$data[$i]['datetime_update'] = setThaiDate($data[$i]['datetime_update']);
 		}
