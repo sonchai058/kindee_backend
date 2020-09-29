@@ -133,7 +133,6 @@ var Users = {
 			*/
 
 			var form = $('#formEdit');
-
 			form.attr("action", frm_action);
 			form.attr("method", "post");
 

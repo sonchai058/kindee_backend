@@ -65,6 +65,12 @@ if ($this->session->userdata('user_level') == 'super_user') {
 						<p>จัดการข้อมูลบัตรเครดิต</p>
 					</a>
 				</li>
+				<li class="nav-item <?php if ($this->uri->segment(1) == 'packagedata' && $this->uri->segment(2) == 'package') { ?>active<?php } ?>">
+					<a class="nav-link" href="{site_url}packagedata/package">
+						<i class="material-icons">library_books</i>
+						<p>ตรวจสอบ Package</p>
+					</a>
+				</li>
 			<?php
 			}
 			?>
@@ -136,6 +142,16 @@ if ($this->session->userdata('user_level') == 'super_user') {
 						<p><?php echo $text_title?></p>
 					</a>
 				</li>
+				<?php if ($this->session->userdata('user_status') == '0') { ?>
+				<li class="nav-item <?php if ($this->uri->segment(1) == 'packagedata' && $this->uri->segment(2) == 'package') { ?>active<?php } ?>">
+					<a class="nav-link" href="{site_url}packagedata/package/add">
+						<i class="material-icons">library_books</i>
+						<p>Package</p>
+					</a>
+				</li>
+				<?php
+			}
+			?>
 			<?php
 			}
 			?>

@@ -191,7 +191,7 @@
 										</div>
 									</div>
 									<div class="form-group col-md-4 ">
-										<label class="control-label" for="user_level">ระดับผู้ใช้งาน :</label>
+										<label class="control-label" for="user_status">แพ็คเกจผู้ใช้งาน :</label>
 										<div class="form-group has-success">
 											<select id="user_status" name="user_status" value="{record_user_status}">
 												<option value="0">Free Version</option>
@@ -219,7 +219,7 @@
 
 
 							<input type="hidden" name="encrypt_user_id" value="{encrypt_user_id}" />
-							<input type="hidden" name="user_status" value="{record_user_status}" />
+							<!-- <input type="hidden" name="user_status" value="{record_user_status}" /> -->
 							<input type="hidden" name="user_level" value="{record_user_level}" />
 
 
