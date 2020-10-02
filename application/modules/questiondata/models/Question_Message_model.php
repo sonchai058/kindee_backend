@@ -5,7 +5,7 @@ if (!defined('BASEPATH'))  exit('No direct script access allowed');
  * Question_Message_model Class
  * @date 2019-12-05
  */
-class Question_Message_model extends MY_Model
+class Question_message_model extends MY_Model
 {
 
 	private $my_table;
