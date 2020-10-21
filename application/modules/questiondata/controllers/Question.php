@@ -1,4 +1,6 @@
 <?php
+ini_set('display_errors', 1);
+	ini_set('display_startup_errors', 1);
 if (!defined('BASEPATH'))  exit('No direct script access allowed');
 
 /**
@@ -269,7 +271,7 @@ class Question extends CRUD_Controller
 			$this->data['message'] = "กรุณาระบุรหัสอ้างอิงที่ต้องการแก้ไขข้อมูล";
 			$this->render_view('ci_message/warning');
 		} else {
-			$results = $this->Question->load($id);			
+			$results = $this->Question->load($id);
 			if (empty($results)) {
 				$this->data['message'] = "ไม่พบข้อมูลตามรหัสอ้างอิง <b>$id</b>";
 				$this->render_view('ci_message/danger');
