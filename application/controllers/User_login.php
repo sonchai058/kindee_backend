@@ -86,7 +86,7 @@ class User_login extends CRUD_Controller
                 $data['is_successful'] = true;
 
                 $data['redirect_url'] = 'dashboard';
-                if($this->session->userdata('user_level')=='super_user'||$this->session->userdata('user_level')=='user') {
+                if($this->session->userdata('user_level')=='super_user'||$this->session->userdata('user_level')=='user' ||$this->session->userdata('user_level')=='nutritionist') {
                      $data['redirect_url'] =  $data['redirect_url'].'_user?update_data=true';
                 }else if($this->session->userdata('user_level')=='shop'){
                     $data['redirect_url'] =  $data['redirect_url'].'_res';
@@ -115,14 +115,15 @@ class User_login extends CRUD_Controller
             'user_lname' => '',
             'email_addr' => '',
             'user_level' => '',
-						'user_status' => '',
+			'user_status' => '',
             'shop_id'=> '',
             'org_id' => '',
             'login_validated' => '',
             'encrypt_user_id'=>'',
             'encrypt_shop_id'=>'',
 			'login_validated' => FALSE,
-            'user_select' => ''
+            'user_select' => '',
+            'user_nutri' => ''
 		);
 
     	$this->load->model('common_model');

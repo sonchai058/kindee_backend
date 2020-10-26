@@ -83,6 +83,7 @@ class User_login_model extends CI_Model
 					'encrypt_user_id'=>encrypt($row->user_id),
 					'encrypt_shop_id'=>encrypt($row->shop_id),
 					'user_select' => $row->user_id,
+					'user_nutri' => $row->user_id,
 					);
 /*
 			if($row->user_level=='shop') {

@@ -173,7 +173,7 @@
 	{another_js}
 
 	<?php
-	if ($this->session->userdata('user_level') == 'super_user') {
+	if ($this->session->userdata('user_level') == 'super_user'||$this->session->userdata('user_level')=='nutritionist') {
 	?>
 		<script>
 			$(document).ready(function() {

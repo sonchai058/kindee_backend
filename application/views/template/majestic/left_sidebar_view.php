@@ -14,6 +14,22 @@ if ($this->session->userdata('user_level') == 'super_user') {
 	$tmp_txt = $tmp_txt . "</select></center>";
 }
 ?>
+<?php
+$tmp_txt2 = '';
+if ($this->session->userdata('user_level') == 'nutritionist') {
+	$this->load->model("common_model");
+	$rows = $this->common_model->custom_query("select users_nutritionist.*,users.* FROM users_nutritionist LEFT JOIN users ON users_nutritionist.user_id = users.user_id WHERE users_nutritionist.user_nutri = '{$this->session->userdata('user_nutri')}' and users_nutritionist.fag_allow = 'allow'");
+	$tmp_txt2 = "<center><select value='เลือก User' id='user_select' style='margin-top:5px;'><option disabled selected>เลือก User</option>";
+	foreach ($rows as $key => $value) {
+		$selected = "";
+		if ($this->session->userdata('user_id') == $value['user_id']) {
+			$selected = "selected";
+		}
+		$tmp_txt2 = $tmp_txt2 . "<option {$selected} value='{$value['user_id']}'>{$value['user_fname']}</option>";
+	}
+	$tmp_txt2 = $tmp_txt2 . "</select></center>";
+}
+?>
 
 <div class="sidebar" data-color="orange" data-background-color="black" data-image="{base_url}assets/themes/material/assets/img/sidebar-3.jpg">
 	<div class="logo">
@@ -25,6 +41,7 @@ if ($this->session->userdata('user_level') == 'super_user') {
 	<div class="sidebar-wrapper">
 		<?php
 		echo $tmp_txt;
+		echo $tmp_txt2;
 		?>
 		<ul class="nav">
 
