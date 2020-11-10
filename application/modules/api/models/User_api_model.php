@@ -33,6 +33,7 @@ class User_api_model extends CI_Model
             $res['mobile_no'] = $data->mobile_no;
             $res['addr'] = $data->addr;
             $res['title_name'] = $data->title_name;
+            $res['user_status'] = $data->user_status;
             return $res;
         } else {
             return false;
