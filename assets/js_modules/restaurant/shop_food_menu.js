@@ -266,12 +266,7 @@ $(document).ready(function() {
 	//Set default selected
 	setDatePicker('.datepicker');
 
-	if(num0>1) {
-		num0 = 1;
-		$.each(record_self_food_menu_composition, function(i, item) {
-		    addShopComp(true);
-		});
-	}
+
 
 });
 
@@ -309,7 +304,7 @@ function del(node) {
 
 // Images script
 $(document).ready(function() {
-    document.getElementById('pro-image').addEventListener('change', readImage, false);
+    
 
     $( ".preview-images-zone" ).sortable();
 

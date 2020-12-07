@@ -30,7 +30,11 @@
 
 								<tr>
 									<td class="text-right fit"><b>รหัสไอดีหลัก :</b></td>
-									<td>{record_foodt_id}</td>
+									<td>
+										{record_foodt_id}
+										<input type="hidden" name="record_foodt_id" id="record_foodt_id" value="{record_foodt_id}"/>
+									</td>
+
 								</tr>
 								<tr>
 									<td class="text-right fit"><b>ชื่อสมาชิก :</b></td>
@@ -80,6 +84,10 @@
 									<td class="text-right fit"><b>สถานะ :</b></td>
 									<td>{preview_fag_allow}</td>
 								</tr>
+								<tr>
+									<td class="text-right fit"><b>QR Code :</b></td>
+									<td><span id="load_qrcode"></span></td>
+								</tr>
 
 							</tbody>
 						</table>
@@ -89,3 +97,28 @@
 		</div>
 	</div>
 </div>
+<script>
+
+function gen_qrcode() {
+	if (window.XMLHttpRequest) {
+		// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp = new XMLHttpRequest();
+	} else {
+		// code for IE6, IE5
+		xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+			document.getElementById("load_qrcode").innerHTML = this.responseText;
+		}
+	}
+	var record_foodt_id =document.getElementById("record_foodt_id").value;
+	var url_direct = 'kindee://foodmenu/'+record_foodt_id;
+	var filename = 'menu_'+record_foodt_id;
+	//console.log("url_direct:<?php echo base_url()?>phpqrcode/index.php?url_direct="+url_direct+"&filename="+filename);
+	xmlhttp.open("GET", "<?php echo base_url()?>phpqrcode/index.php?url_direct="+url_direct+"&filename="+filename, true);
+	xmlhttp.send();
+
+}
+gen_qrcode();
+</script>

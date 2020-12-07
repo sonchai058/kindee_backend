@@ -75,6 +75,22 @@ class Food extends REST_Controller
       return $this->set_response($output, REST_Controller::HTTP_UNAUTHORIZED);
     }
 
+    public function menufooddetail_get($id='')
+    {
+      $res = $this->food->getMenuFoodDetail($id);
+
+      $output = array();
+      if ($res) {
+          $output['status'] = true;
+          $output['data'] = $res;
+          $output['token'] = $this->jwt_token();
+          return $this->response($output, REST_Controller::HTTP_OK);
+      }
+
+      $output['status'] = false;
+      return $this->set_response($output, REST_Controller::HTTP_UNAUTHORIZED);
+    }
+
     public function food_menu_get($food_source='')
     {
       $food_source_type = '';

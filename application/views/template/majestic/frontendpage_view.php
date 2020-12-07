@@ -89,6 +89,9 @@
 							<li>
 								<h2 class="ftco-heading-2"><i class="icon-phone-square"></i>Tel : +66 2496 8667, <br />Tax ID : 0735560001175</h2>
 							</li>
+							<li>
+								<h2 class="ftco-heading-2"><a href="{base_url}frontend_page/privacy_page">นโยบายความเป็นส่วนตัว</a</h2>
+							</li>
 							<br>
 						</ul>
 					</div>

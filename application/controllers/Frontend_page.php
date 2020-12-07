@@ -266,5 +266,10 @@ class Frontend_page extends CI_Controller
 		}
 		return $data;
 	}
+
+	public function privacy_page()
+	{
+		$this->render_view('privacy_page');
+	}
 }
 /*---------------------------- END Controller Class --------------------------------*/
