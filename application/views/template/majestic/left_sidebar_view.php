@@ -236,6 +236,36 @@ if ($this->session->userdata('user_level') == 'nutritionist') {
 					</a>
 				</li>
 
+					<li class="nav-item <?php if ($this->uri->segment(2) == 'users_result_exam_chemical') { ?>active<?php } ?>">
+						<a class="nav-link" href="{site_url}exam/users_result_exam_chemical">
+							<i class="material-icons">content_paste</i>
+							<p>ผลตรวจสุขภาพทางทางชีวเคมี</p>
+						</a>
+					</li>
+
+
+					<li class="nav-item <?php if ($this->uri->segment(2) == 'users_result_exam_food_allergy') { ?>active<?php } ?>">
+						<a class="nav-link" href="{site_url}exam/users_result_exam_food_allergy">
+							<i class="material-icons">library_books</i>
+							<p>ผลตรวจการแพ้อาหาร</p>
+						</a>
+					</li>
+
+					<li class="nav-item <?php if ($this->uri->segment(1) == 'foodallergy' && $this->uri->segment(2) == 'users_foood_allergy') { ?>active<?php } ?>">
+						<a class="nav-link" href="{site_url}foodallergy/users_foood_allergy">
+							<i class="material-icons">library_books</i>
+							<p>ข้อมูลอาหารที่ท่านแพ้</p>
+						</a>
+					</li>
+
+					<li class="nav-item <?php if ($this->uri->segment(1) == 'drugeat' && $this->uri->segment(2) == 'users_drug') { ?>active<?php } ?>">
+						<a class="nav-link" href="{site_url}drugeat/users_drug">
+							<i class="material-icons">library_books</i>
+							<p>ข้อมูลยาที่ทานประจำ</p>
+						</a>
+					</li>
+
+
 			<?php
 			}
 			?>
