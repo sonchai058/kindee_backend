@@ -111,13 +111,15 @@ function displayDates($date1, $date2, $format = 'Y-m-d')
 
 $bmr_date_array = array();
 
-
 $period = displayDates($strdate, $enddate);
+// print_r($period);
+
 foreach ($period as $key => $value) {
 	$date_array[$value] = 0;
 
 	$bmr_date_array[$value] = 0;
 }
+
 
 
 
@@ -139,8 +141,6 @@ GROUP BY date
 ORDER BY date ASC
 ";
 
-
-
 $chartrows = $this->common_model->custom_query($sql);
 $bmr_last = 0;
 foreach ($chartrows as $key => $value) {
@@ -158,12 +158,46 @@ foreach ($chartrows as $key => $value) {
 	$sum = $bmr_val;
 	$bmr_date_array[$value['date']] = $sum;
 	// echo '<pre>';
-	// print_r($chartrows);
+	// print_r($bmr_date_array[$value['date']]);
 	// echo '</pre>';
 	// die();
 }
 
+// $sql_bmr_last = "
+// SELECT
+// a.*
+// ,DATE(a.date_exam) as date
+// FROM users_exam_weight as a
+// WHERE
+// a.fag_allow='allow' AND a.user_id={$this->session->userdata('user_id')}
+// GROUP BY date
+// ORDER BY date ASC
+// LIMIT 0,1
+// ";
+// $return_bmr_last = $this->common_model->custom_query($sql_bmr_last);
+
+// foreach ($return_bmr_last as $key => $value) {
+
+// 	$bmi_val = $value['user_weight'] / ((floatval($user_height) / 100) * (floatval($user_height) / 100));
+// 	$bmr_val = 0;
+// 	$calo_val = 0;
+// 	if ($user_sex == 'ชาย') {
+// 		$bmr_val = 66 + (13.7 * $value['user_weight']) + (5 * $user_height) - (6.8 * $age);
+// 	} else if ($user_sex == 'หญิง') {
+// 		$bmr_val = 665 + (9.6 * $value['user_weight']) + (1.8 * $user_height) - (4.7 * $age);
+// 	}
+
+// 	#$bmi_date_array[$value['date']] = round($bmi_val);
+// 	$sum = $bmr_val;
+// 	$bmr_last_date_array = $sum;
+// 	// echo '<pre>';
+// 	// print_r($bmr_last_date_array[$value['date']]);
+// 	// echo '</pre>';
+// 	// die();
+// }
+
 $bmrcate = '';
+
 foreach ($bmr_date_array as $key => $value) {
 	if ($value == 0) {
 		$value = $bmr_last;
@@ -172,6 +206,18 @@ foreach ($bmr_date_array as $key => $value) {
 	$bmrcate .= ",'" . $set . "'";
 	$bmr .= ',' . $value;
 	$bmr_last = $value;
+	// echo '<pre>';
+	// echo('<br>');
+	// print_r($bmr_date_array);
+	// print_r($bmr_last_date_array);
+	// echo('<br>');
+	// print_r('before_value = '.$value);
+	// echo('<br>');
+	// print_r('after_value = '.$value);
+	// echo('<br>');
+	// echo('<br>');
+	// echo '</pre>';
+	// die();
 }
 
 /* ------------------------------------------------------------------------------------ */

@@ -1,10 +1,10 @@
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light justify-content-center" id="ftco-navbar">
-		<a style="color: white; padding-left: 10px; padding-right: 10px;" class="navbar-brand d-flex w-50 mr-auto">
+		<a style="color: #B9D085; padding-left: 10px; padding-right: 10px;" class="navbar-brand d-flex w-50 mr-auto">
 			<img src="{base_url}assets/images/info.kindee.kindee.png" alt="logo" style="height: 50px;width: 50px;">&emsp;
 			<span style="align-self: center;">Kindee | Story</span>
 		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar3" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-			<span style="color: white;" class="oi oi-menu"></span> <span style="color: white;">Menu</span>
+			<span style="color: #89A25E;" class="oi oi-menu"></span> <span style="color: #89A25E;">Menu</span>
 		</button>
 		<div class="navbar-collapse collapse w-100" id="collapsingNavbar3">
 			<ul class="navbar-nav w-100 justify-content-center">
@@ -66,3 +66,28 @@
 			</ul>
 		</div>
 	</nav>
+	<style>@media (max-width: 992px) {
+    .navbar-collapse {
+        position: absolute;
+        top: 54px;
+        left: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-bottom: 15px;
+        width: 100%;
+        transition: all 0.4s ease;
+        display: block;
+    }
+    .navbar-collapse.collapsing {
+        height: auto !important;
+        margin-left: 50%;
+        left: 50%;
+        transition: all 0.2s ease;
+    }
+    .navbar-collapse.show {
+		left: 0;
+		background-color: #f8f9fa;
+		top: 100%;
+    }
+}
+	</style>
