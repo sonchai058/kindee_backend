@@ -213,6 +213,125 @@ class Food_api_model extends CI_Model
       }
     }
 
+    public function getMenuFoodDetail($id='')
+    {
+      $whereFood = "self_food_menu.self_food_id = '".$id."' ";
+      //$whereFood .= "and users_food_time.fag_allow = 'allow' ";
+      $this->db->select(' self_food_menu.self_food_id,
+                          self_food_menu.self_food_name,
+                          self_food_menu.food_source,
+                          self_food_menu.energy_amt');
+      $this->db->from('self_food_menu');
+      $this->db->where($whereFood);
+      $queryMenuFood = $this->db->get();
+      $dataMenuFood = $queryMenuFood->row();
+      //echo $this->db->last_query();
+
+      $this->db->select(' self_food_menu.self_food_id,
+                          self_food_menu.self_food_name,
+                          self_food_menu_composition.amount,
+                          self_food_menu.food_source,
+                          self_food_menu.energy_amt,
+                          raw_material.*');
+      $this->db->from('self_food_menu_composition');
+      $this->db->join('self_food_menu', "self_food_menu.self_food_id = self_food_menu_composition.self_food_id");
+      $this->db->join('raw_material', "self_food_menu_composition.rmat_id = raw_material.rmat_id");
+      $this->db->where($whereFood);
+      $this->db->group_by('raw_material.rmat_id');
+      $queryFood = $this->db->get();
+      $dataFood = $queryFood->row();
+      //echo $this->db->last_query();
+      $numRow = $queryMenuFood->num_rows();
+      if ($numRow > 0 ) {
+          if($dataMenuFood->food_source == 'เมนูจากระบบ'){
+            $food_source_id = 1;
+          }else if($dataMenuFood->food_source == 'เมนูปรุงเอง'){
+            $food_source_id = 2;
+          }else if($dataMenuFood->food_source == 'เมนูร้านอาหาร'){
+            $food_source_id = 3;
+          }else{
+            $food_source_id = 0;
+          }
+
+          $carboh_val = 0;
+          $protein_val = 0;
+          $fat_val = 0;
+          $sodium_val = 0;
+          $sugar_val = 0;
+          $vita_val = 0;
+          $thiamin_val = 0;
+          $niacin_val = 0;
+          $vitc_val = 0;
+          $vite_val = 0;
+
+          foreach ($queryFood->result() as $row)
+          {
+            $sum_cpf = $row->carboh_val+$dataFood->protein_val+$row->fat_val;
+            if($sum_cpf>0){
+              $percent_carboh = $row->carboh_val/$sum_cpf;
+              $percent_protein = $row->protein_val/$sum_cpf;
+              $percent_fat = $row->fat_val/$sum_cpf;
+              $ratio_carboh = $percent_carboh*$row->energy_val;
+              $ratio_protein = $percent_protein*$row->energy_val;
+              $ratio_fat = $percent_fat*$row->energy_val;
+              if($row->carboh_val>0){
+                $kcal_gram_carboh = $ratio_carboh/$row->carboh_val;
+              }else{
+                $kcal_gram_carboh = 0;
+              }
+              if($row->protein_val>0){
+                $kcal_gram_protein = $ratio_protein/$row->protein_val;
+              }else{
+                $kcal_gram_protein = 0;
+              }
+              if($dataFood->fat_val>0){
+                $kcal_gram_fat = $ratio_fat/$row->fat_val;
+              }else{
+                $kcal_gram_fat = 0;
+              }
+
+            }else{
+              $kcal_gram_carboh = 0;
+              $kcal_gram_protein = 0;
+              $kcal_gram_fat = 0;
+            }
+
+            $carboh_val += ($kcal_gram_carboh*$row->carboh_val)*round(($row->amount/100),1);
+            $protein_val += round($kcal_gram_protein*$row->protein_val,5)*round(($row->amount/100),5);
+            //echo "(".$kcal_gram_protein."*".$row->protein_val.")*".($row->amount/100)."<br/>";
+            $fat_val += ($kcal_gram_fat*$row->fat_val)*round(($row->amount/100),1);
+            $sodium_val += $row->sodium_val*($row->amount/100);
+            $sugar_val += $row->sugar_val*($row->amount/100);
+            $vita_val += $row->vita_val*($row->amount/100);
+            $thiamin_val += $row->thiamin_val*($row->amount/100);
+            $niacin_val += $row->niacin_val*($row->amount/100);
+            $vitc_val += $row->vitc_val*($row->amount/100);
+            $vite_val += $row->vite_val*($row->amount/100);
+         }
+
+          $res = array();
+          $res['food_id'] = intval($dataMenuFood->self_food_id);
+          $res['food_source'] = $dataMenuFood->food_source;//
+          $res['food_name'] = $dataMenuFood->self_food_name;
+          $res['food_source_id'] = intval($food_source_id);
+          $res['food_energy'] = $dataMenuFood->energy_amt;
+          $res['protein_val'] = number_format($protein_val,2);
+          $res['fat_val'] = number_format($fat_val,2);
+          $res['carboh_val'] = number_format($carboh_val,2);
+          $res['sodium_val'] = number_format($sodium_val,2);
+          $res['sugar_val'] = number_format($sugar_val,2);
+          $res['vita_val'] = number_format($vita_val,2);
+          $res['thiamin_val'] = number_format($thiamin_val,2);
+          $res['niacin_val'] = number_format($niacin_val,2);
+          $res['vitc_val'] = number_format($vitc_val,2);
+          $res['vite_val'] = number_format($vite_val,2);
+
+          return $res;
+      } else {
+          return false;
+      }
+    }
+
     public function getFoodMenu($food_source='')
     {
       $where = " self_food_id != '' ";
