@@ -288,6 +288,8 @@ foreach ($bmi_date_array as $key => $value) {
 ?>
 <div class="container-fluid">
 	<br>
+	<div class="container-fluid">
+
 	<div class="row">
 		<div class="col-md-4">
 			<div class="card card-profile">
@@ -357,31 +359,68 @@ foreach ($bmi_date_array as $key => $value) {
 			</div>
 		</div>
 	</div>
+	</div>
 
 	<!-- Icon Cards-->
 	<div class="container-fluid">
-
 		<div class="row" style="margin-top: -22px">
 			<div class="card col-sm-12">
 				<div class="card-body">
 					<h1 width="30%">{users_bmi} BMI {users_bmi_txt}</h1>
-					<!-- <img style="top:0px;     margin-top: -60px; float:right" src="{base_url}assets/images/bmi.PNG"> -->
 					<div class="row">
-						<div class="col-sm-2" style="background-color:#DBFF33; text-align: center; font-size: 14px; font-weight:bold; padding-top:20px; padding-bottom: 20px;">
-							น้ำหนักหน่อยกว่ามาตรฐาน &nbsp;&nbsp;< 18.5 </div> <div class="col-sm-2" style="background-color:#47A44B; text-align: center; font-size: 14px; font-weight:bold; padding-top:20px; padding-bottom: 20px;">
-								น้ำหนักปกติ 18.5 - 24.9
+						<div class="col-md-2 d-flex pb-3" style="text-align: center; font-size: 14px; font-weight:bold;">
+							<div class="card" style=<?php echo ($users_bmi < 18.5) ? "background-color:#A4A4A1" : "background-color:#FFFFFF";?>>
+								<div class="card-body">
+									<span>น้ำหนักน้อยกว่ามาตรฐาน</span>
+									<br>
+									<span>  < 18.5 </span>
+								</div>
+							</div>
 						</div>
-						<div class="col-sm-2" style="background-color:#E83E80; text-align: center; font-size: 14px; font-weight:bold; padding-top:20px; padding-bottom: 20px;">
-							อ้วนระดับ 1 25 - 29.9
+						<div class="col-md-2 d-flex pb-3" style="text-align: center; font-size: 14px; font-weight:bold;">
+							<div class="card" style=<?php echo ($users_bmi >= 18.5 && $users_bmi < 24.9) ? "background-color:#A4A4A1" : "background-color:#FFFFFF";?>>
+								<div class="card-body">
+									<span>น้ำหนักปกติ</span>
+									<br>
+									<span> 18.5 - 24.9 </span>
+								</div>
+							</div>
 						</div>
-						<div class="col-sm-2" style="background-color:#AF7AC5; text-align: center; font-size: 14px; font-weight:bold; padding-top:20px; padding-bottom: 20px;">
-							อ้วนระดับ 2 30 - 34.9
+						<div class="col-md-2 d-flex pb-3" style="text-align: center; font-size: 14px; font-weight:bold;">
+							<div class="card" style=<?php echo ($users_bmi >= 25 && $users_bmi < 29.9) ? "background-color:#A4A4A1" : "background-color:#FFFFFF";?>>
+								<div class="card-body">
+									<span>อ้วนระดับ 1</span>
+									<br>
+									<span> 25 - 29.9 </span>
+								</div>
+							</div>
 						</div>
-						<div class="col-sm-2" style="background-color:#F08F00; text-align: center; font-size: 14px; font-weight:bold; padding-top:20px; padding-bottom: 20px;">
-							อ้วนระดับ 3 35 - 39.9
+						<div class="col-md-2 d-flex pb-3" style="text-align: center; font-size: 14px; font-weight:bold;">
+							<div class="card" style=<?php echo ($users_bmi >= 30 && $users_bmi < 34.9) ? "background-color:#A4A4A1" : "background-color:#FFFFFF";?>>
+								<div class="card-body">
+									<span>อ้วนระดับ 2</span>
+									<br>
+									<span> 30 - 34.9 </span>
+								</div>
+							</div>
 						</div>
-						<div class="col-sm-2" style="background-color:#F33527; text-align: center; font-size: 14px; font-weight:bold; padding-top:20px; padding-bottom: 20px;">
-							อ้วนระดับ >40
+						<div class="col-md-2 d-flex pb-3" style="text-align: center; font-size: 14px; font-weight:bold;">
+							<div class="card" style=<?php echo ($users_bmi >= 35 && $users_bmi < 39.9) ? "background-color:#A4A4A1" : "background-color:#FFFFFF";?>>
+								<div class="card-body">
+									<span>อ้วนระดับ 3</span>
+									<br>
+									<span> 35 - 39.9 </span>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2 d-flex pb-3" style="text-align: center; font-size: 14px; font-weight:bold;">
+							<div class="card" style=<?php echo ($users_bmi > 40) ? "background-color:#A4A4A1" : "background-color:#FFFFFF";?>>
+								<div class="card-body">
+									<span>อ้วนระดับ 4</span>
+									<br>
+									<span> > 40 </span>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -391,7 +430,7 @@ foreach ($bmi_date_array as $key => $value) {
 	<div class="row">
 		<div class="col-lg-6 col-md-6 col-sm-12">
 			<div class="card">
-				<div class="card-header card-header-tabs card-header-warning">
+				<div class="card-header card-header-tabs card-header-logo">
 					<div class="nav-tabs-navigation">
 						<div class="nav-tabs-flex-wrap">
 							<h4 class="nav-tabs-title-left">BMR Chart</span>
@@ -436,7 +475,7 @@ foreach ($bmi_date_array as $key => $value) {
 		</div>
 		<div class="col-lg-6 col-md-6 col-sm-12">
 			<div class="card">
-				<div class="card-header card-header-tabs card-header-warning">
+				<div class="card-header card-header-tabs card-header-logo">
 					<div class="nav-tabs-navigation">
 						<div class="nav-tabs-flex-wrap">
 							<h4 class="nav-tabs-title-left">Calories</span>

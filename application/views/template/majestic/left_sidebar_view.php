@@ -31,7 +31,7 @@ if ($this->session->userdata('user_level') == 'nutritionist') {
 }
 ?>
 
-<div class="sidebar" data-color="orange" data-background-color="black" data-image="{base_url}assets/themes/material/assets/img/sidebar-3.jpg">
+<div class="sidebar" data-color="logo" data-background-color="black">
 	<div class="logo">
 		<a href="{site_url}frontend_page" class="simple-text logo-normal">
 			<img src="{base_url}assets/images/info.kindee.kindee.png" alt="logo" style="width:40px">&emsp;

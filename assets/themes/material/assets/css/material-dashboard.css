@@ -15457,6 +15457,15 @@ thead.thead-inverse th {
 	background: linear-gradient(60deg, #ffa726, #fb8c00)
 }
 
+.card.bg-logo,
+.card .card-header-logo .card-icon,
+.card .card-header-logo .card-text,
+.card .card-header-logo:not(.card-header-icon):not(.card-header-text),
+.card.card-rotate.bg-logo .back,
+.card.card-rotate.bg-logo .front {
+	background: linear-gradient(60deg, #89af4c, #d2de1e)
+}
+
 .card.bg-danger,
 .card .card-header-danger .card-icon,
 .card .card-header-danger .card-text,
@@ -17880,6 +17889,14 @@ a .material-icons {
 	background-color: #e91e63;
 	box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(233, 30, 99, .4)
 }
+.sidebar[data-color=rose] li.active>a {
+	background-color: #e91e63;
+	box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(233, 30, 99, .4)
+}
+.sidebar[data-color=logo] li.active>a {
+	background-color: #A4C56D;
+	box-shadow: 0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(164, 197, 109, .4)
+}
 
 .sidebar[data-color=white] li.active>a {
 	background-color: #fff;
@@ -18010,7 +18027,7 @@ a .material-icons {
 }
 
 .sidebar[data-background-color=black] {
-	background: #191919
+	background: #282828;
 }
 
 .fixed-plugin .dropdown .dropdown-menu {

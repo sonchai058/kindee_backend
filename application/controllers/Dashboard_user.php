@@ -132,6 +132,7 @@ class Dashboard_user extends CRUD_Controller
 				$this->data['users_bmi_txt'] = "<br/><h4>อ้วนระดับ 4</h4>";
 			}
 
+
 			$chart_bmi[] = array('t' => $value['date'] . " 00:00:00", 'y' => $bmi_val);
 			$chart_bmr[] = array('t' => $value['date'] . " 00:00:00", 'y' => ($bmr_val));
 
