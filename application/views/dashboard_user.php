@@ -93,7 +93,6 @@ if ($this->input->post('bmr_strdate')) {
 }
 
 
-
 $bmi = '';
 $bmr = '';
 
@@ -126,31 +125,6 @@ foreach ($period as $key => $value) {
 
 $user = rowArray($this->common_model->custom_query("select * from users where user_id={$this->session->userdata('user_id')} limit 1"));
 
-
-
-$user_weight_date = '';
-$user_weight_last = 0;
-$sql = "
-SELECT
-a.*
-,DATE(a.date_exam) as date
-FROM users_exam_weight as a
-WHERE
- DATE(date_exam) < '$strdate'  AND
-a.fag_allow='allow' AND a.user_id={$this->session->userdata('user_id')}
- AND  (user_weight <> 0 || user_weight IS NOT NULL)
-GROUP BY date
-ORDER BY date DESC LIMIT 1
-";
-$chartrows = $this->common_model->custom_query($sql);
-$bmr_last = 0;
-foreach ($chartrows as $key => $value) {
- 		$user_weight_last =  $value['user_weight'];
-	$user_weight_date = $value['date_exam'];
-}
-
-#echo 'last : '.$user_weight_date.' = '.$user_weight_last.'<hr>';
-
 $user_flname = $user['user_fname'] . ' ' . $user['user_lname'];
 $user_height = $user['user_height'];
 $user_sex = $user['user_sex'];
@@ -170,7 +144,7 @@ ORDER BY date ASC
 $chartrows = $this->common_model->custom_query($sql);
 $bmr_last = 0;
 foreach ($chartrows as $key => $value) {
- 	$user_weight = ($value['user_weight'] <> '') ? $value['user_weight']  : $user_weight_last;
+
 	$bmi_val = $value['user_weight'] / ((floatval($user_height) / 100) * (floatval($user_height) / 100));
 	$bmr_val = 0;
 	$calo_val = 0;
@@ -220,33 +194,14 @@ foreach ($chartrows as $key => $value) {
 // 	// print_r($bmr_last_date_array[$value['date']]);
 // 	// echo '</pre>';
 // 	// die();
-
-#print_r($bmr_date_array);
+// }
 
 $bmrcate = '';
 
 foreach ($bmr_date_array as $key => $value) {
-
 	if ($value == 0) {
-		if($bmr_last == 0){
-
-
-			$bmi_val = $value['user_weight'] / ((floatval($user_height) / 100) * (floatval($user_height) / 100));
-			$bmr_val = 0;
-			$calo_val = 0;
-			if ($user_sex == 'ชาย') {
-				$value = 66 + (13.7 * $user_weight_last) + (5 * $user_height) - (6.8 * $age);
-			} else if ($user_sex == 'หญิง') {
-				$value = 665 + (9.6 * $user_weight_last) + (1.8 * $user_height) - (4.7 * $age);
-			}
-
-		} else {
-			  $value = $bmr_last;
-		}
-
-
-
- 	}
+		$value = $bmr_last;
+	}
 	$set = date("d/m", strtotime($key)) . '/' . $year;
 	$bmrcate .= ",'" . $set . "'";
 	$bmr .= ',' . $value;
