@@ -90,6 +90,8 @@ class Frontend_get_shops_model extends MY_Model
 		$res['shop_name_en'] = $row->shop_name_en;
 		$res['addr'] = $row->addr;
 		$res['mobile_no'] = $row->mobile_no;
+		$res['time_open'] = $row->time_open;
+		$res['time_close'] = $row->time_close;
 
 		$data = $res;
 		return $data;

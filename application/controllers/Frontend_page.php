@@ -220,6 +220,8 @@ class Frontend_page extends CI_Controller
 		$this->data['shop_name_en'] = $results_shop['shop_name_en'];
 		$this->data['addr'] = $results_shop['addr'];
 		$this->data['mobile_no'] = $results_shop['mobile_no'];
+		$this->data['time_open'] = $results_shop['time_open'];
+		$this->data['time_close'] = $results_shop['time_close'];
 
 		$results_promotions = $this->Frontend_shops->promotions_read($shop_id);
 		$this->data['data_list_promotions'] = $results_promotions['list_data'];

@@ -94,7 +94,7 @@
 						<h3 class="shops_title" style="color: #000;">{shop_name_en}</h3>
 						<p class="shops_detail">ที่อยู่ : {addr}</p>
 						<p>Tel : {mobile_no}</p>
-
+						<p>เวลาเปิด - ปิด : {time_open} - {time_close} น.</p>
 					</div>
 				</div>
 			</div>

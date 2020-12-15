@@ -40,6 +40,7 @@
 						<h3 style="color: #000;">{shop_name_en}</h3>
 						<p>ที่อยู่ : {addr}</p>
 						<p>Tel : {mobile_no}</p>
+						<p>เวลาเปิด - ปิด : {time_open} - {time_close} น.</p>
 
 					</div>
 					<div class=" py-3 pb-4 px-3" style="color: #E78D13; font-weight: bold;">โปรโมชั่น</div>
