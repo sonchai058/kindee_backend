@@ -41,9 +41,21 @@ class Shops_model extends MY_Model
 
 	public function create($post)
 	{
-
 		$data = array(
-			'cate_id' => $post['cate_id'], 'shop_photo' => $post['shop_photo'], 'shop_cover' => $post['shop_cover'], 'shop_name_th' => $post['shop_name_th'], 'shop_name_en' => $post['shop_name_en'], 'mobile_no' => $post['mobile_no'], 'email_addr' => $post['email_addr'], 'shop_user' => 0, 'addr' => $post['addr'], 'fag_allow' => 'allow', 'point_lat' => $post['point_lat'], 'point_long' => $post['point_long']
+			'cate_id' => $post['cate_id'],
+			'shop_photo' => $post['shop_photo'],
+			'shop_cover' => $post['shop_cover'],
+			'shop_name_th' => $post['shop_name_th'],
+			'shop_name_en' => $post['shop_name_en'],
+			'mobile_no' => $post['mobile_no'],
+			'email_addr' => $post['email_addr'],
+			'shop_user' => 0,
+			'addr' => $post['addr'],
+			'fag_allow' => 'allow',
+			'point_lat' => $post['point_lat'],
+			'point_long' => $post['point_long'],
+			'time_open' => $post['time_open'],
+			'time_close' => $post['time_close']
 		);
 		return $this->add_record($data);
 	}
@@ -145,7 +157,7 @@ class Shops_model extends MY_Model
 			//,'shop_user' => $post['shop_user']
 			, 'addr' => $post['addr']
 			//,'fag_allow' => $post['fag_allow']
-			, 'point_lat' => $post['point_lat'], 'point_long' => $post['point_long']
+			, 'point_lat' => $post['point_lat'], 'point_long' => $post['point_long'],			'time_open' => $post['time_open'],'time_close' => $post['time_close']
 		);
 
 		if (isset($post['shop_photo'])) {

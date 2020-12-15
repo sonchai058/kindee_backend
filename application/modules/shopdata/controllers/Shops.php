@@ -287,6 +287,8 @@ class Shops extends CRUD_Controller
 		$frm->set_rules('fag_allow', 'สถานะ', 'trim');
 		$frm->set_rules('point_lat', 'พิกัด ละติจูด', 'trim|required');
 		$frm->set_rules('point_long', 'พิกัด ลองจิจูด', 'trim|required');
+		$frm->set_rules('time_open', 'เวลาเปิด', 'trim|required');
+		$frm->set_rules('time_close', 'เวลาปิด', 'trim|required');
 
 		$frm->set_message('required', '- กรุณาใส่ข้อมูล %s');
 		$frm->set_message('is_natural', '- %s ต้องระบุตัวเลขจำนวนเต็ม');
@@ -306,6 +308,8 @@ class Shops extends CRUD_Controller
 			$message .= form_error('fag_allow');
 			$message .= form_error('point_lat');
 			$message .= form_error('point_long');
+			$message .= form_error('time_open');
+			$message .= form_error('time_close');
 			return $message;
 		}
 	}
@@ -1003,6 +1007,8 @@ class Shops extends CRUD_Controller
 		$this->data['record_fag_allow'] = $data['fag_allow'];
 		$this->data['record_point_lat'] = $data['point_lat'];
 		$this->data['record_point_long'] = $data['point_long'];
+		$this->data['record_time_open'] = $data['time_open'];
+		$this->data['record_time_close'] = $data['time_close'];
 
 		$this->data['record_datetime_delete'] = setThaiDate($data['datetime_delete']);
 		$this->data['record_datetime_add'] = setThaiDate($data['datetime_add']);

@@ -100,6 +100,14 @@
 									<td class="text-right fit"><b>พิกัดลองจิจูด :</b></td>
 									<td>{record_point_long}</td>
 								</tr>
+								<tr>
+									<td class="text-right fit"><b>เวลา เปิด :</b></td>
+									<td>{record_time_open} น.</td>
+								</tr>
+								<tr>
+									<td class="text-right fit"><b>เวลา ปิด :</b></td>
+									<td>{record_time_close} น.</td>
+								</tr>
 
 							</tbody>
 						</table>

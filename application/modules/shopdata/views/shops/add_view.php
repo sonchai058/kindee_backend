@@ -88,6 +88,20 @@
 									</div>
 								</div>
 							</div>
+							<div class="row">
+								<div class="form-group col-md-4 ">
+									<label class="control-label" for="time_open">เวลาเปิด :</label>
+									<div class="form-group has-success">
+										<input type="time" class="form-control" id="time_open" name="time_open" value="" />
+									</div>
+								</div>
+								<div class="form-group col-md-4 ">
+									<label class="control-label" for="time_close">เวลาปิด :</label>
+									<div class="form-group has-success">
+										<input type="time" class="form-control" id="time_close" name="time_close" value="" />
+									</div>
+								</div>
+							</div>
 							<div class="form-row justify-content-between">
 								<div class="form-group col-md-12 ">
 									<label class="control-label" for="addr">ที่อยู่ :</label>
