@@ -76,6 +76,12 @@ if ($this->session->userdata('user_level') == 'nutritionist') {
 						<p>จัดการผู้ใช้งาน</p>
 					</a>
 				</li>
+				<li class="nav-item <?php if ($this->uri->segment(1) == 'setting' && $this->uri->segment(2) == 'nutritionist') { ?>active<?php } ?>">
+					<a class="nav-link" href="{site_url}setting/nutritionist">
+						<i class="material-icons">person</i>
+						<p>จัดการสมาชิกนักโภชนาการ</p>
+					</a>
+				</li>
 				<li class="nav-item <?php if ($this->uri->segment(1) == 'prodata' && $this->uri->segment(2) == 'pro') { ?>active<?php } ?>">
 					<a class="nav-link" href="{site_url}prodata/pro">
 						<i class="material-icons">credit_card</i>

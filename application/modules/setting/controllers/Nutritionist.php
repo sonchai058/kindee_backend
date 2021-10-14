@@ -2,14 +2,14 @@
 if (!defined('BASEPATH'))  exit('No direct script access allowed');
 
 /**
- * [ Controller File name : Users.php ]
+ * [ Controller File name : Nutritionist.php ]
  */
 
 /**
  * Debug
  * *echo "<pre>"; print_r($arr); echo "</pre>"; exit();
  */
-class Users extends CRUD_Controller
+class Nutritionist extends CRUD_Controller
 {
 
 	private $per_page;
@@ -30,12 +30,12 @@ class Users extends CRUD_Controller
 		$this->per_page = 30;
 		$this->num_links = 6;
 		$this->uri_segment = 4;
-		$this->load->model('setting/Users_model', 'Users');
+		$this->load->model('setting/Nutritionist_model', 'Nutritionist');
 		$this->load->model('FileUpload_model', 'FileUpload');
-		$this->data['page_url'] = site_url('setting/users');
+		$this->data['page_url'] = site_url('setting/nutritionist');
 
 		$this->data['page_title'] = 'จัดการผู้ใช้งาน';
-		$this->upload_store_path = './assets/uploads/users/';
+		$this->upload_store_path = './assets/uploads/nutritionist/';
 		$this->file_allow = array(
 			'application/pdf' => 'pdf',
 			'application/msword' => 'doc',
@@ -57,7 +57,7 @@ class Users extends CRUD_Controller
 		$this->file_allow_type = array_values($this->file_allow);
 		$this->file_allow_mime = array_keys($this->file_allow);
 		$this->file_check_name = '';
-		$js_url = 'assets/js_modules/setting/users.js?ft=' . filemtime('assets/js_modules/setting/users.js');
+		$js_url = 'assets/js_modules/setting/nutritionist.js?ft=' . filemtime('assets/js_modules/setting/nutritionist.js');
 		$this->another_js = '<script src="' . base_url($js_url) . '"></script>';
 	}
 
@@ -89,160 +89,6 @@ class Users extends CRUD_Controller
 		$this->parser->parse('template/majestic/homepage_view', $this->data);
 	}
 
-	/**
-	 * Set up pagination config
-	 * @param String path of controller
-	 * @param Integer total record
-	 */
-
-	public function user_infoadd1()
-	{
-		$post = $this->input->post(NULL, TRUE);
-		$message = '<strong>ตั้งค่า น้ำหนัก สำเร็จ</strong>';
-		$success = TRUE;
-		//$encrypt_id = '';
-		$encrypt_name = '';
-		$id = '';
-
-		if (isset($post['data'])) {
-			$this->load->model('common_model');
-
-			$tmp = rowArray($this->common_model->custom_query("select * from users_exam_weight where fag_allow='allow' and DATE(date_exam)='" . date('Y-m-d') . "' and user_id='{$post['user_id']}'"));
-
-			if (isset($tmp['eweight_id'])) {
-				$id = $this->common_model->update(
-					'users_exam_weight',
-					array(
-						'user_weight' => $post['data'],
-						'date_exam' => date("Y-m-d H:i:s"),
-						'user_update' => get_session('user_id'),
-						'datetime_update' => date("Y-m-d H:i:s"),
-					),
-					array('eweight_id' => $tmp['eweight_id'])
-				);
-			} else {
-				$id = $this->common_model->insert(
-					'users_exam_weight',
-					array(
-						'user_weight' => $post['data'],
-						'date_exam' => date("Y-m-d H:i:s"),
-						'user_add' => get_session('user_id'),
-						'datetime_add' => date("Y-m-d H:i:s"),
-						'user_id' => get_session('user_id'),
-					)
-				);
-			}
-		} else {
-			$success = FALSE;
-			$message = '<strong>ตั้งค่า น้ำหนัก ล้มเหลว</strong>';
-		}
-		$json = json_encode(array(
-			'is_successful' => $success,
-			//'encrypt_id' =>  $encrypt_id,
-			'message' => $message,
-			'id' => $id,
-		));
-		echo $json;
-	}
-
-	public function user_infoadd2()
-	{
-		$post = $this->input->post(NULL, TRUE);
-		$message = '<strong>ตั้งค่า รอบเอว สำเร็จ</strong>';
-		$success = TRUE;
-		//$encrypt_id = '';
-		$encrypt_name = '';
-		$id = '';
-
-		if (isset($post['data'])) {
-			$this->load->model('common_model');
-
-			$tmp = rowArray($this->common_model->custom_query("select * from users_exam_waistline where fag_allow='allow' and DATE(date_exam)='" . date('Y-m-d') . "' and user_id='{$post['user_id']}'"));
-			if (isset($tmp['ewaist_id'])) {
-				$id = $this->common_model->update(
-					'users_exam_waistline',
-					array(
-						'user_waist' => $post['data'],
-						'date_exam' => date("Y-m-d H:i:s"),
-						'user_update' => get_session('user_id'),
-						'datetime_update' => date("Y-m-d H:i:s"),
-					),
-					array('ewaist_id' => $tmp['ewaist_id'])
-				);
-			} else {
-				$id = $this->common_model->insert(
-					'users_exam_waistline',
-					array(
-						'user_waist' => $post['data'],
-						'date_exam' => date("Y-m-d H:i:s"),
-						'user_add' => get_session('user_id'),
-						'datetime_add' => date("Y-m-d H:i:s"),
-						'user_id' => get_session('user_id'),
-					)
-				);
-			}
-		} else {
-			$success = FALSE;
-			$message = '<strong>ตั้งค่า รอบเอว ล้มเหลว</strong>';
-		}
-		$json = json_encode(array(
-			'is_successful' => $success,
-			//'encrypt_id' =>  $encrypt_id,
-			'message' => $message,
-			'id' => $id,
-		));
-		echo $json;
-	}
-
-	public function user_infoadd3()
-	{
-		$post = $this->input->post(NULL, TRUE);
-		$message = '<strong>ตั้งค่า สะโพก สำเร็จ</strong>';
-		$success = TRUE;
-		//$encrypt_id = '';
-		$encrypt_name = '';
-		$id = '';
-
-		if (isset($post['data'])) {
-			$this->load->model('common_model');
-
-			$tmp = rowArray($this->common_model->custom_query("select * from users_exam_hip where fag_allow='allow' and DATE(date_exam)='" . date('Y-m-d') . "' and user_id='{$post['user_id']}'"));
-			if (isset($tmp['ehib_id'])) {
-				$id = $this->common_model->update(
-					'users_exam_hip',
-					array(
-						'user_hib' => $post['data'],
-						'date_exam' => date("Y-m-d H:i:s"),
-						'user_update' => get_session('user_id'),
-						'datetime_update' => date("Y-m-d H:i:s"),
-					),
-					array('ehib_id' => $tmp['ehib_id'])
-				);
-			} else {
-				$id = $this->common_model->insert(
-					'users_exam_hip',
-					array(
-						'user_hib' => $post['data'],
-						'date_exam' => date("Y-m-d H:i:s"),
-						'user_add' => get_session('user_id'),
-						'datetime_add' => date("Y-m-d H:i:s"),
-						'user_id' => get_session('user_id'),
-					)
-				);
-			}
-		} else {
-			$success = FALSE;
-			$message = '<strong>ตั้งค่า สะโพก ล้มเหลว</strong>';
-		}
-		$json = json_encode(array(
-			'is_successful' => $success,
-			//'encrypt_id' =>  $encrypt_id,
-			'message' => $message,
-			'id' => $id,
-		));
-		echo $json;
-	}
-
 	public function create_pagination($page_url, $total)
 	{
 		$this->load->library('pagination');
@@ -263,8 +109,8 @@ class Users extends CRUD_Controller
 	 */
 	public function list_all()
 	{
-		$this->session->unset_userdata($this->Users->session_name . '_search_field');
-		$this->session->unset_userdata($this->Users->session_name . '_value');
+		$this->session->unset_userdata($this->Nutritionist->session_name . '_search_field');
+		$this->session->unset_userdata($this->Nutritionist->session_name . '_value');
 
 		$this->search();
 	}
@@ -277,36 +123,19 @@ class Users extends CRUD_Controller
 	public function search()
 	{
 		$this->breadcrumb_data['breadcrumb'] = array(
-			array('title' => 'จัดการข้อมูลส่วนตัว', 'class' => 'active', 'url' => '#'),
+			array('title' => 'จัดการสมาชิกนักโภชนาการ', 'class' => 'active', 'url' => '#'),
 		);
 		if (isset($_POST['submit'])) {
 			$search_field =  $this->input->post('search_field', TRUE);
 			$value = $this->input->post('txtSearch', TRUE);
-
-			switch ($value) {
-				case 'ผู้ดูแลระบบ':
-					$value = 'admin';
-					break;
-				case 'Super User':
-					$value = 'super_user';
-					break;
-				case 'สมาชิก':
-					$value = 'user';
-					break;
-				case 'ร้านค้า':
-					$value = 'shop';
-					break;
-				case 'นักโภชนาการ':
-					$value = 'nutritionist';
-					break;
-			}
-
-			$arr = array($this->Users->session_name . '_search_field' => $search_field, $this->Users->session_name . '_value' => $value);
+			$arr = array($this->Nutritionist->session_name . '_search_field' => $search_field, $this->Nutritionist->session_name . '_value' => $value);
 			$this->session->set_userdata($arr);
 		} else {
-			$search_field = $this->session->userdata($this->Users->session_name . '_search_field');
-			$value = $this->session->userdata($this->Users->session_name . '_value');
+			$search_field = $this->session->userdata($this->Nutritionist->session_name . '_search_field');
+			$value = $this->session->userdata($this->Nutritionist->session_name . '_value');
 		}
+		// die(print_r($value));
+
 
 		$start_row = $this->uri->segment($this->uri_segment, '0');
 		if (!is_numeric($start_row)) {
@@ -326,18 +155,22 @@ class Users extends CRUD_Controller
 					$sort = 'DESC';
 					break;
 			}
-			$this->Users->order_field = $field;
-			$this->Users->order_sort = $sort;
+			$this->Nutritionist->order_field = $field;
+			$this->Nutritionist->order_sort = $sort;
 		}
-		$results = $this->Users->read($start_row, $per_page);
-		$total_row = $results['total_row'];
-		$search_row = $results['search_row'];
-		$list_data = $this->setDataListFormat($results['list_data'], $start_row);
+		$results = $this->Nutritionist->read($start_row, $per_page);
 
-		// print_r($this->db->last_query());
+		$total_row = $results['total_row'];
+
+		$search_row = $results['search_row'];
+		// print_r($total_row);
+		// print_r($search_row);
 		// die();
 
-		$page_url = site_url('setting/users');
+		$list_data = $this->setDataListFormat($results['list_data'], $start_row);
+
+
+		$page_url = site_url('setting/nutritionist');
 		$pagination = $this->create_pagination($page_url . '/search', $search_row);
 		$end_row = $start_row + $per_page;
 		if ($search_row < $per_page) {
@@ -349,17 +182,29 @@ class Users extends CRUD_Controller
 		}
 
 		$data = array();
+		$this->load->model('common_model');
 
 		foreach ($list_data as $key => $v) {
 			$data[$key] = array();
+			$rows = $this->common_model->custom_query("select users.* FROM users");
 			foreach ($v as $column => $value_status) {
 				$data[$key][$column] = $value_status;
+				// foreach ($rows as $key => $value) {
+				// 	$data[$key]['user_nutri_val'] =  $value['user_nutri'];
+				// }
 			}
-			$data[$key]['user_level_status'] =  ($data[$key]['user_level'] == 'nutritionist') ? '' : 'hidden';
+			$data[$key]['test'] =  $data[$key]['user_nutri'];
+			// echo'<pre>';
+			// print_r($rows);
+			// echo'</pre>';
+			// die();
+
+
 		}
 
-		// $this->data['data_list']	= $list_data;
-		$this->data['data_list']	= $data;
+
+		$this->data['data_list']	= $list_data;
+		// $this->data['data_list']	= $data;
 
 		$this->data['search_field']	= $search_field;
 		$this->data['txt_search']	= $value;
@@ -373,7 +218,7 @@ class Users extends CRUD_Controller
 		$this->data['pagination_link']	= $pagination;
 		$this->data['csrf_protection_field']	= insert_csrf_field(true);
 
-		$this->render_view('setting/users/list_view');
+		$this->render_view('setting/nutritionist/list_view');
 	}
 
 	// ------------------------------------------------------------------------
@@ -394,7 +239,7 @@ class Users extends CRUD_Controller
 			$this->data['message'] = "กรุณาระบุรหัสอ้างอิงที่ต้องการแสดงข้อมูล";
 			$this->render_view('ci_message/warning');
 		} else {
-			$results = $this->Users->load($id);
+			$results = $this->Nutritionist->load($id);
 			if (empty($results)) {
 				$this->data['message'] = "ไม่พบข้อมูลตามรหัสอ้างอิง <b>$id</b>";
 				$this->render_view('ci_message/danger');
@@ -483,10 +328,10 @@ class Users extends CRUD_Controller
 		$tmp_data .= "</div>";
 		$this->data['promotions2'] = $tmp_data;
 
-		$this->data['users_user_delete_option_list'] = $this->Users->returnOptionList("users", "user_id", "user_fname");
-		$this->data['users_user_add_option_list'] = $this->Users->returnOptionList("users", "user_id", "user_fname");
-		$this->data['users_user_update_option_list'] = $this->Users->returnOptionList("users", "user_id", "user_fname");
-		$this->data['organizations_org_id_option_list'] = $this->Users->returnOptionList("organizations", "org_id", "org_name");
+		$this->data['users_user_delete_option_list'] = $this->Nutritionist->returnOptionList("users", "user_id", "user_fname");
+		$this->data['users_user_add_option_list'] = $this->Nutritionist->returnOptionList("users", "user_id", "user_fname");
+		$this->data['users_user_update_option_list'] = $this->Nutritionist->returnOptionList("users", "user_id", "user_fname");
+		$this->data['organizations_org_id_option_list'] = $this->Nutritionist->returnOptionList("organizations", "org_id", "org_name");
 		$this->data['preview_user_photo'] = '<div id="div_preview_user_photo" class="py-3 div_file_preview" style="clear:both"><img id="user_photo_preview" height="200" width="100%"/></div>';
 		$this->data['record_user_photo_label'] = '';
 		$this->render_view('setting/users/add_view');
@@ -818,7 +663,7 @@ class Users extends CRUD_Controller
 				$post1['pro_id'] = $post['pro_id'];
 				unset($post['pro_id']);
 
-				$id = $this->Users->create($post);
+				$id = $this->Nutritionist->create($post);
 
 				if (count($post1['pro_id'])) {
 					$this->load->model("common_model");
@@ -898,7 +743,7 @@ class Users extends CRUD_Controller
 			$this->data['message'] = "กรุณาระบุรหัสอ้างอิงที่ต้องการแก้ไขข้อมูล";
 			$this->render_view('ci_message/warning');
 		} else {
-			$results = $this->Users->load($id);
+			$results = $this->Nutritionist->load($id);
 			//die(print_r($results));
 			if (empty($results)) {
 				$this->data['message'] = "ไม่พบข้อมูลตามรหัสอ้างอิง <b>$id</b>";
@@ -974,10 +819,10 @@ class Users extends CRUD_Controller
 				$this->data['user_sexชาย'] =  ($results['user_sex'] == 'ชาย') ? 'checked' : '';
 				$this->data['user_sexหญิง'] =  ($results['user_sex'] == 'หญิง') ? 'checked' : '';
 				$this->data['user_sexไม่ระบุ'] =  ($results['user_sex'] == 'ไม่ระบุ') ? 'checked' : '';
-				$this->data['users_user_delete_option_list'] = $this->Users->returnOptionList("users", "user_id", "user_fname");
-				$this->data['users_user_add_option_list'] = $this->Users->returnOptionList("users", "user_id", "user_fname");
-				$this->data['users_user_update_option_list'] = $this->Users->returnOptionList("users", "user_id", "user_fname");
-				$this->data['organizations_org_id_option_list'] = $this->Users->returnOptionList("organizations", "org_id", "org_name");
+				$this->data['users_user_delete_option_list'] = $this->Nutritionist->returnOptionList("users", "user_id", "user_fname");
+				$this->data['users_user_add_option_list'] = $this->Nutritionist->returnOptionList("users", "user_id", "user_fname");
+				$this->data['users_user_update_option_list'] = $this->Nutritionist->returnOptionList("users", "user_id", "user_fname");
+				$this->data['organizations_org_id_option_list'] = $this->Nutritionist->returnOptionList("organizations", "org_id", "org_name");
 
 				$this->render_view('setting/users/edit_view');
 			}
@@ -1076,12 +921,12 @@ class Users extends CRUD_Controller
 				}
 				unset($post['pro_id']);
 
-				$result = $this->Users->update($post);
+				$result = $this->Nutritionist->update($post);
 				if ($result == false) {
-					$message = $this->Users->error_message;
+					$message = $this->Nutritionist->error_message;
 					$ok = FALSE;
 				} else {
-					$message = '<strong>บันทึกข้อมูลเรียบร้อย</strong>' . $this->Users->error_message;
+					$message = '<strong>บันทึกข้อมูลเรียบร้อย</strong>' . $this->Nutritionist->error_message;
 					$ok = TRUE;
 				}
 			} else {
@@ -1122,9 +967,9 @@ class Users extends CRUD_Controller
 			));
 			echo $json;
 		} else {
-			$result = $this->Users->delete($post);
+			$result = $this->Nutritionist->delete($post);
 			if ($result == false) {
-				$message = $this->Users->error_message;
+				$message = $this->Nutritionist->error_message;
 				$ok = FALSE;
 			} else {
 				$message = '<strong>ลบข้อมูลเรียบร้อย</strong>';
@@ -1179,7 +1024,7 @@ class Users extends CRUD_Controller
 			$data[$i]['increase_date_end'] = setThaiDate($data[$i]['increase_date_end']);
 			$arr = explode('/', $data[$i]['user_photo']);
 			$encrypt_file_name = end($arr);
-			$filename = $this->Users->getValueOf('tb_uploads_filename', 'filename', "encrypt_name = '$encrypt_file_name'", $this->db);
+			$filename = $this->Nutritionist->getValueOf('tb_uploads_filename', 'filename', "encrypt_name = '$encrypt_file_name'", $this->db);
 			$data[$i]['preview_user_photo'] = setAttachLink('user_photo', $data[$i]['user_photo'], $filename);
 		}
 		return $data;
@@ -1386,19 +1231,19 @@ class Users extends CRUD_Controller
 		$this->data['encrypt_user_id'] = $pk1;
 
 
-		$userDeleteUserFname = $this->Users->getValueOf('users', 'user_fname', "user_id = '$data[user_delete]'");
+		$userDeleteUserFname = $this->Nutritionist->getValueOf('users', 'user_fname', "user_id = '$data[user_delete]'");
 		$this->data['userDeleteUserFname'] = $userDeleteUserFname;
 
 
-		$userAddUserFname = $this->Users->getValueOf('users', 'user_fname', "user_id = '$data[user_add]'");
+		$userAddUserFname = $this->Nutritionist->getValueOf('users', 'user_fname', "user_id = '$data[user_add]'");
 		$this->data['userAddUserFname'] = $userAddUserFname;
 
 
-		$userUpdateUserFname = $this->Users->getValueOf('users', 'user_fname', "user_id = '$data[user_update]'");
+		$userUpdateUserFname = $this->Nutritionist->getValueOf('users', 'user_fname', "user_id = '$data[user_update]'");
 		$this->data['userUpdateUserFname'] = $userUpdateUserFname;
 
 
-		$orgIdOrgName = $this->Users->getValueOf('organizations', 'org_name', "org_id = '$data[org_id]'");
+		$orgIdOrgName = $this->Nutritionist->getValueOf('organizations', 'org_name', "org_id = '$data[org_id]'");
 		$this->data['orgIdOrgName'] = $orgIdOrgName;
 
 		$this->data['record_user_id'] = $data['user_id'];
@@ -1407,7 +1252,7 @@ class Users extends CRUD_Controller
 
 		$arr = explode('/', $data['user_photo']);
 		$encrypt_name = end($arr);
-		$filename = $this->Users->getValueOf('tb_uploads_filename', 'filename', "encrypt_name = '$encrypt_name'", $this->db);
+		$filename = $this->Nutritionist->getValueOf('tb_uploads_filename', 'filename', "encrypt_name = '$encrypt_name'", $this->db);
 		$this->data['record_user_photo_label'] = $filename;
 		$this->data['record_user_status'] = $data['user_status'];
 		$this->data['preview_user_photo'] = setAttachPreview('user_photo', $data['user_photo'], $filename);

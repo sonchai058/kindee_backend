@@ -65,7 +65,7 @@ class Common_model extends CI_Model
 		return $result;
 	}
 
-    public function get_with_limit($table,$order_by='',$order_type='',$limit,$offset)
+    public function get_with_limit($table,$order_by='',$order_type='',$limit=1,$offset=0)
     {
 		$this->db->from($table)->limit($limit,$offset)->order_by($order_by, $order_type);
 		$query = $this->db->get()->result_array();

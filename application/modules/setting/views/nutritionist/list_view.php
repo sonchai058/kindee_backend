@@ -7,7 +7,7 @@
 					<div class="card-icon">
 						<i class="material-icons">assignment</i>
 					</div>
-					<h4 class="card-title">รายการผู้ใช้งาน</h4>
+					<h4 class="card-title">รายการสมาชิก</h4>
 				</div>
 				<div class="card-body">
 					<form class="form-horizontal" name="formSearch" method="post" action="{page_url}/search">
@@ -24,27 +24,12 @@
 										<div class="form-group has-warning bmd-form-group" id="search">
 											<select class="select2-search" name="search_field" class="span2">
 												<option value="user_fname">ชื่อผู้ใช้งาน</option>
-												<option value="user_level">ระดับผู้ใช้งาน</option>
 											</select>
 										</div>
 									</div>
 									<div class="col-md-2">
 										<div class="form-group has-warning bmd-form-group">
-											<input type="text" class="form-control col" id="txtSearch" name="txtSearch" value="<?php
-																	if ($txt_search == 'shop') {
-																		echo 'ร้านค้า';
-																	} elseif ($txt_search == 'admin') {
-																		echo 'ผู้ดูแลระบบ';
-																	} elseif ($txt_search == 'super_user') {
-																		echo 'Super User';
-																	} elseif ($txt_search == 'nutritionist') {
-																		echo 'นักโภชนาการ';
-																	} elseif ($txt_search == 'user') {
-																		echo 'สมาชิก';
-																	} else {
-																		echo $txt_search;
-																	}
-																	?>">
+											<input type="text" class="form-control col" id="txtSearch" name="txtSearch" value="">
 										</div>
 									</div>
 									<input type="hidden" value="{order_by}" name="order_by" />
@@ -66,7 +51,7 @@
 									</div>
 									<div class="col-md-2">
 										<div class="form-group bmd-form-group">
-											<a href="{page_url}/add" class="btn btn-success" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่" id="btn-search">
+											<a href="{page_url}/add" class="btn btn-success disabled" data-toggle="tooltip" title="เพิ่มข้อมูลใหม่" id="btn-search">
 												<i class="fa fa-plus-square"></i></span>&nbsp;&nbsp;เพิ่มรายการใหม่
 											</a>
 										</div>
@@ -84,34 +69,16 @@
 									<th class="text-center">ชื่อผู้ใช้งาน</th>
 									<th class="text-center">เบอร์โทร</th>
 									<th class="text-center">อีเมล</th>
-									<th class="text-center">ระดับผู้ใช้งาน</th>
-									<th class="text-center" style="width:200px">เครื่องมือ</th>
+									<th class="text-center">นักโภชนาการ</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr parser-repeat="[data_list]" id="row_{record_number}">
 									<td style="text-align:center;">{record_number}</td>
-									<!--<td>{preview_user_photo}</td> -->
 									<td>{user_fname}</td>
 									<td>{mobile_no}</td>
 									<td>{email_addr}</td>
-									<!--<td>{datetime_update}</td>-->
 									<td>{preview_user_level}</td>
-									<td class="td-actions text-right">
-										<a href="nutritionist/{url_encrypt_id}" class="my-tooltip btn btn-info btn-md " {user_level_status} data-toggle="tooltip" title="จัดการสมาชิกนักโภชนาการ">
-											<i class="material-icons">person</i>
-										</a>
-
-										<a href="{page_url}/preview/{url_encrypt_id}" class="my-tooltip btn btn-warning btn-md" data-toggle="tooltip" title="แสดงข้อมูลรายละเอียด">
-											<i class="material-icons">list</i>
-										</a>
-										<a href="{page_url}/edit/{url_encrypt_id}" class="my-tooltip btn btn-warning " data-toggle="tooltip" title="แก้ไขข้อมูล">
-											<i class="material-icons">edit</i>
-										</a>
-										<a href="javascript:void(0);" class="btn-delete-row my-tooltip btn btn-danger" data-toggle="tooltip" title="ลบรายการนี้" data-user_id="{encrypt_user_id}" data-row-number="{record_number}">
-											<i class="material-icons">delete_forever</i>
-										</a>
-									</td>
 								</tr>
 							</tbody>
 						</table>
